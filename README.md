@@ -29,7 +29,7 @@ var sum: Double = 0.0
 sum = reduce(numbers, 0.0, +) // Time: 5.700 sec (2% STDEV)
 
 // Surge Implementation
-sum = sum(numbers) // Time: 0.001 sec (17% STDEV)
+sum = Surge.sum(numbers) // Time: 0.001 sec (17% STDEV)
 ```
 
 |    _n_     |   Swift   |   Surge   |   Δ   |
