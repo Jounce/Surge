@@ -45,7 +45,7 @@ sum = sum(numbers) // Time: 0.001 sec (17% STDEV)
 
 ## Installation
 
-_The infrastructure and best practices for distributing Swift libraries is currently being developed by the developer community during this beta period of the language and Xcode. In the meantime, you can simply add Surge as a git submodule, drag the `Surge.xcodeproj` file into your Xcode project, and add `Surge.framework` as a dependency for your target._
+_The infrastructure and best practices for distributing Swift libraries are currently in flux during this beta period of Swift & Xcode. In the meantime, you can add Surge as a git submodule, drag the `Surge.xcodeproj` file into your Xcode project, and add `Surge.framework` as a dependency for your target._
 
 ---
 
