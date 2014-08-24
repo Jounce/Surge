@@ -115,7 +115,7 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 import Surge
 
 let n = [1, 2, 3, 4, 5]
-let sum = sum(n) // 15.0
+let sum = Surge.sum(n) // 15.0
 ```
 
 ### Computing Product of Two `[Double]`s
