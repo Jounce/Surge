@@ -51,6 +51,8 @@ _The infrastructure and best practices for distributing Swift libraries is curre
 
 ## Inventory
 
+> Surge functions are named according to their corresponding "Math.h" functions (omitting `f` and `d` affixes, since type information is communicated and enforced by the language's type system).
+
 ### Arithmetic
 
 - `sum`
