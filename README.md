@@ -25,11 +25,11 @@ import Surge
 let numbers: [Double] = ... // 1000000 Elements
 var sum: Double = 0.0
 
-// Naive Swift Implementation
+// Naïve Swift Implementation
 sum = reduce(numbers, 0.0, +) // Time: 5.700 sec (2% STDEV)
 
 // Surge Implementation
-sum = sum(numbers) // Time: 0.001 sec (17% STDEV)
+sum = Surge.sum(numbers) // Time: 0.001 sec (17% STDEV)
 ```
 
 |    _n_     |   Swift   |   Surge   |   Δ   |
@@ -39,7 +39,7 @@ sum = sum(numbers) // Time: 0.001 sec (17% STDEV)
 | 1000000    | 5.700 sec | 0.001 sec | 5700x |
 | 100000000  |    ?      | 0.087 sec |   ?   |
 
-> It was difficult to make a reasonable performance comparison between the two implementations, as the Accelerate-backed function did not register >= 1 msec runtime  until `n = 1000000`. At `n = 100000000`, the naive implementation effectively timed out after several minutes.
+> It was difficult to make a reasonable performance comparison between the two implementations, as the Accelerate-backed function did not register >= 1 msec runtime  until `n = 1000000`. At `n = 100000000`, the naïve implementation effectively timed out after several minutes.
 >
 > Surge's performance characteristics have not yet been thoroughly evaluated, though initial benchmarks show incredible promise. Further investigation is definitely warranted.
 
@@ -115,7 +115,7 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 import Surge
 
 let n = [1, 2, 3, 4, 5]
-let sum = sum(n) // 15.0
+let sum = Surge.sum(n) // 15.0
 ```
 
 ### Computing Product of Two `[Double]`s
