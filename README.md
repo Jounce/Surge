@@ -126,7 +126,7 @@ import Surge
 let a = [1, 3, 5, 7]
 let b = [2, 4, 6, 8]
 
-let product = mul(a, b) // [2.0, 12.0, 30.0, 56.0]
+let product = Surge.mul(a, b) // [2.0, 12.0, 30.0, 56.0]
 ```
 
 ---
