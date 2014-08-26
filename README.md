@@ -114,7 +114,7 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 ```swift
 import Surge
 
-let n = [1, 2, 3, 4, 5]
+let n = [1.0, 2.0, 3.0, 4.0, 5.0]
 let sum = Surge.sum(n) // 15.0
 ```
 
@@ -123,8 +123,8 @@ let sum = Surge.sum(n) // 15.0
 ```swift
 import Surge
 
-let a = [1, 3, 5, 7]
-let b = [2, 4, 6, 8]
+let a = [1.0, 3.0, 5.0, 7.0]
+let b = [2.0, 4.0, 6.0, 8.0]
 
 let product = Surge.mul(a, b) // [2.0, 12.0, 30.0, 56.0]
 ```
