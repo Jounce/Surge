@@ -82,6 +82,10 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 - `log10`
 - `logb`
 
+### FFT
+
+- `fft`
+
 ### Hyperbolic
 
 - `sinh`
