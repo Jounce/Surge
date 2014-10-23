@@ -36,7 +36,7 @@ public func ceil(x: [Double]) -> [Double] {
 
 public func copysign(sign: [Double], magnitude: [Double]) -> [Double] {
     var results = [Double](count: sign.count, repeatedValue: 0.0)
-    vvcopysign(&results, sign, magnitude, [Int32(sign.count)])
+    vvcopysign(&results, magnitude, sign, [Int32(sign.count)])
 
     return results
 }
