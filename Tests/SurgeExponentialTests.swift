@@ -17,7 +17,7 @@ class SurgeExponentialTests: XCTestCase {
         var etoThree = exp(3.0)
         
         self.measureBlock() {
-            elist = exp([0.0, 0.0], [2.0, 3.0])
+            elist = exp([2.0, 3.0])
         }
         
         XCTAssertEqual(elist, [etoTwo, etoThree], "incollect exp")
@@ -30,7 +30,7 @@ class SurgeExponentialTests: XCTestCase {
         var twoToFive = exp2(5.0)
         
         self.measureBlock() {
-            twolist = exp2([0.0, 0.0, 0.0], [12.0, 9.0, 5.0])
+            twolist = exp2([12.0, 9.0, 5.0])
         }
         
         XCTAssertEqual(twolist, [twoToTwelve, twoToNine, twoToFive], "incollect exp2")
