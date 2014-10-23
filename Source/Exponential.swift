@@ -20,16 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public func exp(x: [Double], y: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvexp(&results, y, [Int32(x.count)])
+public func exp(x: [Double]) -> [Double] {
+    var results = [Double](count: x.count, repeatedValue: 0.0)
+    vvexp(&results, x, [Int32(x.count)])
 
     return results
 }
 
-public func exp2(x: [Double], y: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvexp2(&results, y, [Int32(x.count)])
+public func exp2(x: [Double]) -> [Double] {
+    var results = [Double](count: x.count, repeatedValue: 0.0)
+    vvexp2(&results, x, [Int32(x.count)])
 
     return results
 }

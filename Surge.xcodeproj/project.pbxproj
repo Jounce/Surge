@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14323E8519F9682100B0BE71 /* SurgeExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14323E8419F9682100B0BE71 /* SurgeExponentialTests.swift */; };
+		14323E8719F96C8100B0BE71 /* SurgeAuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14323E8619F96C8100B0BE71 /* SurgeAuxiliaryTests.swift */; };
 		F84A6AB319A9A72F007B53E1 /* SurgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84A6AB219A9A72F007B53E1 /* SurgeTests.swift */; };
 		F8A1E1CB19917B0A009735E2 /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C419917B0A009735E2 /* Arithmetic.swift */; };
 		F8A1E1CC19917B0A009735E2 /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C519917B0A009735E2 /* Auxiliary.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14323E8419F9682100B0BE71 /* SurgeExponentialTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurgeExponentialTests.swift; sourceTree = "<group>"; };
+		14323E8619F96C8100B0BE71 /* SurgeAuxiliaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurgeAuxiliaryTests.swift; sourceTree = "<group>"; };
 		F84A6AAE19A9A72F007B53E1 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84A6AB119A9A72F007B53E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F84A6AB219A9A72F007B53E1 /* SurgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurgeTests.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				F84A6AB219A9A72F007B53E1 /* SurgeTests.swift */,
+				14323E8419F9682100B0BE71 /* SurgeExponentialTests.swift */,
+				14323E8619F96C8100B0BE71 /* SurgeAuxiliaryTests.swift */,
 				F84A6AB019A9A72F007B53E1 /* Supporting Files */,
 			);
 			path = Tests;
@@ -254,6 +260,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14323E8719F96C8100B0BE71 /* SurgeAuxiliaryTests.swift in Sources */,
+				14323E8519F9682100B0BE71 /* SurgeExponentialTests.swift in Sources */,
 				F84A6AB319A9A72F007B53E1 /* SurgeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
