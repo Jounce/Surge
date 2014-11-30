@@ -119,3 +119,22 @@ public func transpose(x: Matrix) -> Matrix {
     
     return results
 }
+
+// MARK: - Operators
+
+func + (lhs: Matrix, rhs: Matrix) -> Matrix {
+    return add(lhs, rhs)
+}
+
+func * (lhs: Double, rhs: Matrix) -> Matrix {
+    return mul(lhs, rhs)
+}
+
+func * (lhs: Matrix, rhs: Matrix) -> Matrix {
+    return mul(lhs, rhs)
+}
+
+postfix operator ′ {}
+postfix func ′ (value: Matrix) {
+    transpose(value)
+}
