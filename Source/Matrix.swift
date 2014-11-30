@@ -32,12 +32,12 @@ public struct Matrix {
         self.grid = [Double](count: rows * columns, repeatedValue: repeatedValue)
     }
     
-    public init(_ rows: [Double]...) {
-        let m: Int = rows.count
-        let n: Int = rows[0].count
+    public init(_ contents: [[Double]]) {
+        let m: Int = contents.count
+        let n: Int = contents[0].count
         self.init(rows: m, columns: n, repeatedValue: 0.0)
 
-        for (i, row) in enumerate(rows) {
+        for (i, row) in enumerate(contents) {
             grid.replaceRange(i*n..<i*n+min(m, row.count), with: row)
         }
     }
@@ -62,8 +62,37 @@ public struct Matrix {
 // MARK: - ArrayLiteralConvertible
 
 extension Matrix: ArrayLiteralConvertible {
-    public init(arrayLiteral elements: Double...) {
+    typealias Element = [Double]
+
+    public init(arrayLiteral elements: [Double]...) {
         self.init(elements)
+    }
+}
+
+// MARK: - Printable
+
+extension Matrix: Printable {
+    public var description: String {
+        var description = ""
+
+        for i in 0..<rows {
+            let contents = join("\t", map(0..<columns){"\(self[i, $0])"})
+
+            switch (i, rows) {
+            case (0, 1):
+                description += "(\t\(contents)\t)"
+            case (0, _):
+                description += "⎛\t\(contents)\t⎞"
+            case (rows - 1, _):
+                description += "⎝\t\(contents)\t⎠"
+            default:
+                description += "⎜\t\(contents)\t⎥"
+            }
+
+            description += "\n"
+        }
+
+        return description
     }
 }
 
@@ -122,19 +151,19 @@ public func transpose(x: Matrix) -> Matrix {
 
 // MARK: - Operators
 
-func + (lhs: Matrix, rhs: Matrix) -> Matrix {
+public func + (lhs: Matrix, rhs: Matrix) -> Matrix {
     return add(lhs, rhs)
 }
 
-func * (lhs: Double, rhs: Matrix) -> Matrix {
+public func * (lhs: Double, rhs: Matrix) -> Matrix {
     return mul(lhs, rhs)
 }
 
-func * (lhs: Matrix, rhs: Matrix) -> Matrix {
+public func * (lhs: Matrix, rhs: Matrix) -> Matrix {
     return mul(lhs, rhs)
 }
 
 postfix operator ′ {}
-postfix func ′ (value: Matrix) {
+public postfix func ′ (value: Matrix) {
     transpose(value)
 }
