@@ -1,4 +1,4 @@
-// Exponential.swift
+// AuxiliaryTests.swift
 //
 // Copyright (c) 2014 Mattt Thompson (http://mattt.me)
 //
@@ -20,44 +20,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public func exp(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvexp(&results, x, [Int32(x.count)])
+import Foundation
+import Surge
+import XCTest
 
-    return results
-}
+class AuxiliaryTests: XCTestCase {
+    let n = 10000
 
-public func exp2(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvexp2(&results, x, [Int32(x.count)])
+    func test_copysign() {
+        let signs = [Double](map(0..<n) {$0 % 2 == 0 ? 1.0 : -1.0})
 
-    return results
-}
+        var magnitudes = [Double]()
+        for _ in enumerate(0..<n) {
+            magnitudes.append(Double(arc4random_uniform(10)))
+        }
 
-public func log(x: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvlog(&results, x, [Int32(x.count)])
+        var expected: [Double] = []
+        for (sign, magnitude) in Zip2(signs, magnitudes) {
+            expected.append(sign * abs(magnitude))
+        }
 
-    return results
-}
+        var actual: [Double] = []
+        self.measureBlock {
+            actual = copysign(signs, magnitudes)
+        }
 
-public func log2(x: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvlog2(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func log10(x: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvlog10(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func logb(x: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvlogb(&results, x, [Int32(x.count)])
-
-    return results
+        XCTAssertEqual(actual, expected)
+    }
 }

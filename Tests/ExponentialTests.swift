@@ -1,4 +1,4 @@
-// Exponential.swift
+// ExponentialTests.swift
 //
 // Copyright (c) 2014 Mattt Thompson (http://mattt.me)
 //
@@ -20,44 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public func exp(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvexp(&results, x, [Int32(x.count)])
+import Foundation
+import Surge
+import XCTest
 
-    return results
-}
+class ExponentialTests: XCTestCase {
+    let n = 10000
 
-public func exp2(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvexp2(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func log(x: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvlog(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func log2(x: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvlog2(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func log10(x: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvlog10(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func logb(x: [Double]) -> [Double] {
-    var results = [Double](x)
-    vvlogb(&results, x, [Int32(x.count)])
-
-    return results
+    func test_exp() {
+        let values = map(0...n){_ in Double(arc4random_uniform(10))}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: exp, mapped: exp, accuracy: 0.0001)
+    }
+    
+    func test_exp2() {
+        let values = map(0...n){_ in Double(arc4random_uniform(10))}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: exp2, mapped: exp2, accuracy: 0.0001)
+    }
 }
