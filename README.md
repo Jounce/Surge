@@ -95,6 +95,13 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 - `acosh`
 - `atanh`
 
+### Matrix
+
+- `add`
+- `mul`
+- `inv`
+- `transpose`
+
 ### Power
 
 - `pow`
