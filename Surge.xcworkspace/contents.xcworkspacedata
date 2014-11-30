@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Surge.playground">
+   </FileRef>
+   <FileRef
       location = "group:Surge.xcodeproj">
    </FileRef>
 </Workspace>
