@@ -24,6 +24,20 @@ public func sum(x: [Double]) -> Double {
     return cblas_dasum(Int32(x.count), x, 1)
 }
 
+public func max(x: [Double]) -> Double {
+    var result = 0.0
+    vDSP_maxvD(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
+public func min(x: [Double]) -> Double {
+    var result = 0.0
+    vDSP_minvD(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
 public func add(x: [Double], y: [Double]) -> [Double] {
     var results = [Double](y)
     cblas_daxpy(Int32(x.count), 1.0, x, 1, &results, 1)

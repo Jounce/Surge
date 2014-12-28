@@ -34,6 +34,13 @@ public func ceil(x: [Double]) -> [Double] {
     return results
 }
 
+public func clip(x: [Double], low: Double, high: Double) -> [Double] {
+    var results = [Double](count: x.count, repeatedValue: 0.0), y = low, z = high
+    vDSP_vclipD(x, 1, &y, &z, &results, 1, vDSP_Length(x.count))
+
+    return results
+}
+
 public func copysign(sign: [Double], magnitude: [Double]) -> [Double] {
     var results = [Double](count: sign.count, repeatedValue: 0.0)
     vvcopysign(&results, magnitude, sign, [Int32(sign.count)])
@@ -48,6 +55,13 @@ public func floor(x: [Double]) -> [Double] {
     return results
 }
 
+public func neg(x: [Double]) -> [Double] {
+    var results = [Double](count: x.count, repeatedValue: 0.0)
+    vDSP_vnegD(x, 1, &results, 1, vDSP_Length(x.count))
+
+    return results
+}
+
 public func rec(x: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvrec(&results, x, [Int32(x.count)])
@@ -58,6 +72,13 @@ public func rec(x: [Double]) -> [Double] {
 public func round(x: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvnint(&results, x, [Int32(x.count)])
+
+    return results
+}
+
+public func threshold(x: [Double], low: Double) -> [Double] {
+    var results = [Double](count: x.count, repeatedValue: 0.0), y = low
+    vDSP_vthrD(x, 1, &y, &results, 1, vDSP_Length(x.count))
 
     return results
 }
