@@ -99,11 +99,11 @@ extension Matrix: Printable {
 // MARK: - SequenceType
 
 extension Matrix: SequenceType {
-    public func generate() -> GeneratorOf<[Double]> {
+    public func generate() -> GeneratorOf<Slice<Double>> {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
-        return GeneratorOf<[Double]> {
+        return GeneratorOf<Slice<Double>> {
             if nextRowStartIndex == endIndex {
                 return nil
             }
@@ -111,7 +111,7 @@ extension Matrix: SequenceType {
             let currentRowStartIndex = nextRowStartIndex
             nextRowStartIndex += self.columns
 
-            return Array(self.grid[currentRowStartIndex..<nextRowStartIndex])
+            return self.grid[currentRowStartIndex..<nextRowStartIndex]
         }
     }
 }
