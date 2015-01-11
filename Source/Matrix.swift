@@ -96,6 +96,26 @@ extension Matrix: Printable {
     }
 }
 
+// MARK: - SequenceType
+
+extension Matrix: SequenceType {
+    public func generate() -> GeneratorOf<[Double]> {
+        let endIndex = rows * columns
+        var nextRowStartIndex = 0
+
+        return GeneratorOf<[Double]> {
+            if nextRowStartIndex == endIndex {
+                return nil
+            }
+
+            let currentRowStartIndex = nextRowStartIndex
+            nextRowStartIndex += self.columns
+
+            return Array(self.grid[currentRowStartIndex..<nextRowStartIndex])
+        }
+    }
+}
+
 // MARK: -
 
 public func add(x: Matrix, y: Matrix) -> Matrix {
