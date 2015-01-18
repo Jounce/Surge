@@ -18,6 +18,12 @@
 		F8A1E1D519917C25009735E2 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A1E1D219917C0B009735E2 /* Accelerate.framework */; };
 		F8A1E1D719917C2B009735E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A1E1D619917C2B009735E2 /* Foundation.framework */; };
 		F8AE90FE19D1D9120078C7B2 /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE90FD19D1D9120078C7B2 /* FFT.swift */; };
+		F8BD5C591A6C1C6500DD357E /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C531A6C1C6500DD357E /* ArithmeticTests.swift */; };
+		F8BD5C5A1A6C1C6500DD357E /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C541A6C1C6500DD357E /* AuxiliaryTests.swift */; };
+		F8BD5C5B1A6C1C6500DD357E /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C551A6C1C6500DD357E /* ExponentialTests.swift */; };
+		F8BD5C5C1A6C1C6500DD357E /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */; };
+		F8BD5C5D1A6C1C6500DD357E /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */; };
+		F8BD5C5E1A6C1C6500DD357E /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +52,13 @@
 		F8A1E1D219917C0B009735E2 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		F8A1E1D619917C2B009735E2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F8AE90FD19D1D9120078C7B2 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
+		F8BD5C521A6C1C6400DD357E /* SurgeTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SurgeTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F8BD5C531A6C1C6500DD357E /* ArithmeticTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArithmeticTests.swift; sourceTree = "<group>"; };
+		F8BD5C541A6C1C6500DD357E /* AuxiliaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuxiliaryTests.swift; sourceTree = "<group>"; };
+		F8BD5C551A6C1C6500DD357E /* ExponentialTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExponentialTests.swift; sourceTree = "<group>"; };
+		F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperbolicTests.swift; sourceTree = "<group>"; };
+		F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrigonometricTests.swift; sourceTree = "<group>"; };
+		F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Surge.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +84,14 @@
 		F84A6AAF19A9A72F007B53E1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8BD5C531A6C1C6500DD357E /* ArithmeticTests.swift */,
+				F8BD5C541A6C1C6500DD357E /* AuxiliaryTests.swift */,
+				F8BD5C551A6C1C6500DD357E /* ExponentialTests.swift */,
+				F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */,
+				F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */,
+				F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */,
 				F84A6AB019A9A72F007B53E1 /* Supporting Files */,
+				F8BD5C521A6C1C6400DD357E /* SurgeTests-Bridging-Header.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -254,6 +274,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8BD5C5C1A6C1C6500DD357E /* HyperbolicTests.swift in Sources */,
+				F8BD5C5A1A6C1C6500DD357E /* AuxiliaryTests.swift in Sources */,
+				F8BD5C5D1A6C1C6500DD357E /* TrigonometricTests.swift in Sources */,
+				F8BD5C5E1A6C1C6500DD357E /* XCTestCase+Surge.swift in Sources */,
+				F8BD5C591A6C1C6500DD357E /* ArithmeticTests.swift in Sources */,
+				F8BD5C5B1A6C1C6500DD357E /* ExponentialTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +312,7 @@
 		F84A6AB519A9A72F007B53E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -297,12 +324,15 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/SurgeTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		F84A6AB619A9A72F007B53E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -310,6 +340,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/SurgeTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
