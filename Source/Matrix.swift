@@ -1,6 +1,6 @@
 // Hyperbolic.swift
 //
-// Copyright (c) 2014 Mattt Thompson (http://mattt.me)
+// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,14 +24,14 @@ public struct Matrix {
     let rows: Int
     let columns: Int
     var grid: [Double]
-    
+
     public init(rows: Int, columns: Int, repeatedValue: Double) {
         self.rows = rows
         self.columns = columns
 
         self.grid = [Double](count: rows * columns, repeatedValue: repeatedValue)
     }
-    
+
     public init(_ contents: [[Double]]) {
         let m: Int = contents.count
         let n: Int = contents[0].count
@@ -41,7 +41,7 @@ public struct Matrix {
             grid.replaceRange(i*n..<i*n+min(m, row.count), with: row)
         }
     }
-    
+
     public subscript(row: Int, column: Int) -> Double {
         get {
             assert(indexIsValidForRow(row, column: column))
@@ -56,7 +56,7 @@ public struct Matrix {
 
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns
-    }    
+    }
 }
 
 // MARK: - ArrayLiteralConvertible
@@ -123,14 +123,14 @@ public func add(x: Matrix, y: Matrix) -> Matrix {
 
     var results = y
     cblas_daxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
-    
+
     return results
 }
 
 public func mul(alpha: Double, x:Matrix) -> Matrix {
     var results = x
     cblas_dscal(Int32(x.grid.count), alpha, &(results.grid), 1)
-    
+
     return results
 }
 
@@ -139,7 +139,7 @@ public func mul(x: Matrix, y: Matrix) -> Matrix {
 
     var results = Matrix(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, &(results.grid), Int32(results.columns))
-    
+
     return results
 }
 
@@ -147,7 +147,7 @@ public func inv(x : Matrix) -> Matrix {
     precondition(x.rows == x.columns, "Matrix must be square")
 
     var results = x
-    
+
     var ipiv = [__CLPK_integer](count: x.rows * x.rows, repeatedValue: 0)
     var lwork = __CLPK_integer(x.columns * x.columns)
     var work = [CDouble](count: Int(lwork), repeatedValue: 0.0)
@@ -158,14 +158,14 @@ public func inv(x : Matrix) -> Matrix {
     dgetri_(&nc, &(results.grid), &nc, &ipiv, &work, &lwork, &error)
 
     assert(error == 0, "Matrix not invertible")
-    
+
     return results
 }
 
 public func transpose(x: Matrix) -> Matrix {
     var results = Matrix(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
     vDSP_mtransD(x.grid, 1, &(results.grid), 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
-    
+
     return results
 }
 

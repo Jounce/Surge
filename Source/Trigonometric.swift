@@ -1,6 +1,6 @@
 // Trigonometric.swift
 //
-// Copyright (c) 2014 Mattt Thompson (http://mattt.me)
+// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -66,7 +66,7 @@ public func acos(x: [Double]) -> [Double] {
 public func atan(x: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvatan(&results, x, [Int32(x.count)])
-    
+
     return results
 }
 

@@ -1,6 +1,6 @@
 // ExponentialTests.swift
 //
-// Copyright (c) 2014 Mattt Thompson (http://mattt.me)
+// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ class ExponentialTests: XCTestCase {
         let values = map(0...n){_ in Double(arc4random_uniform(10))}
         measureAndValidateMappedFunctionWithAccuracy(values, member: exp, mapped: exp, accuracy: 0.0001)
     }
-    
+
     func test_exp2() {
         let values = map(0...n){_ in Double(arc4random_uniform(10))}
         measureAndValidateMappedFunctionWithAccuracy(values, member: exp2, mapped: exp2, accuracy: 0.0001)
