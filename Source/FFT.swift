@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Accelerate
+
 public func fft(input: [Double]) -> [Double] {
     var real = [Double](input)
     var imaginary = [Double](count: input.count, repeatedValue: 0.0)

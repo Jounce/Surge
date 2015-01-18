@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Accelerate
+
 public func sinh(x: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvsinh(&results, x, [Int32(x.count)])

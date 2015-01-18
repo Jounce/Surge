@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Accelerate
+
 public func pow(x: [Double], y: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvpow(&results, x, y, [Int32(x.count)])

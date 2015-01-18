@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Accelerate
+
 public func exp(x: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvexp(&results, x, [Int32(x.count)])

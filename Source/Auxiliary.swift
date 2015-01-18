@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Accelerate
+
 public func abs(x: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvfabs(&results, x, [Int32(x.count)])

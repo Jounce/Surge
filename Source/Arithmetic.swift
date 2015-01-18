@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Accelerate
+
 public func sum(x: [Double]) -> Double {
     return cblas_dasum(Int32(x.count), x, 1)
 }
