@@ -31,4 +31,12 @@ class ArithmeticTests: XCTestCase {
         let values = map(0...n){_ in Double(arc4random())}
         measureAndValidateMappedFunctionWithAccuracy(values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
     }
+
+    func test_dot() {
+        let a: [Double] = [0, 3, -7, 0]
+        let b: [Double] = [2, 3, 1, 0]
+        let result: Double = 2
+
+        XCTAssertEqual(dot(a, b), result)
+    }
 }

@@ -82,6 +82,15 @@ public func sqrt(x: [Double]) -> [Double] {
     return results
 }
 
+public func dot(x: [Double], y: [Double]) -> Double {
+    assert(x.count == y.count, "inputs must have equal length")
+
+    var result: Double = 0.0
+    vDSP_dotprD(x, 1, y, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
 // MARK: Operators
 
 /*
