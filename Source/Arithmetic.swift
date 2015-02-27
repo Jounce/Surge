@@ -183,75 +183,75 @@ public func dot(x: [Double], y: [Double]) -> Double {
 
 // MARK: - Operators
 
-func + (left: [Float], right: [Float]) -> [Float] {
-    return add(left, right)
+func + (lhs: [Float], rhs: [Float]) -> [Float] {
+    return add(lhs, rhs)
 }
 
-func + (left: [Double], right: [Double]) -> [Double] {
-    return add(left, right)
+func + (lhs: [Double], rhs: [Double]) -> [Double] {
+    return add(lhs, rhs)
 }
 
-func + (left: [Float], right: Float) -> [Float] {
-    return add(left, [Float](count: left.count, repeatedValue: right))
+func + (lhs: [Float], rhs: Float) -> [Float] {
+    return add(lhs, [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func + (left: [Double], right: Double) -> [Double] {
-    return add(left, [Double](count: left.count, repeatedValue: right))
+func + (lhs: [Double], rhs: Double) -> [Double] {
+    return add(lhs, [Double](count: lhs.count, repeatedValue: rhs))
 }
 
-func / (left: [Float], right: [Float]) -> [Float] {
-    return div(left, right)
+func / (lhs: [Float], rhs: [Float]) -> [Float] {
+    return div(lhs, rhs)
 }
 
-func / (left: [Double], right: [Double]) -> [Double] {
-    return div(left, right)
+func / (lhs: [Double], rhs: [Double]) -> [Double] {
+    return div(lhs, rhs)
 }
 
-func / (left: [Float], right: Float) -> [Float] {
-    return div(left, [Float](count: left.count, repeatedValue: right))
+func / (lhs: [Float], rhs: Float) -> [Float] {
+    return div(lhs, [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func / (left: [Double], right: Double) -> [Double] {
-    return div(left, [Double](count: left.count, repeatedValue: right))
+func / (lhs: [Double], rhs: Double) -> [Double] {
+    return div(lhs, [Double](count: lhs.count, repeatedValue: rhs))
 }
 
-func * (left: [Float], right: [Float]) -> [Float] {
-    return mul(left, right)
+func * (lhs: [Float], rhs: [Float]) -> [Float] {
+    return mul(lhs, rhs)
 }
 
-func * (left: [Double], right: [Double]) -> [Double] {
-    return mul(left, right)
+func * (lhs: [Double], rhs: [Double]) -> [Double] {
+    return mul(lhs, rhs)
 }
 
-func * (left: [Float], right: Float) -> [Float] {
-    return mul(left, [Float](count: left.count, repeatedValue: right))
+func * (lhs: [Float], rhs: Float) -> [Float] {
+    return mul(lhs, [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func * (left: [Double], right: Double) -> [Double] {
-    return mul(left, [Double](count: left.count, repeatedValue: right))
+func * (lhs: [Double], rhs: Double) -> [Double] {
+    return mul(lhs, [Double](count: lhs.count, repeatedValue: rhs))
 }
 
-func % (left: [Float], right: [Float]) -> [Float] {
-    return mod(left, right)
+func % (lhs: [Float], rhs: [Float]) -> [Float] {
+    return mod(lhs, rhs)
 }
 
-func % (left: [Double], right: [Double]) -> [Double] {
-    return mod(left, right)
+func % (lhs: [Double], rhs: [Double]) -> [Double] {
+    return mod(lhs, rhs)
 }
 
-func % (left: [Float], right: Float) -> [Float] {
-    return mod(left, [Float](count: left.count, repeatedValue: right))
+func % (lhs: [Float], rhs: Float) -> [Float] {
+    return mod(lhs, [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func % (left: [Double], right: Double) -> [Double] {
-    return mod(left, [Double](count: left.count, repeatedValue: right))
+func % (lhs: [Double], rhs: Double) -> [Double] {
+    return mod(lhs, [Double](count: lhs.count, repeatedValue: rhs))
 }
 
 infix operator • {}
-func • (left: [Double], right: [Double]) -> Double {
-    return dot(left, right)
+func • (lhs: [Double], rhs: [Double]) -> Double {
+    return dot(lhs, rhs)
 }
 
-func • (left: [Float], right: [Float]) -> Float {
-    return dot(left, right)
+func • (lhs: [Float], rhs: [Float]) -> Float {
+    return dot(lhs, rhs)
 }
