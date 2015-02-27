@@ -246,3 +246,12 @@ func % (left: [Float], right: Float) -> [Float] {
 func % (left: [Double], right: Double) -> [Double] {
     return mod(left, [Double](count: left.count, repeatedValue: right))
 }
+
+infix operator • {}
+func • (left: [Double], right: [Double]) -> Double {
+    return dot(left, right)
+}
+
+func • (left: [Float], right: [Float]) -> Float {
+    return dot(left, right)
+}
