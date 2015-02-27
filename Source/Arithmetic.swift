@@ -160,6 +160,27 @@ public func sqrt(x: [Double]) -> [Double] {
     return results
 }
 
+// MARK: Dot Product
+
+public func dot(x: [Float], y: [Float]) -> Float {
+    precondition(x.count == y.count, "Vectors must have equal count")
+
+    var result: Float = 0.0
+    vDSP_dotpr(x, 1, y, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
+
+public func dot(x: [Double], y: [Double]) -> Double {
+    precondition(x.count == y.count, "Vectors must have equal count")
+
+    var result: Double = 0.0
+    vDSP_dotprD(x, 1, y, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
 // MARK: - Operators
 
 func + (left: [Float], right: [Float]) -> [Float] {
