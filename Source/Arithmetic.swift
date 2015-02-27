@@ -22,27 +22,69 @@
 
 import Accelerate
 
+// MARK: Sum
+
+public func sum(x: [Float]) -> Float {
+    return cblas_sasum(Int32(x.count), x, 1)
+}
+
 public func sum(x: [Double]) -> Double {
     return cblas_dasum(Int32(x.count), x, 1)
 }
 
+// MARK: Maximum
+
+public func max(x: [Float]) -> Float {
+    var result: Float = 0.0
+    vDSP_maxv(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
 public func max(x: [Double]) -> Double {
-    var result = 0.0
+    var result: Double = 0.0
     vDSP_maxvD(x, 1, &result, vDSP_Length(x.count))
 
     return result
 }
 
+// MARK: Minimum
+
+public func min(x: [Float]) -> Float {
+    var result: Float = 0.0
+    vDSP_minv(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
 public func min(x: [Double]) -> Double {
-    var result = 0.0
+    var result: Double = 0.0
     vDSP_minvD(x, 1, &result, vDSP_Length(x.count))
 
     return result
 }
 
+// MARK: Add
+
+public func add(x: [Float], y: [Float]) -> [Float] {
+    var results = [Float](y)
+    cblas_saxpy(Int32(x.count), 1.0, x, 1, &results, 1)
+
+    return results
+}
+
 public func add(x: [Double], y: [Double]) -> [Double] {
     var results = [Double](y)
     cblas_daxpy(Int32(x.count), 1.0, x, 1, &results, 1)
+
+    return results
+}
+
+// MARK: Multiply
+
+public func mul(x: [Float], y: [Float]) -> [Float] {
+    var results = [Float](count: x.count, repeatedValue: 0.0)
+    vDSP_vmul(x, 1, y, 1, &results, 1, vDSP_Length(x.count))
 
     return results
 }
@@ -54,9 +96,27 @@ public func mul(x: [Double], y: [Double]) -> [Double] {
     return results
 }
 
+// MARK: Divide
+
+public func div(x: [Float], y: [Float]) -> [Float] {
+    var results = [Float](count: x.count, repeatedValue: 0.0)
+    vvdivf(&results, x, y, [Int32(x.count)])
+
+    return results
+}
+
 public func div(x: [Double], y: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvdiv(&results, x, y, [Int32(x.count)])
+
+    return results
+}
+
+// MARK: Modulo
+
+public func mod(x: [Float], y: [Float]) -> [Float] {
+    var results = [Float](count: x.count, repeatedValue: 0.0)
+    vvfmodf(&results, x, y, [Int32(x.count)])
 
     return results
 }
@@ -68,9 +128,27 @@ public func mod(x: [Double], y: [Double]) -> [Double] {
     return results
 }
 
+// MARK: Remainder
+
+public func remainder(x: [Float], y: [Float]) -> [Float] {
+    var results = [Float](count: x.count, repeatedValue: 0.0)
+    vvremainderf(&results, x, y, [Int32(x.count)])
+
+    return results
+}
+
 public func remainder(x: [Double], y: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvremainder(&results, x, y, [Int32(x.count)])
+
+    return results
+}
+
+// MARK: Square Root
+
+public func sqrt(x: [Float]) -> [Float] {
+    var results = [Float](count: x.count, repeatedValue: 0.0)
+    vvsqrtf(&results, x, [Int32(x.count)])
 
     return results
 }
@@ -82,38 +160,68 @@ public func sqrt(x: [Double]) -> [Double] {
     return results
 }
 
-// MARK: Operators
+// MARK: - Operators
 
-/*
+func + (left: [Float], right: [Float]) -> [Float] {
+    return add(left, right)
+}
+
 func + (left: [Double], right: [Double]) -> [Double] {
     return add(left, right)
+}
+
+func + (left: [Float], right: Float) -> [Float] {
+    return add(left, [Float](count: left.count, repeatedValue: right))
 }
 
 func + (left: [Double], right: Double) -> [Double] {
     return add(left, [Double](count: left.count, repeatedValue: right))
 }
 
+func / (left: [Float], right: [Float]) -> [Float] {
+    return div(left, right)
+}
+
 func / (left: [Double], right: [Double]) -> [Double] {
     return div(left, right)
+}
+
+func / (left: [Float], right: Float) -> [Float] {
+    return div(left, [Float](count: left.count, repeatedValue: right))
 }
 
 func / (left: [Double], right: Double) -> [Double] {
     return div(left, [Double](count: left.count, repeatedValue: right))
 }
 
+func * (left: [Float], right: [Float]) -> [Float] {
+    return mul(left, right)
+}
+
 func * (left: [Double], right: [Double]) -> [Double] {
     return mul(left, right)
+}
+
+func * (left: [Float], right: Float) -> [Float] {
+    return mul(left, [Float](count: left.count, repeatedValue: right))
 }
 
 func * (left: [Double], right: Double) -> [Double] {
     return mul(left, [Double](count: left.count, repeatedValue: right))
 }
 
+func % (left: [Float], right: [Float]) -> [Float] {
+    return mod(left, right)
+}
+
 func % (left: [Double], right: [Double]) -> [Double] {
     return mod(left, right)
+}
+
+func % (left: [Float], right: Float) -> [Float] {
+    return mod(left, [Float](count: left.count, repeatedValue: right))
 }
 
 func % (left: [Double], right: Double) -> [Double] {
     return mod(left, [Double](count: left.count, repeatedValue: right))
 }
-*/
