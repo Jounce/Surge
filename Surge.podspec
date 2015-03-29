@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Surge'
-  s.version = '0.2.0'
+  s.version = '0.2.1'
   s.license = 'MIT'
   s.summary = 'Swift + Accelerate'
   s.homepage = 'https://github.com/mattt/Surge'
