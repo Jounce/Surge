@@ -147,14 +147,6 @@ let product = Surge.mul(a, b) // [2.0, 12.0, 30.0, 56.0]
 
 ---
 
-## Contact
-
-Mattt Thompson
-
-- http://github.com/mattt
-- http://twitter.com/mattt
-- m@mattt.me
-
 ## License
 
 Surge is available under the MIT license. See the LICENSE file for more info.
