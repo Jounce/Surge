@@ -25,10 +25,26 @@ import Accelerate
 // MARK: Sum
 
 public func sum(x: [Float]) -> Float {
-    return cblas_sasum(Int32(x.count), x, 1)
+    var result: Float = 0.0
+    vDSP_sve(x, 1, &result, vDSP_Length(x.count))
+
+    return result
 }
 
 public func sum(x: [Double]) -> Double {
+    var result: Double = 0.0
+    vDSP_sveD(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
+// MARK: Sum of Absolute Values
+
+public func asum(x: [Float]) -> Float {
+    return cblas_sasum(Int32(x.count), x, 1)
+}
+
+public func asum(x: [Double]) -> Double {
     return cblas_dasum(Int32(x.count), x, 1)
 }
 

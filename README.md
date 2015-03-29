@@ -55,6 +55,7 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 ### Arithmetic
 
 - `sum`
+- `asum`
 - `add`
 - `mul`
 - `div`
