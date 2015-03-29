@@ -80,6 +80,54 @@ public func min(x: [Double]) -> Double {
     return result
 }
 
+// MARK: Mean
+
+public func mean(x: [Float]) -> Float {
+    var result: Float = 0.0
+    vDSP_meanv(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
+public func mean(x: [Double]) -> Double {
+    var result: Double = 0.0
+    vDSP_meanvD(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
+// MARK: Mean Magnitude
+
+public func meamg(x: [Float]) -> Float {
+    var result: Float = 0.0
+    vDSP_meamgv(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
+public func meamg(x: [Double]) -> Double {
+    var result: Double = 0.0
+    vDSP_meamgvD(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
+// MARK: Mean Square Value
+
+public func measq(x: [Float]) -> Float {
+    var result: Float = 0.0
+    vDSP_measqv(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
+public func measq(x: [Double]) -> Double {
+    var result: Double = 0.0
+    vDSP_measqvD(x, 1, &result, vDSP_Length(x.count))
+
+    return result
+}
+
 // MARK: Add
 
 public func add(x: [Float], y: [Float]) -> [Float] {

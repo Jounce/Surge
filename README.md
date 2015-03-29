@@ -56,6 +56,11 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 
 - `sum`
 - `asum`
+- `max`
+- `min`
+- `mean`
+- `meamg`
+- `measq`
 - `add`
 - `mul`
 - `div`
