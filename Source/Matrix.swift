@@ -231,6 +231,7 @@ public func eigenDecompostion(x: Matrix<Float>) ->(Matrix<Float>, [Float])
     var wr = [Float](count: Int(N), repeatedValue: 0)
     // Imaginary parts of eigenvalues
     var wi = [Float](count: Int(N), repeatedValue: 0)
+
     // Left eigenvectors
     var vl = [Float](count: Int(N*N), repeatedValue: 0)
     // Right eigenvectors
@@ -242,10 +243,9 @@ public func eigenDecompostion(x: Matrix<Float>) ->(Matrix<Float>, [Float])
     var workspace = [Double](count: Int(workspaceQuery), repeatedValue: 0.0)
     lwork = __CLPK_integer(workspaceQuery)
 
-    // Actual iteration
+    // Actual iteration after obtaining workspace size
     dgeev_(UnsafeMutablePointer(("V" as NSString).UTF8String), UnsafeMutablePointer,("V" as NSString).UTF8String), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
 
-    // We will only consider the right eigenVectors for this function
     var eigenVectors: Matrix<Double> = Matrix(rows: Int(N), columns: Int(N), repeatedValue: 0.0)
     eigenVectors.grid = vr
 
@@ -263,10 +263,12 @@ public func eigenDecompostion(x: Matrix<Double>) ->(Matrix<Double>, [Double])
     var workspaceQuery: Double = 0.0
     var error : __CLPK_integer = 0
     var lwork = __CLPK_integer(-1)
+
     // Real parts of eigenvalues
     var wr = [Double](count: Int(N), repeatedValue: 0)
     // Imaginary parts of eigenvalues
     var wi = [Double](count: Int(N), repeatedValue: 0)
+
     // Left eigenvectors
     var vl = [Double](count: Int(N*N), repeatedValue: 0)
     // Right eigenvectors
@@ -278,10 +280,9 @@ public func eigenDecompostion(x: Matrix<Double>) ->(Matrix<Double>, [Double])
     var workspace = [Double](count: Int(workspaceQuery), repeatedValue: 0.0)
     lwork = __CLPK_integer(workspaceQuery)
 
-    // Actual iteration
+    // Actual run after obtaining workspace size
     dgeev_(UnsafeMutablePointer(("V" as NSString).UTF8String), UnsafeMutablePointer,("V" as NSString).UTF8String), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
 
-    // We will only consider the right eigenVectors for this function
     var eigenVectors: Matrix<Double> = Matrix(rows: Int(N), columns: Int(N), repeatedValue: 0.0)
     eigenVectors.grid = vr
 
