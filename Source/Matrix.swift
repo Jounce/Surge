@@ -43,8 +43,8 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
 
         self.init(rows: m, columns: n, repeatedValue: repeatedValue)
 
-        FOR (IOW) in enumerate(contents) {
-            grid.replaceRange(i*n..<i*n+min(m, row.count), with: row)
+        for (index, row) in enumerate(contents) {
+            grid.replaceRange((index * n)..<(index * n + min(m, row.count)), with: row)
         }
     }
 
@@ -71,10 +71,10 @@ extension Matrix: Printable {
     public var description: String {
         var description = ""
 
-        FOR I I0..<rows {
-            let contents = join("\t", map(0..<columns){"\(self[i, $0])"})
+        for row in 0..<rows {
+            let contents = join("\t", map(0..<columns){"\(self[row, $0])"})
 
-            switch (i, rows) {
+            switch (row, rows) {
             case (0, 1):
                 description += "(\t\(contents)\t)"
             case (0, _):
@@ -95,11 +95,11 @@ extension Matrix: Printable {
 // MARK: - SequenceType
 
 extension Matrix: SequenceType {
-    public func generate() -> GeneratorOf<Slice<Element>> {
+    public func generate() -> GeneratorOf<ArraySlice<Element>> {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
-        return GeneratorOf<Slice<Element>> {
+        return GeneratorOf<ArraySlice<Element>> {
             if nextRowStartIndex == endIndex {
                 return nil
             }
@@ -216,47 +216,21 @@ public func transpose(x: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
-public func eigenDecompostion(x: Matrix<Float>) ->(Matrix<Float>, [Float])
-{
-    precondition(x.rows == x.columns, "Matrix must be square")
-    
-    var mat:[__CLPK_floatreal] = x.grid
-        
-    var N = __CLPK_integer(sqrt(Float(x.grid.count)))
-    var pivots = [__CLPK_integer](count: Int(N), repeatedValue: 0)
-    var workspaceQuery: Float = 0.0
-    var error : __CLPK_integer = 0
-    var lwork = __CLPK_integer(-1)
-    // Real parts of eigenvalues
-    var wr = [Float](count: Int(N), repeatedValue: 0)
-    // Imaginary parts of eigenvalues
-    var wi = [Float](count: Int(N), repeatedValue: 0)
+public func eigendecompostion(x: Matrix<Float>) ->(Matrix<Float>, [Float]) {
+    var input = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    input.grid = map(x.grid) {return Double($0)}
+    let (eigenVectors, components) = eigendecompostion(input)
 
-    // Left eigenvectors
-    var vl = [Float](count: Int(N*N), repeatedValue: 0)
-    // Right eigenvectors
-    var vr = [Float](count: Int(N*N), repeatedValue: 0)
+    var output = Matrix<Float>(rows: eigenVectors.rows, columns: eigenVectors.columns, repeatedValue: 0.0)
+    output.grid = map(eigenVectors.grid) {return Float($0)}
 
-    // The first iteration is used to get the size of the workspace from the workspace query
-    dgeev_(UnsafeMutablePointer(("V" as NSString).UTF8String), UnsafeMutablePointer(("V" as NSString).UTF8String), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
-        
-    var workspace = [Double](count: Int(workspaceQuery), repeatedValue: 0.0)
-    lwork = __CLPK_integer(workspaceQuery)
-
-    // Actual iteration after obtaining workspace size
-    dgeev_(UnsafeMutablePointer(("V" as NSString).UTF8String), UnsafeMutablePointer,("V" as NSString).UTF8String), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
-
-    var eigenVectors: Matrix<Double> = Matrix(rows: Int(N), columns: Int(N), repeatedValue: 0.0)
-    eigenVectors.grid = vr
-
-    return (eigenVectors, wr)
+    return (output, map(components) {return Float($0)})
 }
 
-public func eigenDecompostion(x: Matrix<Double>) ->(Matrix<Double>, [Double])
-{
+public func eigendecompostion(x: Matrix<Double>) ->(Matrix<Double>, [Double]) {
     precondition(x.rows == x.columns, "Matrix must be square")
 
-    var mat:[__CLPK_doublereal] = x.grid
+    var mat: [__CLPK_doublereal] = x.grid
         
     var N = __CLPK_integer(sqrt(Double(x.grid.count)))
     var pivots = [__CLPK_integer](count: Int(N), repeatedValue: 0)
@@ -264,24 +238,22 @@ public func eigenDecompostion(x: Matrix<Double>) ->(Matrix<Double>, [Double])
     var error : __CLPK_integer = 0
     var lwork = __CLPK_integer(-1)
 
-    // Real parts of eigenvalues
     var wr = [Double](count: Int(N), repeatedValue: 0)
-    // Imaginary parts of eigenvalues
     var wi = [Double](count: Int(N), repeatedValue: 0)
 
-    // Left eigenvectors
-    var vl = [Double](count: Int(N*N), repeatedValue: 0)
-    // Right eigenvectors
-    var vr = [Double](count: Int(N*N), repeatedValue: 0)
+    var vl = [Double](count: Int(N * N), repeatedValue: 0)
+    var vr = [Double](count: Int(N * N), repeatedValue: 0)
 
-    // The first iteration is used to get the size of the workspace from the workspace query
-    dgeev_(UnsafeMutablePointer(("V" as NSString).UTF8String), UnsafeMutablePointer(("V" as NSString).UTF8String), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
+    "V".withCString { (V) -> Void in
+        dgeev_(UnsafeMutablePointer(V), UnsafeMutablePointer(V), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
+    }
         
     var workspace = [Double](count: Int(workspaceQuery), repeatedValue: 0.0)
     lwork = __CLPK_integer(workspaceQuery)
 
-    // Actual run after obtaining workspace size
-    dgeev_(UnsafeMutablePointer(("V" as NSString).UTF8String), UnsafeMutablePointer,("V" as NSString).UTF8String), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
+    "V".withCString { (V) -> Void in
+        dgeev_(UnsafeMutablePointer(V), UnsafeMutablePointer(V), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
+    }
 
     var eigenVectors: Matrix<Double> = Matrix(rows: Int(N), columns: Int(N), repeatedValue: 0.0)
     eigenVectors.grid = vr
