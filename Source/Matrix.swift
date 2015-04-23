@@ -95,11 +95,11 @@ extension Matrix: Printable {
 // MARK: - SequenceType
 
 extension Matrix: SequenceType {
-    public func generate() -> GeneratorOf<Slice<Element>> {
+    public func generate() -> GeneratorOf<ArraySlice<Element>> {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
-        return GeneratorOf<Slice<Element>> {
+        return GeneratorOf<ArraySlice<Element>> {
             if nextRowStartIndex == endIndex {
                 return nil
             }
