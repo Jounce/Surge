@@ -23,7 +23,8 @@
 import Accelerate
 
 public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
-    typealias Element = T
+    
+    public typealias Element = T
 
     let rows: Int
     let columns: Int
@@ -43,7 +44,7 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
 
         self.init(rows: m, columns: n, repeatedValue: repeatedValue)
 
-        for (i, row) in enumerate(contents) {
+        for (i, row) in contents.enumerate() {
             grid.replaceRange(i*n..<i*n+min(m, row.count), with: row)
         }
     }
@@ -65,14 +66,14 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
     }
 }
 
-// MARK: - Printable
+// MARK: - CustomStringConvertible
 
-extension Matrix: Printable {
+extension Matrix: CustomStringConvertible {
     public var description: String {
         var description = ""
 
         for i in 0..<rows {
-            let contents = join("\t", map(0..<columns){"\(self[i, $0])"})
+            let contents = "\t".join((0..<columns).map{"\(self[i, $0])"})
 
             switch (i, rows) {
             case (0, 1):
@@ -95,11 +96,11 @@ extension Matrix: Printable {
 // MARK: - SequenceType
 
 extension Matrix: SequenceType {
-    public func generate() -> GeneratorOf<ArraySlice<Element>> {
+    public func generate() -> AnyGenerator<ArraySlice<Element>> {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
-        return GeneratorOf<ArraySlice<Element>> {
+        return anyGenerator {
             if nextRowStartIndex == endIndex {
                 return nil
             }
@@ -219,27 +220,27 @@ public func transpose(x: Matrix<Double>) -> Matrix<Double> {
 // MARK: - Operators
 
 public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return add(lhs, rhs)
+    return add(lhs, y: rhs)
 }
 
 public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return add(lhs, rhs)
+    return add(lhs, y: rhs)
 }
 
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, rhs)
+    return mul(lhs, x: rhs)
 }
 
 public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, rhs)
+    return mul(lhs, x: rhs)
 }
 
 public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, rhs)
+    return mul(lhs, y: rhs)
 }
 
 public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, rhs)
+    return mul(lhs, y: rhs)
 }
 
 postfix operator ′ {}
