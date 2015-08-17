@@ -15,6 +15,10 @@ Though, keep in mind: _Accelerate is not a silver bullet_. Under certain conditi
 
 ---
 
+## Requirements
+
+This fork of Surge targets Swift 2.0, iOS 8.0+.
+
 ## Performance
 
 Initial benchmarks on iOS devices and the iOS simulator indicate significant performance improvements over a conventional Swift implementation.
