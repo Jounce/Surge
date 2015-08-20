@@ -56,14 +56,14 @@ public func ceil(x: [Double]) -> [Double] {
 
 // MARK: Clip
 
-public func clip(x: [Float], low: Float, high: Float) -> [Float] {
+public func clip(x: [Float], _ low: Float, _ high: Float) -> [Float] {
     var results = [Float](count: x.count, repeatedValue: 0.0), y = low, z = high
     vDSP_vclip(x, 1, &y, &z, &results, 1, vDSP_Length(x.count))
 
     return results
 }
 
-public func clip(x: [Double], low: Double, high: Double) -> [Double] {
+public func clip(x: [Double], _ low: Double, _ high: Double) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0), y = low, z = high
     vDSP_vclipD(x, 1, &y, &z, &results, 1, vDSP_Length(x.count))
 
@@ -72,14 +72,14 @@ public func clip(x: [Double], low: Double, high: Double) -> [Double] {
 
 // MARK: Copy Sign
 
-public func copysign(sign: [Float], magnitude: [Float]) -> [Float] {
+public func copysign(sign: [Float], _ magnitude: [Float]) -> [Float] {
     var results = [Float](count: sign.count, repeatedValue: 0.0)
     vvcopysignf(&results, magnitude, sign, [Int32(sign.count)])
 
     return results
 }
 
-public func copysign(sign: [Double], magnitude: [Double]) -> [Double] {
+public func copysign(sign: [Double], _ magnitude: [Double]) -> [Double] {
     var results = [Double](count: sign.count, repeatedValue: 0.0)
     vvcopysign(&results, magnitude, sign, [Int32(sign.count)])
 
@@ -152,14 +152,14 @@ public func round(x: [Double]) -> [Double] {
 
 // MARK: Threshold
 
-public func threshold(x: [Float], low: Float) -> [Float] {
+public func threshold(x: [Float], _ low: Float) -> [Float] {
     var results = [Float](count: x.count, repeatedValue: 0.0), y = low
     vDSP_vthr(x, 1, &y, &results, 1, vDSP_Length(x.count))
 
     return results
 }
 
-public func threshold(x: [Double], low: Double) -> [Double] {
+public func threshold(x: [Double], _ low: Double) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0), y = low
     vDSP_vthrD(x, 1, &y, &results, 1, vDSP_Length(x.count))
 
