@@ -42,7 +42,7 @@ class AuxiliaryTests: XCTestCase {
 
         var actual: [Double] = []
         self.measureBlock {
-            actual = copysign(signs, magnitudes)
+            actual = copysign(signs, magnitude: magnitudes)
         }
 
         XCTAssertEqual(actual, expected)
