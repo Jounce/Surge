@@ -38,6 +38,14 @@ public func sum(x: [Double]) -> Double {
     return result
 }
 
+public func sum(x: [Complex]) -> Complex {
+    var result = Complex()
+    vDSP_sveD(UnsafePointer<Double>(x), 2, &result.real, vDSP_Length(x.count))
+    vDSP_sveD(UnsafePointer<Double>(x) + 1, 2, &result.imag, vDSP_Length(x.count))
+
+    return result
+}
+
 // MARK: Sum of Absolute Values
 
 public func asum(x: [Float]) -> Float {
@@ -144,6 +152,13 @@ public func add(x: [Double], _ y: [Double]) -> [Double] {
     return results
 }
 
+public func add(x: [Complex], _ y: [Complex]) -> [Complex] {
+    let results = [Complex](count: x.count, repeatedValue: Complex())
+    vDSP_vaddD(UnsafePointer<Double>(x), 1, UnsafePointer<Double>(y), 1, UnsafeMutablePointer<Double>(results), 1, vDSP_Length(x.count))
+
+    return results
+}
+
 // MARK: Multiply
 
 public func mul(x: [Float], _ y: [Float]) -> [Float] {
@@ -160,6 +175,14 @@ public func mul(x: [Double], _ y: [Double]) -> [Double] {
     return results
 }
 
+public func mul(x: [Complex], _ y: [Double]) -> [Complex] {
+    let results = [Complex](count: x.count, repeatedValue: Complex())
+    vDSP_vmulD(UnsafePointer<Double>(x), 2, y, 1, UnsafeMutablePointer<Double>(results), 2, vDSP_Length(x.count))
+    vDSP_vmulD(UnsafePointer<Double>(x) + 1, 2, y, 1, UnsafeMutablePointer<Double>(results) + 1, 2, vDSP_Length(x.count))
+
+    return results
+}
+
 // MARK: Divide
 
 public func div(x: [Float], _ y: [Float]) -> [Float] {
@@ -172,6 +195,14 @@ public func div(x: [Float], _ y: [Float]) -> [Float] {
 public func div(x: [Double], _ y: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvdiv(&results, x, y, [Int32(x.count)])
+
+    return results
+}
+
+public func div(x: [Complex], _ y: [Double]) -> [Complex] {
+    let results = [Complex](count: x.count, repeatedValue: Complex())
+    vDSP_vdivD(UnsafePointer<Double>(x), 2, y, 1, UnsafeMutablePointer<Double>(results), 2, vDSP_Length(x.count))
+    vDSP_vdivD(UnsafePointer<Double>(x) + 1, 2, y, 1, UnsafeMutablePointer<Double>(results) + 1, 2, vDSP_Length(x.count))
 
     return results
 }
@@ -235,7 +266,6 @@ public func dot(x: [Float], _ y: [Float]) -> Float {
     return result
 }
 
-
 public func dot(x: [Double], _ y: [Double]) -> Double {
     precondition(x.count == y.count, "Vectors must have equal count")
 
@@ -255,12 +285,20 @@ func + (lhs: [Double], rhs: [Double]) -> [Double] {
     return add(lhs, rhs)
 }
 
+func + (lhs: [Complex], rhs: [Complex]) -> [Complex] {
+    return add(lhs, rhs)
+}
+
 func + (lhs: [Float], rhs: Float) -> [Float] {
     return add(lhs, [Float](count: lhs.count, repeatedValue: rhs))
 }
 
 func + (lhs: [Double], rhs: Double) -> [Double] {
     return add(lhs, [Double](count: lhs.count, repeatedValue: rhs))
+}
+
+func + (lhs: [Complex], rhs: Complex) -> [Complex] {
+    return add(lhs, [Complex](count: lhs.count, repeatedValue: rhs))
 }
 
 func / (lhs: [Float], rhs: [Float]) -> [Float] {
@@ -279,6 +317,10 @@ func / (lhs: [Double], rhs: Double) -> [Double] {
     return div(lhs, [Double](count: lhs.count, repeatedValue: rhs))
 }
 
+func / (lhs: [Complex], rhs: Double) -> [Complex] {
+    return div(lhs, [Double](count: lhs.count, repeatedValue: rhs))
+}
+
 func * (lhs: [Float], rhs: [Float]) -> [Float] {
     return mul(lhs, rhs)
 }
@@ -292,6 +334,10 @@ func * (lhs: [Float], rhs: Float) -> [Float] {
 }
 
 func * (lhs: [Double], rhs: Double) -> [Double] {
+    return mul(lhs, [Double](count: lhs.count, repeatedValue: rhs))
+}
+
+func * (lhs: [Complex], rhs: Double) -> [Complex] {
     return mul(lhs, [Double](count: lhs.count, repeatedValue: rhs))
 }
 

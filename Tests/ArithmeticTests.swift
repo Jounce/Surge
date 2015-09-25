@@ -27,6 +27,28 @@ import XCTest
 class ArithmeticTests: XCTestCase {
     let n = 100000
 
+    func test_sum_complex() {
+        let values = (0...n).map{ _ in
+            Complex(
+                real: Double(arc4random()) - Double(UInt32.max)/2,
+                imag: Double(arc4random()) - Double(UInt32.max)/2)
+        }
+
+        var expected = Complex()
+        for v in values {
+            expected.real += v.real
+            expected.imag += v.imag
+        }
+
+        var actual = Complex()
+        self.measureBlock {
+            actual = sum(values)
+        }
+        
+        XCTAssertEqualWithAccuracy(actual.real, expected.real, accuracy: 0.0001)
+        XCTAssertEqualWithAccuracy(actual.imag, expected.imag, accuracy: 0.0001)
+    }
+
     func test_sqrt() {
         let values = (0...n).map{_ in Double(arc4random())}
         measureAndValidateMappedFunctionWithAccuracy(values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
