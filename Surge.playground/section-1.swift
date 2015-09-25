@@ -31,10 +31,13 @@ func plot<T>(values: [T], title: String) {
 
 let count = 64
 let frequency = 4.0
-let amplitude = 3.0
+let amplitude = 1.0
 
 let x = (0..<count).map{ 2.0 * M_PI / Double(count) * Double($0) * frequency }
 
 plot(sin(x), title: "Sine Wave")
-plot(fft(sin(x)), title: "FFT")
+
+let fft = FFT(inputLength: x.count)
+let psd = fft.forwardMags(sin(x))
+plot(psd, title: "FFT")
 
