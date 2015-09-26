@@ -7,7 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4DCB81BB3ACAD0019C603 /* Complex.swift */; settings = {ASSET_TAGS = (); }; };
+		610B1AD31BB6117A00B64973 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610B1AD21BB6117A00B64973 /* Accelerate.framework */; };
+		610B1AD51BB6118100B64973 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610B1AD41BB6118100B64973 /* Foundation.framework */; };
+		610B1AD61BB611F300B64973 /* Surge.h in Headers */ = {isa = PBXBuildFile; fileRef = F8A1E1C919917B0A009735E2 /* Surge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		610B1AD71BB6120400B64973 /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C419917B0A009735E2 /* Arithmetic.swift */; };
+		610B1AD81BB6120400B64973 /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C519917B0A009735E2 /* Auxiliary.swift */; };
+		610B1AD91BB6120400B64973 /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C619917B0A009735E2 /* Exponential.swift */; };
+		610B1ADA1BB6120400B64973 /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE90FD19D1D9120078C7B2 /* FFT.swift */; };
+		610B1ADB1BB6120400B64973 /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C719917B0A009735E2 /* Hyperbolic.swift */; };
+		610B1ADC1BB6120400B64973 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65C5BE319FF9CF600149FF1 /* Matrix.swift */; };
+		610B1ADD1BB6120400B64973 /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C819917B0A009735E2 /* Power.swift */; };
+		610B1ADE1BB6120400B64973 /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1CA19917B0A009735E2 /* Trigonometric.swift */; };
+		610B1ADF1BB6120400B64973 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4DCB81BB3ACAD0019C603 /* Complex.swift */; };
+		611C771C1BB9F75200684204 /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610B1ACA1BB6114E00B64973 /* Surge.framework */; };
+		618396B01BB9FD3A0071B3B1 /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C531A6C1C6500DD357E /* ArithmeticTests.swift */; settings = {ASSET_TAGS = (); }; };
+		618396B11BB9FD3A0071B3B1 /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C541A6C1C6500DD357E /* AuxiliaryTests.swift */; settings = {ASSET_TAGS = (); }; };
+		618396B21BB9FD3A0071B3B1 /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C551A6C1C6500DD357E /* ExponentialTests.swift */; settings = {ASSET_TAGS = (); }; };
+		618396B31BB9FD3A0071B3B1 /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */; settings = {ASSET_TAGS = (); }; };
+		618396B41BB9FD3A0071B3B1 /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */; settings = {ASSET_TAGS = (); }; };
+		618396B51BB9FD3A0071B3B1 /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */; settings = {ASSET_TAGS = (); }; };
+		61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4DCB81BB3ACAD0019C603 /* Complex.swift */; };
 		E65C5BE419FF9CF600149FF1 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65C5BE319FF9CF600149FF1 /* Matrix.swift */; };
 		F8A1E1CB19917B0A009735E2 /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C419917B0A009735E2 /* Arithmetic.swift */; };
 		F8A1E1CC19917B0A009735E2 /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C519917B0A009735E2 /* Auxiliary.swift */; };
@@ -28,6 +47,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		611C771D1BB9F75200684204 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8A1E1A119917A79009735E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 610B1AC91BB6114E00B64973;
+			remoteInfo = "Surge (OSX)";
+		};
 		F84A6AB719A9A771007B53E1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8A1E1A119917A79009735E2 /* Project object */;
@@ -38,6 +64,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		610B1ACA1BB6114E00B64973 /* Surge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Surge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		610B1AD21BB6117A00B64973 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
+		610B1AD41BB6118100B64973 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		611C77171BB9F75200684204 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		617E53B71BB9FBC8000D67B0 /* afd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = afd.swift; sourceTree = "<group>"; };
+		617E53B91BB9FBC8000D67B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61F4DCB81BB3ACAD0019C603 /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		E65C5BE319FF9CF600149FF1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		F84A6AAE19A9A72F007B53E1 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +96,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		610B1AC61BB6114E00B64973 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				610B1AD51BB6118100B64973 /* Foundation.framework in Frameworks */,
+				610B1AD31BB6117A00B64973 /* Accelerate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		611C77141BB9F75200684204 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				611C771C1BB9F75200684204 /* Surge.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F84A6AAB19A9A72F007B53E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -83,6 +132,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		617E53B61BB9FBC8000D67B0 /* afd */ = {
+			isa = PBXGroup;
+			children = (
+				617E53B71BB9FBC8000D67B0 /* afd.swift */,
+				617E53B91BB9FBC8000D67B0 /* Info.plist */,
+			);
+			path = afd;
+			sourceTree = "<group>";
+		};
 		F84A6AAF19A9A72F007B53E1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +169,7 @@
 			children = (
 				F8A1E1AC19917A79009735E2 /* Source */,
 				F84A6AAF19A9A72F007B53E1 /* Tests */,
+				617E53B61BB9FBC8000D67B0 /* afd */,
 				F8A1E1D419917C17009735E2 /* Frameworks */,
 				F8A1E1AB19917A79009735E2 /* Products */,
 			);
@@ -121,6 +180,8 @@
 			children = (
 				F8A1E1AA19917A79009735E2 /* Surge.framework */,
 				F84A6AAE19A9A72F007B53E1 /* SurgeTests.xctest */,
+				610B1ACA1BB6114E00B64973 /* Surge.framework */,
+				611C77171BB9F75200684204 /* SurgeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,6 +224,8 @@
 		F8A1E1D419917C17009735E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				610B1AD41BB6118100B64973 /* Foundation.framework */,
+				610B1AD21BB6117A00B64973 /* Accelerate.framework */,
 				F8A1E1D619917C2B009735E2 /* Foundation.framework */,
 				F8A1E1D219917C0B009735E2 /* Accelerate.framework */,
 			);
@@ -173,6 +236,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		610B1AC71BB6114E00B64973 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				610B1AD61BB611F300B64973 /* Surge.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8A1E1A719917A79009735E2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -184,6 +255,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		610B1AC91BB6114E00B64973 /* Surge (OSX) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 610B1AD11BB6114E00B64973 /* Build configuration list for PBXNativeTarget "Surge (OSX)" */;
+			buildPhases = (
+				610B1AC51BB6114E00B64973 /* Sources */,
+				610B1AC61BB6114E00B64973 /* Frameworks */,
+				610B1AC71BB6114E00B64973 /* Headers */,
+				610B1AC81BB6114E00B64973 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Surge (OSX)";
+			productName = "Surge (OSX)";
+			productReference = 610B1ACA1BB6114E00B64973 /* Surge.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		611C77161BB9F75200684204 /* SurgeTests (OSX) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 611C77211BB9F75200684204 /* Build configuration list for PBXNativeTarget "SurgeTests (OSX)" */;
+			buildPhases = (
+				611C77131BB9F75200684204 /* Sources */,
+				611C77141BB9F75200684204 /* Frameworks */,
+				611C77151BB9F75200684204 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				611C771E1BB9F75200684204 /* PBXTargetDependency */,
+			);
+			name = "SurgeTests (OSX)";
+			productName = "SurgeTests (OSX)";
+			productReference = 611C77171BB9F75200684204 /* SurgeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F84A6AAD19A9A72F007B53E1 /* SurgeTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F84A6AB419A9A72F007B53E1 /* Build configuration list for PBXNativeTarget "SurgeTests" */;
@@ -231,6 +338,12 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Mattt Thompson";
 				TargetAttributes = {
+					610B1AC91BB6114E00B64973 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					611C77161BB9F75200684204 = {
+						CreatedOnToolsVersion = 7.0;
+					};
 					F84A6AAD19A9A72F007B53E1 = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -253,11 +366,27 @@
 			targets = (
 				F8A1E1A919917A79009735E2 /* Surge */,
 				F84A6AAD19A9A72F007B53E1 /* SurgeTests */,
+				610B1AC91BB6114E00B64973 /* Surge (OSX) */,
+				611C77161BB9F75200684204 /* SurgeTests (OSX) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		610B1AC81BB6114E00B64973 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		611C77151BB9F75200684204 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F84A6AAC19A9A72F007B53E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,6 +404,35 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		610B1AC51BB6114E00B64973 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				610B1ADA1BB6120400B64973 /* FFT.swift in Sources */,
+				610B1ADF1BB6120400B64973 /* Complex.swift in Sources */,
+				610B1AD81BB6120400B64973 /* Auxiliary.swift in Sources */,
+				610B1ADC1BB6120400B64973 /* Matrix.swift in Sources */,
+				610B1AD91BB6120400B64973 /* Exponential.swift in Sources */,
+				610B1ADE1BB6120400B64973 /* Trigonometric.swift in Sources */,
+				610B1ADB1BB6120400B64973 /* Hyperbolic.swift in Sources */,
+				610B1ADD1BB6120400B64973 /* Power.swift in Sources */,
+				610B1AD71BB6120400B64973 /* Arithmetic.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		611C77131BB9F75200684204 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				618396B31BB9FD3A0071B3B1 /* HyperbolicTests.swift in Sources */,
+				618396B11BB9FD3A0071B3B1 /* AuxiliaryTests.swift in Sources */,
+				618396B41BB9FD3A0071B3B1 /* TrigonometricTests.swift in Sources */,
+				618396B51BB9FD3A0071B3B1 /* XCTestCase+Surge.swift in Sources */,
+				618396B01BB9FD3A0071B3B1 /* ArithmeticTests.swift in Sources */,
+				618396B21BB9FD3A0071B3B1 /* ExponentialTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F84A6AAA19A9A72F007B53E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,6 +465,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		611C771E1BB9F75200684204 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 610B1AC91BB6114E00B64973 /* Surge (OSX) */;
+			targetProxy = 611C771D1BB9F75200684204 /* PBXContainerItemProxy */;
+		};
 		F84A6AB819A9A771007B53E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F8A1E1A919917A79009735E2 /* Surge */;
@@ -315,6 +478,82 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		610B1ACF1BB6114E00B64973 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mattt.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Surge;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		610B1AD01BB6114E00B64973 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mattt.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Surge;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		611C771F1BB9F75200684204 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mattt.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = SurgeTests;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		611C77201BB9F75200684204 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mattt.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = SurgeTests;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		F84A6AB519A9A72F007B53E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -473,6 +712,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		610B1AD11BB6114E00B64973 /* Build configuration list for PBXNativeTarget "Surge (OSX)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				610B1ACF1BB6114E00B64973 /* Debug */,
+				610B1AD01BB6114E00B64973 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		611C77211BB9F75200684204 /* Build configuration list for PBXNativeTarget "SurgeTests (OSX)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				611C771F1BB9F75200684204 /* Debug */,
+				611C77201BB9F75200684204 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F84A6AB419A9A72F007B53E1 /* Build configuration list for PBXNativeTarget "SurgeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
