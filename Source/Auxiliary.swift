@@ -118,6 +118,12 @@ public func neg(x: [Double]) -> [Double] {
     return results
 }
 
+public func neg(x: [Complex]) -> [Complex] {
+    let results = [Complex](count: x.count, repeatedValue: Complex())
+    vDSP_vnegD(UnsafePointer<Double>(x), 1, UnsafeMutablePointer<Double>(results), 1, vDSP_Length(2*x.count))
+    return results
+}
+
 // MARK: Reciprocal
 
 public func rec(x: [Float]) -> [Float] {

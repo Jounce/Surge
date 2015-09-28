@@ -136,6 +136,20 @@ public func measq(x: [Double]) -> Double {
     return result
 }
 
+// MARK: RMS
+
+func rms(values: [Float]) -> Float {
+    var result: Float = 0.0
+    vDSP_rmsqv(values, 1, &result, vDSP_Length(values.count))
+    return result
+}
+
+func rms(values: [Double]) -> Double {
+    var result: Double = 0.0
+    vDSP_rmsqvD(values, 1, &result, vDSP_Length(values.count))
+    return result
+}
+
 // MARK: Add
 
 public func add(x: [Float], _ y: [Float]) -> [Float] {
