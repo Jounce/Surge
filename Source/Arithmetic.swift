@@ -130,14 +130,14 @@ public func measq(x: [Double]) -> Double {
 
 // MARK: Add
 
-public func add(x: [Float], y: [Float]) -> [Float] {
+public func add(x: [Float], _ y: [Float]) -> [Float] {
     var results = [Float](y)
     cblas_saxpy(Int32(x.count), 1.0, x, 1, &results, 1)
 
     return results
 }
 
-public func add(x: [Double], y: [Double]) -> [Double] {
+public func add(x: [Double], _ y: [Double]) -> [Double] {
     var results = [Double](y)
     cblas_daxpy(Int32(x.count), 1.0, x, 1, &results, 1)
 
@@ -146,14 +146,14 @@ public func add(x: [Double], y: [Double]) -> [Double] {
 
 // MARK: Multiply
 
-public func mul(x: [Float], y: [Float]) -> [Float] {
+public func mul(x: [Float], _ y: [Float]) -> [Float] {
     var results = [Float](count: x.count, repeatedValue: 0.0)
     vDSP_vmul(x, 1, y, 1, &results, 1, vDSP_Length(x.count))
 
     return results
 }
 
-public func mul(x: [Double], y: [Double]) -> [Double] {
+public func mul(x: [Double], _ y: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vDSP_vmulD(x, 1, y, 1, &results, 1, vDSP_Length(x.count))
 
@@ -162,14 +162,14 @@ public func mul(x: [Double], y: [Double]) -> [Double] {
 
 // MARK: Divide
 
-public func div(x: [Float], y: [Float]) -> [Float] {
+public func div(x: [Float], _ y: [Float]) -> [Float] {
     var results = [Float](count: x.count, repeatedValue: 0.0)
     vvdivf(&results, x, y, [Int32(x.count)])
 
     return results
 }
 
-public func div(x: [Double], y: [Double]) -> [Double] {
+public func div(x: [Double], _ y: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvdiv(&results, x, y, [Int32(x.count)])
 
@@ -178,14 +178,14 @@ public func div(x: [Double], y: [Double]) -> [Double] {
 
 // MARK: Modulo
 
-public func mod(x: [Float], y: [Float]) -> [Float] {
+public func mod(x: [Float], _ y: [Float]) -> [Float] {
     var results = [Float](count: x.count, repeatedValue: 0.0)
     vvfmodf(&results, x, y, [Int32(x.count)])
 
     return results
 }
 
-public func mod(x: [Double], y: [Double]) -> [Double] {
+public func mod(x: [Double], _ y: [Double]) -> [Double] {
     var results = [Double](count: x.count, repeatedValue: 0.0)
     vvfmod(&results, x, y, [Int32(x.count)])
 
@@ -194,7 +194,7 @@ public func mod(x: [Double], y: [Double]) -> [Double] {
 
 // MARK: Remainder
 
-public func remainder(x: [Float], y: [Float]) -> [Float] {
+public func remainder(x: [Float], _ y: [Float]) -> [Float] {
     var results = [Float](count: x.count, repeatedValue: 0.0)
     vvremainderf(&results, x, y, [Int32(x.count)])
 
@@ -226,7 +226,7 @@ public func sqrt(x: [Double]) -> [Double] {
 
 // MARK: Dot Product
 
-public func dot(x: [Float], y: [Float]) -> Float {
+public func dot(x: [Float], _ y: [Float]) -> Float {
     precondition(x.count == y.count, "Vectors must have equal count")
 
     var result: Float = 0.0
@@ -236,7 +236,7 @@ public func dot(x: [Float], y: [Float]) -> Float {
 }
 
 
-public func dot(x: [Double], y: [Double]) -> Double {
+public func dot(x: [Double], _ y: [Double]) -> Double {
     precondition(x.count == y.count, "Vectors must have equal count")
 
     var result: Double = 0.0
