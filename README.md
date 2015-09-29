@@ -68,7 +68,7 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 - `remainder`
 - `sqrt`
 
-### Auxilliary
+### Auxiliary
 
 - `abs`
 - `ceil`
