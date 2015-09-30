@@ -31,6 +31,8 @@
 		618396B41BB9FD3A0071B3B1 /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */; settings = {ASSET_TAGS = (); }; };
 		618396B51BB9FD3A0071B3B1 /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */; settings = {ASSET_TAGS = (); }; };
 		61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4DCB81BB3ACAD0019C603 /* Complex.swift */; };
+		8CFA38951BBCA44800A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
+		8CFA38961BBCA66200A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
 		E65C5BE419FF9CF600149FF1 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65C5BE319FF9CF600149FF1 /* Matrix.swift */; };
 		F8A1E1CB19917B0A009735E2 /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C419917B0A009735E2 /* Arithmetic.swift */; };
 		F8A1E1CC19917B0A009735E2 /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C519917B0A009735E2 /* Auxiliary.swift */; };
@@ -77,6 +79,7 @@
 		617E53B71BB9FBC8000D67B0 /* afd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = afd.swift; sourceTree = "<group>"; };
 		617E53B91BB9FBC8000D67B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61F4DCB81BB3ACAD0019C603 /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
+		8CFA38941BBCA44800A73DD9 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		E65C5BE319FF9CF600149FF1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		F84A6AAE19A9A72F007B53E1 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84A6AB119A9A72F007B53E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -217,14 +220,15 @@
 				F8A1E1C919917B0A009735E2 /* Surge.h */,
 				F8A1E1C419917B0A009735E2 /* Arithmetic.swift */,
 				F8A1E1C519917B0A009735E2 /* Auxiliary.swift */,
+				61F4DCB81BB3ACAD0019C603 /* Complex.swift */,
 				617936CA1BBC522900B255B0 /* DSP.swift */,
 				F8A1E1C619917B0A009735E2 /* Exponential.swift */,
 				F8AE90FD19D1D9120078C7B2 /* FFT.swift */,
 				F8A1E1C719917B0A009735E2 /* Hyperbolic.swift */,
 				E65C5BE319FF9CF600149FF1 /* Matrix.swift */,
+				8CFA38941BBCA44800A73DD9 /* Point.swift */,
 				F8A1E1C819917B0A009735E2 /* Power.swift */,
 				F8A1E1CA19917B0A009735E2 /* Trigonometric.swift */,
-				61F4DCB81BB3ACAD0019C603 /* Complex.swift */,
 			);
 			path = Source;
 			sourceTree = SOURCE_ROOT;
@@ -423,6 +427,7 @@
 				610B1AD91BB6120400B64973 /* Exponential.swift in Sources */,
 				610B1ADE1BB6120400B64973 /* Trigonometric.swift in Sources */,
 				610B1ADB1BB6120400B64973 /* Hyperbolic.swift in Sources */,
+				8CFA38961BBCA66200A73DD9 /* Point.swift in Sources */,
 				610B1ADD1BB6120400B64973 /* Power.swift in Sources */,
 				610B1AD71BB6120400B64973 /* Arithmetic.swift in Sources */,
 				617936CC1BBC522900B255B0 /* DSP.swift in Sources */,
@@ -468,6 +473,7 @@
 				F8A1E1CF19917B0A009735E2 /* Power.swift in Sources */,
 				E65C5BE419FF9CF600149FF1 /* Matrix.swift in Sources */,
 				F8AE90FE19D1D9120078C7B2 /* FFT.swift in Sources */,
+				8CFA38951BBCA44800A73DD9 /* Point.swift in Sources */,
 				F8A1E1CD19917B0A009735E2 /* Exponential.swift in Sources */,
 				F8A1E1CB19917B0A009735E2 /* Arithmetic.swift in Sources */,
 				617936CB1BBC522900B255B0 /* DSP.swift in Sources */,
