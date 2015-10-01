@@ -70,7 +70,7 @@ public func intersect(lhs: Interval, _ rhs: Interval) -> Interval {
     Map a value from one interval to another. For instance mapping 0.5 from the interval [0, 1] to the iterval
     [1, 100] yields 50.
 */
-func mapValue(value: Double, fromInterval: Interval, toInterval: Interval) -> Double {
+public func mapValue(value: Double, fromInterval: Interval, toInterval: Interval) -> Double {
     let parameter = (value - fromInterval.min) / (fromInterval.max - fromInterval.min)
     return toInterval.min + (toInterval.max - toInterval.min) * parameter
 }
