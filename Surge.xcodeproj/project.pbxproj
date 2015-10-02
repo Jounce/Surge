@@ -78,8 +78,6 @@
 		610B1AD41BB6118100B64973 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		611C77171BB9F75200684204 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		617936CA1BBC522900B255B0 /* DSP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSP.swift; sourceTree = "<group>"; };
-		617E53B71BB9FBC8000D67B0 /* afd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = afd.swift; sourceTree = "<group>"; };
-		617E53B91BB9FBC8000D67B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61F4DCB81BB3ACAD0019C603 /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		8CFA38941BBCA44800A73DD9 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		8CFA38A11BBD9D1700A73DD9 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
@@ -144,15 +142,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		617E53B61BB9FBC8000D67B0 /* afd */ = {
-			isa = PBXGroup;
-			children = (
-				617E53B71BB9FBC8000D67B0 /* afd.swift */,
-				617E53B91BB9FBC8000D67B0 /* Info.plist */,
-			);
-			path = afd;
-			sourceTree = "<group>";
-		};
 		F84A6AAF19A9A72F007B53E1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,7 +171,6 @@
 			children = (
 				F8A1E1AC19917A79009735E2 /* Source */,
 				F84A6AAF19A9A72F007B53E1 /* Tests */,
-				617E53B61BB9FBC8000D67B0 /* afd */,
 				F8A1E1D419917C17009735E2 /* Frameworks */,
 				F8A1E1AB19917A79009735E2 /* Products */,
 			);
