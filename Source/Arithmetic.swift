@@ -25,23 +25,40 @@ import Accelerate
 // MARK: Sum
 
 public func sum(x: [Float]) -> Float {
+    return sum(x, range: 0..<x.count)
+}
+
+public func sum(x: [Float], range: Range<Int> ) -> Float {
     var result: Float = 0.0
-    vDSP_sve(x, 1, &result, vDSP_Length(x.count))
+    let p = UnsafePointer<Float>(x) + range.startIndex
+    vDSP_sve(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
 
 public func sum(x: [Double]) -> Double {
+    return sum(x, range: 0..<x.count)
+}
+
+public func sum(x: [Double], range: Range<Int>) -> Double {
     var result: Double = 0.0
-    vDSP_sveD(x, 1, &result, vDSP_Length(x.count))
+    let p = UnsafePointer<Double>(x) + range.startIndex
+    vDSP_sveD(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
 
 public func sum(x: [Complex]) -> Complex {
+    return sum(x, range: 0..<x.count)
+}
+
+public func sum(x: [Complex], range: Range<Int>) -> Complex {
+    let reals = UnsafePointer<Double>(x) + range.startIndex
+    let imags = UnsafePointer<Double>(x) + range.startIndex + 1
+
     var result = Complex()
-    vDSP_sveD(UnsafePointer<Double>(x), 2, &result.real, vDSP_Length(x.count))
-    vDSP_sveD(UnsafePointer<Double>(x) + 1, 2, &result.imag, vDSP_Length(x.count))
+    vDSP_sveD(reals, 2, &result.real, vDSP_Length(range.count))
+    vDSP_sveD(imags, 2, &result.imag, vDSP_Length(range.count))
 
     return result
 }
@@ -49,25 +66,47 @@ public func sum(x: [Complex]) -> Complex {
 // MARK: Sum of Absolute Values
 
 public func asum(x: [Float]) -> Float {
-    return cblas_sasum(Int32(x.count), x, 1)
+    return asum(x, range: 0..<x.count)
+}
+
+public func asum(x: [Float], range: Range<Int>) -> Float {
+    let p = UnsafePointer<Float>(x) + range.startIndex
+    return cblas_sasum(Int32(range.count), p, 1)
 }
 
 public func asum(x: [Double]) -> Double {
-    return cblas_dasum(Int32(x.count), x, 1)
+    return asum(x, range: 0..<x.count)
+}
+
+public func asum(x: [Double], range: Range<Int>) -> Double {
+    let p = UnsafePointer<Double>(x) + range.startIndex
+    return cblas_dasum(Int32(range.count), p, 1)
 }
 
 // MARK: Maximum
 
 public func max(x: [Float]) -> Float {
+    return max(x, range: 0..<x.count)
+}
+
+public func max(x: [Float], range: Range<Int>) -> Float {
+    let p = UnsafePointer<Float>(x) + range.startIndex
+
     var result: Float = 0.0
-    vDSP_maxv(x, 1, &result, vDSP_Length(x.count))
+    vDSP_maxv(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
 
 public func max(x: [Double]) -> Double {
+    return max(x, range: 0..<x.count)
+}
+
+public func max(x: [Double], range: Range<Int>) -> Double {
+    let p = UnsafePointer<Double>(x) + range.startIndex
+
     var result: Double = 0.0
-    vDSP_maxvD(x, 1, &result, vDSP_Length(x.count))
+    vDSP_maxvD(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
@@ -75,15 +114,27 @@ public func max(x: [Double]) -> Double {
 // MARK: Minimum
 
 public func min(x: [Float]) -> Float {
+    return min(x, range: 0..<x.count)
+}
+
+public func min(x: [Float], range: Range<Int>) -> Float {
+    let p = UnsafePointer<Float>(x) + range.startIndex
+
     var result: Float = 0.0
-    vDSP_minv(x, 1, &result, vDSP_Length(x.count))
+    vDSP_minv(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
 
 public func min(x: [Double]) -> Double {
+    return min(x, range: 0..<x.count)
+}
+
+public func min(x: [Double], range: Range<Int>) -> Double {
+    let p = UnsafePointer<Double>(x) + range.startIndex
+
     var result: Double = 0.0
-    vDSP_minvD(x, 1, &result, vDSP_Length(x.count))
+    vDSP_minvD(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
@@ -91,15 +142,27 @@ public func min(x: [Double]) -> Double {
 // MARK: Mean
 
 public func mean(x: [Float]) -> Float {
+    return mean(x, range: 0..<x.count)
+}
+
+public func mean(x: [Float], range: Range<Int>) -> Float {
+    let p = UnsafePointer<Float>(x) + range.startIndex
+
     var result: Float = 0.0
-    vDSP_meanv(x, 1, &result, vDSP_Length(x.count))
+    vDSP_meanv(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
 
 public func mean(x: [Double]) -> Double {
+    return mean(x, range: 0..<x.count)
+}
+
+public func mean(x: [Double], range: Range<Int>) -> Double {
+    let p = UnsafePointer<Double>(x) + range.startIndex
+
     var result: Double = 0.0
-    vDSP_meanvD(x, 1, &result, vDSP_Length(x.count))
+    vDSP_meanvD(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
@@ -107,15 +170,27 @@ public func mean(x: [Double]) -> Double {
 // MARK: Mean Magnitude
 
 public func meamg(x: [Float]) -> Float {
+    return meamg(x, range: 0..<x.count)
+}
+
+public func meamg(x: [Float], range: Range<Int>) -> Float {
+    let p = UnsafePointer<Float>(x) + range.startIndex
+
     var result: Float = 0.0
-    vDSP_meamgv(x, 1, &result, vDSP_Length(x.count))
+    vDSP_meamgv(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
 
 public func meamg(x: [Double]) -> Double {
+    return meamg(x, range: 0..<x.count)
+}
+
+public func meamg(x: [Double], range: Range<Int>) -> Double {
+    let p = UnsafePointer<Double>(x) + range.startIndex
+
     var result: Double = 0.0
-    vDSP_meamgvD(x, 1, &result, vDSP_Length(x.count))
+    vDSP_meamgvD(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
@@ -123,30 +198,56 @@ public func meamg(x: [Double]) -> Double {
 // MARK: Mean Square Value
 
 public func measq(x: [Float]) -> Float {
+    return measq(x, range: 0..<x.count)
+}
+
+public func measq(x: [Float], range: Range<Int>) -> Float {
+    let p = UnsafePointer<Float>(x) + range.startIndex
+
     var result: Float = 0.0
-    vDSP_measqv(x, 1, &result, vDSP_Length(x.count))
+    vDSP_measqv(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
 
 public func measq(x: [Double]) -> Double {
+    return measq(x, range: 0..<x.count)
+}
+
+public func measq(x: [Double], range: Range<Int>) -> Double {
+    let p = UnsafePointer<Double>(x) + range.startIndex
+
     var result: Double = 0.0
-    vDSP_measqvD(x, 1, &result, vDSP_Length(x.count))
+    vDSP_measqvD(p, 1, &result, vDSP_Length(range.count))
 
     return result
 }
 
 // MARK: RMS
 
-func rms(values: [Float]) -> Float {
+public func rmsq(x: [Float]) -> Float {
+    return rmsq(x, range: 0..<x.count)
+}
+
+public func rmsq(x: [Float], range: Range<Int>) -> Float {
+    let p = UnsafePointer<Float>(x) + range.startIndex
+
     var result: Float = 0.0
-    vDSP_rmsqv(values, 1, &result, vDSP_Length(values.count))
+    vDSP_rmsqv(p, 1, &result, vDSP_Length(range.count))
+
     return result
 }
 
-func rms(values: [Double]) -> Double {
+public func rmsq(x: [Double]) -> Double {
+    return rmsq(x, range: 0..<x.count)
+}
+
+public func rmsq(x: [Double], range: Range<Int>) -> Double {
+    let p = UnsafePointer<Double>(x) + range.startIndex
+
     var result: Double = 0.0
-    vDSP_rmsqvD(values, 1, &result, vDSP_Length(values.count))
+    vDSP_rmsqvD(p, 1, &result, vDSP_Length(range.count))
+
     return result
 }
 
