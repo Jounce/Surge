@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Surge.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F8A1E1A919917A79009735E2"
-               BuildableName = "Surge.framework"
-               BlueprintName = "Surge (iOS)"
-               ReferencedContainer = "container:Surge.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
