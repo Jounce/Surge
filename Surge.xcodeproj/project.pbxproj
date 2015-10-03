@@ -299,9 +299,9 @@
 			productReference = 611C77171BB9F75200684204 /* SurgeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F84A6AAD19A9A72F007B53E1 /* SurgeTests */ = {
+		F84A6AAD19A9A72F007B53E1 /* SurgeTests (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F84A6AB419A9A72F007B53E1 /* Build configuration list for PBXNativeTarget "SurgeTests" */;
+			buildConfigurationList = F84A6AB419A9A72F007B53E1 /* Build configuration list for PBXNativeTarget "SurgeTests (iOS)" */;
 			buildPhases = (
 				F84A6AAA19A9A72F007B53E1 /* Sources */,
 				F84A6AAB19A9A72F007B53E1 /* Frameworks */,
@@ -312,14 +312,14 @@
 			dependencies = (
 				F84A6AB819A9A771007B53E1 /* PBXTargetDependency */,
 			);
-			name = SurgeTests;
+			name = "SurgeTests (iOS)";
 			productName = SurgeTests;
 			productReference = F84A6AAE19A9A72F007B53E1 /* SurgeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F8A1E1A919917A79009735E2 /* Surge */ = {
+		F8A1E1A919917A79009735E2 /* Surge (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8A1E1BD19917A79009735E2 /* Build configuration list for PBXNativeTarget "Surge" */;
+			buildConfigurationList = F8A1E1BD19917A79009735E2 /* Build configuration list for PBXNativeTarget "Surge (iOS)" */;
 			buildPhases = (
 				F8A1E1A519917A79009735E2 /* Sources */,
 				F8A1E1A619917A79009735E2 /* Frameworks */,
@@ -330,7 +330,7 @@
 			);
 			dependencies = (
 			);
-			name = Surge;
+			name = "Surge (iOS)";
 			productName = Surge;
 			productReference = F8A1E1AA19917A79009735E2 /* Surge.framework */;
 			productType = "com.apple.product-type.framework";
@@ -372,8 +372,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F8A1E1A919917A79009735E2 /* Surge */,
-				F84A6AAD19A9A72F007B53E1 /* SurgeTests */,
+				F8A1E1A919917A79009735E2 /* Surge (iOS) */,
+				F84A6AAD19A9A72F007B53E1 /* SurgeTests (iOS) */,
 				610B1AC91BB6114E00B64973 /* Surge (OSX) */,
 				611C77161BB9F75200684204 /* SurgeTests (OSX) */,
 			);
@@ -490,7 +490,7 @@
 		};
 		F84A6AB819A9A771007B53E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F8A1E1A919917A79009735E2 /* Surge */;
+			target = F8A1E1A919917A79009735E2 /* Surge (iOS) */;
 			targetProxy = F84A6AB719A9A771007B53E1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -587,7 +587,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mattt.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SurgeTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/SurgeTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -604,7 +604,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mattt.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SurgeTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/SurgeTests-Bridging-Header.h";
 			};
 			name = Release;
@@ -706,7 +706,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mattt.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Surge;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -722,7 +722,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mattt.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Surge;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -748,7 +748,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F84A6AB419A9A72F007B53E1 /* Build configuration list for PBXNativeTarget "SurgeTests" */ = {
+		F84A6AB419A9A72F007B53E1 /* Build configuration list for PBXNativeTarget "SurgeTests (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F84A6AB519A9A72F007B53E1 /* Debug */,
@@ -766,7 +766,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8A1E1BD19917A79009735E2 /* Build configuration list for PBXNativeTarget "Surge" */ = {
+		F8A1E1BD19917A79009735E2 /* Build configuration list for PBXNativeTarget "Surge (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8A1E1BE19917A79009735E2 /* Debug */,
