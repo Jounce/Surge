@@ -48,13 +48,20 @@ public func correlation(x: [Double], _ y: [Double]) -> [Double] {
 }
 
 /**
-    Autocorrelation function.
+    Autocorrelation function. This function finds the correlation of a signal with itself shifted by increasing lags.
+    Since autocorrelation is symetric, this function returns only positive lags up to the specified maximum lag. The
+    maximum lag has to be smaller than the size of the signal.
+
+    - parameter x: The signal
+    - parameter maxLag: The maximum lag to use.
 */
-public func autocorrelation(x: [Double]) -> [Double] {
-    let signalSize = 3 * x.count - 2
+public func autocorrelation(x: [Double], maxLag: Int) -> [Double] {
+    precondition(maxLag < x.count)
+
+    let signalSize = x.count + maxLag
     var signal = [Double](count: signalSize, repeatedValue: 0.0)
     for i in 0..<x.count {
-        signal[x.count + i - 1] = x[i]
+        signal[i] = x[i]
     }
     return correlation(signal, x)
 }

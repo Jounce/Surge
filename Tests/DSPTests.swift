@@ -36,8 +36,8 @@ class DSPTests: XCTestCase {
     }
 
     func test_autocorrelation() {
-        let actual = autocorrelation([1.0, 1.0])
-        let expected = [1.0, 2.0, 1.0]
+        let actual = autocorrelation([1.0, 1.0], maxLag: 1)
+        let expected = [2.0, 1.0]
         XCTAssertEqual(actual, expected)
     }
 }
