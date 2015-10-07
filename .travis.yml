@@ -1,0 +1,4 @@
+language: objective-c
+xcode_workspace: Surge.xcworkspace
+xcode_scheme: Surge (OSX)
+osx_image: xcode7

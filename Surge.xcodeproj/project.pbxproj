@@ -30,8 +30,6 @@
 		618396B31BB9FD3A0071B3B1 /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */; settings = {ASSET_TAGS = (); }; };
 		618396B41BB9FD3A0071B3B1 /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */; settings = {ASSET_TAGS = (); }; };
 		618396B51BB9FD3A0071B3B1 /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */; settings = {ASSET_TAGS = (); }; };
-		618B7E231BBEE7C20011E8D3 /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B7E211BBEE7BD0011E8D3 /* IntervalTests.swift */; settings = {ASSET_TAGS = (); }; };
-		618B7E241BBEE7C30011E8D3 /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B7E211BBEE7BD0011E8D3 /* IntervalTests.swift */; settings = {ASSET_TAGS = (); }; };
 		61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4DCB81BB3ACAD0019C603 /* Complex.swift */; };
 		8CFA38951BBCA44800A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
 		8CFA38961BBCA66200A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
@@ -78,7 +76,6 @@
 		610B1AD41BB6118100B64973 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		611C77171BB9F75200684204 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		617936CA1BBC522900B255B0 /* DSP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSP.swift; sourceTree = "<group>"; };
-		618B7E211BBEE7BD0011E8D3 /* IntervalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalTests.swift; sourceTree = "<group>"; };
 		61F4DCB81BB3ACAD0019C603 /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		8CFA38941BBCA44800A73DD9 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		E65C5BE319FF9CF600149FF1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
@@ -151,7 +148,6 @@
 				6109383F1BBC5F3300ED27DA /* DSPTests.swift */,
 				F8BD5C551A6C1C6500DD357E /* ExponentialTests.swift */,
 				F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */,
-				618B7E211BBEE7BD0011E8D3 /* IntervalTests.swift */,
 				F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */,
 				F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */,
 			);
@@ -436,7 +432,6 @@
 				618396B41BB9FD3A0071B3B1 /* TrigonometricTests.swift in Sources */,
 				618396B51BB9FD3A0071B3B1 /* XCTestCase+Surge.swift in Sources */,
 				618396B01BB9FD3A0071B3B1 /* ArithmeticTests.swift in Sources */,
-				618B7E241BBEE7C30011E8D3 /* IntervalTests.swift in Sources */,
 				618396B21BB9FD3A0071B3B1 /* ExponentialTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,7 +446,6 @@
 				F8BD5C5D1A6C1C6500DD357E /* TrigonometricTests.swift in Sources */,
 				F8BD5C5E1A6C1C6500DD357E /* XCTestCase+Surge.swift in Sources */,
 				F8BD5C591A6C1C6500DD357E /* ArithmeticTests.swift in Sources */,
-				618B7E231BBEE7C20011E8D3 /* IntervalTests.swift in Sources */,
 				F8BD5C5B1A6C1C6500DD357E /* ExponentialTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
