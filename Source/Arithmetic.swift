@@ -364,6 +364,53 @@ public func + (lhs: [Complex], var rhs: Complex) -> [Complex] {
     return result
 }
 
+public func - (lhs: [Float], rhs: [Float]) -> [Float] {
+    var results = [Float](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vsub(rhs, 1, lhs, 1, &results, 1, vDSP_Length(lhs.count))
+    
+    return results
+}
+
+public func - (lhs: [Double], rhs: [Double]) -> [Double] {
+    var results = [Double](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vsubD(rhs, 1, lhs, 1, &results, 1, vDSP_Length(lhs.count))
+    
+    return results
+}
+
+public func - (var lhs: [Complex], var rhs: [Complex]) -> [Complex] {
+    var results = [Complex](count: lhs.count / 2, repeatedValue: Complex())
+    vDSP_vsubD(&(rhs[0].real), 2, &(lhs[0].real), 2, &(results[0].real), 2, vDSP_Length(lhs.count / 2))
+    vDSP_vsubD(&(rhs[0].imag), 2, &(lhs[0].imag), 2, &(results[0].imag), 2, vDSP_Length(lhs.count / 2))
+    
+    return results
+}
+
+public func - (lhs: [Float], rhs: Float) -> [Float] {
+    var result = [Float](count: lhs.count, repeatedValue: 0.0)
+    var scalar: Float = -1 * rhs
+    vDSP_vsadd(lhs, 1, &scalar, &result, 1, vDSP_Length(lhs.count))
+    
+    return result
+}
+
+public func - (lhs: [Double], rhs: Double) -> [Double] {
+    var result = [Double](count: lhs.count, repeatedValue: 0.0)
+    var scalar: Double = -1 * rhs
+    vDSP_vsaddD(lhs, 1, &scalar, &result, 1, vDSP_Length(lhs.count))
+    
+    return result
+}
+
+public func - (lhs: [Complex], rhs: Complex) -> [Complex] {
+    var result = [Complex](count: lhs.count, repeatedValue: Complex())
+    var scalar: Complex = -1 * rhs
+    vDSP_vsaddD(UnsafePointer<Double>(lhs), 2, &scalar.real, &(result[0].real), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(UnsafePointer<Double>(lhs) + 1, 2, &scalar.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
+    
+    return result
+}
+
 public func / (lhs: [Float], rhs: [Float]) -> [Float] {
     var results = [Float](count: lhs.count, repeatedValue: 0.0)
     vvdivf(&results, lhs, rhs, [Int32(lhs.count)])
