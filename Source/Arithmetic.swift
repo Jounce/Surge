@@ -274,54 +274,6 @@ public func add(x: [Complex], _ y: [Complex]) -> [Complex] {
     return results
 }
 
-// MARK: Multiply
-
-public func mul(x: [Float], _ y: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vDSP_vmul(x, 1, y, 1, &results, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-public func mul(x: [Double], _ y: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vDSP_vmulD(x, 1, y, 1, &results, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-public func mul(x: [Complex], _ y: [Double]) -> [Complex] {
-    let results = [Complex](count: x.count, repeatedValue: Complex())
-    vDSP_vmulD(UnsafePointer<Double>(x), 2, y, 1, UnsafeMutablePointer<Double>(results), 2, vDSP_Length(x.count))
-    vDSP_vmulD(UnsafePointer<Double>(x) + 1, 2, y, 1, UnsafeMutablePointer<Double>(results) + 1, 2, vDSP_Length(x.count))
-
-    return results
-}
-
-// MARK: Divide
-
-public func div(x: [Float], _ y: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvdivf(&results, x, y, [Int32(x.count)])
-
-    return results
-}
-
-public func div(x: [Double], _ y: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvdiv(&results, x, y, [Int32(x.count)])
-
-    return results
-}
-
-public func div(x: [Complex], _ y: [Double]) -> [Complex] {
-    let results = [Complex](count: x.count, repeatedValue: Complex())
-    vDSP_vdivD(UnsafePointer<Double>(x), 2, y, 1, UnsafeMutablePointer<Double>(results), 2, vDSP_Length(x.count))
-    vDSP_vdivD(UnsafePointer<Double>(x) + 1, 2, y, 1, UnsafeMutablePointer<Double>(results) + 1, 2, vDSP_Length(x.count))
-
-    return results
-}
-
 // MARK: Modulo
 
 public func mod(x: [Float], _ y: [Float]) -> [Float] {
@@ -417,43 +369,98 @@ public func + (lhs: [Complex], rhs: Complex) -> [Complex] {
 }
 
 public func / (lhs: [Float], rhs: [Float]) -> [Float] {
-    return div(lhs, rhs)
+    var results = [Float](count: lhs.count, repeatedValue: 0.0)
+    vvdivf(&results, lhs, rhs, [Int32(lhs.count)])
+
+    return results
 }
 
 public func / (lhs: [Double], rhs: [Double]) -> [Double] {
-    return div(lhs, rhs)
+    var results = [Double](count: lhs.count, repeatedValue: 0.0)
+    vvdiv(&results, lhs, rhs, [Int32(lhs.count)])
+
+    return results
 }
 
-public func / (lhs: [Float], rhs: Float) -> [Float] {
-    return div(lhs, [Float](count: lhs.count, repeatedValue: rhs))
+public func / (lhs: [Complex], rhs: [Double]) -> [Complex] {
+    let results = [Complex](count: lhs.count, repeatedValue: Complex())
+    vDSP_vdivD(UnsafePointer<Double>(lhs), 2, rhs, 1, UnsafeMutablePointer<Double>(results), 2, vDSP_Length(lhs.count))
+    vDSP_vdivD(UnsafePointer<Double>(lhs) + 1, 2, rhs, 1, UnsafeMutablePointer<Double>(results) + 1, 2, vDSP_Length(lhs.count))
+
+    return results
 }
 
-public func / (lhs: [Double], rhs: Double) -> [Double] {
-    return div(lhs, [Double](count: lhs.count, repeatedValue: rhs))
+public func / (lhs: [Float], var rhs: Float) -> [Float] {
+    let results = [Float](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vsdiv(UnsafePointer<Float>(lhs), 1, &rhs, UnsafeMutablePointer<Float>(results), 1, vDSP_Length(lhs.count))
+    return results
 }
 
-public func / (lhs: [Complex], rhs: Double) -> [Complex] {
-    return div(lhs, [Double](count: lhs.count, repeatedValue: rhs))
+public func / (lhs: [Double], var rhs: Double) -> [Double] {
+    let results = [Double](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vsdivD(UnsafePointer<Double>(lhs), 1, &rhs, UnsafeMutablePointer<Double>(results), 1, vDSP_Length(lhs.count))
+    return results
+}
+
+public func / (lhs: [Complex], var rhs: Double) -> [Complex] {
+    let results = [Complex](count: lhs.count, repeatedValue: Complex())
+    vDSP_vsdivD(UnsafePointer<Double>(lhs), 1, &rhs, UnsafeMutablePointer<Double>(results), 1, vDSP_Length(2 * lhs.count))
+    return results
 }
 
 public func * (lhs: [Float], rhs: [Float]) -> [Float] {
-    return mul(lhs, rhs)
+    var results = [Float](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vmul(lhs, 1, rhs, 1, &results, 1, vDSP_Length(lhs.count))
+
+    return results
 }
 
 public func * (lhs: [Double], rhs: [Double]) -> [Double] {
-    return mul(lhs, rhs)
+    var results = [Double](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vmulD(lhs, 1, rhs, 1, &results, 1, vDSP_Length(lhs.count))
+
+    return results
 }
 
-public func * (lhs: [Float], rhs: Float) -> [Float] {
-    return mul(lhs, [Float](count: lhs.count, repeatedValue: rhs))
+public func * (lhs: [Complex], rhs: [Double]) -> [Complex] {
+    let results = [Complex](count: lhs.count, repeatedValue: Complex())
+    vDSP_vmulD(UnsafePointer<Double>(lhs), 2, rhs, 1, UnsafeMutablePointer<Double>(results), 2, vDSP_Length(lhs.count))
+    vDSP_vmulD(UnsafePointer<Double>(lhs) + 1, 2, rhs, 1, UnsafeMutablePointer<Double>(results) + 1, 2, vDSP_Length(lhs.count))
+
+    return results
 }
 
-public func * (lhs: [Double], rhs: Double) -> [Double] {
-    return mul(lhs, [Double](count: lhs.count, repeatedValue: rhs))
+public func * (lhs: [Double], rhs: [Complex]) -> [Complex] {
+    return rhs * lhs
 }
 
-public func * (lhs: [Complex], rhs: Double) -> [Complex] {
-    return mul(lhs, [Double](count: lhs.count, repeatedValue: rhs))
+public func * (lhs: [Float], var rhs: Float) -> [Float] {
+    var result = [Float](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vsmul(lhs, 1, &rhs, &result, 1, vDSP_Length(lhs.count))
+
+    return result
+}
+
+public func * (lhs: Float, rhs: [Float]) -> [Float] {
+    return rhs * lhs
+}
+
+public func * (lhs: [Double], var rhs: Double) -> [Double] {
+    var result = [Double](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vsmulD(lhs, 1, &rhs, &result, 1, vDSP_Length(lhs.count))
+
+    return result
+}
+
+public func * (lhs: Double, rhs: [Double]) -> [Double] {
+    return rhs * lhs
+}
+
+public func * (lhs: [Complex], var rhs: Double) -> [Complex] {
+    var result = [Complex](count: lhs.count, repeatedValue: Complex())
+    vDSP_vsmulD(UnsafePointer<Double>(lhs), 1, &rhs, &(result[0].real), 1, vDSP_Length(lhs.count * 2))
+
+    return result
 }
 
 public func % (lhs: [Float], rhs: [Float]) -> [Float] {
