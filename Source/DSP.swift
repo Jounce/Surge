@@ -27,7 +27,7 @@ import Accelerate
 public func convolution(signal: [Double], _ kernel: [Double]) -> [Double] {
     precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
 
-    let kernelLast = UnsafePointer<Double>(kernel) + kernel.count - 1
+    let kernelLast = doublePointer(kernel) + kernel.count - 1
     let resultSize = signal.count - kernel.count + 1
     var result = [Double](count: resultSize, repeatedValue: 0.0)
     vDSP_convD(signal, 1, kernelLast, -1, &result, 1, vDSP_Length(resultSize), vDSP_Length(kernel.count))

@@ -30,6 +30,8 @@
 		618396B31BB9FD3A0071B3B1 /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */; settings = {ASSET_TAGS = (); }; };
 		618396B41BB9FD3A0071B3B1 /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */; settings = {ASSET_TAGS = (); }; };
 		618396B51BB9FD3A0071B3B1 /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */; settings = {ASSET_TAGS = (); }; };
+		61F131E31BD06C6400B5601D /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F131E21BD06C6400B5601D /* Pointers.swift */; settings = {ASSET_TAGS = (); }; };
+		61F131E41BD06D3A00B5601D /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F131E21BD06C6400B5601D /* Pointers.swift */; settings = {ASSET_TAGS = (); }; };
 		61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4DCB81BB3ACAD0019C603 /* Complex.swift */; };
 		8CFA38951BBCA44800A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
 		8CFA38961BBCA66200A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
@@ -76,6 +78,7 @@
 		610B1AD41BB6118100B64973 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		611C77171BB9F75200684204 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		617936CA1BBC522900B255B0 /* DSP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSP.swift; sourceTree = "<group>"; };
+		61F131E21BD06C6400B5601D /* Pointers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pointers.swift; sourceTree = "<group>"; };
 		61F4DCB81BB3ACAD0019C603 /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		8CFA38941BBCA44800A73DD9 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		E65C5BE319FF9CF600149FF1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
@@ -217,6 +220,7 @@
 				8CFA38941BBCA44800A73DD9 /* Point.swift */,
 				F8A1E1C819917B0A009735E2 /* Power.swift */,
 				F8A1E1CA19917B0A009735E2 /* Trigonometric.swift */,
+				61F131E21BD06C6400B5601D /* Pointers.swift */,
 			);
 			path = Source;
 			sourceTree = SOURCE_ROOT;
@@ -417,6 +421,7 @@
 				610B1ADB1BB6120400B64973 /* Hyperbolic.swift in Sources */,
 				8CFA38961BBCA66200A73DD9 /* Point.swift in Sources */,
 				610B1ADD1BB6120400B64973 /* Power.swift in Sources */,
+				61F131E41BD06D3A00B5601D /* Pointers.swift in Sources */,
 				610B1AD71BB6120400B64973 /* Arithmetic.swift in Sources */,
 				617936CC1BBC522900B255B0 /* DSP.swift in Sources */,
 			);
@@ -463,6 +468,7 @@
 				F8AE90FE19D1D9120078C7B2 /* FFT.swift in Sources */,
 				8CFA38951BBCA44800A73DD9 /* Point.swift in Sources */,
 				F8A1E1CD19917B0A009735E2 /* Exponential.swift in Sources */,
+				61F131E31BD06C6400B5601D /* Pointers.swift in Sources */,
 				F8A1E1CB19917B0A009735E2 /* Arithmetic.swift in Sources */,
 				617936CB1BBC522900B255B0 /* DSP.swift in Sources */,
 			);

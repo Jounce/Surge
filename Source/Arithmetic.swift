@@ -30,7 +30,7 @@ public func sum(x: [Float]) -> Float {
 
 public func sum(x: [Float], range: Range<Int> ) -> Float {
     var result: Float = 0.0
-    let p = UnsafePointer<Float>(x) + range.startIndex
+    let p = floatPointer(x) + range.startIndex
     vDSP_sve(p, 1, &result, vDSP_Length(range.count))
 
     return result
@@ -42,7 +42,7 @@ public func sum(x: [Double]) -> Double {
 
 public func sum(x: [Double], range: Range<Int>) -> Double {
     var result: Double = 0.0
-    let p = UnsafePointer<Double>(x) + range.startIndex
+    let p = doublePointer(x) + range.startIndex
     vDSP_sveD(p, 1, &result, vDSP_Length(range.count))
 
     return result
@@ -53,8 +53,8 @@ public func sum(x: [Complex]) -> Complex {
 }
 
 public func sum(x: [Complex], range: Range<Int>) -> Complex {
-    let reals = UnsafePointer<Double>(x) + range.startIndex
-    let imags = UnsafePointer<Double>(x) + range.startIndex + 1
+    let reals = doublePointer(x) + range.startIndex
+    let imags = doublePointer(x) + range.startIndex + 1
 
     var result = Complex()
     vDSP_sveD(reals, 2, &result.real, vDSP_Length(range.count))
@@ -70,7 +70,7 @@ public func asum(x: [Float]) -> Float {
 }
 
 public func asum(x: [Float], range: Range<Int>) -> Float {
-    let p = UnsafePointer<Float>(x) + range.startIndex
+    let p = floatPointer(x) + range.startIndex
     return cblas_sasum(Int32(range.count), p, 1)
 }
 
@@ -79,7 +79,7 @@ public func asum(x: [Double]) -> Double {
 }
 
 public func asum(x: [Double], range: Range<Int>) -> Double {
-    let p = UnsafePointer<Double>(x) + range.startIndex
+    let p = doublePointer(x) + range.startIndex
     return cblas_dasum(Int32(range.count), p, 1)
 }
 
@@ -90,7 +90,7 @@ public func max(x: [Float]) -> Float {
 }
 
 public func max(x: [Float], range: Range<Int>) -> Float {
-    let p = UnsafePointer<Float>(x) + range.startIndex
+    let p = floatPointer(x) + range.startIndex
 
     var result: Float = 0.0
     vDSP_maxv(p, 1, &result, vDSP_Length(range.count))
@@ -103,7 +103,7 @@ public func max(x: [Double]) -> Double {
 }
 
 public func max(x: [Double], range: Range<Int>) -> Double {
-    let p = UnsafePointer<Double>(x) + range.startIndex
+    let p = doublePointer(x) + range.startIndex
 
     var result: Double = 0.0
     vDSP_maxvD(p, 1, &result, vDSP_Length(range.count))
@@ -118,7 +118,7 @@ public func min(x: [Float]) -> Float {
 }
 
 public func min(x: [Float], range: Range<Int>) -> Float {
-    let p = UnsafePointer<Float>(x) + range.startIndex
+    let p = floatPointer(x) + range.startIndex
 
     var result: Float = 0.0
     vDSP_minv(p, 1, &result, vDSP_Length(range.count))
@@ -131,7 +131,7 @@ public func min(x: [Double]) -> Double {
 }
 
 public func min(x: [Double], range: Range<Int>) -> Double {
-    let p = UnsafePointer<Double>(x) + range.startIndex
+    let p = doublePointer(x) + range.startIndex
 
     var result: Double = 0.0
     vDSP_minvD(p, 1, &result, vDSP_Length(range.count))
@@ -146,7 +146,7 @@ public func mean(x: [Float]) -> Float {
 }
 
 public func mean(x: [Float], range: Range<Int>) -> Float {
-    let p = UnsafePointer<Float>(x) + range.startIndex
+    let p = floatPointer(x) + range.startIndex
 
     var result: Float = 0.0
     vDSP_meanv(p, 1, &result, vDSP_Length(range.count))
@@ -159,7 +159,7 @@ public func mean(x: [Double]) -> Double {
 }
 
 public func mean(x: [Double], range: Range<Int>) -> Double {
-    let p = UnsafePointer<Double>(x) + range.startIndex
+    let p = doublePointer(x) + range.startIndex
 
     var result: Double = 0.0
     vDSP_meanvD(p, 1, &result, vDSP_Length(range.count))
@@ -174,7 +174,7 @@ public func meamg(x: [Float]) -> Float {
 }
 
 public func meamg(x: [Float], range: Range<Int>) -> Float {
-    let p = UnsafePointer<Float>(x) + range.startIndex
+    let p = floatPointer(x) + range.startIndex
 
     var result: Float = 0.0
     vDSP_meamgv(p, 1, &result, vDSP_Length(range.count))
@@ -187,7 +187,7 @@ public func meamg(x: [Double]) -> Double {
 }
 
 public func meamg(x: [Double], range: Range<Int>) -> Double {
-    let p = UnsafePointer<Double>(x) + range.startIndex
+    let p = doublePointer(x) + range.startIndex
 
     var result: Double = 0.0
     vDSP_meamgvD(p, 1, &result, vDSP_Length(range.count))
@@ -202,7 +202,7 @@ public func measq(x: [Float]) -> Float {
 }
 
 public func measq(x: [Float], range: Range<Int>) -> Float {
-    let p = UnsafePointer<Float>(x) + range.startIndex
+    let p = floatPointer(x) + range.startIndex
 
     var result: Float = 0.0
     vDSP_measqv(p, 1, &result, vDSP_Length(range.count))
@@ -215,7 +215,7 @@ public func measq(x: [Double]) -> Double {
 }
 
 public func measq(x: [Double], range: Range<Int>) -> Double {
-    let p = UnsafePointer<Double>(x) + range.startIndex
+    let p = doublePointer(x) + range.startIndex
 
     var result: Double = 0.0
     vDSP_measqvD(p, 1, &result, vDSP_Length(range.count))
@@ -230,7 +230,7 @@ public func rmsq(x: [Float]) -> Float {
 }
 
 public func rmsq(x: [Float], range: Range<Int>) -> Float {
-    let p = UnsafePointer<Float>(x) + range.startIndex
+    let p = floatPointer(x) + range.startIndex
 
     var result: Float = 0.0
     vDSP_rmsqv(p, 1, &result, vDSP_Length(range.count))
@@ -243,7 +243,7 @@ public func rmsq(x: [Double]) -> Double {
 }
 
 public func rmsq(x: [Double], range: Range<Int>) -> Double {
-    let p = UnsafePointer<Double>(x) + range.startIndex
+    let p = doublePointer(x) + range.startIndex
 
     var result: Double = 0.0
     vDSP_rmsqvD(p, 1, &result, vDSP_Length(range.count))
@@ -336,8 +336,8 @@ public func + (lhs: [Double], rhs: [Double]) -> [Double] {
 }
 
 public func + (lhs: [Complex], rhs: [Complex]) -> [Complex] {
-    let results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vaddD(UnsafePointer<Double>(lhs), 1, UnsafePointer<Double>(rhs), 1, UnsafeMutablePointer<Double>(results), 1, vDSP_Length(lhs.count))
+    var results = [Complex](count: lhs.count, repeatedValue: Complex())
+    vDSP_vaddD(doublePointer(lhs), 1, doublePointer(rhs), 1, mutableDoublePointer(&results), 1, vDSP_Length(lhs.count))
     
     return results
 }
@@ -358,8 +358,8 @@ public func + (lhs: [Double], var rhs: Double) -> [Double] {
 
 public func + (lhs: [Complex], var rhs: Complex) -> [Complex] {
     var result = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsaddD(UnsafePointer<Double>(lhs), 2, &rhs.real, &(result[0].real), 2, vDSP_Length(lhs.count))
-    vDSP_vsaddD(UnsafePointer<Double>(lhs) + 1, 2, &rhs.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(doublePointer(lhs), 2, &rhs.real, &(result[0].real), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(doublePointer(lhs) + 1, 2, &rhs.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
     
     return result
 }
@@ -405,8 +405,8 @@ public func - (lhs: [Double], rhs: Double) -> [Double] {
 public func - (lhs: [Complex], rhs: Complex) -> [Complex] {
     var result = [Complex](count: lhs.count, repeatedValue: Complex())
     var scalar: Complex = -1 * rhs
-    vDSP_vsaddD(UnsafePointer<Double>(lhs), 2, &scalar.real, &(result[0].real), 2, vDSP_Length(lhs.count))
-    vDSP_vsaddD(UnsafePointer<Double>(lhs) + 1, 2, &scalar.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(doublePointer(lhs), 2, &scalar.real, &(result[0].real), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(doublePointer(lhs) + 1, 2, &scalar.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
     
     return result
 }
@@ -426,28 +426,28 @@ public func / (lhs: [Double], rhs: [Double]) -> [Double] {
 }
 
 public func / (lhs: [Complex], rhs: [Double]) -> [Complex] {
-    let results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vdivD(UnsafePointer<Double>(lhs), 2, rhs, 1, UnsafeMutablePointer<Double>(results), 2, vDSP_Length(lhs.count))
-    vDSP_vdivD(UnsafePointer<Double>(lhs) + 1, 2, rhs, 1, UnsafeMutablePointer<Double>(results) + 1, 2, vDSP_Length(lhs.count))
+    var results = [Complex](count: lhs.count, repeatedValue: Complex())
+    vDSP_vdivD(doublePointer(lhs), 2, rhs, 1, mutableDoublePointer(&results), 2, vDSP_Length(lhs.count))
+    vDSP_vdivD(doublePointer(lhs) + 1, 2, rhs, 1, mutableDoublePointer(&results) + 1, 2, vDSP_Length(lhs.count))
 
     return results
 }
 
 public func / (lhs: [Float], var rhs: Float) -> [Float] {
-    let results = [Float](count: lhs.count, repeatedValue: 0.0)
-    vDSP_vsdiv(UnsafePointer<Float>(lhs), 1, &rhs, UnsafeMutablePointer<Float>(results), 1, vDSP_Length(lhs.count))
+    var results = [Float](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vsdiv(floatPointer(lhs), 1, &rhs, mutableFloatPointer(&results), 1, vDSP_Length(lhs.count))
     return results
 }
 
 public func / (lhs: [Double], var rhs: Double) -> [Double] {
-    let results = [Double](count: lhs.count, repeatedValue: 0.0)
-    vDSP_vsdivD(UnsafePointer<Double>(lhs), 1, &rhs, UnsafeMutablePointer<Double>(results), 1, vDSP_Length(lhs.count))
+    var results = [Double](count: lhs.count, repeatedValue: 0.0)
+    vDSP_vsdivD(doublePointer(lhs), 1, &rhs, mutableDoublePointer(&results), 1, vDSP_Length(lhs.count))
     return results
 }
 
 public func / (lhs: [Complex], var rhs: Double) -> [Complex] {
-    let results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsdivD(UnsafePointer<Double>(lhs), 1, &rhs, UnsafeMutablePointer<Double>(results), 1, vDSP_Length(2 * lhs.count))
+    var results = [Complex](count: lhs.count, repeatedValue: Complex())
+    vDSP_vsdivD(doublePointer(lhs), 1, &rhs, mutableDoublePointer(&results), 1, vDSP_Length(2 * lhs.count))
     return results
 }
 
@@ -466,9 +466,9 @@ public func * (lhs: [Double], rhs: [Double]) -> [Double] {
 }
 
 public func * (lhs: [Complex], rhs: [Double]) -> [Complex] {
-    let results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vmulD(UnsafePointer<Double>(lhs), 2, rhs, 1, UnsafeMutablePointer<Double>(results), 2, vDSP_Length(lhs.count))
-    vDSP_vmulD(UnsafePointer<Double>(lhs) + 1, 2, rhs, 1, UnsafeMutablePointer<Double>(results) + 1, 2, vDSP_Length(lhs.count))
+    var results = [Complex](count: lhs.count, repeatedValue: Complex())
+    vDSP_vmulD(doublePointer(lhs), 2, rhs, 1, mutableDoublePointer(&results), 2, vDSP_Length(lhs.count))
+    vDSP_vmulD(doublePointer(lhs) + 1, 2, rhs, 1, mutableDoublePointer(&results) + 1, 2, vDSP_Length(lhs.count))
 
     return results
 }
@@ -501,7 +501,7 @@ public func * (lhs: Double, rhs: [Double]) -> [Double] {
 
 public func * (lhs: [Complex], var rhs: Double) -> [Complex] {
     var result = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsmulD(UnsafePointer<Double>(lhs), 1, &rhs, &(result[0].real), 1, vDSP_Length(lhs.count * 2))
+    vDSP_vsmulD(doublePointer(lhs), 1, &rhs, &(result[0].real), 1, vDSP_Length(lhs.count * 2))
 
     return result
 }
