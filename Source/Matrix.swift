@@ -122,36 +122,12 @@ extension Matrix: SequenceType {
 
 // MARK: -
 
-public func mul(alpha: Float, x: Matrix<Float>) -> Matrix<Float> {
-    var results = x
-    cblas_sscal(Int32(x.elements.count), alpha, &(results.elements), 1)
-
-    return results
-}
-
-public func mul(alpha: Double, x: Matrix<Double>) -> Matrix<Double> {
-    var results = x
-    cblas_dscal(Int32(x.elements.count), alpha, &(results.elements), 1)
-
-    return results
-}
-
-public func mul(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
-
-    var results = Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
-    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.elements, Int32(x.columns), y.elements, Int32(y.columns), 0.0, &(results.elements), Int32(results.columns))
-
-    return results
-}
-
-public func mul(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
-
-    var results = Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.elements, Int32(x.columns), y.elements, Int32(y.columns), 0.0, &(results.elements), Int32(results.columns))
-
-    return results
+public func mul(lhs: Matrix<Double>, rhs: Matrix<Double>, inout result: Matrix<Double>) {
+    precondition(lhs.columns == rhs.rows, "Input matrices dimensions not compatible with multiplication")
+    precondition(lhs.rows == result.rows, "Output matrix dimensions not compatible with multiplication")
+    precondition(rhs.columns == result.columns, "Output matrix dimensions not compatible with multiplication")
+    
+    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.elements, Int32(lhs.columns), rhs.elements, Int32(rhs.columns), 0.0, &(result.elements), Int32(result.columns))
 }
 
 public func inv(x : Matrix<Float>) -> Matrix<Float> {
@@ -268,20 +244,44 @@ public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func *= (inout lhs: Matrix<Float>, rhs: Float) {
+    cblas_sscal(Int32(lhs.elements.count), rhs, &lhs.elements, 1)
+}
+
+public func *= (inout lhs: Matrix<Double>, rhs: Double) {
+    cblas_dscal(Int32(lhs.elements.count), rhs, &lhs.elements, 1)
+}
+
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, x: rhs)
+    var results = rhs
+    results *= lhs
+    
+    return results
 }
 
 public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, x: rhs)
+    var results = rhs
+    results *= lhs
+    
+    return results
 }
 
 public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, y: rhs)
+    precondition(lhs.columns == rhs.rows, "Matrix dimensions not compatible with multiplication")
+    
+    var results = Matrix<Float>(rows: lhs.rows, columns: rhs.columns, repeatedValue: 0.0)
+    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.elements, Int32(lhs.columns), rhs.elements, Int32(rhs.columns), 0.0, &(results.elements), Int32(results.columns))
+    
+    return results
 }
 
 public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, y: rhs)
+    precondition(lhs.columns == rhs.rows, "Matrix dimensions not compatible with multiplication")
+    
+    var results = Matrix<Double>(rows: lhs.rows, columns: rhs.columns, repeatedValue: 0.0)
+    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.elements, Int32(lhs.columns), rhs.elements, Int32(rhs.columns), 0.0, &(results.elements), Int32(results.columns))
+    
+    return results
 }
 
 postfix operator ′ {}
