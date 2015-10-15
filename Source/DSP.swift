@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import Accelerate
 
 /**
     Convolution between a signal and a kernel. The signal should have at least as many elements as the kernel. The
