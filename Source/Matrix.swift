@@ -29,12 +29,22 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
     public let columns: Int
     public var elements: [Element]
 
+    /// Construct a Matrix from an array of elements in row-major order--elemens in the same row are next to each other.
+    public init(rows: Int, columns: Int, elements: [Element]) {
+        assert(rows * columns == elements.count)
+        self.rows = rows
+        self.columns = columns
+        self.elements = elements
+    }
+
+    /// Construct a Matrix of `rows` by `columns` with every element initialized to `repeatedValue`.
     public init(rows: Int, columns: Int, repeatedValue: Element) {
         self.rows = rows
         self.columns = columns
         self.elements = [Element](count: rows * columns, repeatedValue: repeatedValue)
     }
 
+    /// Construct a Matrix from an array of rows
     public init(_ contents: [[Element]]) {
         let m: Int = contents.count
         let n: Int = contents[0].count
