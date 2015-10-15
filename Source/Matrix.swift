@@ -122,24 +122,6 @@ extension Matrix: SequenceType {
 
 // MARK: -
 
-public func add(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
-
-    var results = y
-    cblas_saxpy(Int32(x.elements.count), 1.0, x.elements, 1, &(results.elements), 1)
-
-    return results
-}
-
-public func add(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
-
-    var results = y
-    cblas_daxpy(Int32(x.elements.count), 1.0, x.elements, 1, &(results.elements), 1)
-
-    return results
-}
-
 public func mul(alpha: Float, x: Matrix<Float>) -> Matrix<Float> {
     var results = x
     cblas_sscal(Int32(x.elements.count), alpha, &(results.elements), 1)
@@ -226,12 +208,34 @@ public func transpose(x: Matrix<Double>) -> Matrix<Double> {
 
 // MARK: - Operators
 
+public func += (inout lhs: Matrix<Float>, rhs: Matrix<Float>) {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    
+    cblas_saxpy(Int32(lhs.elements.count), 1.0, rhs.elements, 1, &lhs.elements, 1)
+}
+
+public func += (inout lhs: Matrix<Double>, rhs: Matrix<Double>) {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    
+    cblas_daxpy(Int32(lhs.elements.count), 1.0, rhs.elements, 1, &lhs.elements, 1)
+}
+
 public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return add(lhs, y: rhs)
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    
+    var results = lhs
+    results += rhs
+    
+    return results
 }
 
 public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return add(lhs, y: rhs)
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    
+    var results = lhs
+    results += rhs
+    
+    return results
 }
 
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
