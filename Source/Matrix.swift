@@ -238,6 +238,36 @@ public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func -= (inout lhs: Matrix<Float>, rhs: Matrix<Float>) {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    
+    cblas_saxpy(Int32(lhs.elements.count), -1.0, rhs.elements, 1, &lhs.elements, 1)
+}
+
+public func -= (inout lhs: Matrix<Double>, rhs: Matrix<Double>) {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    
+    cblas_daxpy(Int32(lhs.elements.count), -1.0, rhs.elements, 1, &lhs.elements, 1)
+}
+
+public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    
+    var results = lhs
+    results -= rhs
+    
+    return results
+}
+
+public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    
+    var results = lhs
+    results -= rhs
+    
+    return results
+}
+
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
     return mul(lhs, x: rhs)
 }
