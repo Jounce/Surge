@@ -42,6 +42,7 @@
 		8C72DF061BD19E8200FC9074 /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF041BD19E8200FC9074 /* MatrixArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
 		8C72DF081BD19EED00FC9074 /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF071BD19EED00FC9074 /* ComplexArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
 		8C72DF091BD19EED00FC9074 /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF071BD19EED00FC9074 /* ComplexArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
+		8C72DF111BD1A36600FC9074 /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF101BD1A36600FC9074 /* MatrixTests.swift */; settings = {ASSET_TAGS = (); }; };
 		8CFA38951BBCA44800A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
 		8CFA38961BBCA66200A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
 		E65C5BE419FF9CF600149FF1 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65C5BE319FF9CF600149FF1 /* Matrix.swift */; };
@@ -93,6 +94,7 @@
 		61F4DCB81BB3ACAD0019C603 /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		8C72DF041BD19E8200FC9074 /* MatrixArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixArithmetic.swift; sourceTree = "<group>"; };
 		8C72DF071BD19EED00FC9074 /* ComplexArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexArithmetic.swift; sourceTree = "<group>"; };
+		8C72DF101BD1A36600FC9074 /* MatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 		8CFA38941BBCA44800A73DD9 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		E65C5BE319FF9CF600149FF1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		F84A6AAE19A9A72F007B53E1 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,7 @@
 				61A070961BD0B34C00196433 /* RealArrayTests.swift */,
 				F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */,
 				F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */,
+				8C72DF101BD1A36600FC9074 /* MatrixTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				61A070941BD0AC4300196433 /* RealArray.swift in Sources */,
 				61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */,
 				61167B6E1BD161670098D03A /* RealArrayArithmetic.swift in Sources */,
+				8C72DF111BD1A36600FC9074 /* MatrixTests.swift in Sources */,
 				8C72DF081BD19EED00FC9074 /* ComplexArithmetic.swift in Sources */,
 				F8A1E1CE19917B0A009735E2 /* Hyperbolic.swift in Sources */,
 				F8A1E1CC19917B0A009735E2 /* Auxiliary.swift in Sources */,
