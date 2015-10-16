@@ -435,7 +435,7 @@ public func / (lhs: [Complex], rhs: [Double]) -> [Complex] {
 
 public func / (lhs: [Float], var rhs: Float) -> [Float] {
     var results = [Float](count: lhs.count, repeatedValue: 0.0)
-    vDSP_vsdiv(floatPointer(lhs), 1, &rhs, mutableFloatPointer(&results), 1, vDSP_Length(lhs.count))
+    vDSP_vsdiv(lhs, 1, &rhs, &results, 1, vDSP_Length(lhs.count))
     return results
 }
 

@@ -21,6 +21,8 @@
 		610B1ADD1BB6120400B64973 /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C819917B0A009735E2 /* Power.swift */; };
 		610B1ADE1BB6120400B64973 /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1CA19917B0A009735E2 /* Trigonometric.swift */; };
 		610B1ADF1BB6120400B64973 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4DCB81BB3ACAD0019C603 /* Complex.swift */; };
+		61167B6E1BD161670098D03A /* RealArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61167B6D1BD161670098D03A /* RealArrayArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
+		61167B6F1BD161670098D03A /* RealArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61167B6D1BD161670098D03A /* RealArrayArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
 		611C771C1BB9F75200684204 /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610B1ACA1BB6114E00B64973 /* Surge.framework */; };
 		617936CB1BBC522900B255B0 /* DSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617936CA1BBC522900B255B0 /* DSP.swift */; settings = {ASSET_TAGS = (); }; };
 		617936CC1BBC522900B255B0 /* DSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617936CA1BBC522900B255B0 /* DSP.swift */; settings = {ASSET_TAGS = (); }; };
@@ -32,6 +34,10 @@
 		618396B51BB9FD3A0071B3B1 /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */; settings = {ASSET_TAGS = (); }; };
 		61F131E31BD06C6400B5601D /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F131E21BD06C6400B5601D /* Pointers.swift */; settings = {ASSET_TAGS = (); }; };
 		61F131E41BD06D3A00B5601D /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F131E21BD06C6400B5601D /* Pointers.swift */; settings = {ASSET_TAGS = (); }; };
+		61A070941BD0AC4300196433 /* RealArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A070931BD0AC4300196433 /* RealArray.swift */; settings = {ASSET_TAGS = (); }; };
+		61A070951BD0AC4300196433 /* RealArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A070931BD0AC4300196433 /* RealArray.swift */; settings = {ASSET_TAGS = (); }; };
+		61A070971BD0B34C00196433 /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A070961BD0B34C00196433 /* RealArrayTests.swift */; settings = {ASSET_TAGS = (); }; };
+		61A070981BD0B34C00196433 /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A070961BD0B34C00196433 /* RealArrayTests.swift */; settings = {ASSET_TAGS = (); }; };
 		61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F4DCB81BB3ACAD0019C603 /* Complex.swift */; };
 		8CFA38951BBCA44800A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
 		8CFA38961BBCA66200A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
@@ -76,9 +82,12 @@
 		610B1ACA1BB6114E00B64973 /* Surge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Surge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		610B1AD21BB6117A00B64973 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		610B1AD41BB6118100B64973 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		61167B6D1BD161670098D03A /* RealArrayArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealArrayArithmetic.swift; sourceTree = "<group>"; };
 		611C77171BB9F75200684204 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		617936CA1BBC522900B255B0 /* DSP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSP.swift; sourceTree = "<group>"; };
 		61F131E21BD06C6400B5601D /* Pointers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pointers.swift; sourceTree = "<group>"; };
+		61A070931BD0AC4300196433 /* RealArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealArray.swift; sourceTree = "<group>"; };
+		61A070961BD0B34C00196433 /* RealArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealArrayTests.swift; sourceTree = "<group>"; };
 		61F4DCB81BB3ACAD0019C603 /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		8CFA38941BBCA44800A73DD9 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		E65C5BE319FF9CF600149FF1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
@@ -151,6 +160,7 @@
 				6109383F1BBC5F3300ED27DA /* DSPTests.swift */,
 				F8BD5C551A6C1C6500DD357E /* ExponentialTests.swift */,
 				F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */,
+				61A070961BD0B34C00196433 /* RealArrayTests.swift */,
 				F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */,
 				F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */,
 			);
@@ -219,6 +229,8 @@
 				E65C5BE319FF9CF600149FF1 /* Matrix.swift */,
 				8CFA38941BBCA44800A73DD9 /* Point.swift */,
 				F8A1E1C819917B0A009735E2 /* Power.swift */,
+				61A070931BD0AC4300196433 /* RealArray.swift */,
+				61167B6D1BD161670098D03A /* RealArrayArithmetic.swift */,
 				F8A1E1CA19917B0A009735E2 /* Trigonometric.swift */,
 				61F131E21BD06C6400B5601D /* Pointers.swift */,
 			);
@@ -413,7 +425,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				610B1ADA1BB6120400B64973 /* FFT.swift in Sources */,
+				61A070951BD0AC4300196433 /* RealArray.swift in Sources */,
 				610B1ADF1BB6120400B64973 /* Complex.swift in Sources */,
+				61167B6F1BD161670098D03A /* RealArrayArithmetic.swift in Sources */,
 				610B1AD81BB6120400B64973 /* Auxiliary.swift in Sources */,
 				610B1ADC1BB6120400B64973 /* Matrix.swift in Sources */,
 				610B1AD91BB6120400B64973 /* Exponential.swift in Sources */,
@@ -435,6 +449,7 @@
 				610938431BBC66E100ED27DA /* DSPTests.swift in Sources */,
 				618396B11BB9FD3A0071B3B1 /* AuxiliaryTests.swift in Sources */,
 				618396B41BB9FD3A0071B3B1 /* TrigonometricTests.swift in Sources */,
+				61A070981BD0B34C00196433 /* RealArrayTests.swift in Sources */,
 				618396B51BB9FD3A0071B3B1 /* XCTestCase+Surge.swift in Sources */,
 				618396B01BB9FD3A0071B3B1 /* ArithmeticTests.swift in Sources */,
 				618396B21BB9FD3A0071B3B1 /* ExponentialTests.swift in Sources */,
@@ -449,6 +464,7 @@
 				610938421BBC66E000ED27DA /* DSPTests.swift in Sources */,
 				F8BD5C5A1A6C1C6500DD357E /* AuxiliaryTests.swift in Sources */,
 				F8BD5C5D1A6C1C6500DD357E /* TrigonometricTests.swift in Sources */,
+				61A070971BD0B34C00196433 /* RealArrayTests.swift in Sources */,
 				F8BD5C5E1A6C1C6500DD357E /* XCTestCase+Surge.swift in Sources */,
 				F8BD5C591A6C1C6500DD357E /* ArithmeticTests.swift in Sources */,
 				F8BD5C5B1A6C1C6500DD357E /* ExponentialTests.swift in Sources */,
@@ -460,7 +476,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8A1E1D119917B0A009735E2 /* Trigonometric.swift in Sources */,
+				61A070941BD0AC4300196433 /* RealArray.swift in Sources */,
 				61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */,
+				61167B6E1BD161670098D03A /* RealArrayArithmetic.swift in Sources */,
 				F8A1E1CE19917B0A009735E2 /* Hyperbolic.swift in Sources */,
 				F8A1E1CC19917B0A009735E2 /* Auxiliary.swift in Sources */,
 				F8A1E1CF19917B0A009735E2 /* Power.swift in Sources */,
