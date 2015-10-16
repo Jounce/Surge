@@ -142,6 +142,15 @@ public func + (lhs: Real, rhs: RealArray) -> RealArray {
     return rhs + lhs
 }
 
+public func += (inout lhs: RealArray, rhs: RealArray) {
+    let count = min(lhs.count, rhs.count)
+    vDSP_vaddD(lhs.pointer, 1, rhs.pointer, 1, lhs.pointer, 1, vDSP_Length(count))
+}
+
+public func += (inout lhs: RealArray, var rhs: Real) {
+    vDSP_vsaddD(lhs.pointer, 1, &rhs, lhs.pointer, 1, vDSP_Length(lhs.count))
+}
+
 public func - (lhs: RealArray, rhs: RealArray) -> RealArray {
     let count = min(lhs.count, rhs.count)
     let results = RealArray(size: count)
@@ -154,6 +163,23 @@ public func - (lhs: RealArray, rhs: Real) -> RealArray {
     var scalar: Real = -1 * rhs
     vDSP_vsaddD(lhs.pointer, 1, &scalar, results.pointer, 1, vDSP_Length(lhs.count))
     return results
+}
+
+public func - (var lhs: Real, rhs: RealArray) -> RealArray {
+    let results = RealArray(size: rhs.count)
+    var scalar: Real = -1
+    vDSP_vsmsaD(rhs.pointer, 1, &scalar, &lhs, results.pointer, 1, vDSP_Length(rhs.count))
+    return results
+}
+
+public func -= (inout lhs: RealArray, rhs: RealArray) {
+    let count = min(lhs.count, rhs.count)
+    vDSP_vsubD(rhs.pointer, 1, lhs.pointer, 1, lhs.pointer, 1, vDSP_Length(count))
+}
+
+public func -= (inout lhs: RealArray, rhs: Real) {
+    var scalar: Real = -1 * rhs
+    vDSP_vsaddD(lhs.pointer, 1, &scalar, lhs.pointer, 1, vDSP_Length(lhs.count))
 }
 
 public func / (lhs: RealArray, rhs: RealArray) -> RealArray {
