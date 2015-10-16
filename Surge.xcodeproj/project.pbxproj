@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6100F5681BD1C63F00E0D384 /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF101BD1A36600FC9074 /* MatrixTests.swift */; settings = {ASSET_TAGS = (); }; };
+		6100F5691BD1C64000E0D384 /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF101BD1A36600FC9074 /* MatrixTests.swift */; settings = {ASSET_TAGS = (); }; };
 		610938421BBC66E000ED27DA /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6109383F1BBC5F3300ED27DA /* DSPTests.swift */; settings = {ASSET_TAGS = (); }; };
 		610938431BBC66E100ED27DA /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6109383F1BBC5F3300ED27DA /* DSPTests.swift */; settings = {ASSET_TAGS = (); }; };
 		610B1AD31BB6117A00B64973 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610B1AD21BB6117A00B64973 /* Accelerate.framework */; };
@@ -42,7 +44,6 @@
 		8C72DF061BD19E8200FC9074 /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF041BD19E8200FC9074 /* MatrixArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
 		8C72DF081BD19EED00FC9074 /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF071BD19EED00FC9074 /* ComplexArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
 		8C72DF091BD19EED00FC9074 /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF071BD19EED00FC9074 /* ComplexArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
-		8C72DF111BD1A36600FC9074 /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C72DF101BD1A36600FC9074 /* MatrixTests.swift */; settings = {ASSET_TAGS = (); }; };
 		8CFA38951BBCA44800A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
 		8CFA38961BBCA66200A73DD9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA38941BBCA44800A73DD9 /* Point.swift */; settings = {ASSET_TAGS = (); }; };
 		E65C5BE419FF9CF600149FF1 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65C5BE319FF9CF600149FF1 /* Matrix.swift */; };
@@ -175,10 +176,10 @@
 				6109383F1BBC5F3300ED27DA /* DSPTests.swift */,
 				F8BD5C551A6C1C6500DD357E /* ExponentialTests.swift */,
 				F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */,
+				8C72DF101BD1A36600FC9074 /* MatrixTests.swift */,
 				61A070961BD0B34C00196433 /* RealArrayTests.swift */,
 				F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */,
 				F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */,
-				8C72DF101BD1A36600FC9074 /* MatrixTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -461,6 +462,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6100F5691BD1C64000E0D384 /* MatrixTests.swift in Sources */,
 				618396B31BB9FD3A0071B3B1 /* HyperbolicTests.swift in Sources */,
 				610938431BBC66E100ED27DA /* DSPTests.swift in Sources */,
 				618396B11BB9FD3A0071B3B1 /* AuxiliaryTests.swift in Sources */,
@@ -476,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6100F5681BD1C63F00E0D384 /* MatrixTests.swift in Sources */,
 				F8BD5C5C1A6C1C6500DD357E /* HyperbolicTests.swift in Sources */,
 				610938421BBC66E000ED27DA /* DSPTests.swift in Sources */,
 				F8BD5C5A1A6C1C6500DD357E /* AuxiliaryTests.swift in Sources */,
@@ -495,7 +498,6 @@
 				61A070941BD0AC4300196433 /* RealArray.swift in Sources */,
 				61F4DCB91BB3ACAD0019C603 /* Complex.swift in Sources */,
 				61167B6E1BD161670098D03A /* RealArrayArithmetic.swift in Sources */,
-				8C72DF111BD1A36600FC9074 /* MatrixTests.swift in Sources */,
 				8C72DF081BD19EED00FC9074 /* ComplexArithmetic.swift in Sources */,
 				F8A1E1CE19917B0A009735E2 /* Hyperbolic.swift in Sources */,
 				F8A1E1CC19917B0A009735E2 /* Auxiliary.swift in Sources */,
