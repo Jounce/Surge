@@ -24,13 +24,13 @@ import Accelerate
     Convolution between a signal and a kernel. The signal should have at least as many elements as the kernel. The
     result will have `N - M + 1` elements where `N` is the size of the signal and `M` is the size of the kernel.
 */
-public func convolution(signal: [Double], _ kernel: [Double]) -> [Double] {
+public func convolution(signal: RealArray, _ kernel: RealArray) -> RealArray {
     precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
 
-    let kernelLast = doublePointer(kernel) + kernel.count - 1
+    let kernelLast = kernel.pointer + kernel.count - 1
     let resultSize = signal.count - kernel.count + 1
-    var result = [Double](count: resultSize, repeatedValue: 0.0)
-    vDSP_convD(signal, 1, kernelLast, -1, &result, 1, vDSP_Length(resultSize), vDSP_Length(kernel.count))
+    let result = RealArray(count: resultSize, repeatedValue: 0.0)
+    vDSP_convD(signal.pointer, 1, kernelLast, -1, result.pointer, 1, vDSP_Length(resultSize), vDSP_Length(kernel.count))
     return result
 }
 
@@ -38,12 +38,12 @@ public func convolution(signal: [Double], _ kernel: [Double]) -> [Double] {
     Correlation between two vectors. The first vector should have at least as many elements as the second. The result
     will have `N - M + 1` elements where `N` is the size of the first vector and `M` is the size of the second.
 */
-public func correlation(x: [Double], _ y: [Double]) -> [Double] {
+public func correlation(x: RealArray, _ y: RealArray) -> RealArray {
     precondition(x.count >= y.count, "The first vector should have at least as many elements as the second")
 
     let resultSize = x.count - y.count + 1
-    var result = [Double](count: resultSize, repeatedValue: 0.0)
-    vDSP_convD(x, 1, y, 1, &result, 1, vDSP_Length(resultSize), vDSP_Length(y.count))
+    let result = RealArray(count: resultSize, repeatedValue: 0.0)
+    vDSP_convD(x.pointer, 1, y.pointer, 1, result.pointer, 1, vDSP_Length(resultSize), vDSP_Length(y.count))
     return result
 }
 
@@ -55,11 +55,11 @@ public func correlation(x: [Double], _ y: [Double]) -> [Double] {
     - parameter x: The signal
     - parameter maxLag: The maximum lag to use.
 */
-public func autocorrelation(x: [Double], maxLag: Int) -> [Double] {
+public func autocorrelation(x: RealArray, maxLag: Int) -> RealArray {
     precondition(maxLag < x.count)
 
     let signalSize = x.count + maxLag
-    var signal = [Double](count: signalSize, repeatedValue: 0.0)
+    let signal = RealArray(count: signalSize, repeatedValue: 0.0)
     for i in 0..<x.count {
         signal[i] = x[i]
     }

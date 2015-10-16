@@ -29,11 +29,11 @@ class ExponentialTests: XCTestCase {
 
     func test_exp() {
         let values = (0...n).map{_ in Double(arc4random_uniform(10))}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: exp, mapped: exp, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { exp($0) }, mapped: { $0.map{ exp($0) } }, accuracy: 0.0001)
     }
 
     func test_exp2() {
         let values = (0...n).map{_ in Double(arc4random_uniform(10))}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: exp2, mapped: exp2, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { exp2($0) }, mapped: { $0.map{ exp2($0) } }, accuracy: 0.0001)
     }
 }

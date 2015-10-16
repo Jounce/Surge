@@ -38,12 +38,12 @@ public class FFT {
     }
 
     /// Performs a real to complex forward FFT
-    public func forward(input: [Double]) -> [Complex] {
+    public func forward(input: RealArray) -> [Complex] {
         precondition(input.count == Int(length), "Input should have \(length) elements")
 
-        var real = [Double](input)
-        var imaginary = [Double](count: Int(length), repeatedValue: 0.0)
-        var splitComplex = DSPDoubleSplitComplex(realp: &real, imagp: &imaginary)
+        let real = input
+        let imaginary = RealArray(count: Int(length), repeatedValue: 0.0)
+        var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
         let result = [Complex](count: Int(length/2), repeatedValue: Complex())
@@ -54,16 +54,16 @@ public class FFT {
     }
 
     /// Performs a real to real forward FFT by taking the square magnitudes of the complex result
-    public func forwardMags(input: [Double]) -> [Double] {
+    public func forwardMags(input: RealArray) -> RealArray {
         precondition(input.count == Int(length), "Input should have \(length) elements")
 
-        var real = [Double](input)
-        var imaginary = [Double](count: Int(length), repeatedValue: 0.0)
-        var splitComplex = DSPDoubleSplitComplex(realp: &real, imagp: &imaginary)
+        let real = input
+        let imaginary = RealArray(count: Int(length), repeatedValue: 0.0)
+        var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        var magnitudes = [Double](count: Int(length/2), repeatedValue: 0.0)
-        vDSP_zvmagsD(&splitComplex, 1, &magnitudes, 1, length/2)
+        let magnitudes = RealArray(count: Int(length/2), repeatedValue: 0.0)
+        vDSP_zvmagsD(&splitComplex, 1, magnitudes.pointer, 1, length/2)
 
         let scale = 2.0 / Double(length)
         return magnitudes * scale * scale

@@ -51,6 +51,6 @@ class ArithmeticTests: XCTestCase {
 
     func test_sqrt() {
         let values = (0...n).map{_ in Double(arc4random())}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { return sqrt($0) }, mapped: { $0.map{ sqrt($0) } }, accuracy: 0.0001)
     }
 }

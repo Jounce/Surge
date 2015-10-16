@@ -62,10 +62,10 @@ public func - (lhs: [Complex], rhs: Complex) -> [Complex] {
     return result
 }
 
-public func / (lhs: [Complex], rhs: [Double]) -> [Complex] {
+public func / (lhs: [Complex], rhs: RealArray) -> [Complex] {
     var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vdivD(doublePointer(lhs), 2, rhs, 1, mutableDoublePointer(&results), 2, vDSP_Length(lhs.count))
-    vDSP_vdivD(doublePointer(lhs) + 1, 2, rhs, 1, mutableDoublePointer(&results) + 1, 2, vDSP_Length(lhs.count))
+    vDSP_vdivD(doublePointer(lhs), 2, rhs.pointer, 1, mutableDoublePointer(&results), 2, vDSP_Length(lhs.count))
+    vDSP_vdivD(doublePointer(lhs) + 1, 2, rhs.pointer, 1, mutableDoublePointer(&results) + 1, 2, vDSP_Length(lhs.count))
     
     return results
 }
@@ -76,10 +76,10 @@ public func / (lhs: [Complex], var rhs: Double) -> [Complex] {
     return results
 }
 
-public func * (lhs: [Complex], rhs: [Double]) -> [Complex] {
+public func * (lhs: [Complex], rhs: RealArray) -> [Complex] {
     var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vmulD(doublePointer(lhs), 2, rhs, 1, mutableDoublePointer(&results), 2, vDSP_Length(lhs.count))
-    vDSP_vmulD(doublePointer(lhs) + 1, 2, rhs, 1, mutableDoublePointer(&results) + 1, 2, vDSP_Length(lhs.count))
+    vDSP_vmulD(doublePointer(lhs), 2, rhs.pointer, 1, mutableDoublePointer(&results), 2, vDSP_Length(lhs.count))
+    vDSP_vmulD(doublePointer(lhs) + 1, 2, rhs.pointer, 1, mutableDoublePointer(&results) + 1, 2, vDSP_Length(lhs.count))
     
     return results
 }
