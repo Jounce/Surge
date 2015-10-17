@@ -4,12 +4,12 @@ import XCPlayground
 
 // MARK: - Arithmetic
 
-let n: RealArray = [-1.0, 2.0, 3.0, 4.0, 5.0]
+let n: RealArray = [1.0, 2.0, 3.0, 4.0, 5.0]
 let sum = Upsurge.sum(n)
 
 let a: RealArray = [1.0, 3.0, 5.0, 7.0]
 let b: RealArray = [2.0, 4.0, 6.0, 8.0]
-let product = a * b
+let product = a • b
 
 // MARK: - Matrix
 
