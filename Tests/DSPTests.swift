@@ -1,4 +1,4 @@
-//  Copyright © 2015 Alejandro Isaza. All rights reserved.
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
+import Upsurge
 import XCTest
 
 class DSPTests: XCTestCase {

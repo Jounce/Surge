@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
+import Upsurge
 import XCTest
 
 class MatrixTests: XCTestCase {
