@@ -58,9 +58,9 @@ public final class RealArray : CollectionType, MutableCollectionType, ArrayLiter
     }
 
     /// Construct a RealArray from an array of reals
-    public convenience init(array elements: [Element]) {
-        self.init(size: elements.count)
-        pointer.initializeFrom(elements)
+    public convenience init<C : CollectionType where C.Generator.Element == Element>(_ c: C) {
+        self.init(size: Int(c.count.toIntMax()))
+        pointer.initializeFrom(c)
     }
 
     /// Construct a RealArray of `count` elements, each initialized to `repeatedValue`.
