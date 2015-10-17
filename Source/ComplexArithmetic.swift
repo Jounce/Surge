@@ -26,8 +26,8 @@ public func sum(x: [Complex]) -> Complex {
 }
 
 public func sum(x: [Complex], range: Range<Int>) -> Complex {
-    let reals = doublePointer(x) + range.startIndex
-    let imags = doublePointer(x) + range.startIndex + 1
+    let reals = realPointer(x) + range.startIndex
+    let imags = realPointer(x) + range.startIndex + 1
     
     var result = Complex()
     vDSP_sveD(reals, 2, &result.real, vDSP_Length(range.count))
@@ -40,15 +40,15 @@ public func sum(x: [Complex], range: Range<Int>) -> Complex {
 
 public func + (lhs: [Complex], rhs: [Complex]) -> [Complex] {
     var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vaddD(doublePointer(lhs), 1, doublePointer(rhs), 1, mutableDoublePointer(&results), 1, vDSP_Length(lhs.count))
+    vDSP_vaddD(realPointer(lhs), 1, realPointer(rhs), 1, mutableRealPointer(&results), 1, vDSP_Length(lhs.count))
     
     return results
 }
 
 public func + (lhs: [Complex], var rhs: Complex) -> [Complex] {
     var result = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsaddD(doublePointer(lhs), 2, &rhs.real, &(result[0].real), 2, vDSP_Length(lhs.count))
-    vDSP_vsaddD(doublePointer(lhs) + 1, 2, &rhs.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(realPointer(lhs), 2, &rhs.real, &(result[0].real), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(realPointer(lhs) + 1, 2, &rhs.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
     
     return result
 }
@@ -56,37 +56,37 @@ public func + (lhs: [Complex], var rhs: Complex) -> [Complex] {
 public func - (lhs: [Complex], rhs: Complex) -> [Complex] {
     var result = [Complex](count: lhs.count, repeatedValue: Complex())
     var scalar: Complex = -1 * rhs
-    vDSP_vsaddD(doublePointer(lhs), 2, &scalar.real, &(result[0].real), 2, vDSP_Length(lhs.count))
-    vDSP_vsaddD(doublePointer(lhs) + 1, 2, &scalar.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(realPointer(lhs), 2, &scalar.real, &(result[0].real), 2, vDSP_Length(lhs.count))
+    vDSP_vsaddD(realPointer(lhs) + 1, 2, &scalar.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
     
     return result
 }
 
 public func / (lhs: [Complex], rhs: RealArray) -> [Complex] {
     var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vdivD(doublePointer(lhs), 2, rhs.pointer, 1, mutableDoublePointer(&results), 2, vDSP_Length(lhs.count))
-    vDSP_vdivD(doublePointer(lhs) + 1, 2, rhs.pointer, 1, mutableDoublePointer(&results) + 1, 2, vDSP_Length(lhs.count))
+    vDSP_vdivD(realPointer(lhs), 2, rhs.pointer, 1, mutableRealPointer(&results), 2, vDSP_Length(lhs.count))
+    vDSP_vdivD(realPointer(lhs) + 1, 2, rhs.pointer, 1, mutableRealPointer(&results) + 1, 2, vDSP_Length(lhs.count))
     
     return results
 }
 
 public func / (lhs: [Complex], var rhs: Double) -> [Complex] {
     var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsdivD(doublePointer(lhs), 1, &rhs, mutableDoublePointer(&results), 1, vDSP_Length(2 * lhs.count))
+    vDSP_vsdivD(realPointer(lhs), 1, &rhs, mutableRealPointer(&results), 1, vDSP_Length(2 * lhs.count))
     return results
 }
 
 public func * (lhs: [Complex], rhs: RealArray) -> [Complex] {
     var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vmulD(doublePointer(lhs), 2, rhs.pointer, 1, mutableDoublePointer(&results), 2, vDSP_Length(lhs.count))
-    vDSP_vmulD(doublePointer(lhs) + 1, 2, rhs.pointer, 1, mutableDoublePointer(&results) + 1, 2, vDSP_Length(lhs.count))
+    vDSP_vmulD(realPointer(lhs), 2, rhs.pointer, 1, mutableRealPointer(&results), 2, vDSP_Length(lhs.count))
+    vDSP_vmulD(realPointer(lhs) + 1, 2, rhs.pointer, 1, mutableRealPointer(&results) + 1, 2, vDSP_Length(lhs.count))
     
     return results
 }
 
 public func * (lhs: [Complex], var rhs: Double) -> [Complex] {
     var result = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsmulD(doublePointer(lhs), 1, &rhs, &(result[0].real), 1, vDSP_Length(lhs.count * 2))
+    vDSP_vsmulD(realPointer(lhs), 1, &rhs, &(result[0].real), 1, vDSP_Length(lhs.count * 2))
     
     return result
 }

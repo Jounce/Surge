@@ -20,10 +20,6 @@
 
 import Foundation
 
-/// A real number
-public typealias Real = Double
-
-
 /// A `RealArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assiging a `RealArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `RealArray` you have to explicitly call `copy()`.
 public final class RealArray : CollectionType, MutableCollectionType, ArrayLiteralConvertible {
     public typealias Element = Real

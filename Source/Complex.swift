@@ -21,20 +21,20 @@
 import Accelerate
 
 public struct Complex : CustomStringConvertible {
-    public var real = 0.0
-    public var imag = 0.0
+    public var real: Real = 0.0
+    public var imag: Real = 0.0
 
     public init() {}
 
-    public init(real: Double, imag: Double) {
+    public init(real: Real, imag: Real) {
         self.real = real
         self.imag = imag
     }
 
-    public var magnitude: Double {
+    public var magnitude: Real {
         return hypot(real, imag)
     }
-    public var phase: Double {
+    public var phase: Real {
         return atan2(imag, real)
     }
 
@@ -42,6 +42,8 @@ public struct Complex : CustomStringConvertible {
         return "\(real) + \(imag)i"
     }
 }
+
+extension Complex: RealType {}
 
 public func + (lhs: Complex, rhs: Complex) -> Complex {
     return Complex(real: lhs.real + rhs.real, imag: lhs.imag + rhs.imag)
@@ -55,11 +57,11 @@ public func * (lhs: Complex, rhs: Complex) -> Complex {
     return Complex(real: lhs.real * rhs.real - lhs.imag * rhs.imag, imag: lhs.real * rhs.imag + lhs.imag * rhs.real)
 }
 
-public func * (x: Complex, a: Double) -> Complex {
+public func * (x: Complex, a: Real) -> Complex {
     return Complex(real: x.real * a, imag: x.imag * a)
 }
 
-public func * (a: Double, x: Complex) -> Complex {
+public func * (a: Real, x: Complex) -> Complex {
     return Complex(real: x.real * a, imag: x.imag * a)
 }
 
@@ -70,11 +72,11 @@ public func / (lhs: Complex, rhs: Complex) -> Complex {
         imag: (lhs.imag*rhs.real - lhs.real*rhs.imag) / rhsMagSq)
 }
 
-public func / (x: Complex, a: Double) -> Complex {
+public func / (x: Complex, a: Real) -> Complex {
     return Complex(real: x.real / a, imag: x.imag / a)
 }
 
-public func / (a: Double, x: Complex) -> Complex {
+public func / (a: Real, x: Complex) -> Complex {
     let xMagSq = x.real*x.real + x.imag*x.imag
     return Complex(real: a*x.real / xMagSq, imag: -a*x.imag / xMagSq)
 }

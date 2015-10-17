@@ -20,25 +20,9 @@
 
 import Foundation
 
-public protocol DoubleType {}
-public protocol FloatType {}
+/// A real number
+public typealias Real = Double
 
-extension Double: DoubleType {}
-extension Float: FloatType {}
-extension Complex: DoubleType {}
+public protocol RealType {}
 
-public func doublePointer<T: DoubleType>(array: [T]) -> UnsafePointer<Double> {
-    return array.withUnsafeBufferPointer{ UnsafePointer<Double>(UnsafePointer<Void>($0.baseAddress)) }
-}
-
-public func mutableDoublePointer<T: DoubleType>(inout array: [T]) -> UnsafeMutablePointer<Double> {
-    return UnsafeMutablePointer<Double>(doublePointer(array))
-}
-
-public func floatPointer<T: FloatType>(array: [T]) -> UnsafePointer<Float> {
-    return array.withUnsafeBufferPointer{ UnsafePointer<Float>(UnsafePointer<Void>($0.baseAddress)) }
-}
-
-public func mutableFloatPointer<T: FloatType>(inout array: [T]) -> UnsafeMutablePointer<Float> {
-    return UnsafeMutablePointer<Float>(floatPointer(array))
-}
+extension Real: RealType {}

@@ -76,7 +76,7 @@ public func neg(x: RealArray) -> RealArray {
 
 public func neg(x: [Complex]) -> [Complex] {
     var results = [Complex](count: x.count, repeatedValue: Complex())
-    vDSP_vnegD(doublePointer(x), 1, mutableDoublePointer(&results), 1, vDSP_Length(2*x.count))
+    vDSP_vnegD(realPointer(x), 1, mutableRealPointer(&results), 1, vDSP_Length(2*x.count))
     return results
 }
 
