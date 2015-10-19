@@ -113,6 +113,20 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
             pointer[i] = values[i - range.startIndex]
         }
     }
+    
+    public func toRowMatrix() -> RealMatrix {
+        let result = RealMatrix(rows: 1, columns: count, repeatedValue: 0.0)
+        result.elements = self
+        
+        return result
+    }
+    
+    public func toColumnMatrix() -> RealMatrix {
+        let result = RealMatrix(rows: count, columns: 1, repeatedValue: 0.0)
+        result.elements = self
+        
+        return result
+    }
 }
 
 extension RealArray : CustomStringConvertible, CustomDebugStringConvertible {

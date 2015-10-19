@@ -24,7 +24,7 @@ import XCTest
 
 class RealMatrixTests: XCTestCase {
     func test_add() {
-        var a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
+        let a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
         let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 1])
         let c = a + b
         a += b
