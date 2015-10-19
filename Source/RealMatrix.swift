@@ -21,6 +21,7 @@
 import Accelerate
 
 public struct RealMatrix {
+    public typealias Element = Real
     public let rows: Int
     public let columns: Int
     public var elements: RealArray
@@ -30,7 +31,14 @@ public struct RealMatrix {
     }
 
     /// Construct a Matrix from an array of elements in row-major order--elemens in the same row are next to each other.
-    public init(rows: Int, columns: Int, elements: [Real]) {
+    public init(rows: Int, columns: Int, elements: [Element]) {
+        assert(rows * columns == elements.count)
+        self.rows = rows
+        self.columns = columns
+        self.elements = RealArray(elements)
+    }
+    
+    public init<C: CollectionType where C.Index == Int, C.Generator.Element == Element>(rows: Int, columns: Int, elements: C) {
         assert(rows * columns == elements.count)
         self.rows = rows
         self.columns = columns
