@@ -51,7 +51,7 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
         self.init(rows: m, columns: n, repeatedValue: repeatedValue)
 
         for (i, row) in contents.enumerate() {
-            elements.replaceRange(i*n..<i*n+min(m, row.count), with: row)
+            elements.replaceRange(i*n..<i*n+min(n, row.count), with: row)
         }
     }
 

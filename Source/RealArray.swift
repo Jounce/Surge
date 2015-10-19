@@ -108,6 +108,12 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
         count += Int(c.count.toIntMax())
         precondition(count <= capacity)
     }
+
+    public func replaceRange<C: CollectionType where C.Index == Int, C.Generator.Element == Element>(range: Range<C.Index>, with values: C) {
+        for i in range {
+            pointer[i] = values[i - range.startIndex]
+        }
+    }
 }
 
 extension RealArray : CustomStringConvertible, CustomDebugStringConvertible {
