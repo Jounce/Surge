@@ -28,12 +28,12 @@ class AuxiliaryTests: XCTestCase {
     func test_copysign() {
         let signs = RealArray((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
 
-        let magnitudes = RealArray(size: n)
+        let magnitudes = RealArray(capacity: n)
         for i in 0..<n {
             magnitudes[i] = Double(arc4random_uniform(10))
         }
 
-        let expected = RealArray(size: n)
+        let expected = RealArray(capacity: n)
         for (i, (sign, magnitude)) in Zip2Sequence(signs, magnitudes).enumerate() {
             expected[i] = sign * abs(magnitude)
         }

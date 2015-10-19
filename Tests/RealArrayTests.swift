@@ -48,4 +48,13 @@ class RealArrayTests: XCTestCase {
         XCTAssertEqual(a[0], 4.0)
         XCTAssertEqual(b[0], 1.0)
     }
+
+    func testAppend() {
+        let a = RealArray(capacity: 3)
+        a[0] = 1
+        a.append([2, 3])
+        XCTAssertEqual(a.count, 2)
+        XCTAssertEqual(a[0], 2.0)
+        XCTAssertEqual(a[1], 3.0)
+    }
 }

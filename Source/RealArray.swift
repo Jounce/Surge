@@ -21,12 +21,21 @@
 import Foundation
 
 /// A `RealArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assiging a `RealArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `RealArray` you have to explicitly call `copy()`.
-public final class RealArray : CollectionType, MutableCollectionType, ArrayLiteralConvertible {
+public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
     public typealias Element = Real
-    private var buffer: ManagedBuffer<Int, Element>
+    private var buffer: ManagedBuffer<(Int, Int), Element>
 
     public var count: Int {
-        return buffer.value
+        get {
+            return buffer.value.0
+        }
+        set {
+            buffer.value.0 = newValue
+        }
+    }
+
+    public var capacity: Int {
+        return buffer.value.1
     }
 
     public var startIndex: Int {
@@ -43,45 +52,56 @@ public final class RealArray : CollectionType, MutableCollectionType, ArrayLiter
     }
 
     /// Construct an uninitialized RealArray of the given size
-    public init(size: Int) {
-        buffer = ManagedBuffer<Int, Element>.create(size, initialValue: { _ in size })
+    public init(capacity: Int) {
+        buffer = ManagedBuffer<(Int, Int), Element>.create(capacity, initialValue: { _ in (0, capacity) })
     }
 
     /// Construct a RealArray from an array literal
     public convenience init(arrayLiteral elements: Element...) {
-        self.init(size: elements.count)
+        self.init(capacity: elements.count)
         pointer.initializeFrom(elements)
+        count = capacity
     }
 
     /// Construct a RealArray from an array of reals
     public convenience init<C : CollectionType where C.Generator.Element == Element>(_ c: C) {
-        self.init(size: Int(c.count.toIntMax()))
+        self.init(capacity: Int(c.count.toIntMax()))
         pointer.initializeFrom(c)
+        count = capacity
     }
 
     /// Construct a RealArray of `count` elements, each initialized to `repeatedValue`.
     public convenience init(count: Int, repeatedValue: Element) {
-        self.init(size: count)
+        self.init(capacity: count)
         for i in 0..<count {
             self[i] = repeatedValue
         }
+        self.count = count
     }
 
     public subscript(index: Int) -> Element {
         get {
-            precondition(0 <= index && index < count)
+            precondition(0 <= index && index < capacity)
             return pointer[index]
         }
         set {
-            precondition(0 <= index && index < count)
+            precondition(0 <= index && index < capacity)
             pointer[index] = newValue
         }
     }
 
     public func copy() -> RealArray {
-        let copy = RealArray(size: count)
+        let copy = RealArray(capacity: capacity)
         copy.pointer.initializeFrom(pointer, count: count)
+        copy.count = count
         return copy
+    }
+
+    public func append<C : CollectionType where C.Generator.Element == Element>(c: C) {
+        let p = pointer + count
+        p.initializeFrom(c)
+        count += Int(c.count.toIntMax())
+        precondition(count <= capacity)
     }
 }
 
@@ -122,7 +142,8 @@ public func < (lhs: RealArray, rhs: RealArray) -> Bool {
             return false
         }
     }
-    return true}
+    return true
+}
 
 public func <= (lhs: RealArray, rhs: RealArray) -> Bool {
     for (a, b) in zip(lhs, rhs) {
@@ -130,7 +151,8 @@ public func <= (lhs: RealArray, rhs: RealArray) -> Bool {
             return false
         }
     }
-    return true}
+    return true
+}
 
 public func > (lhs: RealArray, rhs: RealArray) -> Bool {
     for (a, b) in zip(lhs, rhs) {
@@ -138,7 +160,8 @@ public func > (lhs: RealArray, rhs: RealArray) -> Bool {
             return false
         }
     }
-    return true}
+    return true
+}
 
 public func >= (lhs: RealArray, rhs: RealArray) -> Bool {
     for (a, b) in zip(lhs, rhs) {
@@ -148,7 +171,6 @@ public func >= (lhs: RealArray, rhs: RealArray) -> Bool {
     }
     return true
 }
-
 
 public func swap(inout lhs: RealArray, inout rhs: RealArray) {
     swap(&lhs.buffer, &rhs.buffer)

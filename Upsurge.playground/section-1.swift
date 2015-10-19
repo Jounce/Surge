@@ -33,11 +33,10 @@ let count = 64
 let frequency = 4.0
 let amplitude = 1.0
 
-let x = RealArray(array: (0..<count).map({ 2.0 * M_PI / Double(count) * Double($0) * frequency }))
+let x = RealArray((0..<count).map({ 2.0 * M_PI / Double(count) * Double($0) * frequency }))
 
 plot(sin(x), title: "Sine Wave")
 
 let fft = FFT(inputLength: x.count)
 let psd = fft.forwardMags(sin(x))
 plot(psd, title: "FFT")
-
