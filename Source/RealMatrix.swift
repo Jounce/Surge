@@ -75,6 +75,10 @@ public struct RealMatrix {
             elements[(row * columns) + column] = newValue
         }
     }
+    
+    public func copy() -> RealMatrix {
+        return RealMatrix(rows: rows, columns: columns, elements: elements.copy())
+    }
 
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns

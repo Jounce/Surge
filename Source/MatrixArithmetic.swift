@@ -32,7 +32,7 @@ public func mul(lhs: RealMatrix, rhs: RealMatrix, inout result: RealMatrix) {
 public func inv(x : RealMatrix) -> RealMatrix {
     precondition(x.rows == x.columns, "Matrix must be square")
     
-    let results = x
+    let results = x.copy()
     
     var ipiv = [__CLPK_integer](count: x.rows * x.rows, repeatedValue: 0)
     var lwork = __CLPK_integer(x.columns * x.columns)
@@ -66,7 +66,7 @@ public func += (inout lhs: RealMatrix, rhs: RealMatrix) {
 public func + (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
     
-    var results = lhs
+    var results = lhs.copy()
     results += rhs
     
     return results
@@ -81,7 +81,7 @@ public func -= (inout lhs: RealMatrix, rhs: RealMatrix) {
 public func - (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
     
-    var results = lhs
+    var results = lhs.copy()
     results -= rhs
     
     return results
@@ -102,7 +102,7 @@ public func *= (inout lhs: RealMatrix, rhs: Real) {
 
 
 public func * (lhs: Double, rhs: RealMatrix) -> RealMatrix {
-    var results = rhs
+    var results = rhs.copy()
     results *= lhs
     
     return results
