@@ -51,9 +51,14 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
         return buffer.withUnsafeMutablePointerToElements { $0 }
     }
 
-    /// Construct an uninitialized RealArray of the given size
+    /// Construct an uninitialized RealArray with the given capacity
     public init(capacity: Int) {
         buffer = ManagedBuffer<(Int, Int), Element>.create(capacity, initialValue: { _ in (0, capacity) })
+    }
+
+    /// Construct an uninitialized RealArray with the given size
+    public init(count: Int) {
+        buffer = ManagedBuffer<(Int, Int), Element>.create(count, initialValue: { _ in (count, count) })
     }
 
     /// Construct a RealArray from an array literal
