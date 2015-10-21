@@ -49,7 +49,7 @@ public func inv(x : RealMatrix) -> RealMatrix {
 }
 
 public func transpose(x: RealMatrix) -> RealMatrix {
-    let results = RealMatrix(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
+    let results = RealMatrix(rows: x.columns, columns: x.rows)
     vDSP_mtransD(x.pointer, 1, results.pointer, 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
 
     return results
@@ -109,7 +109,7 @@ public func * (lhs: Double, rhs: RealMatrix) -> RealMatrix {
 public func * (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
     precondition(lhs.columns == rhs.rows, "Matrix dimensions not compatible with multiplication")
 
-    let results = RealMatrix(rows: lhs.rows, columns: rhs.columns, repeatedValue: 0.0)
+    let results = RealMatrix(rows: lhs.rows, columns: rhs.columns)
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.pointer, Int32(lhs.columns), rhs.pointer, Int32(rhs.columns), 0.0, results.pointer, Int32(results.columns))
 
     return results

@@ -29,15 +29,8 @@ public class RealMatrix {
     public var pointer: UnsafeMutablePointer<Real> {
         return elements.pointer
     }
-
-    /// Construct a Matrix from an array of elements in row-major order--elemens in the same row are next to each other.
-    public init(rows: Int, columns: Int, elements: [Element]) {
-        assert(rows * columns == elements.count)
-        self.rows = rows
-        self.columns = columns
-        self.elements = RealArray(elements)
-    }
     
+    /// Construct a Matrix of `rows` by `columns` with every the given elements in row-major order
     public init<C: CollectionType where C.Index == Int, C.Generator.Element == Element>(rows: Int, columns: Int, elements: C) {
         assert(rows * columns == elements.count)
         self.rows = rows
@@ -45,20 +38,19 @@ public class RealMatrix {
         self.elements = RealArray(elements)
     }
 
-    /// Construct a Matrix of `rows` by `columns` with every element initialized to `repeatedValue`.
-    public init(rows: Int, columns: Int, repeatedValue: Real) {
+    /// Construct a Matrix of `rows` by `columns` with uninitialized elements
+    public init(rows: Int, columns: Int) {
         self.rows = rows
         self.columns = columns
-        self.elements = RealArray(count: rows * columns, repeatedValue: repeatedValue)
+        self.elements = RealArray(capacity: rows * columns)
     }
 
     /// Construct a Matrix from an array of rows
     public convenience init(_ contents: [[Real]]) {
         let m: Int = contents.count
         let n: Int = contents[0].count
-        let repeatedValue: Real = 0.0
 
-        self.init(rows: m, columns: n, repeatedValue: repeatedValue)
+        self.init(rows: m, columns: n)
 
         for (i, row) in contents.enumerate() {
             elements.replaceRange(i*n..<i*n+min(n, row.count), with: row)

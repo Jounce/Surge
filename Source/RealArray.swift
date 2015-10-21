@@ -115,14 +115,14 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
     }
     
     public func toRowMatrix() -> RealMatrix {
-        let result = RealMatrix(rows: 1, columns: count, repeatedValue: 0.0)
+        let result = RealMatrix(rows: 1, columns: count)
         result.elements = self
         
         return result
     }
     
     public func toColumnMatrix() -> RealMatrix {
-        let result = RealMatrix(rows: count, columns: 1, repeatedValue: 0.0)
+        let result = RealMatrix(rows: count, columns: 1)
         result.elements = self
         
         return result
