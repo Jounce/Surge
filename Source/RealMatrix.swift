@@ -20,7 +20,7 @@
 
 import Accelerate
 
-public struct RealMatrix {
+public class RealMatrix {
     public typealias Element = Real
     public let rows: Int
     public let columns: Int
@@ -53,7 +53,7 @@ public struct RealMatrix {
     }
 
     /// Construct a Matrix from an array of rows
-    public init(_ contents: [[Real]]) {
+    public convenience init(_ contents: [[Real]]) {
         let m: Int = contents.count
         let n: Int = contents[0].count
         let repeatedValue: Real = 0.0
