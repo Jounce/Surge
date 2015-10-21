@@ -22,37 +22,37 @@ import Foundation
 import Upsurge
 import XCTest
 
-class MatrixTests: XCTestCase {
+class RealMatrixTests: XCTestCase {
     func test_add() {
-        var a = Matrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
-        let b = Matrix(rows: 2, columns: 2, elements: [2, 3, 4, 1])
+        var a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
+        let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 1])
         let c = a + b
         a += b
         
-        let d = Matrix(rows: 2, columns: 2, elements: [3, 5, 7, 5])
+        let d = RealMatrix(rows: 2, columns: 2, elements: [3, 5, 7, 5])
         
         XCTAssertEqual(a.elements, c.elements)
         XCTAssertEqual(a.elements, d.elements)
     }
     
     func test_sub() {
-        var a = Matrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
-        let b = Matrix(rows: 2, columns: 2, elements: [2, 3, 4, 1])
+        var a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
+        let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 1])
         let c = a - b
         a -= b
         
-        let d = Matrix(rows: 2, columns: 2, elements: [-1, -1, -1, 3])
+        let d = RealMatrix(rows: 2, columns: 2, elements: [-1, -1, -1, 3])
         
         XCTAssertEqual(a.elements, c.elements)
         XCTAssertEqual(a.elements, d.elements)
     }
     
     func test_mult() {
-        let a = Matrix(rows: 2, columns: 5, elements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-        let b = Matrix(rows: 5, columns: 2, elements: [2, 3, 4, 5, 6, 7, 8, 9, 10, 1])
+        let a = RealMatrix(rows: 2, columns: 5, elements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        let b = RealMatrix(rows: 5, columns: 2, elements: [2, 3, 4, 5, 6, 7, 8, 9, 10, 1])
         var c = a * b
         
-        let d = Matrix(rows: 2, columns: 2, elements: [110, 75, 260, 200])
+        let d = RealMatrix(rows: 2, columns: 2, elements: [110, 75, 260, 200])
         
         XCTAssertEqual(c.elements, d.elements)
         
@@ -61,17 +61,17 @@ class MatrixTests: XCTestCase {
     }
     
     func test_transpose() {
-        let a = Matrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
+        let a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
         let c = a′
         
         XCTAssertEqual(a.elements, c′.elements)
     }
     
     func test_invert() {
-        let a = Matrix(rows: 2, columns: 2, elements: [2, 6, -2, 4])
+        let a = RealMatrix(rows: 2, columns: 2, elements: [2, 6, -2, 4])
         let b = inv(a)
         
-        let c = Matrix(rows: 2, columns: 2, elements: [0.2, -0.3, 0.1, 0.1])
+        let c = RealMatrix(rows: 2, columns: 2, elements: [0.2, -0.3, 0.1, 0.1])
         
         XCTAssertEqualWithAccuracy(c.elements[0], b.elements[0], accuracy: 0.00001)
         XCTAssertEqualWithAccuracy(c.elements[1], b.elements[1], accuracy: 0.00001)
