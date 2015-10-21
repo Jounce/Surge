@@ -69,19 +69,18 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
     }
 
     /// Construct a RealArray from an array of reals
-    public convenience init<C : CollectionType where C.Generator.Element == Element>(_ c: C) {
-        self.init(capacity: Int(c.count.toIntMax()))
-        pointer.initializeFrom(c)
+    public convenience init<C : CollectionType where C.Index == Int, C.Generator.Element == Element>(_ values: C) {
+        self.init(capacity: values.count)
+        pointer.initializeFrom(values)
         count = capacity
     }
 
     /// Construct a RealArray of `count` elements, each initialized to `repeatedValue`.
     public convenience init(count: Int, repeatedValue: Element) {
-        self.init(capacity: count)
+        self.init(count: count)
         for i in 0..<count {
             self[i] = repeatedValue
         }
-        self.count = count
     }
 
     public subscript(index: Int) -> Element {
@@ -102,11 +101,11 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
         return copy
     }
 
-    public func append<C : CollectionType where C.Generator.Element == Element>(c: C) {
-        let p = pointer + count
-        p.initializeFrom(c)
-        count += Int(c.count.toIntMax())
-        precondition(count <= capacity)
+    public func append<C : CollectionType where C.Index == Int, C.Generator.Element == Element>(values: C) {
+        precondition(count + values.count <= capacity)
+        let endPointer = pointer + count
+        endPointer.initializeFrom(values)
+        count += values.count
     }
 
     public func replaceRange<C: CollectionType where C.Index == Int, C.Generator.Element == Element>(range: Range<C.Index>, with values: C) {
