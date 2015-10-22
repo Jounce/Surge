@@ -104,7 +104,13 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
         return copy
     }
 
-    public func append<C : CollectionType where C.Generator.Element == Element>(values: C) {
+    public func append(value: Real) {
+        precondition(count + 1 <= capacity)
+        pointer[count] = value
+        count += 1
+    }
+
+    public func appendContentsOf<C : CollectionType where C.Generator.Element == Element>(values: C) {
         precondition(count + Int(values.count.toIntMax()) <= capacity)
         let endPointer = pointer + count
         endPointer.initializeFrom(values)
