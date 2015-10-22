@@ -26,8 +26,8 @@ public class FFT {
     public private(set) var length: vDSP_Length
 
     public init(inputLength: Int) {
-        lengthLog2 = vDSP_Length(ceil(log2(Double(inputLength))))
-        length = vDSP_Length(exp2(Double(lengthLog2)))
+        lengthLog2 = vDSP_Length(ceil(log2(Real(inputLength))))
+        length = vDSP_Length(exp2(Real(lengthLog2)))
         setup = vDSP_create_fftsetupD(lengthLog2, FFTRadix(kFFTRadix2))
     }
 
@@ -47,7 +47,7 @@ public class FFT {
         let result = [Complex](count: Int(length/2), repeatedValue: Complex())
         vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(result), 1, length/2)
 
-        let scale = 2.0 / Double(length)
+        let scale = 2.0 / Real(length)
         return result * scale * scale
     }
 
@@ -63,7 +63,7 @@ public class FFT {
         let magnitudes = RealArray(count: Int(length/2))
         vDSP_zvmagsD(&splitComplex, 1, magnitudes.pointer, 1, length/2)
 
-        let scale = 2.0 / Double(length)
+        let scale = 2.0 / Real(length)
         return magnitudes * scale * scale
     }
 }

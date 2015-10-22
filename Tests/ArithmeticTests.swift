@@ -28,8 +28,8 @@ class ArithmeticTests: XCTestCase {
     func test_sum_complex() {
         let values = (0...n).map{ _ in
             Complex(
-                real: Double(arc4random()) - Double(UInt32.max)/2,
-                imag: Double(arc4random()) - Double(UInt32.max)/2)
+                real: Real(arc4random()) - Real(UInt32.max)/2,
+                imag: Real(arc4random()) - Real(UInt32.max)/2)
         }
 
         var expected = Complex()
@@ -48,7 +48,7 @@ class ArithmeticTests: XCTestCase {
     }
 
     func test_sqrt() {
-        let values = (0...n).map{_ in Double(arc4random())}
+        let values = (0...n).map{_ in Real(arc4random())}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { return sqrt($0) }, mapped: { $0.map{ sqrt($0) } }, accuracy: 0.0001)
     }
 }

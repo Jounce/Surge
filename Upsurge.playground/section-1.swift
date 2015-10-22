@@ -17,8 +17,8 @@ let product = a • b
 // ⎢      ⎟ * B = ⎢   ⎟         C = ?
 // ⎝ 1 -1 ⎠       ⎝ 1 ⎠
 
-let A = Matrix([[1, 1], [1, -1]])
-let C = Matrix([[3], [1]])
+let A = RealMatrix([[1, 1], [1, -1]])
+let C = RealMatrix([[3], [1]])
 let B = inv(A) * C
 
 // MARK: - FFT
@@ -33,7 +33,7 @@ let count = 64
 let frequency = 4.0
 let amplitude = 1.0
 
-let x = RealArray((0..<count).map({ 2.0 * M_PI / Double(count) * Double($0) * frequency }))
+let x = RealArray((0..<count).map({ 2.0 * M_PI / Real(count) * Real($0) * frequency }))
 
 plot(sin(x), title: "Sine Wave")
 

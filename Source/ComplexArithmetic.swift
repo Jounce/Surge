@@ -70,7 +70,7 @@ public func / (lhs: [Complex], rhs: RealArray) -> [Complex] {
     return results
 }
 
-public func / (lhs: [Complex], var rhs: Double) -> [Complex] {
+public func / (lhs: [Complex], var rhs: Real) -> [Complex] {
     var results = [Complex](count: lhs.count, repeatedValue: Complex())
     vDSP_vsdivD(lhs.unsafePointer(), 1, &rhs, results.unsafeMutablePointer(), 1, vDSP_Length(2 * lhs.count))
     return results
@@ -84,7 +84,7 @@ public func * (lhs: [Complex], rhs: RealArray) -> [Complex] {
     return results
 }
 
-public func * (lhs: [Complex], var rhs: Double) -> [Complex] {
+public func * (lhs: [Complex], var rhs: Real) -> [Complex] {
     var result = [Complex](count: lhs.count, repeatedValue: Complex())
     vDSP_vsmulD(lhs.unsafePointer(), 1, &rhs, &(result[0].real), 1, vDSP_Length(lhs.count * 2))
     

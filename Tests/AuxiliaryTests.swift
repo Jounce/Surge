@@ -30,7 +30,7 @@ class AuxiliaryTests: XCTestCase {
 
         let magnitudes = RealArray(count: n)
         for i in 0..<n {
-            magnitudes[i] = Double(arc4random_uniform(10))
+            magnitudes[i] = Real(arc4random_uniform(10))
         }
 
         let expected = RealArray(count: n)

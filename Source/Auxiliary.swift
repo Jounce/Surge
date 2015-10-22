@@ -40,7 +40,7 @@ public func ceil(x: RealArray) -> RealArray {
 
 // MARK: Clip
 
-public func clip(x: RealArray, low: Double, high: Double) -> RealArray {
+public func clip(x: RealArray, low: Real, high: Real) -> RealArray {
     var results = RealArray(count: x.count), y = low, z = high
     vDSP_vclipD(x.pointer, 1, &y, &z, results.pointer, 1, vDSP_Length(x.count))
 
@@ -100,7 +100,7 @@ public func round(x: RealArray) -> RealArray {
 
 // MARK: Threshold
 
-public func threshold(x: RealArray, low: Double) -> RealArray {
+public func threshold(x: RealArray, low: Real) -> RealArray {
     var results = RealArray(count: x.count), y = low
     vDSP_vthrD(x.pointer, 1, &y, results.pointer, 1, vDSP_Length(x.count))
 
