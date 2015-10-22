@@ -100,19 +100,19 @@ public func rmsq(x: RealArray, range: Range<Int>) -> Real {
 }
 
 public func mod(x: RealArray, _ y: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvfmod(results.pointer, x.pointer, y.pointer, [Int32(x.count)])
     return results
 }
 
 public func remainder(x: RealArray, y: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvremainder(results.pointer, x.pointer, y.pointer, [Int32(x.count)])
     return results
 }
 
 public func sqrt(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvsqrt(results.pointer, x.pointer, [Int32(x.count)])
     return results
 }

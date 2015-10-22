@@ -60,7 +60,7 @@ public class FFT {
         var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        let magnitudes = RealArray(count: Int(length/2), repeatedValue: 0.0)
+        let magnitudes = RealArray(count: Int(length/2))
         vDSP_zvmagsD(&splitComplex, 1, magnitudes.pointer, 1, length/2)
 
         let scale = 2.0 / Double(length)

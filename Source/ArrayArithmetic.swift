@@ -20,12 +20,14 @@
 
 import Accelerate
 
-public func realPointer<T: RealType>(array: [T]) -> UnsafePointer<Real> {
-    return array.withUnsafeBufferPointer{ UnsafePointer<Real>(UnsafePointer<Void>($0.baseAddress)) }
-}
+extension Array where Element: RealType {
+    public func unsafePointer() -> UnsafePointer<Real> {
+        return withUnsafeBufferPointer{ UnsafePointer<Real>($0.baseAddress) }
+    }
 
-public func mutableRealPointer<T: RealType>(inout array: [T]) -> UnsafeMutablePointer<Real> {
-    return UnsafeMutablePointer<Real>(realPointer(array))
+    public mutating func unsafeMutablePointer() -> UnsafeMutablePointer<Real> {
+        return UnsafeMutablePointer<Real>(unsafePointer())
+    }
 }
 
 public func sum(x: [Real]) -> Real {
@@ -34,7 +36,7 @@ public func sum(x: [Real]) -> Real {
 
 public func sum(x: [Real], range: Range<Int>) -> Real {
     var result: Real = 0.0
-    vDSP_sveD(realPointer(x) + range.startIndex, 1, &result, vDSP_Length(range.count))
+    vDSP_sveD(x.unsafePointer() + range.startIndex, 1, &result, vDSP_Length(range.count))
     return result
 }
 
@@ -43,7 +45,7 @@ public func asum(x: [Real]) -> Real {
 }
 
 public func asum(x: [Real], range: Range<Int>) -> Real {
-    let p = realPointer(x) + range.startIndex
+    let p = x.unsafePointer() + range.startIndex
     return cblas_dasum(Int32(range.count), p, 1)
 }
 
@@ -53,7 +55,7 @@ public func max(x: [Real]) -> Real {
 
 public func max(x: [Real], range: Range<Int>) -> Real {
     var result: Real = 0.0
-    vDSP_maxvD(realPointer(x) + range.startIndex, 1, &result, vDSP_Length(range.count))
+    vDSP_maxvD(x.unsafePointer() + range.startIndex, 1, &result, vDSP_Length(range.count))
     return result
 }
 
@@ -63,7 +65,7 @@ public func min(x: [Real]) -> Real {
 
 public func min(x: [Real], range: Range<Int>) -> Real {
     var result: Real = 0.0
-    vDSP_minvD(realPointer(x) + range.startIndex, 1, &result, vDSP_Length(range.count))
+    vDSP_minvD(x.unsafePointer() + range.startIndex, 1, &result, vDSP_Length(range.count))
     return result
 }
 
@@ -73,7 +75,7 @@ public func mean(x: [Real]) -> Real {
 
 public func mean(x: [Real], range: Range<Int>) -> Real {
     var result: Real = 0.0
-    vDSP_meanvD(realPointer(x) + range.startIndex, 1, &result, vDSP_Length(range.count))
+    vDSP_meanvD(x.unsafePointer() + range.startIndex, 1, &result, vDSP_Length(range.count))
     return result
 }
 
@@ -83,7 +85,7 @@ public func meamg(x: [Real]) -> Real {
 
 public func meamg(x: [Real], range: Range<Int>) -> Real {
     var result: Real = 0.0
-    vDSP_meamgvD(realPointer(x) + range.startIndex, 1, &result, vDSP_Length(range.count))
+    vDSP_meamgvD(x.unsafePointer() + range.startIndex, 1, &result, vDSP_Length(range.count))
     return result
 }
 
@@ -93,7 +95,7 @@ public func measq(x: [Real]) -> Real {
 
 public func measq(x: [Real], range: Range<Int>) -> Real {
     var result: Real = 0.0
-    vDSP_measqvD(realPointer(x) + range.startIndex, 1, &result, vDSP_Length(range.count))
+    vDSP_measqvD(x.unsafePointer() + range.startIndex, 1, &result, vDSP_Length(range.count))
     return result
 }
 
@@ -103,7 +105,7 @@ public func rmsq(x: [Real]) -> Real {
 
 public func rmsq(x: [Real], range: Range<Int>) -> Real {
     var result: Real = 0.0
-    vDSP_rmsqvD(realPointer(x) + range.startIndex, 1, &result, vDSP_Length(range.count))
+    vDSP_rmsqvD(x.unsafePointer() + range.startIndex, 1, &result, vDSP_Length(range.count))
     return result
 }
 

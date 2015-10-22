@@ -20,9 +20,11 @@
 
 import Foundation
 
-/// A `RealArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assiging a `RealArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `RealArray` you have to explicitly call `copy()`.
+/// A `RealArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assigning a `RealArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `RealArray` you have to explicitly call `copy()`.
 public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
+    public typealias Index = Int
     public typealias Element = Real
+
     private var buffer: ManagedBuffer<(Int, Int), Element>
 
     public var count: Int {
@@ -38,11 +40,11 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
         return buffer.value.1
     }
 
-    public var startIndex: Int {
+    public var startIndex: Index {
         return 0
     }
 
-    public var endIndex: Int {
+    public var endIndex: Index {
         return count
     }
 
@@ -69,8 +71,8 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
     }
 
     /// Construct a RealArray from an array of reals
-    public convenience init<C : CollectionType where C.Index == Int, C.Generator.Element == Element>(_ values: C) {
-        self.init(capacity: values.count)
+    public convenience init<C : CollectionType where C.Generator.Element == Element>(_ values: C) {
+        self.init(capacity: Int(values.count.toIntMax()))
         pointer.initializeFrom(values)
         count = capacity
     }
@@ -83,35 +85,35 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
         }
     }
 
-    public subscript(index: Int) -> Element {
+    public subscript(index: Index) -> Element {
         get {
             precondition(0 <= index && index < capacity)
+            assert(index < count)
             return pointer[index]
         }
         set {
             precondition(0 <= index && index < capacity)
+            assert(index < count)
             pointer[index] = newValue
         }
     }
 
     public func copy() -> RealArray {
-        let copy = RealArray(capacity: capacity)
+        let copy = RealArray(count: capacity)
         copy.pointer.initializeFrom(pointer, count: count)
-        copy.count = count
         return copy
     }
 
-    public func append<C : CollectionType where C.Index == Int, C.Generator.Element == Element>(values: C) {
-        precondition(count + values.count <= capacity)
+    public func append<C : CollectionType where C.Generator.Element == Element>(values: C) {
+        precondition(count + Int(values.count.toIntMax()) <= capacity)
         let endPointer = pointer + count
         endPointer.initializeFrom(values)
-        count += values.count
+        count += Int(values.count.toIntMax())
     }
 
-    public func replaceRange<C: CollectionType where C.Index == Int, C.Generator.Element == Element>(range: Range<C.Index>, with values: C) {
-        for i in range {
-            pointer[i] = values[i - range.startIndex]
-        }
+    public func replaceRange<C: CollectionType where C.Generator.Element == Element>(subRange: Range<Index>, with newElements: C) {
+        assert(subRange.startIndex >= startIndex && subRange.endIndex <= endIndex)
+        (pointer + subRange.startIndex).initializeFrom(newElements)
     }
     
     public func toRowMatrix() -> RealMatrix {

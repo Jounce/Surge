@@ -7,60 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		614ACA7B1BD1CB7B00A1C13E /* Upsurge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614ACA701BD1CB7B00A1C13E /* Upsurge.framework */; settings = {ASSET_TAGS = (); }; };
-		614ACAA91BD1CBB200A1C13E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8B1BD1CBB200A1C13E /* Auxiliary.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAAA1BD1CBB200A1C13E /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8C1BD1CBB200A1C13E /* Complex.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAAB1BD1CBB200A1C13E /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8D1BD1CBB200A1C13E /* ComplexArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAAC1BD1CBB200A1C13E /* DSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8E1BD1CBB200A1C13E /* DSP.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAAD1BD1CBB200A1C13E /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8F1BD1CBB200A1C13E /* Exponential.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAAE1BD1CBB200A1C13E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA901BD1CBB200A1C13E /* FFT.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAAF1BD1CBB200A1C13E /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAB01BD1CBB200A1C13E /* RealMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA921BD1CBB200A1C13E /* RealMatrix.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAB11BD1CBB200A1C13E /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAB21BD1CBB200A1C13E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA941BD1CBB200A1C13E /* Point.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAB41BD1CBB200A1C13E /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA961BD1CBB200A1C13E /* Power.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAB51BD1CBB200A1C13E /* RealArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA971BD1CBB200A1C13E /* RealArray.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAB61BD1CBB200A1C13E /* RealArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAB71BD1CBB200A1C13E /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA991BD1CBB200A1C13E /* Trigonometric.swift */; settings = {ASSET_TAGS = (); }; };
+		614ACA7B1BD1CB7B00A1C13E /* Upsurge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614ACA701BD1CB7B00A1C13E /* Upsurge.framework */; };
+		614ACAA91BD1CBB200A1C13E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8B1BD1CBB200A1C13E /* Auxiliary.swift */; };
+		614ACAAA1BD1CBB200A1C13E /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8C1BD1CBB200A1C13E /* Complex.swift */; };
+		614ACAAB1BD1CBB200A1C13E /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8D1BD1CBB200A1C13E /* ComplexArithmetic.swift */; };
+		614ACAAC1BD1CBB200A1C13E /* DSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8E1BD1CBB200A1C13E /* DSP.swift */; };
+		614ACAAD1BD1CBB200A1C13E /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8F1BD1CBB200A1C13E /* Exponential.swift */; };
+		614ACAAE1BD1CBB200A1C13E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA901BD1CBB200A1C13E /* FFT.swift */; };
+		614ACAAF1BD1CBB200A1C13E /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */; };
+		614ACAB01BD1CBB200A1C13E /* RealMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA921BD1CBB200A1C13E /* RealMatrix.swift */; };
+		614ACAB11BD1CBB200A1C13E /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */; };
+		614ACAB21BD1CBB200A1C13E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA941BD1CBB200A1C13E /* Point.swift */; };
+		614ACAB51BD1CBB200A1C13E /* RealArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA971BD1CBB200A1C13E /* RealArray.swift */; };
+		614ACAB61BD1CBB200A1C13E /* RealArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */; };
+		614ACAB71BD1CBB200A1C13E /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA991BD1CBB200A1C13E /* Trigonometric.swift */; };
 		614ACAB81BD1CBB200A1C13E /* Upsurge.h in Headers */ = {isa = PBXBuildFile; fileRef = 614ACA9A1BD1CBB200A1C13E /* Upsurge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		614ACAD41BD1CBF300A1C13E /* Upsurge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614ACACA1BD1CBF300A1C13E /* Upsurge.framework */; settings = {ASSET_TAGS = (); }; };
-		614ACAE11BD1CC3600A1C13E /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9C1BD1CBB200A1C13E /* ArithmeticTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAE21BD1CC3600A1C13E /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9D1BD1CBB200A1C13E /* AuxiliaryTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAE31BD1CC3600A1C13E /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAE41BD1CC3600A1C13E /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAE51BD1CC3600A1C13E /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAE61BD1CC3700A1C13E /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9C1BD1CBB200A1C13E /* ArithmeticTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAE71BD1CC3700A1C13E /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9D1BD1CBB200A1C13E /* AuxiliaryTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAE81BD1CC3700A1C13E /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAE91BD1CC3700A1C13E /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAEA1BD1CC3700A1C13E /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAEB1BD1CC3C00A1C13E /* RealMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAEC1BD1CC3C00A1C13E /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAED1BD1CC3C00A1C13E /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAEE1BD1CC3C00A1C13E /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAEF1BD1CC3D00A1C13E /* RealMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAF01BD1CC3D00A1C13E /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAF11BD1CC3D00A1C13E /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAF21BD1CC3D00A1C13E /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */; settings = {ASSET_TAGS = (); }; };
+		614ACAD41BD1CBF300A1C13E /* Upsurge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614ACACA1BD1CBF300A1C13E /* Upsurge.framework */; };
+		614ACAE11BD1CC3600A1C13E /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9C1BD1CBB200A1C13E /* ArithmeticTests.swift */; };
+		614ACAE21BD1CC3600A1C13E /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9D1BD1CBB200A1C13E /* AuxiliaryTests.swift */; };
+		614ACAE31BD1CC3600A1C13E /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */; };
+		614ACAE41BD1CC3600A1C13E /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */; };
+		614ACAE51BD1CC3600A1C13E /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */; };
+		614ACAE61BD1CC3700A1C13E /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9C1BD1CBB200A1C13E /* ArithmeticTests.swift */; };
+		614ACAE71BD1CC3700A1C13E /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9D1BD1CBB200A1C13E /* AuxiliaryTests.swift */; };
+		614ACAE81BD1CC3700A1C13E /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */; };
+		614ACAE91BD1CC3700A1C13E /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */; };
+		614ACAEA1BD1CC3700A1C13E /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */; };
+		614ACAEB1BD1CC3C00A1C13E /* RealMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */; };
+		614ACAEC1BD1CC3C00A1C13E /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */; };
+		614ACAED1BD1CC3C00A1C13E /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */; };
+		614ACAEE1BD1CC3C00A1C13E /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */; };
+		614ACAEF1BD1CC3D00A1C13E /* RealMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */; };
+		614ACAF01BD1CC3D00A1C13E /* RealArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */; };
+		614ACAF11BD1CC3D00A1C13E /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */; };
+		614ACAF21BD1CC3D00A1C13E /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */; };
 		614ACAF31BD1CCBA00A1C13E /* Upsurge.h in Headers */ = {isa = PBXBuildFile; fileRef = 614ACA9A1BD1CBB200A1C13E /* Upsurge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		614ACAF41BD1CD0700A1C13E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8B1BD1CBB200A1C13E /* Auxiliary.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAF51BD1CD0700A1C13E /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8C1BD1CBB200A1C13E /* Complex.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAF61BD1CD0700A1C13E /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8D1BD1CBB200A1C13E /* ComplexArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAF71BD1CD0700A1C13E /* DSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8E1BD1CBB200A1C13E /* DSP.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAF81BD1CD0700A1C13E /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8F1BD1CBB200A1C13E /* Exponential.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAF91BD1CD0700A1C13E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA901BD1CBB200A1C13E /* FFT.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAFA1BD1CD0700A1C13E /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAFB1BD1CD0700A1C13E /* RealMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA921BD1CBB200A1C13E /* RealMatrix.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAFC1BD1CD0700A1C13E /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAFD1BD1CD0700A1C13E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA941BD1CBB200A1C13E /* Point.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACAFF1BD1CD0700A1C13E /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA961BD1CBB200A1C13E /* Power.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACB001BD1CD0700A1C13E /* RealArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA971BD1CBB200A1C13E /* RealArray.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACB011BD1CD0700A1C13E /* RealArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
-		614ACB021BD1CD0700A1C13E /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA991BD1CBB200A1C13E /* Trigonometric.swift */; settings = {ASSET_TAGS = (); }; };
-		6159F8C21BD2E6E10010F83C /* Real.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C11BD2E6E10010F83C /* Real.swift */; settings = {ASSET_TAGS = (); }; };
-		6159F8C31BD2E6E10010F83C /* Real.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C11BD2E6E10010F83C /* Real.swift */; settings = {ASSET_TAGS = (); }; };
-		6159F8C51BD2ED920010F83C /* ArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C41BD2ED920010F83C /* ArrayArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
-		6159F8C61BD2ED920010F83C /* ArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C41BD2ED920010F83C /* ArrayArithmetic.swift */; settings = {ASSET_TAGS = (); }; };
+		614ACAF41BD1CD0700A1C13E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8B1BD1CBB200A1C13E /* Auxiliary.swift */; };
+		614ACAF51BD1CD0700A1C13E /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8C1BD1CBB200A1C13E /* Complex.swift */; };
+		614ACAF61BD1CD0700A1C13E /* ComplexArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8D1BD1CBB200A1C13E /* ComplexArithmetic.swift */; };
+		614ACAF71BD1CD0700A1C13E /* DSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8E1BD1CBB200A1C13E /* DSP.swift */; };
+		614ACAF81BD1CD0700A1C13E /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA8F1BD1CBB200A1C13E /* Exponential.swift */; };
+		614ACAF91BD1CD0700A1C13E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA901BD1CBB200A1C13E /* FFT.swift */; };
+		614ACAFA1BD1CD0700A1C13E /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */; };
+		614ACAFB1BD1CD0700A1C13E /* RealMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA921BD1CBB200A1C13E /* RealMatrix.swift */; };
+		614ACAFC1BD1CD0700A1C13E /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */; };
+		614ACAFD1BD1CD0700A1C13E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA941BD1CBB200A1C13E /* Point.swift */; };
+		614ACB001BD1CD0700A1C13E /* RealArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA971BD1CBB200A1C13E /* RealArray.swift */; };
+		614ACB011BD1CD0700A1C13E /* RealArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */; };
+		614ACB021BD1CD0700A1C13E /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA991BD1CBB200A1C13E /* Trigonometric.swift */; };
+		6159F8C21BD2E6E10010F83C /* Real.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C11BD2E6E10010F83C /* Real.swift */; };
+		6159F8C31BD2E6E10010F83C /* Real.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C11BD2E6E10010F83C /* Real.swift */; };
+		6159F8C51BD2ED920010F83C /* ArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C41BD2ED920010F83C /* ArrayArithmetic.swift */; };
+		6159F8C61BD2ED920010F83C /* ArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C41BD2ED920010F83C /* ArrayArithmetic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +91,6 @@
 		614ACA921BD1CBB200A1C13E /* RealMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealMatrix.swift; sourceTree = "<group>"; };
 		614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixArithmetic.swift; sourceTree = "<group>"; };
 		614ACA941BD1CBB200A1C13E /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
-		614ACA961BD1CBB200A1C13E /* Power.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
 		614ACA971BD1CBB200A1C13E /* RealArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealArray.swift; sourceTree = "<group>"; };
 		614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealArrayArithmetic.swift; sourceTree = "<group>"; };
 		614ACA991BD1CBB200A1C13E /* Trigonometric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trigonometric.swift; sourceTree = "<group>"; };
@@ -185,7 +182,6 @@
 				614ACA921BD1CBB200A1C13E /* RealMatrix.swift */,
 				614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */,
 				614ACA941BD1CBB200A1C13E /* Point.swift */,
-				614ACA961BD1CBB200A1C13E /* Power.swift */,
 				614ACA971BD1CBB200A1C13E /* RealArray.swift */,
 				614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */,
 				614ACA991BD1CBB200A1C13E /* Trigonometric.swift */,
@@ -400,7 +396,6 @@
 				614ACAB11BD1CBB200A1C13E /* MatrixArithmetic.swift in Sources */,
 				614ACAB51BD1CBB200A1C13E /* RealArray.swift in Sources */,
 				614ACAB01BD1CBB200A1C13E /* RealMatrix.swift in Sources */,
-				614ACAB41BD1CBB200A1C13E /* Power.swift in Sources */,
 				614ACAB21BD1CBB200A1C13E /* Point.swift in Sources */,
 				614ACAAB1BD1CBB200A1C13E /* ComplexArithmetic.swift in Sources */,
 				614ACAB71BD1CBB200A1C13E /* Trigonometric.swift in Sources */,
@@ -439,7 +434,6 @@
 				614ACAFC1BD1CD0700A1C13E /* MatrixArithmetic.swift in Sources */,
 				614ACB001BD1CD0700A1C13E /* RealArray.swift in Sources */,
 				614ACAFB1BD1CD0700A1C13E /* RealMatrix.swift in Sources */,
-				614ACAFF1BD1CD0700A1C13E /* Power.swift in Sources */,
 				614ACAFD1BD1CD0700A1C13E /* Point.swift in Sources */,
 				614ACAF61BD1CD0700A1C13E /* ComplexArithmetic.swift in Sources */,
 				614ACB021BD1CD0700A1C13E /* Trigonometric.swift in Sources */,

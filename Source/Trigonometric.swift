@@ -23,8 +23,8 @@ import Accelerate
 // MARK: Sine-Cosine
 
 public func sincos(x: RealArray) -> (sin: RealArray, cos: RealArray) {
-    let sin = RealArray(count: x.count, repeatedValue: 0.0)
-    let cos = RealArray(count: x.count, repeatedValue: 0.0)
+    let sin = RealArray(count: x.count)
+    let cos = RealArray(count: x.count)
     vvsincos(sin.pointer, cos.pointer, x.pointer, [Int32(x.count)])
 
     return (sin, cos)
@@ -33,7 +33,7 @@ public func sincos(x: RealArray) -> (sin: RealArray, cos: RealArray) {
 // MARK: Sine
 
 public func sin(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvsin(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -42,7 +42,7 @@ public func sin(x: RealArray) -> RealArray {
 // MARK: Cosine
 
 public func cos(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvcos(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -51,7 +51,7 @@ public func cos(x: RealArray) -> RealArray {
 // MARK: Tangent
 
 public func tan(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvtan(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -60,7 +60,7 @@ public func tan(x: RealArray) -> RealArray {
 // MARK: Arcsine
 
 public func asin(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvasin(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -69,7 +69,7 @@ public func asin(x: RealArray) -> RealArray {
 // MARK: Arccosine
 
 public func acos(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvacos(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -78,7 +78,7 @@ public func acos(x: RealArray) -> RealArray {
 // MARK: Arctangent
 
 public func atan(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvatan(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -89,7 +89,7 @@ public func atan(x: RealArray) -> RealArray {
 // MARK: Radians to Degrees
 
 func rad2deg(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     let divisor = RealArray(count: x.count, repeatedValue: M_PI / 180.0)
     vvdiv(results.pointer, x.pointer, divisor.pointer, [Int32(x.count)])
 
@@ -99,7 +99,7 @@ func rad2deg(x: RealArray) -> RealArray {
 // MARK: Degrees to Radians
 
 func deg2rad(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     let divisor = RealArray(count: x.count, repeatedValue: 180.0 / M_PI)
     vvdiv(results.pointer, x.pointer, divisor.pointer, [Int32(x.count)])
 

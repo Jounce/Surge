@@ -23,7 +23,7 @@ import Accelerate
 // MARK: Absolute Value
 
 public func abs(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvfabs(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -32,7 +32,7 @@ public func abs(x: RealArray) -> RealArray {
 // MARK: Ceiling
 
 public func ceil(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvceil(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -41,7 +41,7 @@ public func ceil(x: RealArray) -> RealArray {
 // MARK: Clip
 
 public func clip(x: RealArray, low: Double, high: Double) -> RealArray {
-    var results = RealArray(count: x.count, repeatedValue: 0.0), y = low, z = high
+    var results = RealArray(count: x.count), y = low, z = high
     vDSP_vclipD(x.pointer, 1, &y, &z, results.pointer, 1, vDSP_Length(x.count))
 
     return results
@@ -50,7 +50,7 @@ public func clip(x: RealArray, low: Double, high: Double) -> RealArray {
 // MARK: Copy Sign
 
 public func copysign(sign: RealArray, magnitude: RealArray) -> RealArray {
-    let results = RealArray(count: sign.count, repeatedValue: 0.0)
+    let results = RealArray(count: sign.count)
     vvcopysign(results.pointer, magnitude.pointer, sign.pointer, [Int32(sign.count)])
 
     return results
@@ -59,7 +59,7 @@ public func copysign(sign: RealArray, magnitude: RealArray) -> RealArray {
 // MARK: Floor
 
 public func floor(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvfloor(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -68,7 +68,7 @@ public func floor(x: RealArray) -> RealArray {
 // MARK: Negate
 
 public func neg(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vDSP_vnegD(x.pointer, 1, results.pointer, 1, vDSP_Length(x.count))
 
     return results
@@ -76,14 +76,14 @@ public func neg(x: RealArray) -> RealArray {
 
 public func neg(x: [Complex]) -> [Complex] {
     var results = [Complex](count: x.count, repeatedValue: Complex())
-    vDSP_vnegD(realPointer(x), 1, mutableRealPointer(&results), 1, vDSP_Length(2*x.count))
+    vDSP_vnegD(x.unsafePointer(), 1, results.unsafeMutablePointer(), 1, vDSP_Length(2*x.count))
     return results
 }
 
 // MARK: Reciprocal
 
 public func rec(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvrec(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -92,7 +92,7 @@ public func rec(x: RealArray) -> RealArray {
 // MARK: Round
 
 public func round(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvnint(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -101,7 +101,7 @@ public func round(x: RealArray) -> RealArray {
 // MARK: Threshold
 
 public func threshold(x: RealArray, low: Double) -> RealArray {
-    var results = RealArray(count: x.count, repeatedValue: 0.0), y = low
+    var results = RealArray(count: x.count), y = low
     vDSP_vthrD(x.pointer, 1, &y, results.pointer, 1, vDSP_Length(x.count))
 
     return results
@@ -110,8 +110,17 @@ public func threshold(x: RealArray, low: Double) -> RealArray {
 // MARK: Truncate
 
 public func trunc(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvint(results.pointer, x.pointer, [Int32(x.count)])
+
+    return results
+}
+
+// MARK: Power
+
+public func pow(x: RealArray, y: RealArray) -> RealArray {
+    let results = RealArray(count: x.count)
+    vvpow(results.pointer, x.pointer, y.pointer, [Int32(x.count)])
 
     return results
 }

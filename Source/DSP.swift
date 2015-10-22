@@ -29,7 +29,7 @@ public func convolution(signal: RealArray, _ kernel: RealArray) -> RealArray {
 
     let kernelLast = kernel.pointer + kernel.count - 1
     let resultSize = signal.count - kernel.count + 1
-    let result = RealArray(count: resultSize, repeatedValue: 0.0)
+    let result = RealArray(count: resultSize)
     vDSP_convD(signal.pointer, 1, kernelLast, -1, result.pointer, 1, vDSP_Length(resultSize), vDSP_Length(kernel.count))
     return result
 }
@@ -42,7 +42,7 @@ public func correlation(x: RealArray, _ y: RealArray) -> RealArray {
     precondition(x.count >= y.count, "The first vector should have at least as many elements as the second")
 
     let resultSize = x.count - y.count + 1
-    let result = RealArray(count: resultSize, repeatedValue: 0.0)
+    let result = RealArray(count: resultSize)
     vDSP_convD(x.pointer, 1, y.pointer, 1, result.pointer, 1, vDSP_Length(resultSize), vDSP_Length(y.count))
     return result
 }
@@ -59,7 +59,7 @@ public func autocorrelation(x: RealArray, maxLag: Int) -> RealArray {
     precondition(maxLag < x.count)
 
     let signalSize = x.count + maxLag
-    let signal = RealArray(count: signalSize, repeatedValue: 0.0)
+    let signal = RealArray(count: signalSize)
     for i in 0..<x.count {
         signal[i] = x[i]
     }

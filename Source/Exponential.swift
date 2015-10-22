@@ -23,7 +23,7 @@ import Accelerate
 // MARK: Exponentiation
 
 public func exp(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvexp(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -32,7 +32,7 @@ public func exp(x: RealArray) -> RealArray {
 // MARK: Square Exponentiation
 
 public func exp2(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvexp2(results.pointer, x.pointer, [Int32(x.count)])
 
     return results

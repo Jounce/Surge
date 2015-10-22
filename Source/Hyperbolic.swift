@@ -23,7 +23,7 @@ import Accelerate
 // MARK: Hyperbolic Sine
 
 public func sinh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvsinh(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -32,7 +32,7 @@ public func sinh(x: RealArray) -> RealArray {
 // MARK: Hyperbolic Cosine
 
 public func cosh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvcosh(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -41,7 +41,7 @@ public func cosh(x: RealArray) -> RealArray {
 // MARK: Hyperbolic Tangent
 
 public func tanh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvtanh(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -50,7 +50,7 @@ public func tanh(x: RealArray) -> RealArray {
 // MARK: Inverse Hyperbolic Sine
 
 public func asinh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvasinh(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -59,7 +59,7 @@ public func asinh(x: RealArray) -> RealArray {
 // MARK: Inverse Hyperbolic Cosine
 
 public func acosh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvacosh(results.pointer, x.pointer, [Int32(x.count)])
 
     return results
@@ -68,7 +68,7 @@ public func acosh(x: RealArray) -> RealArray {
 // MARK: Inverse Hyperbolic Tangent
 
 public func atanh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count, repeatedValue: 0.0)
+    let results = RealArray(count: x.count)
     vvatanh(results.pointer, x.pointer, [Int32(x.count)])
 
     return results

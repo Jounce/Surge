@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,9 @@
 import Accelerate
 
 public class RealMatrix {
+    public typealias Index = (Int, Int)
     public typealias Element = Real
+    
     public let rows: Int
     public let columns: Int
     public var elements: RealArray
@@ -31,8 +33,8 @@ public class RealMatrix {
     }
     
     /// Construct a Matrix of `rows` by `columns` with every the given elements in row-major order
-    public init<C: CollectionType where C.Index == Int, C.Generator.Element == Element>(rows: Int, columns: Int, elements: C) {
-        assert(rows * columns == elements.count)
+    public init<C: CollectionType where C.Generator.Element == Element>(rows: Int, columns: Int, elements: C) {
+        assert(rows * columns == Int(elements.count.toIntMax()))
         self.rows = rows
         self.columns = columns
         self.elements = RealArray(elements)
@@ -42,18 +44,18 @@ public class RealMatrix {
     public init(rows: Int, columns: Int) {
         self.rows = rows
         self.columns = columns
-        self.elements = RealArray(capacity: rows * columns)
+        self.elements = RealArray(count: rows * columns)
     }
 
     /// Construct a Matrix from an array of rows
     public convenience init(_ contents: [[Real]]) {
-        let m: Int = contents.count
-        let n: Int = contents[0].count
+        let rows = contents.count
+        let cols = contents[0].count
 
-        self.init(rows: m, columns: n)
+        self.init(rows: rows, columns: cols)
 
         for (i, row) in contents.enumerate() {
-            elements.replaceRange(i*n..<i*n+min(n, row.count), with: row)
+            elements.replaceRange(i*cols..<i*cols+min(cols, row.count), with: row)
         }
     }
 
