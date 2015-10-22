@@ -195,8 +195,8 @@
 				614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */,
 				614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */,
 				614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */,
-				614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */,
 				614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */,
+				614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */,
 				614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */,
 				614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */,
 			);

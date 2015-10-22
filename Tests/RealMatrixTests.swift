@@ -23,7 +23,7 @@ import Upsurge
 import XCTest
 
 class RealMatrixTests: XCTestCase {
-    func test_add() {
+    func testAdd() {
         let a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
         let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 1])
         let c = a + b
@@ -35,7 +35,7 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(a.elements, d.elements)
     }
 
-    func test_mm_sub() {
+    func testSub() {
         var a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
         let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 1])
         let c = a - b
@@ -47,7 +47,7 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(a.elements, d.elements)
     }
 
-    func test_mm_mult() {
+    func testMult() {
         var a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
         let b = RealMatrix(rows: 2, columns: 2, elements: [2, 3, 4, 5])
         let c = a * b
@@ -60,7 +60,7 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(c.elements, a.elements)
     }
 
-    func test_vm_mult_orientation1() {
+    func testMultiplyWithColumn() {
         let v = RealArray([2, 3, 4, 5, 6])
         let m = RealMatrix([[1, 2, 3, 4, 5]])
         let c = v.toColumnMatrix() * m
@@ -70,7 +70,7 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(c.elements, d.elements)
     }
 
-    func test_vm_mult_orientation2() {
+    func testMultiplyWithRow() {
         let m = RealMatrix([[1], [2], [3], [4], [5]])
         let v = RealArray([2, 3, 4, 5, 6])
         let c = v.toRowMatrix() * m
@@ -80,7 +80,7 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(c.elements, d.elements)
     }
 
-    func test_mv_mult_orientation1() {
+    func testPostMultiplyWithColumn() {
         let m = RealMatrix([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
         let v = RealArray([2, 3, 4, 5, 6])
         let c = m * v.toColumnMatrix()
@@ -90,7 +90,7 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(c.elements, d.elements)
     }
 
-    func test_mv_mult_orientation2() {
+    func testPostMultiplyWithRow() {
         let m = RealMatrix([[1], [2], [3], [4], [5]])
         let v = RealArray([2, 3, 4, 5, 6])
         let c = m * v.toRowMatrix()
@@ -100,14 +100,14 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(c.elements, d.elements)
     }
 
-    func test_transpose() {
+    func testTranspose() {
         let a = RealMatrix(rows: 2, columns: 2, elements: [1, 2, 3, 4])
         let c = a′
 
         XCTAssertEqual(a.elements, c′.elements)
     }
 
-    func test_invert() {
+    func testInvert() {
         let a = RealMatrix(rows: 2, columns: 2, elements: [2, 6, -2, 4])
         let b = inv(a)
 
@@ -117,5 +117,16 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqualWithAccuracy(c.elements[1], b.elements[1], accuracy: 0.00001)
         XCTAssertEqualWithAccuracy(c.elements[2], b.elements[2], accuracy: 0.00001)
         XCTAssertEqualWithAccuracy(c.elements[3], b.elements[3], accuracy: 0.00001)
+    }
+
+    func testSwap() {
+        var a = RealMatrix([[1, 2, 3], [4, 5, 6]])
+        var b = RealMatrix([[4, 3], [2, 1]])
+        swap(&a, &b)
+
+        XCTAssertEqual(a.columns, 2)
+        XCTAssertEqual(a[0, 0], 4)
+        XCTAssertEqual(b.columns, 3)
+        XCTAssertEqual(b[0, 0], 1)
     }
 }

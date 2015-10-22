@@ -24,8 +24,8 @@ public class RealMatrix {
     public typealias Index = (Int, Int)
     public typealias Element = Real
     
-    public let rows: Int
-    public let columns: Int
+    public var rows: Int
+    public var columns: Int
     public var elements: RealArray
     
     public var pointer: UnsafeMutablePointer<Real> {
@@ -124,4 +124,12 @@ extension RealMatrix: SequenceType {
             return self.elements[currentRowStartIndex..<nextRowStartIndex]
         }
     }
+}
+
+// MARK: -
+
+public func swap(lhs: RealMatrix, rhs: RealMatrix) {
+    swap(&lhs.rows, &rhs.rows)
+    swap(&lhs.columns, &rhs.columns)
+    swap(&lhs.elements, &rhs.elements)
 }
