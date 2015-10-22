@@ -20,7 +20,7 @@
 
 import Accelerate
 
-
+/// Multiply two matrices and put the result in an existing matrix
 public func mul(lhs: RealMatrix, rhs: RealMatrix, result: RealMatrix) {
     precondition(lhs.columns == rhs.rows, "Input matrices dimensions not compatible with multiplication")
     precondition(lhs.rows == result.rows, "Output matrix dimensions not compatible with multiplication")
@@ -29,6 +29,7 @@ public func mul(lhs: RealMatrix, rhs: RealMatrix, result: RealMatrix) {
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.pointer, Int32(lhs.columns), rhs.pointer, Int32(rhs.columns), 0.0, result.pointer, Int32(result.columns))
 }
 
+/// Invert a square matrix
 public func inv(x : RealMatrix) -> RealMatrix {
     precondition(x.rows == x.columns, "Matrix must be square")
 
@@ -99,7 +100,7 @@ public func *= (lhs: RealMatrix, rhs: Real) {
     cblas_dscal(Int32(lhs.elements.count), rhs, lhs.pointer, 1)
 }
 
-public func * (lhs: Double, rhs: RealMatrix) -> RealMatrix {
+public func * (lhs: Real, rhs: RealMatrix) -> RealMatrix {
     let results = rhs.copy()
     results *= lhs
 

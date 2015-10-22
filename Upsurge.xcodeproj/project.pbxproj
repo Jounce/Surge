@@ -16,7 +16,7 @@
 		614ACAAE1BD1CBB200A1C13E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA901BD1CBB200A1C13E /* FFT.swift */; };
 		614ACAAF1BD1CBB200A1C13E /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */; };
 		614ACAB01BD1CBB200A1C13E /* RealMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA921BD1CBB200A1C13E /* RealMatrix.swift */; };
-		614ACAB11BD1CBB200A1C13E /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */; };
+		614ACAB11BD1CBB200A1C13E /* RealMatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA931BD1CBB200A1C13E /* RealMatrixArithmetic.swift */; };
 		614ACAB21BD1CBB200A1C13E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA941BD1CBB200A1C13E /* Point.swift */; };
 		614ACAB51BD1CBB200A1C13E /* RealArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA971BD1CBB200A1C13E /* RealArray.swift */; };
 		614ACAB61BD1CBB200A1C13E /* RealArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */; };
@@ -50,7 +50,7 @@
 		614ACAF91BD1CD0700A1C13E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA901BD1CBB200A1C13E /* FFT.swift */; };
 		614ACAFA1BD1CD0700A1C13E /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */; };
 		614ACAFB1BD1CD0700A1C13E /* RealMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA921BD1CBB200A1C13E /* RealMatrix.swift */; };
-		614ACAFC1BD1CD0700A1C13E /* MatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */; };
+		614ACAFC1BD1CD0700A1C13E /* RealMatrixArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA931BD1CBB200A1C13E /* RealMatrixArithmetic.swift */; };
 		614ACAFD1BD1CD0700A1C13E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA941BD1CBB200A1C13E /* Point.swift */; };
 		614ACB001BD1CD0700A1C13E /* RealArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA971BD1CBB200A1C13E /* RealArray.swift */; };
 		614ACB011BD1CD0700A1C13E /* RealArrayArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */; };
@@ -89,7 +89,7 @@
 		614ACA901BD1CBB200A1C13E /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hyperbolic.swift; sourceTree = "<group>"; };
 		614ACA921BD1CBB200A1C13E /* RealMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealMatrix.swift; sourceTree = "<group>"; };
-		614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixArithmetic.swift; sourceTree = "<group>"; };
+		614ACA931BD1CBB200A1C13E /* RealMatrixArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealMatrixArithmetic.swift; sourceTree = "<group>"; };
 		614ACA941BD1CBB200A1C13E /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		614ACA971BD1CBB200A1C13E /* RealArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealArray.swift; sourceTree = "<group>"; };
 		614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealArrayArithmetic.swift; sourceTree = "<group>"; };
@@ -179,11 +179,11 @@
 				614ACA8F1BD1CBB200A1C13E /* Exponential.swift */,
 				614ACA901BD1CBB200A1C13E /* FFT.swift */,
 				614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */,
-				614ACA921BD1CBB200A1C13E /* RealMatrix.swift */,
-				614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */,
 				614ACA941BD1CBB200A1C13E /* Point.swift */,
 				614ACA971BD1CBB200A1C13E /* RealArray.swift */,
 				614ACA981BD1CBB200A1C13E /* RealArrayArithmetic.swift */,
+				614ACA921BD1CBB200A1C13E /* RealMatrix.swift */,
+				614ACA931BD1CBB200A1C13E /* RealMatrixArithmetic.swift */,
 				614ACA991BD1CBB200A1C13E /* Trigonometric.swift */,
 				6159F8C11BD2E6E10010F83C /* Real.swift */,
 			);
@@ -393,7 +393,7 @@
 				614ACAA91BD1CBB200A1C13E /* Auxiliary.swift in Sources */,
 				614ACAB61BD1CBB200A1C13E /* RealArrayArithmetic.swift in Sources */,
 				614ACAAE1BD1CBB200A1C13E /* FFT.swift in Sources */,
-				614ACAB11BD1CBB200A1C13E /* MatrixArithmetic.swift in Sources */,
+				614ACAB11BD1CBB200A1C13E /* RealMatrixArithmetic.swift in Sources */,
 				614ACAB51BD1CBB200A1C13E /* RealArray.swift in Sources */,
 				614ACAB01BD1CBB200A1C13E /* RealMatrix.swift in Sources */,
 				614ACAB21BD1CBB200A1C13E /* Point.swift in Sources */,
@@ -431,7 +431,7 @@
 				614ACAF41BD1CD0700A1C13E /* Auxiliary.swift in Sources */,
 				614ACB011BD1CD0700A1C13E /* RealArrayArithmetic.swift in Sources */,
 				614ACAF91BD1CD0700A1C13E /* FFT.swift in Sources */,
-				614ACAFC1BD1CD0700A1C13E /* MatrixArithmetic.swift in Sources */,
+				614ACAFC1BD1CD0700A1C13E /* RealMatrixArithmetic.swift in Sources */,
 				614ACB001BD1CD0700A1C13E /* RealArray.swift in Sources */,
 				614ACAFB1BD1CD0700A1C13E /* RealMatrix.swift in Sources */,
 				614ACAFD1BD1CD0700A1C13E /* Point.swift in Sources */,
