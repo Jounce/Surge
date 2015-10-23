@@ -143,6 +143,7 @@ public func + (lhs: Real, rhs: RealArray) -> RealArray {
 }
 
 public func += (inout lhs: RealArray, rhs: RealArray) {
+    assert(lhs.count >= rhs.count)
     let count = min(lhs.count, rhs.count)
     vDSP_vaddD(lhs.pointer, 1, rhs.pointer, 1, lhs.pointer, 1, vDSP_Length(count))
 }
