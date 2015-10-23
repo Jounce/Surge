@@ -47,6 +47,13 @@ public class RealMatrix {
         self.elements = RealArray(count: rows * columns)
     }
 
+    /// Construct a Matrix of `rows` by `columns` with elements initialized to repeatedValue
+    public init(rows: Int, columns: Int, repeatedValue: Element) {
+        self.rows = rows
+        self.columns = columns
+        self.elements = RealArray(count: rows * columns, repeatedValue: repeatedValue)
+    }
+    
     /// Construct a Matrix from an array of rows
     public convenience init(_ contents: [[Real]]) {
         let rows = contents.count
