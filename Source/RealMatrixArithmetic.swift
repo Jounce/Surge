@@ -111,6 +111,8 @@ public func * (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
     precondition(lhs.columns == rhs.rows, "Matrix dimensions not compatible with multiplication")
 
     let results = RealMatrix(rows: lhs.rows, columns: rhs.columns)
+    results.elements.count = results.elements.capacity
+    results.elements.replaceRange(0..<results.elements.count, with: [Real](count: results.elements.count, repeatedValue: 0.0))
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.pointer, Int32(lhs.columns), rhs.pointer, Int32(rhs.columns), 0.0, results.pointer, Int32(results.columns))
 
     return results
