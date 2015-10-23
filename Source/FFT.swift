@@ -39,7 +39,7 @@ public class FFT {
     public func forward(input: RealArray) -> [Complex] {
         precondition(input.count == Int(length), "Input should have \(length) elements")
 
-        let real = input
+        let real = input.copy()
         let imaginary = RealArray(count: Int(length), repeatedValue: 0.0)
         var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
@@ -55,7 +55,7 @@ public class FFT {
     public func forwardMags(input: RealArray) -> RealArray {
         precondition(input.count == Int(length), "Input should have \(length) elements")
 
-        let real = input
+        let real = input.copy()
         let imaginary = RealArray(count: Int(length), repeatedValue: 0.0)
         var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
