@@ -157,47 +157,11 @@ extension RealArray : CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
-extension RealArray: Comparable { }
+extension RealArray: Equatable { }
 
 public func == (lhs: RealArray, rhs: RealArray) -> Bool {
     for (a, b) in zip(lhs, rhs) {
         if a != b {
-            return false
-        }
-    }
-    return true
-}
-
-public func < (lhs: RealArray, rhs: RealArray) -> Bool {
-    for (a, b) in zip(lhs, rhs) {
-        if a >= b {
-            return false
-        }
-    }
-    return true
-}
-
-public func <= (lhs: RealArray, rhs: RealArray) -> Bool {
-    for (a, b) in zip(lhs, rhs) {
-        if a > b {
-            return false
-        }
-    }
-    return true
-}
-
-public func > (lhs: RealArray, rhs: RealArray) -> Bool {
-    for (a, b) in zip(lhs, rhs) {
-        if a <= b {
-            return false
-        }
-    }
-    return true
-}
-
-public func >= (lhs: RealArray, rhs: RealArray) -> Bool {
-    for (a, b) in zip(lhs, rhs) {
-        if a < b {
             return false
         }
     }
