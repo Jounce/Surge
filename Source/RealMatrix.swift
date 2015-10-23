@@ -126,6 +126,29 @@ extension RealMatrix: SequenceType {
     }
 }
 
+// MARK: - Comparable
+
+extension RealMatrix : Comparable {}
+public func <(lhs: RealMatrix, rhs: RealMatrix) -> Bool {
+    return lhs.elements < rhs.elements
+}
+
+public func <=(lhs: RealMatrix, rhs: RealMatrix) -> Bool {
+    return lhs.elements <= rhs.elements
+}
+
+public func >(lhs: RealMatrix, rhs: RealMatrix) -> Bool {
+    return lhs.elements > rhs.elements
+}
+
+public func >=(lhs: RealMatrix, rhs: RealMatrix) -> Bool {
+    return lhs.elements >= rhs.elements
+}
+
+public func ==(lhs: RealMatrix, rhs: RealMatrix) -> Bool {
+    return lhs.elements == rhs.elements
+}
+
 // MARK: -
 
 public func swap(lhs: RealMatrix, rhs: RealMatrix) {
