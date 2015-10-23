@@ -126,6 +126,14 @@ extension RealMatrix: SequenceType {
     }
 }
 
+// MARK: - Equatable
+
+extension RealMatrix : Equatable {}
+
+public func ==(lhs: RealMatrix, rhs: RealMatrix) -> Bool {
+    return lhs.elements == rhs.elements
+}
+
 // MARK: -
 
 public func swap(lhs: RealMatrix, rhs: RealMatrix) {
