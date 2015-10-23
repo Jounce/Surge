@@ -1,5 +1,3 @@
-// FFT.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,46 +20,50 @@
 
 import Accelerate
 
-// MARK: Fast Fourier Transform
+public class FFT {
+    private var lengthLog2: vDSP_Length
+    private var setup: FFTSetupD
+    public private(set) var length: vDSP_Length
 
-public func fft(input: [Float]) -> [Float] {
-    var real = [Float](input)
-    var imaginary = [Float](count: input.count, repeatedValue: 0.0)
-    var splitComplex = DSPSplitComplex(realp: &real, imagp: &imaginary)
+    public init(inputLength: Int) {
+        lengthLog2 = vDSP_Length(ceil(log2(Real(inputLength))))
+        length = vDSP_Length(exp2(Real(lengthLog2)))
+        setup = vDSP_create_fftsetupD(lengthLog2, FFTRadix(kFFTRadix2))
+    }
 
-    let length = vDSP_Length(floor(log2(Float(input.count))))
-    let radix = FFTRadix(kFFTRadix2)
-    let weights = vDSP_create_fftsetup(length, radix)
-    vDSP_fft_zip(weights, &splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+    deinit {
+        vDSP_destroy_fftsetupD(setup)
+    }
 
-    var magnitudes = [Float](count: input.count, repeatedValue: 0.0)
-    vDSP_zvmags(&splitComplex, 1, &magnitudes, 1, vDSP_Length(input.count))
+    /// Performs a real to complex forward FFT
+    public func forward(input: RealArray) -> [Complex] {
+        precondition(input.count == Int(length), "Input should have \(length) elements")
 
-    var normalizedMagnitudes = [Float](count: input.count, repeatedValue: 0.0)
-    vDSP_vsmul(sqrt(magnitudes), 1, [2.0 / Float(input.count)], &normalizedMagnitudes, 1, vDSP_Length(input.count))
+        let real = input
+        let imaginary = RealArray(count: Int(length), repeatedValue: 0.0)
+        var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
+        vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-    vDSP_destroy_fftsetup(weights)
+        let result = [Complex](count: Int(length/2), repeatedValue: Complex())
+        vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(result), 1, length/2)
 
-    return normalizedMagnitudes
-}
+        let scale = 2.0 / Real(length)
+        return result * scale * scale
+    }
 
-public func fft(input: [Double]) -> [Double] {
-    var real = [Double](input)
-    var imaginary = [Double](count: input.count, repeatedValue: 0.0)
-    var splitComplex = DSPDoubleSplitComplex(realp: &real, imagp: &imaginary)
+    /// Performs a real to real forward FFT by taking the square magnitudes of the complex result
+    public func forwardMags(input: RealArray) -> RealArray {
+        precondition(input.count == Int(length), "Input should have \(length) elements")
 
-    let length = vDSP_Length(floor(log2(Float(input.count))))
-    let radix = FFTRadix(kFFTRadix2)
-    let weights = vDSP_create_fftsetupD(length, radix)
-    vDSP_fft_zipD(weights, &splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+        let real = input
+        let imaginary = RealArray(count: Int(length), repeatedValue: 0.0)
+        var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
+        vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-    var magnitudes = [Double](count: input.count, repeatedValue: 0.0)
-    vDSP_zvmagsD(&splitComplex, 1, &magnitudes, 1, vDSP_Length(input.count))
+        let magnitudes = RealArray(count: Int(length/2))
+        vDSP_zvmagsD(&splitComplex, 1, magnitudes.pointer, 1, length/2)
 
-    var normalizedMagnitudes = [Double](count: input.count, repeatedValue: 0.0)
-    vDSP_vsmulD(sqrt(magnitudes), 1, [2.0 / Double(input.count)], &normalizedMagnitudes, 1, vDSP_Length(input.count))
-
-    vDSP_destroy_fftsetupD(weights)
-
-    return normalizedMagnitudes
+        let scale = 2.0 / Real(length)
+        return magnitudes * scale * scale
+    }
 }

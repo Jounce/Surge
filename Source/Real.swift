@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,19 +19,10 @@
 // THE SOFTWARE.
 
 import Foundation
-import Upsurge
-import XCTest
 
-class ExponentialTests: XCTestCase {
-    let n = 10000
+/// A real number
+public typealias Real = Double
 
-    func test_exp() {
-        let values = (0...n).map{_ in Real(arc4random_uniform(10))}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: { exp($0) }, mapped: { $0.map{ exp($0) } }, accuracy: 0.0001)
-    }
+public protocol RealType {}
 
-    func test_exp2() {
-        let values = (0...n).map{_ in Real(arc4random_uniform(10))}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: { exp2($0) }, mapped: { $0.map{ exp2($0) } }, accuracy: 0.0001)
-    }
-}
+extension Real: RealType {}

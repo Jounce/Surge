@@ -1,5 +1,3 @@
-// HyperbolicTests.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,25 +19,25 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
+import Upsurge
 import XCTest
 
 class HyperbolicTests: XCTestCase {
     let n = 10000
 
     func test_sinh() {
-        let values = map(0...n){_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: sinh, mapped: sinh, accuracy: 0.0001)
+        let values = (0...n).map{_ in drand48() * M_PI}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { sinh($0) }, mapped: { $0.map{ sinh($0) } }, accuracy: 0.0001)
     }
 
     func test_cosh() {
-        let values = map(0...n){_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: cosh, mapped: cosh, accuracy: 0.0001)
+        let values = (0...n).map{_ in drand48() * M_PI}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { cosh($0) }, mapped: { $0.map{ cosh($0) } }, accuracy: 0.0001)
     }
 
     func test_tanh() {
-        let values = map(0...n){_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: tanh, mapped: tanh, accuracy: 0.0001)
+        let values = (0...n).map{_ in drand48() * M_PI}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { tanh($0) }, mapped: { $0.map{ tanh($0) } }, accuracy: 0.0001)
     }
 
 //    func test_asinh() {

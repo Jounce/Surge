@@ -1,5 +1,3 @@
-// Surge.h
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,9 +21,9 @@
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
 
-//! Project version number for Surge.
-FOUNDATION_EXPORT double SurgeVersionNumber;
+//! Project version number for Upsurge.
+FOUNDATION_EXPORT double UpsurgeVersionNumber;
 
-//! Project version string for Surge.
-FOUNDATION_EXPORT const unsigned char SurgeVersionString[];
+//! Project version string for Upsurge.
+FOUNDATION_EXPORT const unsigned char UpsurgeVersionString[];
 

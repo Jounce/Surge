@@ -1,5 +1,3 @@
-// TrigonometricTests.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,25 +19,25 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
+import Upsurge
 import XCTest
 
 class TrigonometricTests: XCTestCase {
     let n = 10000
 
     func test_sin() {
-        let values = map(0...n){_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: sin, mapped: sin, accuracy: 0.0001)
+        let values = (0...n).map{_ in drand48() * M_PI}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { sin($0) }, mapped: { $0.map{ sin($0) } }, accuracy: 0.0001)
     }
 
     func test_cos() {
-        let values = map(0...n){_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: cos, mapped: cos, accuracy: 0.0001)
+        let values = (0...n).map{_ in drand48() * M_PI}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { cos($0) }, mapped: { $0.map{ cos($0) } }, accuracy: 0.0001)
     }
 
     func test_tan() {
-        let values = map(0...n){_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: tan, mapped: tan, accuracy: 0.0001)
+        let values = (0...n).map{_ in drand48() * M_PI}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { tan($0) }, mapped: { $0.map{ tan($0) } }, accuracy: 0.0001)
     }
 
 //    func test_asin() {

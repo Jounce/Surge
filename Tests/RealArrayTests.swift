@@ -1,6 +1,4 @@
-// Power.swift
-//
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,20 +18,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Accelerate
+import XCTest
+import Upsurge
 
-// MARK: Power
+class RealArrayTests: XCTestCase {
+    func testDescription() {
+        let emptyRealArray: RealArray = []
+        XCTAssertEqual(emptyRealArray.description, "[]")
 
-public func pow(x: [Float], y: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvpowf(&results, x, y, [Int32(x.count)])
+        let realArray: RealArray = [1.0, 2.0, 3.0]
+        XCTAssertEqual(realArray.description, "[1.0, 2.0, 3.0]")
+    }
 
-    return results
-}
+    func testCopy() {
+        let a: RealArray = [1, 2, 3]
+        let b = a.copy()
+        b[0] = 4
+        XCTAssertEqual(a[0], 1.0)
+        XCTAssertEqual(b[0], 4.0)
+    }
 
-public func pow(x: [Double], y: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvpow(&results, x, y, [Int32(x.count)])
+    func testSwap() {
+        var a: RealArray = [1, 2, 3]
+        var b: RealArray = [4]
+        swap(&a, &b)
 
-    return results
+        XCTAssertEqual(a.count, 1)
+        XCTAssertEqual(b.count, 3)
+        XCTAssertEqual(a[0], 4.0)
+        XCTAssertEqual(b[0], 1.0)
+    }
+
+    func testAppend() {
+        let a = RealArray(capacity: 3)
+        a.appendContentsOf([2, 3])
+        XCTAssertEqual(a.count, 2)
+        XCTAssertEqual(a[0], 2.0)
+        XCTAssertEqual(a[1], 3.0)
+    }
 }

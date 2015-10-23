@@ -1,5 +1,3 @@
-// ArithmeticTests.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,14 +19,36 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
+import Upsurge
 import XCTest
 
 class ArithmeticTests: XCTestCase {
     let n = 100000
 
+    func test_sum_complex() {
+        let values = (0...n).map{ _ in
+            Complex(
+                real: Real(arc4random()) - Real(UInt32.max)/2,
+                imag: Real(arc4random()) - Real(UInt32.max)/2)
+        }
+
+        var expected = Complex()
+        for v in values {
+            expected.real += v.real
+            expected.imag += v.imag
+        }
+
+        var actual = Complex()
+        self.measureBlock {
+            actual = sum(values)
+        }
+        
+        XCTAssertEqualWithAccuracy(actual.real, expected.real, accuracy: 0.0001)
+        XCTAssertEqualWithAccuracy(actual.imag, expected.imag, accuracy: 0.0001)
+    }
+
     func test_sqrt() {
-        let values = map(0...n){_ in Double(arc4random())}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
+        let values = (0...n).map{_ in Real(arc4random())}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { return sqrt($0) }, mapped: { $0.map{ sqrt($0) } }, accuracy: 0.0001)
     }
 }
