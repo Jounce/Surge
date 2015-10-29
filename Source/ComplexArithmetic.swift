@@ -18,75 +18,88 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Accelerate
-
-
-public func sum(x: [Complex]) -> Complex {
-    return sum(x, range: 0..<x.count)
-}
-
-public func sum(x: [Complex], range: Range<Int>) -> Complex {
-    let reals = x.unsafePointer() + range.startIndex
-    let imags = x.unsafePointer() + range.startIndex + 1
-    
-    var result = Complex()
-    vDSP_sveD(reals, 2, &result.real, vDSP_Length(range.count))
-    vDSP_sveD(imags, 2, &result.imag, vDSP_Length(range.count))
-    
-    return result
+public func sum(x: ComplexArray) -> Complex {
+    return Complex(real: sum(x.reals), imag: sum(x.imags))
 }
 
 // MARK: - Operators
 
-public func + (lhs: [Complex], rhs: [Complex]) -> [Complex] {
-    var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vaddD(lhs.unsafePointer(), 1, rhs.unsafePointer(), 1, results.unsafeMutablePointer(), 1, vDSP_Length(lhs.count))
-    
+public func +=(inout lhs: ComplexArray, rhs: ComplexArray) {
+    lhs.reals += rhs.reals
+    lhs.imags += rhs.imags
+}
+
+
+public func +(lhs: ComplexArray, rhs: ComplexArray) -> ComplexArray {
+    var results = ComplexArray(lhs)
+    results += rhs
     return results
 }
 
-public func + (lhs: [Complex], var rhs: Complex) -> [Complex] {
-    var result = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsaddD(lhs.unsafePointer(), 2, &rhs.real, &(result[0].real), 2, vDSP_Length(lhs.count))
-    vDSP_vsaddD(lhs.unsafePointer() + 1, 2, &rhs.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
-    
-    return result
+public func -=(inout lhs: ComplexArray, rhs: ComplexArray) {
+    lhs.reals -= rhs.reals
+    lhs.imags -= rhs.imags
 }
 
-public func - (lhs: [Complex], rhs: Complex) -> [Complex] {
-    var result = [Complex](count: lhs.count, repeatedValue: Complex())
-    var scalar: Complex = -1 * rhs
-    vDSP_vsaddD(lhs.unsafePointer(), 2, &scalar.real, &(result[0].real), 2, vDSP_Length(lhs.count))
-    vDSP_vsaddD(lhs.unsafePointer() + 1, 2, &scalar.imag, &(result[0].imag), 2, vDSP_Length(lhs.count))
-    
-    return result
-}
 
-public func / (lhs: [Complex], rhs: RealArray) -> [Complex] {
-    var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vdivD(lhs.unsafePointer(), 2, rhs.pointer, 1, results.unsafeMutablePointer(), 2, vDSP_Length(lhs.count))
-    vDSP_vdivD(lhs.unsafePointer() + 1, 2, rhs.pointer, 1, results.unsafeMutablePointer() + 1, 2, vDSP_Length(lhs.count))
-    
+public func -(lhs: ComplexArray, rhs: ComplexArray) -> ComplexArray {
+    var results = ComplexArray(lhs)
+    results -= rhs
     return results
 }
 
-public func / (lhs: [Complex], var rhs: Real) -> [Complex] {
-    var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsdivD(lhs.unsafePointer(), 1, &rhs, results.unsafeMutablePointer(), 1, vDSP_Length(2 * lhs.count))
+public func +=(inout lhs: ComplexArray, rhs: Complex) {
+    lhs.reals += rhs.real
+    lhs.imags += rhs.imag
+}
+
+public func +(lhs: ComplexArray, rhs: Complex) -> ComplexArray {
+    var results = ComplexArray(lhs)
+    results += rhs
     return results
 }
 
-public func * (lhs: [Complex], rhs: RealArray) -> [Complex] {
-    var results = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vmulD(lhs.unsafePointer(), 2, rhs.pointer, 1, results.unsafeMutablePointer(), 2, vDSP_Length(lhs.count))
-    vDSP_vmulD(lhs.unsafePointer() + 1, 2, rhs.pointer, 1, results.unsafeMutablePointer() + 1, 2, vDSP_Length(lhs.count))
-    
+public func +(lhs: Complex, rhs: ComplexArray) -> ComplexArray {
+    var results = ComplexArray(rhs)
+    results += lhs
     return results
 }
 
-public func * (lhs: [Complex], var rhs: Real) -> [Complex] {
-    var result = [Complex](count: lhs.count, repeatedValue: Complex())
-    vDSP_vsmulD(lhs.unsafePointer(), 1, &rhs, &(result[0].real), 1, vDSP_Length(lhs.count * 2))
-    
-    return result
+public func -=(inout lhs: ComplexArray, rhs: Complex) {
+    lhs.reals -= rhs.real
+    lhs.imags -= rhs.imag
+}
+
+public func -(lhs: ComplexArray, rhs: Complex) -> ComplexArray {
+    var results = ComplexArray(lhs)
+    results -= rhs
+    return results
+}
+
+public func -(lhs: Complex, rhs: ComplexArray) -> ComplexArray {
+    var results = ComplexArray(rhs)
+    results -= lhs
+    return results
+}
+
+public func *=(inout lhs: ComplexArray, rhs: Real) {
+    lhs.reals *= rhs
+    lhs.imags *= rhs
+}
+
+public func *(lhs: ComplexArray, rhs: Real) -> ComplexArray {
+    var results = ComplexArray(lhs)
+    results *= rhs
+    return results
+}
+
+public func /=(inout lhs: ComplexArray, rhs: Real) {
+    lhs.reals /= rhs
+    lhs.imags /= rhs
+}
+
+public func /(lhs: ComplexArray, rhs: Real) -> ComplexArray {
+    var results = ComplexArray(lhs)
+    results /= rhs
+    return results
 }

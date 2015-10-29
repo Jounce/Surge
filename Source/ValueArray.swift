@@ -18,13 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-
-/// A `RealArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assigning a `RealArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `RealArray` you have to explicitly call `copy()`.
-public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
+/// A `ValueArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assigning a `ValueArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `ValueArray` you have to explicitly call `copy()`.
+public class ValueArray<ElementType> : ContiguousMutableMemory, MutableCollectionType, ArrayLiteralConvertible {
     public typealias Index = Int
-    public typealias Element = Real
-
+    public typealias Element = ElementType
+    
     private var buffer: ManagedBuffer<(Int, Int), Element>
 
     public var count: Int {
@@ -48,38 +46,47 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
         return count
     }
 
+    public var step: Index {
+        return 1
+    }
+
     /// A pointer to the RealArray's memory
-    public var pointer: UnsafeMutablePointer<Element> {
+    public var pointer: UnsafePointer<Element> {
+        return buffer.withUnsafeMutablePointerToElements { UnsafePointer<Element>($0) }
+    }
+
+    /// A mutable pointer to the RealArray's memory
+    public var mutablePointer: UnsafeMutablePointer<Element> {
         return buffer.withUnsafeMutablePointerToElements { $0 }
     }
 
-    /// Construct an uninitialized RealArray with the given capacity
-    public init(capacity: Int) {
+    /// Construct an uninitialized ValueArray with the given capacity
+    public required init(capacity: Int) {
         buffer = ManagedBuffer<(Int, Int), Element>.create(capacity, initialValue: { _ in (0, capacity) })
     }
 
-    /// Construct an uninitialized RealArray with the given size
-    public init(count: Int) {
+    /// Construct an uninitialized ValueArray with the given size
+    public required init(count: Int) {
         buffer = ManagedBuffer<(Int, Int), Element>.create(count, initialValue: { _ in (count, count) })
     }
 
-    /// Construct a RealArray from an array literal
-    public convenience init(arrayLiteral elements: Element...) {
-        self.init(capacity: elements.count)
-        pointer.initializeFrom(elements)
-        count = capacity
+    /// Construct a ValueArray from an array literal
+    public required init(arrayLiteral elements: Element...) {
+        buffer = ManagedBuffer<(Int, Int), Element>.create(elements.count, initialValue: { _ in (elements.count, elements.count) })
+        mutablePointer.initializeFrom(elements)
     }
 
-    /// Construct a RealArray from an array of reals
-    public convenience init<C : CollectionType where C.Generator.Element == Element>(_ values: C) {
-        self.init(capacity: Int(values.count.toIntMax()))
-        pointer.initializeFrom(values)
-        count = capacity
+    /// Construct a ValueArray from contiguous memory
+    public required init<C : ContiguousMemory where C.Element == Element>(_ values: C) {
+        buffer = ManagedBuffer<(Int, Int), Element>.create(values.count, initialValue: { _ in (values.count, values.count) })
+        for var i = 0; i < values.count; i += 1 {
+            mutablePointer[i] = values.pointer[values.startIndex + i * step]
+        }
     }
 
-    /// Construct a RealArray of `count` elements, each initialized to `repeatedValue`.
-    public convenience init(count: Int, repeatedValue: Element) {
-        self.init(count: count)
+    /// Construct a ValueArray of `count` elements, each initialized to `repeatedValue`.
+    public required init(count: Int, repeatedValue: Element) {
+        buffer = ManagedBuffer<(Int, Int), Element>.create(count, initialValue: { _ in (count, count) })
         for i in 0..<count {
             self[i] = repeatedValue
         }
@@ -94,50 +101,44 @@ public final class RealArray : MutableCollectionType, ArrayLiteralConvertible {
         set {
             precondition(0 <= index && index < capacity)
             assert(index < count)
-            pointer[index] = newValue
+            mutablePointer[index] = newValue
         }
     }
 
-    public func copy() -> RealArray {
-        let copy = RealArray(count: capacity)
-        copy.pointer.initializeFrom(pointer, count: count)
+    public func copy() -> ValueArray {
+        let copy = ValueArray(count: capacity)
+        copy.mutablePointer.initializeFrom(mutablePointer, count: count)
         return copy
     }
 
-    public func append(value: Real) {
+    public func append(value: Element) {
         precondition(count + 1 <= capacity)
-        pointer[count] = value
+        mutablePointer[count] = value
         count += 1
     }
 
     public func appendContentsOf<C : CollectionType where C.Generator.Element == Element>(values: C) {
         precondition(count + Int(values.count.toIntMax()) <= capacity)
-        let endPointer = pointer + count
+        let endPointer = mutablePointer + count
         endPointer.initializeFrom(values)
         count += Int(values.count.toIntMax())
     }
 
     public func replaceRange<C: CollectionType where C.Generator.Element == Element>(subRange: Range<Index>, with newElements: C) {
         assert(subRange.startIndex >= startIndex && subRange.endIndex <= endIndex)
-        (pointer + subRange.startIndex).initializeFrom(newElements)
+        (mutablePointer + subRange.startIndex).initializeFrom(newElements)
     }
     
-    public func toRowMatrix() -> RealMatrix {
-        let result = RealMatrix(rows: 1, columns: count)
-        result.elements = self
-        
-        return result
+    public func toRowMatrix() -> Matrix<Element> {
+        return Matrix(rows: 1, columns: count, elements: self)
     }
     
-    public func toColumnMatrix() -> RealMatrix {
-        let result = RealMatrix(rows: count, columns: 1)
-        result.elements = self
-        
-        return result
+    public func toColumnMatrix() -> Matrix<Element> {
+        return Matrix(rows: count, columns: 1, elements: self)
     }
 }
 
-extension RealArray : CustomStringConvertible, CustomDebugStringConvertible {
+public extension ValueArray where ElementType : CustomStringConvertible {
     public var description: String {
         var string = "["
         for v in self {
@@ -157,9 +158,7 @@ extension RealArray : CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
-extension RealArray: Equatable { }
-
-public func == (lhs: RealArray, rhs: RealArray) -> Bool {
+public func ==<T where T : Equatable>(lhs: ValueArray<T>, rhs: ValueArray<T>) -> Bool {
     for (a, b) in zip(lhs, rhs) {
         if a != b {
             return false
@@ -168,6 +167,6 @@ public func == (lhs: RealArray, rhs: RealArray) -> Bool {
     return true
 }
 
-public func swap(inout lhs: RealArray, inout rhs: RealArray) {
+public func swap<T>(inout lhs: ValueArray<T>, inout rhs: ValueArray<T>) {
     swap(&lhs.buffer, &rhs.buffer)
 }

@@ -18,26 +18,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import Upsurge
+@testable import Upsurge
 import XCTest
 
-class DSPTests: XCTestCase {
-    func testConvolution() {
-        let actual = convolution([0.0, 1.0, 2.0, 0.0], [0.0, -1.0])
-        let expected: RealArray = [0.0, -1.0, -2.0]
-        XCTAssert(actual == expected)
+class ComplexTests: XCTestCase {
+    let n = 10000
+
+    func testSumComplex() {
+        let values = ComplexArray((0..<n).map{ _ in
+            Complex(
+                real: Real(arc4random()) - Real(UInt32.max)/2,
+                imag: Real(arc4random()) - Real(UInt32.max)/2)
+        })
+
+        var expected = Complex()
+        for var i = 0; i < values.count; i += 1 {
+            let v = values[i]
+            print(v)
+            expected.real += v.real
+            expected.imag += v.imag
+        }
+
+        var actual = Complex()
+        self.measureBlock {
+            actual = sum(values)
+        }
+
+        XCTAssertEqualWithAccuracy(actual.real, expected.real, accuracy: 0.0001)
+        XCTAssertEqualWithAccuracy(actual.imag, expected.imag, accuracy: 0.0001)
     }
 
-    func testCorrelation() {
-        let actual = correlation([0.0, 1.0, 2.0, 0.0], [0.0, -1.0])
-        let expected: RealArray = [-1.0, -2.0, 0.0]
-        XCTAssert(actual == expected)
-    }
-
-    func testAutocorrelation() {
-        let actual = autocorrelation([1.0, 1.0], maxLag: 1)
-        let expected: RealArray = [2.0, 1.0]
-        XCTAssert(actual == expected)
-    }
 }

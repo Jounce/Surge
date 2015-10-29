@@ -24,13 +24,13 @@ import Accelerate
     Convolution between a signal and a kernel. The signal should have at least as many elements as the kernel. The
     result will have `N - M + 1` elements where `N` is the size of the signal and `M` is the size of the kernel.
 */
-public func convolution(signal: RealArray, _ kernel: RealArray) -> RealArray {
+public func convolution<MS: ContiguousMemory, MK: ContiguousMemory where MS.Element == Double, MK.Element == Double>(signal: MS, _ kernel: MK) -> ValueArray<Double> {
     precondition(signal.count >= kernel.count, "The signal should have at least as many elements as the kernel")
 
     let kernelLast = kernel.pointer + kernel.count - 1
     let resultSize = signal.count - kernel.count + 1
-    let result = RealArray(count: resultSize)
-    vDSP_convD(signal.pointer, 1, kernelLast, -1, result.pointer, 1, vDSP_Length(resultSize), vDSP_Length(kernel.count))
+    let result = ValueArray<Double>(count: resultSize)
+    vDSP_convD(signal.pointer, signal.step, kernelLast, -kernel.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(kernel.count))
     return result
 }
 
@@ -38,12 +38,12 @@ public func convolution(signal: RealArray, _ kernel: RealArray) -> RealArray {
     Correlation between two vectors. The first vector should have at least as many elements as the second. The result
     will have `N - M + 1` elements where `N` is the size of the first vector and `M` is the size of the second.
 */
-public func correlation(x: RealArray, _ y: RealArray) -> RealArray {
-    precondition(x.count >= y.count, "The first vector should have at least as many elements as the second")
+public func correlation<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, _ rhs: MR) -> ValueArray<Double> {
+    precondition(lhs.count >= rhs.count, "The first vector should have at least as many elements as the second")
 
-    let resultSize = x.count - y.count + 1
-    let result = RealArray(count: resultSize)
-    vDSP_convD(x.pointer, 1, y.pointer, 1, result.pointer, 1, vDSP_Length(resultSize), vDSP_Length(y.count))
+    let resultSize = lhs.count - rhs.count + 1
+    let result = ValueArray<Double>(count: resultSize)
+    vDSP_convD(lhs.pointer, lhs.step, rhs.pointer, rhs.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(rhs.count))
     return result
 }
 
@@ -55,13 +55,13 @@ public func correlation(x: RealArray, _ y: RealArray) -> RealArray {
     - parameter x: The signal
     - parameter maxLag: The maximum lag to use.
 */
-public func autocorrelation(x: RealArray, maxLag: Int) -> RealArray {
+public func autocorrelation<M: ContiguousMemory where M.Element == Double>(x: M, maxLag: Int) -> ValueArray<Double> {
     precondition(maxLag < x.count)
 
     let signalSize = x.count + maxLag
-    let signal = RealArray(count: signalSize)
+    let signal = ValueArray<Double>(count: signalSize, repeatedValue: 0.0)
     for i in 0..<x.count {
-        signal[i] = x[i]
+        signal.mutablePointer[i] = x.pointer[x.startIndex + i*x.step]
     }
     return correlation(signal, x)
 }

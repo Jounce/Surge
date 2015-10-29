@@ -20,88 +20,97 @@
 
 import Accelerate
 
-// MARK: Sine-Cosine
+/// Sine-Cosine
+public func sincos<M: ContiguousMemory where M.Element == Double>(x: M) -> (sin: ValueArray<Double>, cos: ValueArray<Double>) {
+    precondition(x.step == 1, "sincos doesn't support step values other than 1")
 
-public func sincos(x: RealArray) -> (sin: RealArray, cos: RealArray) {
-    let sin = RealArray(count: x.count)
-    let cos = RealArray(count: x.count)
-    vvsincos(sin.pointer, cos.pointer, x.pointer, [Int32(x.count)])
+    let sin = ValueArray<Double>(count: x.count)
+    let cos = ValueArray<Double>(count: x.count)
+    vvsincos(sin.mutablePointer, cos.mutablePointer, x.pointer, [Int32(x.count)])
 
     return (sin, cos)
 }
 
-// MARK: Sine
+/// Sine
+public func sin<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "sin doesn't support step values other than 1")
 
-public func sin(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvsin(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Cosine
-
-public func cos(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvcos(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvsin(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Tangent
+/// Cosine
+public func cos<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "cos doesn't support step values other than 1")
 
-public func tan(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvtan(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Arcsine
-
-public func asin(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvasin(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvcos(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Arccosine
+/// Tangent
+public func tan<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "tan doesn't support step values other than 1")
 
-public func acos(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvacos(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvtan(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Arctangent
+/// Arcsine
+public func asin<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "asin doesn't support step values other than 1")
 
-public func atan(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvatan(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvasin(results.mutablePointer, x.pointer, [Int32(x.count)])
+
+    return results
+}
+
+/// Arccosine
+public func acos<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "acos doesn't support step values other than 1")
+
+    let results = ValueArray<Double>(count: x.count)
+    vvacos(results.mutablePointer, x.pointer, [Int32(x.count)])
+
+    return results
+}
+
+/// Arctangent
+public func atan<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "atan doesn't support step values other than 1")
+
+    let results = ValueArray<Double>(count: x.count)
+    vvatan(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
 // MARK: -
 
-// MARK: Radians to Degrees
+/// Radians to Degrees
+func rad2deg<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "rad2deg doesn't support step values other than 1")
 
-func rad2deg(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    let divisor = RealArray(count: x.count, repeatedValue: M_PI / 180.0)
-    vvdiv(results.pointer, x.pointer, divisor.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    let divisor = ValueArray(count: x.count, repeatedValue: M_PI / 180.0)
+    vvdiv(results.mutablePointer, x.pointer, divisor.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Degrees to Radians
+/// Degrees to Radians
+func deg2rad<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "deg2rad doesn't support step values other than 1")
 
-func deg2rad(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    let divisor = RealArray(count: x.count, repeatedValue: 180.0 / M_PI)
-    vvdiv(results.pointer, x.pointer, divisor.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / M_PI)
+    vvdiv(results.mutablePointer, x.pointer, divisor.pointer, [Int32(x.count)])
 
     return results
 }

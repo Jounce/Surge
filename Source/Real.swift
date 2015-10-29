@@ -18,11 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-
 /// A real number
 public typealias Real = Double
 
-public protocol RealType {}
-
-extension Real: RealType {}
+public typealias RealArray = ValueArray<Real>
+public typealias RealArraySlice = ValueArraySlice<Real>
+public typealias RealMatrix = Matrix<Real>

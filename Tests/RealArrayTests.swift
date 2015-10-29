@@ -26,8 +26,8 @@ class RealArrayTests: XCTestCase {
         let emptyRealArray: RealArray = []
         XCTAssertEqual(emptyRealArray.description, "[]")
 
-        let realArray: RealArray = [1.0, 2.0, 3.0]
-        XCTAssertEqual(realArray.description, "[1.0, 2.0, 3.0]")
+        let array: RealArray = [1.0, 2.0, 3.0]
+        XCTAssertEqual(array.description, "[1.0, 2.0, 3.0]")
     }
 
     func testCopy() {

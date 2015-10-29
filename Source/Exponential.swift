@@ -20,56 +20,62 @@
 
 import Accelerate
 
-// MARK: Exponentiation
+/// Exponentiation
+public func exp<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "exp doesn't support step values other than 1")
 
-public func exp(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvexp(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Square Exponentiation
-
-public func exp2(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvexp2(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvexp(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Natural Logarithm
+/// Square Exponentiation
+public func exp2<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "exp2 doesn't support step values other than 1")
 
-public func log(x: RealArray) -> RealArray {
-    let results = x.copy()
-    vvlog(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Base-2 Logarithm
-
-public func log2(x: RealArray) -> RealArray {
-    let results = x.copy()
-    vvlog2(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvexp2(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Base-10 Logarithm
+/// Natural Logarithm
+public func log<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "log doesn't support step values other than 1")
 
-public func log10(x: RealArray) -> RealArray {
-    let results = x.copy()
-    vvlog10(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvlog(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Logarithmic Exponentiation
+/// Base-2 Logarithm
+public func log2<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "log2 doesn't support step values other than 1")
 
-public func logb(x: RealArray) -> RealArray {
-    let results = x.copy()
-    vvlogb(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvlog2(results.mutablePointer, x.pointer, [Int32(x.count)])
+
+    return results
+}
+
+/// Base-10 Logarithm
+public func log10<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "log10 doesn't support step values other than 1")
+
+    let results = ValueArray<Double>(count: x.count)
+    vvlog10(results.mutablePointer, x.pointer, [Int32(x.count)])
+
+    return results
+}
+
+/// Logarithmic Exponentiation
+public func logb<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "logb doesn't support step values other than 1")
+
+    let results = ValueArray<Double>(count: x.count)
+    vvlogb(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }

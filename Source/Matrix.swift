@@ -20,42 +20,46 @@
 
 import Accelerate
 
-public class RealMatrix {
+public class Matrix<ElementType> {
     public typealias Index = (Int, Int)
-    public typealias Element = Real
+    public typealias Element = ElementType
     
     public var rows: Int
     public var columns: Int
-    public var elements: RealArray
+    public var elements: ValueArray<Element>
     
-    public var pointer: UnsafeMutablePointer<Real> {
+    public var pointer: UnsafePointer<Element> {
         return elements.pointer
     }
     
+    public var mutablePointer: UnsafeMutablePointer<Element> {
+        return elements.mutablePointer
+    }
+    
     /// Construct a Matrix of `rows` by `columns` with every the given elements in row-major order
-    public init<C: CollectionType where C.Generator.Element == Element>(rows: Int, columns: Int, elements: C) {
-        assert(rows * columns == Int(elements.count.toIntMax()))
+    public init<M: ContiguousMemory where M.Element == Element>(rows: Int, columns: Int, elements: M) {
+        assert(rows * columns == elements.count)
         self.rows = rows
         self.columns = columns
-        self.elements = RealArray(elements)
+        self.elements = ValueArray(elements)
     }
 
     /// Construct a Matrix of `rows` by `columns` with uninitialized elements
     public init(rows: Int, columns: Int) {
         self.rows = rows
         self.columns = columns
-        self.elements = RealArray(count: rows * columns)
+        self.elements = ValueArray(count: rows * columns)
     }
 
     /// Construct a Matrix of `rows` by `columns` with elements initialized to repeatedValue
     public init(rows: Int, columns: Int, repeatedValue: Element) {
         self.rows = rows
         self.columns = columns
-        self.elements = RealArray(count: rows * columns, repeatedValue: repeatedValue)
+        self.elements = ValueArray(count: rows * columns, repeatedValue: repeatedValue)
     }
     
     /// Construct a Matrix from an array of rows
-    public convenience init(_ contents: [[Real]]) {
+    public convenience init(_ contents: [[Element]]) {
         let rows = contents.count
         let cols = contents[0].count
 
@@ -66,7 +70,7 @@ public class RealMatrix {
         }
     }
 
-    public subscript(row: Int, column: Int) -> Real {
+    public subscript(row: Int, column: Int) -> Element {
         get {
             assert(indexIsValidForRow(row, column: column))
             return elements[(row * columns) + column]
@@ -77,8 +81,8 @@ public class RealMatrix {
         }
     }
     
-    public func copy() -> RealMatrix {
-        return RealMatrix(rows: rows, columns: columns, elements: elements.copy())
+    public func copy() -> Matrix {
+        return Matrix(rows: rows, columns: columns, elements: elements.copy())
     }
 
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {
@@ -88,7 +92,7 @@ public class RealMatrix {
 
 // MARK: - Printable
 
-extension RealMatrix: CustomStringConvertible {
+extension Matrix: CustomStringConvertible {
     public var description: String {
         var description = ""
 
@@ -115,8 +119,8 @@ extension RealMatrix: CustomStringConvertible {
 
 // MARK: - SequenceType
 
-extension RealMatrix: SequenceType {
-    public func generate() -> AnyGenerator<MutableSlice<RealArray>> {
+extension Matrix: SequenceType {
+    public func generate() -> AnyGenerator<MutableSlice<ValueArray<Element>>> {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
@@ -135,15 +139,13 @@ extension RealMatrix: SequenceType {
 
 // MARK: - Equatable
 
-extension RealMatrix : Equatable {}
-
-public func ==(lhs: RealMatrix, rhs: RealMatrix) -> Bool {
+public func ==<T: Equatable>(lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
     return lhs.elements == rhs.elements
 }
 
 // MARK: -
 
-public func swap(lhs: RealMatrix, rhs: RealMatrix) {
+public func swap<T>(lhs: Matrix<T>, rhs: Matrix<T>) {
     swap(&lhs.rows, &rhs.rows)
     swap(&lhs.columns, &rhs.columns)
     swap(&lhs.elements, &rhs.elements)

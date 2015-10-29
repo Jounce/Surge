@@ -21,16 +21,16 @@
 import Accelerate
 
 /// Multiply two matrices and put the result in an existing matrix
-public func mul(lhs: RealMatrix, rhs: RealMatrix, result: RealMatrix) {
+public func mul(lhs: Matrix<Double>, rhs: Matrix<Double>, result: Matrix<Double>) {
     precondition(lhs.columns == rhs.rows, "Input matrices dimensions not compatible with multiplication")
     precondition(lhs.rows == result.rows, "Output matrix dimensions not compatible with multiplication")
     precondition(rhs.columns == result.columns, "Output matrix dimensions not compatible with multiplication")
 
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.pointer, Int32(lhs.columns), rhs.pointer, Int32(rhs.columns), 0.0, result.pointer, Int32(result.columns))
+    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.pointer, Int32(lhs.columns), rhs.pointer, Int32(rhs.columns), 0.0, result.mutablePointer, Int32(result.columns))
 }
 
 /// Invert a square matrix
-public func inv(x : RealMatrix) -> RealMatrix {
+public func inv(x : Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == x.columns, "Matrix must be square")
 
     let results = x.copy()
@@ -41,30 +41,30 @@ public func inv(x : RealMatrix) -> RealMatrix {
     var error: __CLPK_integer = 0
     var nc = __CLPK_integer(x.columns)
 
-    dgetrf_(&nc, &nc, results.pointer, &nc, &ipiv, &error)
-    dgetri_(&nc, results.pointer, &nc, &ipiv, &work, &lwork, &error)
+    dgetrf_(&nc, &nc, results.mutablePointer, &nc, &ipiv, &error)
+    dgetri_(&nc, results.mutablePointer, &nc, &ipiv, &work, &lwork, &error)
 
     assert(error == 0, "Matrix not invertible")
 
     return results
 }
 
-public func transpose(x: RealMatrix) -> RealMatrix {
-    let results = RealMatrix(rows: x.columns, columns: x.rows)
-    vDSP_mtransD(x.pointer, 1, results.pointer, 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
+public func transpose(x: Matrix<Double>) -> Matrix<Double> {
+    let results = Matrix<Double>(rows: x.columns, columns: x.rows)
+    vDSP_mtransD(x.pointer, 1, results.mutablePointer, 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
 
     return results
 }
 
 // MARK: - Operators
 
-public func += (lhs: RealMatrix, rhs: RealMatrix) {
+public func += (lhs: Matrix<Double>, rhs: Matrix<Double>) {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
-    cblas_daxpy(Int32(lhs.elements.count), 1.0, rhs.pointer, 1, lhs.pointer, 1)
+    cblas_daxpy(Int32(lhs.elements.count), 1.0, rhs.pointer, 1, lhs.mutablePointer, 1)
 }
 
-public func + (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
+public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
     let results = lhs.copy()
@@ -73,13 +73,13 @@ public func + (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
     return results
 }
 
-public func -= (inout lhs: RealMatrix, rhs: RealMatrix) {
+public func -= (inout lhs: Matrix<Double>, rhs: Matrix<Double>) {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
     lhs.elements -= rhs.elements
 }
 
-public func - (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
+public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
     var results = lhs.copy()
@@ -88,7 +88,7 @@ public func - (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
     return results
 }
 
-public func *= (inout lhs: RealMatrix, rhs: RealMatrix) {
+public func *= (inout lhs: Matrix<Double>, rhs: Matrix<Double>) {
     precondition(lhs.columns == lhs.rows, "Matrix dimensions not compatible with multiplication")
     precondition(rhs.columns == rhs.rows, "Matrix dimensions not compatible with multiplication")
     precondition(lhs.columns == rhs.columns, "Matrix dimensions not compatible with multiplication")
@@ -96,27 +96,27 @@ public func *= (inout lhs: RealMatrix, rhs: RealMatrix) {
     lhs = lhs * rhs
 }
 
-public func *= (lhs: RealMatrix, rhs: Real) {
-    cblas_dscal(Int32(lhs.elements.count), rhs, lhs.pointer, 1)
-}
-
-public func * (lhs: Real, rhs: RealMatrix) -> RealMatrix {
-    let results = rhs.copy()
-    results *= lhs
-
-    return results
-}
-
-public func * (lhs: RealMatrix, rhs: RealMatrix) -> RealMatrix {
+public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.columns == rhs.rows, "Matrix dimensions not compatible with multiplication")
 
-    let results = RealMatrix(rows: lhs.rows, columns: rhs.columns)
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.pointer, Int32(lhs.columns), rhs.pointer, Int32(rhs.columns), 0.0, results.pointer, Int32(results.columns))
+    let results = Matrix<Double>(rows: lhs.rows, columns: rhs.columns)
+    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.pointer, Int32(lhs.columns), rhs.pointer, Int32(rhs.columns), 0.0, results.mutablePointer, Int32(results.columns))
 
     return results
 }
 
+public func *= (lhs: Matrix<Double>, rhs: Double) {
+    cblas_dscal(Int32(lhs.elements.count), rhs, lhs.mutablePointer, 1)
+}
+
+public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
+    let results = rhs.copy()
+    results *= lhs
+    return results
+}
+
+
 postfix operator ′ {}
-public postfix func ′ (value: RealMatrix) -> RealMatrix {
+public postfix func ′ (value: Matrix<Double>) -> Matrix<Double> {
     return transpose(value)
 }

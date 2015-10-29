@@ -20,56 +20,62 @@
 
 import Accelerate
 
-// MARK: Hyperbolic Sine
+/// Hyperbolic Sine
+public func sinh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "sinh doesn't support step values other than 1")
 
-public func sinh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvsinh(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Hyperbolic Cosine
-
-public func cosh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvcosh(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvsinh(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Hyperbolic Tangent
+/// Hyperbolic Cosine
+public func cosh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "cosh doesn't support step values other than 1")
 
-public func tanh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvtanh(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Inverse Hyperbolic Sine
-
-public func asinh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvasinh(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvcosh(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Inverse Hyperbolic Cosine
+/// Hyperbolic Tangent
+public func tanh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "tanh doesn't support step values other than 1")
 
-public func acosh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvacosh(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvtanh(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Inverse Hyperbolic Tangent
+/// Inverse Hyperbolic Sine
+public func asinh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "asinh doesn't support step values other than 1")
 
-public func atanh(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvatanh(results.pointer, x.pointer, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvasinh(results.mutablePointer, x.pointer, [Int32(x.count)])
+
+    return results
+}
+
+/// Inverse Hyperbolic Cosine
+public func acosh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "acosh doesn't support step values other than 1")
+
+    let results = ValueArray<Double>(count: x.count)
+    vvacosh(results.mutablePointer, x.pointer, [Int32(x.count)])
+
+    return results
+}
+
+/// Inverse Hyperbolic Tangent
+public func atanh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "atanh doesn't support step values other than 1")
+
+    let results = ValueArray<Double>(count: x.count)
+    vvatanh(results.mutablePointer, x.pointer, [Int32(x.count)])
 
     return results
 }

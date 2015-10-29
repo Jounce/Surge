@@ -36,32 +36,32 @@ public class FFT {
     }
 
     /// Performs a real to complex forward FFT
-    public func forward(input: RealArray) -> [Complex] {
+    public func forward<M: ContiguousMemory where M.Element == Double>(input: M) -> ComplexArray {
         precondition(input.count == Int(length), "Input should have \(length) elements")
 
-        let real = input.copy()
-        let imaginary = RealArray(count: Int(length), repeatedValue: 0.0)
-        var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
+        let real = ValueArray<Double>(input)
+        let imaginary = ValueArray<Double>(count: Int(length), repeatedValue: 0.0)
+        var splitComplex = DSPDoubleSplitComplex(realp: real.mutablePointer, imagp: imaginary.mutablePointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        let result = [Complex](count: Int(length/2), repeatedValue: Complex())
-        vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(result), 1, length/2)
+        let result = ComplexArray(count: Int(length))
+        vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(result.mutablePointer), 1, length/2)
 
         let scale = 2.0 / Real(length)
         return result * scale * scale
     }
 
     /// Performs a real to real forward FFT by taking the square magnitudes of the complex result
-    public func forwardMags(input: RealArray) -> RealArray {
+    public func forwardMags<M: ContiguousMemory where M.Element == Double>(input: M) -> ValueArray<Double> {
         precondition(input.count == Int(length), "Input should have \(length) elements")
 
-        let real = input.copy()
-        let imaginary = RealArray(count: Int(length), repeatedValue: 0.0)
-        var splitComplex = DSPDoubleSplitComplex(realp: real.pointer, imagp: imaginary.pointer)
+        let real = ValueArray<Double>(input)
+        let imaginary = ValueArray<Double>(count: Int(length), repeatedValue: 0.0)
+        var splitComplex = DSPDoubleSplitComplex(realp: real.mutablePointer, imagp: imaginary.mutablePointer)
         vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-        let magnitudes = RealArray(count: Int(length/2))
-        vDSP_zvmagsD(&splitComplex, 1, magnitudes.pointer, 1, length/2)
+        let magnitudes = ValueArray<Double>(count: Int(length/2))
+        vDSP_zvmagsD(&splitComplex, 1, magnitudes.mutablePointer, 1, length/2)
 
         let scale = 2.0 / Real(length)
         return magnitudes * scale * scale

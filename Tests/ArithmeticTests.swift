@@ -18,37 +18,104 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import Upsurge
+@testable import Upsurge
 import XCTest
 
 class ArithmeticTests: XCTestCase {
-    let n = 100000
+    let n = 10000
 
-    func test_sum_complex() {
+    func testSumArray() {
         let values = (0...n).map{ _ in
-            Complex(
-                real: Real(arc4random()) - Real(UInt32.max)/2,
-                imag: Real(arc4random()) - Real(UInt32.max)/2)
+            Real(arc4random()) - Real(UInt32.max)/2
+        }
+        let array = [Real](values)
+
+        var expected = Real()
+        for v in array {
+            expected += v
         }
 
-        var expected = Complex()
-        for v in values {
-            expected.real += v.real
-            expected.imag += v.imag
-        }
-
-        var actual = Complex()
+        var actual: Real = 0.0
         self.measureBlock {
-            actual = sum(values)
+            actual = sum(array)
         }
-        
-        XCTAssertEqualWithAccuracy(actual.real, expected.real, accuracy: 0.0001)
-        XCTAssertEqualWithAccuracy(actual.imag, expected.imag, accuracy: 0.0001)
+
+        XCTAssertEqualWithAccuracy(actual, expected, accuracy: 0.0001)
     }
 
-    func test_sqrt() {
+    func testSumRealArray() {
+        let values = (0...n).map{ _ in
+            Real(arc4random()) - Real(UInt32.max)/2
+        }
+        let array = RealArray(values)
+
+        var expected = Real()
+        for v in array {
+            expected += v
+        }
+
+        var actual: Real = 0.0
+        self.measureBlock {
+            actual = sum(array)
+        }
+
+        XCTAssertEqualWithAccuracy(actual, expected, accuracy: 0.0001)
+    }
+
+//    func testSumComplex() {
+//        let values = (0...n).map{ _ in
+//            Complex(
+//                real: Real(arc4random()) - Real(UInt32.max)/2,
+//                imag: Real(arc4random()) - Real(UInt32.max)/2)
+//        }
+//
+//        var expected = Complex()
+//        for v in values {
+//            expected.real += v.real
+//            expected.imag += v.imag
+//        }
+//
+//        var actual = Complex()
+//        self.measureBlock {
+//            actual = sum(values)
+//        }
+//        
+//        XCTAssertEqualWithAccuracy(actual.real, expected.real, accuracy: 0.0001)
+//        XCTAssertEqualWithAccuracy(actual.imag, expected.imag, accuracy: 0.0001)
+//    }
+
+    func testMeanSlice() {
+        let a1: RealArray = [1.0, 1.0, 2.0, 2.0, 3.0, 3.0]
+        let s1 = RealArraySlice(base: a1, startIndex: 0, endIndex: a1.count, step: 2)
+        let r = mean(s1)
+        XCTAssertEqual(r, 2.0)
+    }
+
+    func testSqrt() {
         let values = (0...n).map{_ in Real(arc4random())}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { return sqrt($0) }, mapped: { $0.map{ sqrt($0) } }, accuracy: 0.0001)
+    }
+
+    func testAdd() {
+        let a1: RealArray = [1.0, 2.0, 3.0]
+        let a2: RealArray = [3.0, 2.0, 1.0, 0.0, -1.0]
+        let r = a1 + a2
+        XCTAssertEqual(r.count, 3)
+        for v in r {
+            XCTAssertEqual(v, 4.0)
+        }
+    }
+
+    func testAddSlice() {
+        let a1: RealArray = [1.0, 1.0, 2.0, 2.0, 3.0, 3.0]
+        let s1 = RealArraySlice(base: a1, startIndex: 0, endIndex: a1.count, step: 2)
+
+        let a2: RealArray = [3.0, 2.0, 1.0, 0.0, -1.0]
+
+        let r = s1 + a2
+        XCTAssertEqual(r.count, 3)
+        for v in r {
+            XCTAssertEqual(v, 4.0)
+        }
     }
 }

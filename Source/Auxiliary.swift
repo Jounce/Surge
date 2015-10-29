@@ -20,107 +20,87 @@
 
 import Accelerate
 
-// MARK: Absolute Value
+/// Absolute Value
+public func abs<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    let results = ValueArray<Double>(count: x.count)
+    vDSP_vabsD(x.pointer, x.step, results.mutablePointer, results.step, vDSP_Length(x.count))
+    return results
+}
 
-public func abs(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvfabs(results.pointer, x.pointer, [Int32(x.count)])
+/// Ceiling
+public func ceil<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "ceil doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvceil(results.mutablePointer, x.pointer, [Int32(x.count)])
+    return results
+}
+
+/// Clip
+public func clip<M: ContiguousMemory where M.Element == Double>(x: M, low: Double, high: Double) -> ValueArray<Double> {
+    var results = ValueArray<Double>(count: x.count), y = low, z = high
+    vDSP_vclipD(x.pointer, x.step, &y, &z, results.mutablePointer, results.step, vDSP_Length(x.count))
+    return results
+}
+
+// Copy Sign
+public func copysign<M: ContiguousMemory where M.Element == Double>(sign: M, magnitude: M) -> ValueArray<Double> {
+    precondition(sign.step == 1 && magnitude.step == 1, "copysign doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: sign.count)
+    vvcopysign(results.mutablePointer, magnitude.pointer, sign.pointer, [Int32(sign.count)])
+    return results
+}
+
+/// Floor
+public func floor<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "floor doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvfloor(results.mutablePointer, x.pointer, [Int32(x.count)])
+    return results
+}
+
+/// Negate
+public func neg<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    let results = ValueArray<Double>(count: x.count)
+    vDSP_vnegD(x.pointer, x.step, results.mutablePointer, results.step, vDSP_Length(x.count))
 
     return results
 }
 
-// MARK: Ceiling
-
-public func ceil(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvceil(results.pointer, x.pointer, [Int32(x.count)])
-
+/// Reciprocal
+public func rec<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "rec doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvrec(results.mutablePointer, x.pointer, [Int32(x.count)])
     return results
 }
 
-// MARK: Clip
-
-public func clip(x: RealArray, low: Real, high: Real) -> RealArray {
-    var results = RealArray(count: x.count), y = low, z = high
-    vDSP_vclipD(x.pointer, 1, &y, &z, results.pointer, 1, vDSP_Length(x.count))
-
+/// Round
+public func round<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "round doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvnint(results.mutablePointer, x.pointer, [Int32(x.count)])
     return results
 }
 
-// MARK: Copy Sign
-
-public func copysign(sign: RealArray, magnitude: RealArray) -> RealArray {
-    let results = RealArray(count: sign.count)
-    vvcopysign(results.pointer, magnitude.pointer, sign.pointer, [Int32(sign.count)])
-
+/// Threshold
+public func threshold<M: ContiguousMemory where M.Element == Double>(x: M, low: Double) -> ValueArray<Double> {
+    var results = ValueArray<Double>(count: x.count), y = low
+    vDSP_vthrD(x.pointer, x.step, &y, results.mutablePointer, results.step, vDSP_Length(x.count))
     return results
 }
 
-// MARK: Floor
-
-public func floor(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvfloor(results.pointer, x.pointer, [Int32(x.count)])
-
+/// Truncate
+public func trunc<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "trunc doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvint(results.mutablePointer, x.pointer, [Int32(x.count)])
     return results
 }
 
-// MARK: Negate
-
-public func neg(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vDSP_vnegD(x.pointer, 1, results.pointer, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-public func neg(x: [Complex]) -> [Complex] {
-    var results = [Complex](count: x.count, repeatedValue: Complex())
-    vDSP_vnegD(x.unsafePointer(), 1, results.unsafeMutablePointer(), 1, vDSP_Length(2*x.count))
-    return results
-}
-
-// MARK: Reciprocal
-
-public func rec(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvrec(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Round
-
-public func round(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvnint(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Threshold
-
-public func threshold(x: RealArray, low: Real) -> RealArray {
-    var results = RealArray(count: x.count), y = low
-    vDSP_vthrD(x.pointer, 1, &y, results.pointer, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-// MARK: Truncate
-
-public func trunc(x: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvint(results.pointer, x.pointer, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Power
-
-public func pow(x: RealArray, y: RealArray) -> RealArray {
-    let results = RealArray(count: x.count)
-    vvpow(results.pointer, x.pointer, y.pointer, [Int32(x.count)])
-
+/// Power
+public func pow<M: ContiguousMemory where M.Element == Double>(x: M, y: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "pow doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvpow(results.mutablePointer, x.pointer, y.pointer, [Int32(x.count)])
     return results
 }

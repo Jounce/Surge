@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Accelerate
-
 public struct Complex : CustomStringConvertible {
     public var real: Real = 0.0
     public var imag: Real = 0.0
@@ -43,7 +41,9 @@ public struct Complex : CustomStringConvertible {
     }
 }
 
-extension Complex: RealType {}
+public func ==(lhs: Complex, rhs: Complex) -> Bool {
+    return lhs.real == rhs.real && lhs.imag == rhs.imag
+}
 
 public func + (lhs: Complex, rhs: Complex) -> Complex {
     return Complex(real: lhs.real + rhs.real, imag: lhs.imag + rhs.imag)
