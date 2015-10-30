@@ -82,7 +82,8 @@ public class Matrix<ElementType> {
     }
     
     public func copy() -> Matrix {
-        return Matrix(rows: rows, columns: columns, elements: elements.copy())
+        let copy = elements.copy()
+        return Matrix(rows: rows, columns: columns, elements: copy)
     }
 
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {

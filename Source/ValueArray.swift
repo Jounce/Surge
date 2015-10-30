@@ -105,6 +105,17 @@ public class ValueArray<ElementType> : ContiguousMutableMemory, MutableCollectio
         }
     }
 
+    public subscript(range: Range<Int>) -> ValueArraySlice<Element> {
+        get {
+            return ValueArraySlice<Element>(base: self, startIndex: range.startIndex, endIndex: range.endIndex, step: step)
+        }
+        set {
+            for i in range {
+                self[i] = newValue[i - range.startIndex]
+            }
+        }
+    }
+
     public func copy() -> ValueArray {
         let copy = ValueArray(count: capacity)
         copy.mutablePointer.initializeFrom(mutablePointer, count: count)
