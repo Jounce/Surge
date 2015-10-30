@@ -80,7 +80,15 @@ public class Matrix<ElementType> {
             elements[(row * columns) + column] = newValue
         }
     }
-    
+
+    public func row(index: Int) -> ValueArraySlice<Element> {
+        return ValueArraySlice<Element>(base: elements, startIndex: index * columns, endIndex: (index + 1) * columns, step: 1)
+    }
+
+    public func column(index: Int) -> ValueArraySlice<Element> {
+        return ValueArraySlice<Element>(base: elements, startIndex: index, endIndex: rows * columns - columns + index + 1, step: columns)
+    }
+
     public func copy() -> Matrix {
         let copy = elements.copy()
         return Matrix(rows: rows, columns: columns, elements: copy)

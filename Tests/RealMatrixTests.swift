@@ -129,4 +129,32 @@ class RealMatrixTests: XCTestCase {
         XCTAssertEqual(b.columns, 3)
         XCTAssertEqual(b[0, 0], 1)
     }
+
+    func testAddColumnRow() {
+        let m = RealMatrix([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ])
+        let r = m.column(1) + m.row(1)
+
+        XCTAssertEqual(r.count, 3)
+        XCTAssertEqual(r[0], 6)
+        XCTAssertEqual(r[1], 10)
+        XCTAssertEqual(r[2], 14)
+    }
+
+    func testAddToColumn() {
+        let m = RealMatrix([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+            ])
+        var col = m.column(1)
+        col += 1
+
+        XCTAssertEqual(m[0, 1], 3)
+        XCTAssertEqual(m[1, 1], 6)
+        XCTAssertEqual(m[2, 1], 9)
+    }
 }

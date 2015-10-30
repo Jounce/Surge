@@ -43,10 +43,7 @@ public extension ContiguousMemory {
 
     /// The number of valid element in the memory block, taking into account the step size.
     public var count: Int {
-        if step == 1 {
-            return endIndex - startIndex
-        }
-        return (endIndex - startIndex + 1) / step
+        return (endIndex - startIndex + step - 1) / step
     }
 }
 
