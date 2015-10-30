@@ -25,12 +25,12 @@ import XCTest
 class ExponentialTests: XCTestCase {
     let n = 10000
 
-    func test_exp() {
+    func testExp() {
         let values = (0...n).map{_ in Real(arc4random_uniform(10))}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { exp($0) }, mapped: { $0.map{ exp($0) } }, accuracy: 0.0001)
     }
 
-    func test_exp2() {
+    func testExp2() {
         let values = (0...n).map{_ in Real(arc4random_uniform(10))}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { exp2($0) }, mapped: { $0.map{ exp2($0) } }, accuracy: 0.0001)
     }

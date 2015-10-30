@@ -30,7 +30,7 @@ public func convolution<MS: ContiguousMemory, MK: ContiguousMemory where MS.Elem
     let kernelLast = kernel.pointer + kernel.count - 1
     let resultSize = signal.count - kernel.count + 1
     let result = ValueArray<Double>(count: resultSize)
-    vDSP_convD(signal.pointer, signal.step, kernelLast, -kernel.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(kernel.count))
+    vDSP_convD(signal.pointer + signal.startIndex, signal.step, kernelLast, -kernel.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(kernel.count))
     return result
 }
 
@@ -43,7 +43,7 @@ public func correlation<ML: ContiguousMemory, MR: ContiguousMemory where ML.Elem
 
     let resultSize = lhs.count - rhs.count + 1
     let result = ValueArray<Double>(count: resultSize)
-    vDSP_convD(lhs.pointer, lhs.step, rhs.pointer, rhs.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(rhs.count))
+    vDSP_convD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, result.mutablePointer, result.step, vDSP_Length(resultSize), vDSP_Length(rhs.count))
     return result
 }
 

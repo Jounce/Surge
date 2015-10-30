@@ -25,7 +25,7 @@ public func exp<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArr
     precondition(x.step == 1, "exp doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvexp(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvexp(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -35,7 +35,7 @@ public func exp2<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueAr
     precondition(x.step == 1, "exp2 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvexp2(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvexp2(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -45,7 +45,7 @@ public func log<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArr
     precondition(x.step == 1, "log doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvlog(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvlog(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -55,7 +55,7 @@ public func log2<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueAr
     precondition(x.step == 1, "log2 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvlog2(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvlog2(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -65,7 +65,7 @@ public func log10<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueA
     precondition(x.step == 1, "log10 doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvlog10(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvlog10(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -75,7 +75,7 @@ public func logb<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueAr
     precondition(x.step == 1, "logb doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvlogb(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvlogb(results.mutablePointer, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }

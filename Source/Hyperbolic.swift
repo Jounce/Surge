@@ -25,7 +25,7 @@ public func sinh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueAr
     precondition(x.step == 1, "sinh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvsinh(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvsinh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -35,7 +35,7 @@ public func cosh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueAr
     precondition(x.step == 1, "cosh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvcosh(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvcosh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -45,7 +45,7 @@ public func tanh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueAr
     precondition(x.step == 1, "tanh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvtanh(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvtanh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -55,7 +55,7 @@ public func asinh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueA
     precondition(x.step == 1, "asinh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvasinh(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvasinh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -65,7 +65,7 @@ public func acosh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueA
     precondition(x.step == 1, "acosh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvacosh(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvacosh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -75,7 +75,7 @@ public func atanh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueA
     precondition(x.step == 1, "atanh doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvatanh(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvatanh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }

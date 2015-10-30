@@ -25,33 +25,18 @@ import XCTest
 class HyperbolicTests: XCTestCase {
     let n = 10000
 
-    func test_sinh() {
+    func testSinh() {
         let values = (0...n).map{_ in drand48() * M_PI}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { sinh($0) }, mapped: { $0.map{ sinh($0) } }, accuracy: 0.0001)
     }
 
-    func test_cosh() {
+    func testCosh() {
         let values = (0...n).map{_ in drand48() * M_PI}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { cosh($0) }, mapped: { $0.map{ cosh($0) } }, accuracy: 0.0001)
     }
 
-    func test_tanh() {
+    func testTanh() {
         let values = (0...n).map{_ in drand48() * M_PI}
         measureAndValidateMappedFunctionWithAccuracy(values, member: { tanh($0) }, mapped: { $0.map{ tanh($0) } }, accuracy: 0.0001)
     }
-
-//    func test_asinh() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: asinh, mapped: asinh, accuracy: 0.0001)
-//    }
-//
-//    func test_acosh() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: acosh, mapped: acosh, accuracy: 0.0001)
-//    }
-//
-//    func test_atanh() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: atanh, mapped: atanh, accuracy: 0.0001)
-//    }
 }

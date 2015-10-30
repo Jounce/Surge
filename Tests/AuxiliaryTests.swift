@@ -25,7 +25,7 @@ import XCTest
 class AuxiliaryTests: XCTestCase {
     let n = 10000
 
-    func test_copysign() {
+    func testCopysign() {
         let signs = RealArray((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
 
         let magnitudes = RealArray(count: n)

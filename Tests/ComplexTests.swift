@@ -52,7 +52,6 @@ class ComplexTests: XCTestCase {
 
         var expected = Complex()
         for v in values {
-            print(v)
             expected.real += v.real
             expected.imag += v.imag
         }

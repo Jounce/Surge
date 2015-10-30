@@ -26,7 +26,7 @@ public func sincos<M: ContiguousMemory where M.Element == Double>(x: M) -> (sin:
 
     let sin = ValueArray<Double>(count: x.count)
     let cos = ValueArray<Double>(count: x.count)
-    vvsincos(sin.mutablePointer, cos.mutablePointer, x.pointer, [Int32(x.count)])
+    vvsincos(sin.mutablePointer + sin.startIndex, cos.mutablePointer + cos.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return (sin, cos)
 }
@@ -36,7 +36,7 @@ public func sin<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArr
     precondition(x.step == 1, "sin doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvsin(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvsin(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -46,7 +46,7 @@ public func cos<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArr
     precondition(x.step == 1, "cos doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvcos(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvcos(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -56,7 +56,7 @@ public func tan<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArr
     precondition(x.step == 1, "tan doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvtan(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvtan(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -66,7 +66,7 @@ public func asin<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueAr
     precondition(x.step == 1, "asin doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvasin(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvasin(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -76,7 +76,7 @@ public func acos<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueAr
     precondition(x.step == 1, "acos doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvacos(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvacos(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -86,7 +86,7 @@ public func atan<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueAr
     precondition(x.step == 1, "atan doesn't support step values other than 1")
 
     let results = ValueArray<Double>(count: x.count)
-    vvatan(results.mutablePointer, x.pointer, [Int32(x.count)])
+    vvatan(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
@@ -99,7 +99,7 @@ func rad2deg<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<
 
     let results = ValueArray<Double>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: M_PI / 180.0)
-    vvdiv(results.mutablePointer, x.pointer, divisor.pointer, [Int32(x.count)])
+    vvdiv(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
 
     return results
 }
@@ -110,7 +110,7 @@ func deg2rad<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<
 
     let results = ValueArray<Double>(count: x.count)
     let divisor = ValueArray(count: x.count, repeatedValue: 180.0 / M_PI)
-    vvdiv(results.mutablePointer, x.pointer, divisor.pointer, [Int32(x.count)])
+    vvdiv(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, divisor.pointer, [Int32(x.count)])
 
     return results
 }

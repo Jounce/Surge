@@ -65,21 +65,21 @@ public func rmsq<M: ContiguousMemory where M.Element == Double>(x: M) -> Double 
 public func mod<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, _ rhs: MR) -> ValueArray<Double> {
     precondition(lhs.step == 1, "mod doesn't support step values other than 1")
     let results = ValueArray<Double>(count: lhs.count)
-    vvfmod(results.mutablePointer, lhs.pointer, rhs.pointer, [Int32(lhs.count)])
+    vvfmod(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, rhs.pointer + rhs.startIndex, [Int32(lhs.count)])
     return results
 }
 
 public func remainder<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, rhs: MR) -> ValueArray<Double> {
     precondition(lhs.step == 1, "remainder doesn't support step values other than 1")
     let results = ValueArray<Double>(count: lhs.count)
-    vvremainder(results.mutablePointer, lhs.pointer, rhs.pointer, [Int32(lhs.count)])
+    vvremainder(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, rhs.pointer + rhs.startIndex, [Int32(lhs.count)])
     return results
 }
 
 public func sqrt<M: ContiguousMemory where M.Element == Double>(lhs: M) -> ValueArray<Double> {
     precondition(lhs.step == 1, "sqrt doesn't support step values other than 1")
     let results = ValueArray<Double>(count: lhs.count)
-    vvsqrt(results.mutablePointer, lhs.pointer, [Int32(lhs.count)])
+    vvsqrt(results.mutablePointer + results.startIndex, lhs.pointer + lhs.startIndex, [Int32(lhs.count)])
     return results
 }
 
@@ -87,30 +87,30 @@ public func dot<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == D
     precondition(lhs.count == rhs.count, "Vectors must have equal count")
 
     var result: Double = 0.0
-    vDSP_dotprD(lhs.pointer, lhs.step, rhs.pointer, rhs.step, &result, vDSP_Length(lhs.count))
+    vDSP_dotprD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, &result, vDSP_Length(lhs.count))
     return result
 }
 
 public func +=<ML: ContiguousMutableMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(inout lhs: ML, rhs: MR) {
     assert(lhs.count >= rhs.count)
     let count = min(lhs.count, rhs.count)
-    vDSP_vaddD(lhs.pointer, lhs.step, rhs.pointer, rhs.step, lhs.mutablePointer, lhs.step, vDSP_Length(count))
+    vDSP_vaddD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, lhs.mutablePointer, lhs.step, vDSP_Length(count))
 }
 
 public func +<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, rhs: MR) -> ValueArray<Double> {
     let count = min(lhs.count, rhs.count)
     let results = ValueArray<Double>(count: count)
-    vDSP_vaddD(lhs.pointer, lhs.step, rhs.pointer, rhs.step, results.mutablePointer, results.step, vDSP_Length(count))
+    vDSP_vaddD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, results.mutablePointer, results.step, vDSP_Length(count))
     return results
 }
 
 public func +=<ML: ContiguousMutableMemory where ML.Element == Double>(inout lhs: ML, var rhs: Double) {
-    vDSP_vsaddD(lhs.pointer, lhs.step, &rhs, lhs.mutablePointer, lhs.step, vDSP_Length(lhs.count))
+    vDSP_vsaddD(lhs.pointer + lhs.startIndex, lhs.step, &rhs, lhs.mutablePointer + lhs.startIndex, lhs.step, vDSP_Length(lhs.count))
 }
 
 public func +<ML: ContiguousMemory where ML.Element == Double>(lhs: ML, var rhs: Double) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: lhs.count)
-    vDSP_vsaddD(lhs.pointer, lhs.step, &rhs, results.mutablePointer, results.step, vDSP_Length(lhs.count))
+    vDSP_vsaddD(lhs.pointer + lhs.startIndex, lhs.step, &rhs, results.mutablePointer + results.startIndex, results.step, vDSP_Length(lhs.count))
     return results
 }
 
@@ -120,80 +120,80 @@ public func +<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Dou
 
 public func -=<ML: ContiguousMutableMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(inout lhs: ML, rhs: MR) {
     let count = min(lhs.count, rhs.count)
-    vDSP_vsubD(rhs.pointer, rhs.step, lhs.pointer, lhs.step, lhs.mutablePointer, lhs.step, vDSP_Length(count))
+    vDSP_vsubD(rhs.pointer + rhs.startIndex, rhs.step, lhs.pointer + lhs.startIndex, lhs.step, lhs.mutablePointer + lhs.startIndex, lhs.step, vDSP_Length(count))
 }
 
 public func -<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, rhs: MR) -> ValueArray<Double> {
     let count = min(lhs.count, rhs.count)
     let results = ValueArray<Double>(count: count)
-    vDSP_vsubD(rhs.pointer, rhs.step, lhs.pointer, lhs.step, results.mutablePointer, results.step, vDSP_Length(count))
+    vDSP_vsubD(rhs.pointer + rhs.startIndex, rhs.step, lhs.pointer + lhs.startIndex, lhs.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(count))
     return results
 }
 
 public func -=<ML: ContiguousMutableMemory where ML.Element == Double>(inout lhs: ML, rhs: Double) {
     var scalar: Double = -1 * rhs
-    vDSP_vsaddD(lhs.pointer, lhs.step, &scalar, lhs.mutablePointer, lhs.step, vDSP_Length(lhs.count))
+    vDSP_vsaddD(lhs.pointer + lhs.startIndex, lhs.step, &scalar, lhs.mutablePointer + lhs.startIndex, lhs.step, vDSP_Length(lhs.count))
 }
 
 public func -<ML: ContiguousMemory where ML.Element == Double>(lhs: ML, rhs: Double) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: lhs.count)
     var scalar: Double = -1 * rhs
-    vDSP_vsaddD(lhs.pointer, lhs.step, &scalar, results.mutablePointer, results.step, vDSP_Length(lhs.count))
+    vDSP_vsaddD(lhs.pointer + lhs.startIndex, lhs.step, &scalar, results.mutablePointer + results.startIndex, results.step, vDSP_Length(lhs.count))
     return results
 }
 
 public func -<ML: ContiguousMemory where ML.Element == Double>(var lhs: Double, rhs: ML) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: rhs.count)
     var scalar: Double = -1
-    vDSP_vsmsaD(rhs.pointer, rhs.step, &scalar, &lhs, results.mutablePointer, results.step, vDSP_Length(rhs.count))
+    vDSP_vsmsaD(rhs.pointer + rhs.startIndex, rhs.step, &scalar, &lhs, results.mutablePointer + results.startIndex, results.step, vDSP_Length(rhs.count))
     return results
 }
 
 public func /=<ML: ContiguousMutableMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(inout lhs: ML, rhs: MR) {
     let count = min(lhs.count, rhs.count)
-    vDSP_vdivD(rhs.pointer, rhs.step, lhs.pointer, lhs.step, lhs.mutablePointer, lhs.step, vDSP_Length(count))
+    vDSP_vdivD(rhs.pointer + rhs.startIndex, rhs.step, lhs.pointer + lhs.startIndex, lhs.step, lhs.mutablePointer + lhs.startIndex, lhs.step, vDSP_Length(count))
 }
 
 public func /<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, rhs: MR) -> ValueArray<Double> {
     let count = min(lhs.count, rhs.count)
     let results = ValueArray<Double>(count: lhs.count)
-    vDSP_vdivD(rhs.pointer, rhs.step, lhs.pointer, lhs.step, results.mutablePointer, results.step, vDSP_Length(count))
+    vDSP_vdivD(rhs.pointer + rhs.startIndex, rhs.step, lhs.pointer + lhs.startIndex, lhs.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(count))
     return results
 }
 
 public func /=<ML: ContiguousMutableMemory where ML.Element == Double>(inout lhs: ML, var rhs: Double) {
-    vDSP_vsdivD(lhs.pointer, lhs.step, &rhs, lhs.mutablePointer, lhs.step, vDSP_Length(lhs.count))
+    vDSP_vsdivD(lhs.pointer + lhs.startIndex, lhs.step, &rhs, lhs.mutablePointer + lhs.startIndex, lhs.step, vDSP_Length(lhs.count))
 }
 
 public func /<ML: ContiguousMemory where ML.Element == Double>(lhs: ML, var rhs: Double) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: lhs.count)
-    vDSP_vsdivD(lhs.pointer, lhs.step, &rhs, results.mutablePointer, results.step, vDSP_Length(lhs.count))
+    vDSP_vsdivD(lhs.pointer + lhs.startIndex, lhs.step, &rhs, results.mutablePointer + results.startIndex, results.step, vDSP_Length(lhs.count))
     return results
 }
 
 public func /<ML: ContiguousMemory where ML.Element == Double>(var lhs: Double, rhs: ML) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: rhs.count)
-    vDSP_svdivD(&lhs, rhs.pointer, rhs.step, results.mutablePointer, results.step, vDSP_Length(rhs.count))
+    vDSP_svdivD(&lhs, rhs.pointer + rhs.startIndex, rhs.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(rhs.count))
     return results
 }
 
 public func *=<ML: ContiguousMutableMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(inout lhs: ML, rhs: MR) {
-    vDSP_vmulD(lhs.pointer, lhs.step, rhs.pointer, rhs.step, lhs.mutablePointer, lhs.step, vDSP_Length(lhs.count))
+    vDSP_vmulD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, lhs.mutablePointer + lhs.startIndex, lhs.step, vDSP_Length(lhs.count))
 }
 
 public func *<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, rhs: MR) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: lhs.count)
-    vDSP_vmulD(lhs.pointer, lhs.step, rhs.pointer, rhs.step, results.mutablePointer, results.step, vDSP_Length(lhs.count))
+    vDSP_vmulD(lhs.pointer + lhs.startIndex, lhs.step, rhs.pointer + rhs.startIndex, rhs.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(lhs.count))
     return results
 }
 
 public func *=<ML: ContiguousMutableMemory where ML.Element == Double>(inout lhs: ML, var rhs: Double) {
-    vDSP_vsmulD(lhs.pointer, lhs.step, &rhs, lhs.mutablePointer, lhs.step, vDSP_Length(lhs.count))
+    vDSP_vsmulD(lhs.pointer + lhs.startIndex, lhs.step, &rhs, lhs.mutablePointer + lhs.startIndex, lhs.step, vDSP_Length(lhs.count))
 }
 
 public func *<ML: ContiguousMemory where ML.Element == Double>(lhs: ML, var rhs: Double) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: lhs.count)
-    vDSP_vsmulD(lhs.pointer, lhs.step, &rhs, results.mutablePointer, results.step, vDSP_Length(lhs.count))
+    vDSP_vsmulD(lhs.pointer + lhs.startIndex, lhs.step, &rhs, results.mutablePointer + results.startIndex, results.step, vDSP_Length(lhs.count))
     return results
 }
 
