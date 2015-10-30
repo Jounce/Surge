@@ -24,6 +24,25 @@ import XCTest
 class ComplexTests: XCTestCase {
     let n = 10000
 
+    func textAddComplex() {
+        let a: ComplexArray = [Complex(real: 1, imag: 1), Complex(real: 2, imag: 0)]
+        let b: ComplexArray = [Complex(real: 2, imag: 2), Complex(real: 1, imag: 3)]
+        let r = a + b
+        for c in r {
+            XCTAssertEqual(c, Complex(real: 3, imag: 3))
+        }
+    }
+
+    func textScaleComplex() {
+        var a: ComplexArray = [Complex(real: 1, imag: 1), Complex(real: 2, imag: 0)]
+        a *= 2
+        
+        XCTAssertEqual(a[0].real, 2.0)
+        XCTAssertEqual(a[0].imag, 2.0)
+        XCTAssertEqual(a[1].real, 4.0)
+        XCTAssertEqual(a[1].imag, 0.0)
+    }
+
     func testSumComplex() {
         let values = ComplexArray((0..<n).map{ _ in
             Complex(
@@ -32,8 +51,7 @@ class ComplexTests: XCTestCase {
         })
 
         var expected = Complex()
-        for var i = 0; i < values.count; i += 1 {
-            let v = values[i]
+        for v in values {
             print(v)
             expected.real += v.real
             expected.imag += v.imag

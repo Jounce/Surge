@@ -62,28 +62,6 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqualWithAccuracy(actual, expected, accuracy: 0.0001)
     }
 
-//    func testSumComplex() {
-//        let values = (0...n).map{ _ in
-//            Complex(
-//                real: Real(arc4random()) - Real(UInt32.max)/2,
-//                imag: Real(arc4random()) - Real(UInt32.max)/2)
-//        }
-//
-//        var expected = Complex()
-//        for v in values {
-//            expected.real += v.real
-//            expected.imag += v.imag
-//        }
-//
-//        var actual = Complex()
-//        self.measureBlock {
-//            actual = sum(values)
-//        }
-//        
-//        XCTAssertEqualWithAccuracy(actual.real, expected.real, accuracy: 0.0001)
-//        XCTAssertEqualWithAccuracy(actual.imag, expected.imag, accuracy: 0.0001)
-//    }
-
     func testMeanSlice() {
         let a1: RealArray = [1.0, 1.0, 2.0, 2.0, 3.0, 3.0]
         let s1 = RealArraySlice(base: a1, startIndex: 0, endIndex: a1.count, step: 2)
