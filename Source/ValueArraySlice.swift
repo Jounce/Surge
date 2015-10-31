@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 /// A slice of a `ValueArray`. Slices not only specify start and end indexes, they also specify a step size.
-public struct ValueArraySlice<ElementType : CustomStringConvertible> : ContiguousMutableMemory, MutableIndexable {
+public struct ValueArraySlice<ElementType : CustomStringConvertible> : ContiguousMutableMemory, MutableIndexable, CustomStringConvertible {
     public typealias Index = Int
     public typealias Element = ElementType
 
@@ -54,5 +54,20 @@ public struct ValueArraySlice<ElementType : CustomStringConvertible> : Contiguou
             precondition(0 <= baseIndex && baseIndex < base.count)
             mutablePointer[baseIndex] = newValue
         }
+    }
+
+    public var description: String {
+        var string = "["
+        for var i = startIndex; i < endIndex; i += step {
+            let v = base[i]
+            string += "\(v.description), "
+        }
+        if string.startIndex.distanceTo(string.endIndex) > 1 {
+            let range = string.endIndex.advancedBy(-2)..<string.endIndex
+            string.replaceRange(range, with: "]")
+        } else {
+            string += "]"
+        }
+        return string
     }
 }

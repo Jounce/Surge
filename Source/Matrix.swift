@@ -20,7 +20,7 @@
 
 import Accelerate
 
-public class Matrix<ElementType : CustomStringConvertible> {
+public class Matrix<ElementType : CustomStringConvertible> : CustomStringConvertible {
     public typealias Index = (Int, Int)
     public typealias Element = ElementType
     
@@ -97,11 +97,7 @@ public class Matrix<ElementType : CustomStringConvertible> {
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns
     }
-}
-
-// MARK: - Printable
-
-extension Matrix: CustomStringConvertible {
+    
     public var description: String {
         var description = ""
 
