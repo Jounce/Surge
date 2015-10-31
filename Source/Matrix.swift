@@ -20,7 +20,7 @@
 
 import Accelerate
 
-public class Matrix<ElementType> {
+public class Matrix<ElementType : CustomStringConvertible> {
     public typealias Index = (Int, Int)
     public typealias Element = ElementType
     

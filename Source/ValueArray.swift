@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 /// A `ValueArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assigning a `ValueArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `ValueArray` you have to explicitly call `copy()`.
-public class ValueArray<ElementType> : ContiguousMutableMemory, MutableCollectionType, ArrayLiteralConvertible {
+public class ValueArray<ElementType : CustomStringConvertible> : ContiguousMutableMemory, MutableCollectionType, ArrayLiteralConvertible, CustomStringConvertible {
     public typealias Index = Int
     public typealias Element = ElementType
     
@@ -147,9 +147,7 @@ public class ValueArray<ElementType> : ContiguousMutableMemory, MutableCollectio
     public func toColumnMatrix() -> Matrix<Element> {
         return Matrix(rows: count, columns: 1, elements: self)
     }
-}
-
-public extension ValueArray where ElementType : CustomStringConvertible {
+    
     public var description: String {
         var string = "["
         for v in self {

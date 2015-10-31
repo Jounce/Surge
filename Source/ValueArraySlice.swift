@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 /// A slice of a `ValueArray`. Slices not only specify start and end indexes, they also specify a step size.
-public struct ValueArraySlice<ElementType> : ContiguousMutableMemory, MutableIndexable {
+public struct ValueArraySlice<ElementType : CustomStringConvertible> : ContiguousMutableMemory, MutableIndexable {
     public typealias Index = Int
     public typealias Element = ElementType
 
