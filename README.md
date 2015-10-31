@@ -18,6 +18,14 @@ Upsurge supports both Cocoapods (`pod 'Upsurge'`) and Carthage (`github "aleph7/
 
 ### Vector operations
 
+Upsurge defines the `ValueArray` class to store a one-dimensional collection of values. But the name you will most likely use is `RealArray` which is a type alias to `ValueArray<Double>`. From now on we will refer to it as a `RealArray` but it all applies to other types of `ValueArray`.
+
+`RealArray` is very similar to Swift's `Array` but it's optimized to reduce unnecessary memory allocation. These are the most important differences:
+* `RealArray` instances have a fixed size defined on creation. When you create a `RealArray` you can define a capacity: `var a = RealArray(capacity: 100)` and then append elements up to that capacity. Or you can create it with specific elements `var a: RealArray = [1.0, 2.0, 3.0]` but then you can't add any more elements.
+* `RealArray` is a class. That means that creating a new variable will only create a reference and modifying the reference will also modify the original. For instance doing `var a: RealArray = [1, 2, 3]; var b = a; b[0] = 5` will result in a being `[5, 2, 3]`. If you want to create a copy you need to do `var b = RealArray(a)` or `var b = a.copy()`.
+* You **can** create an uninitialized `RealArray` by doing `var a = RealArray(capacity: n)` or `var a = RealArray(count: n)`. This is good for when you are going to fill up the array yourself. But you can also use `var a = RealArray(count: n, repeatedValue: 0.0)` if you do want to initialize all the values.
+
+Here is and example of doing arithmetic on `RealArray`s:
 ```swift
 import Upsurge
 
