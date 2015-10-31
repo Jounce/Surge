@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='3.0' sdk='iphonesimulator'>
-    <sections>
-        <code source-file-name='section-1.swift'/>
-    </sections>
-    <timeline fileName='timeline.xctimeline'/>
+<playground version='6.0' target-platform='osx' display-mode='rendered'>
+    <pages>
+        <page name='Vector Artihmetic'/>
+        <page name='Matrix Artihmetic'/>
+        <page name='Fast Fourier Transform'/>
+    </pages>
 </playground>
