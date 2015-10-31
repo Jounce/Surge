@@ -16,24 +16,37 @@ Upsurge supports both Cocoapods (`pod 'Upsurge'`) and Carthage (`github "aleph7/
 
 ## Usage
 
-### Computing the sum of elements
-
-```swift
-import Upsurge
-
-let n: RealArray = [1.0, 2.0, 3.0, 4.0, 5.0]
-let sum = Upsurge.sum(n) // 15.0
-```
-
-### Computing the dot product of two arrays
+### Vector operations
 
 ```swift
 import Upsurge
 
 let a: RealArray = [1.0, 3.0, 5.0, 7.0]
 let b: RealArray = [2.0, 4.0, 6.0, 8.0]
+let addition = a + b // [3.0, 7.0, 11.0, 15.0]
+let product  = a • b // 100.0
 
-let product = a • b // 100.0
+```
+
+### Matrix operations
+
+```swift
+import Upsurge
+
+let A = RealMatrix([
+    [1,  1],
+    [1, -1]
+])
+let C = RealMatrix([
+    [3],
+    [1]
+])
+
+// find B such that A*B=C
+let B = inv(A) * C // [2.0, 1.0]′
+
+// Verify result
+let r = A*B - C    // zero   
 ```
 
 ---
