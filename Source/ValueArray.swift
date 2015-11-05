@@ -22,21 +22,10 @@
 public class ValueArray<ElementType : CustomStringConvertible> : ContiguousMutableMemory, MutableCollectionType, ArrayLiteralConvertible, CustomStringConvertible {
     public typealias Index = Int
     public typealias Element = ElementType
-    
-    private var buffer: ManagedBuffer<(Int, Int), Element>
 
-    public var count: Int {
-        get {
-            return buffer.value.0
-        }
-        set {
-            buffer.value.0 = newValue
-        }
-    }
-
-    public var capacity: Int {
-        return buffer.value.1
-    }
+    public internal(set) var mutablePointer: UnsafeMutablePointer<Element>
+    public internal(set) var capacity: Int
+    public var count: Int
 
     public var startIndex: Index {
         return 0
@@ -50,46 +39,54 @@ public class ValueArray<ElementType : CustomStringConvertible> : ContiguousMutab
         return 1
     }
 
-    /// A pointer to the RealArray's memory
     public var pointer: UnsafePointer<Element> {
-        return buffer.withUnsafeMutablePointerToElements { UnsafePointer<Element>($0) }
-    }
-
-    /// A mutable pointer to the RealArray's memory
-    public var mutablePointer: UnsafeMutablePointer<Element> {
-        return buffer.withUnsafeMutablePointerToElements { $0 }
+        return UnsafePointer<Element>(mutablePointer)
     }
 
     /// Construct an uninitialized ValueArray with the given capacity
     public required init(capacity: Int) {
-        buffer = ManagedBuffer<(Int, Int), Element>.create(capacity, initialValue: { _ in (0, capacity) })
+        mutablePointer = UnsafeMutablePointer<Element>.alloc(capacity)
+        self.capacity = capacity
+        self.count = 0
     }
 
     /// Construct an uninitialized ValueArray with the given size
     public required init(count: Int) {
-        buffer = ManagedBuffer<(Int, Int), Element>.create(count, initialValue: { _ in (count, count) })
+        mutablePointer = UnsafeMutablePointer<Element>.alloc(count)
+        self.capacity = count
+        self.count = count
     }
 
     /// Construct a ValueArray from an array literal
     public required init(arrayLiteral elements: Element...) {
-        buffer = ManagedBuffer<(Int, Int), Element>.create(elements.count, initialValue: { _ in (elements.count, elements.count) })
+        mutablePointer = UnsafeMutablePointer<Element>.alloc(elements.count)
+        self.capacity = elements.count
+        self.count = elements.count
         mutablePointer.initializeFrom(elements)
     }
 
     /// Construct a ValueArray from contiguous memory
     public required init<C : ContiguousMemory where C.Element == Element>(_ values: C) {
-        buffer = ManagedBuffer<(Int, Int), Element>.create(values.count, initialValue: { _ in (values.count, values.count) })
-        for var i = 0; i < values.count; i += 1 {
+        mutablePointer = UnsafeMutablePointer<Element>.alloc(values.count)
+        capacity = values.count
+        count = values.count
+        for var i = 0; i < count; i += 1 {
             mutablePointer[i] = values.pointer[values.startIndex + i * step]
         }
     }
 
     /// Construct a ValueArray of `count` elements, each initialized to `repeatedValue`.
     public required init(count: Int, repeatedValue: Element) {
-        buffer = ManagedBuffer<(Int, Int), Element>.create(count, initialValue: { _ in (count, count) })
+        mutablePointer = UnsafeMutablePointer<Element>.alloc(count)
+        capacity = count
+        self.count = count
         for i in 0..<count {
             self[i] = repeatedValue
         }
+    }
+
+    deinit {
+        mutablePointer.dealloc(capacity)
     }
 
     public subscript(index: Index) -> Element {
@@ -168,14 +165,24 @@ public class ValueArray<ElementType : CustomStringConvertible> : ContiguousMutab
 }
 
 public func ==<T where T : Equatable>(lhs: ValueArray<T>, rhs: ValueArray<T>) -> Bool {
-    for (a, b) in zip(lhs, rhs) {
-        if a != b {
+    if lhs.count != rhs.count {
+        return false
+    }
+
+    var i = lhs.startIndex
+    var j = rhs.startIndex
+    while i < lhs.endIndex && j < rhs.endIndex {
+        if lhs.pointer[i] != rhs.pointer[j] {
             return false
         }
+        i += lhs.step
+        j += rhs.step
     }
     return true
 }
 
 public func swap<T>(inout lhs: ValueArray<T>, inout rhs: ValueArray<T>) {
-    swap(&lhs.buffer, &rhs.buffer)
+    swap(&lhs.mutablePointer, &rhs.mutablePointer)
+    swap(&lhs.capacity, &rhs.capacity)
+    swap(&lhs.count, &rhs.count)
 }
