@@ -96,4 +96,10 @@ class ArithmeticTests: XCTestCase {
             XCTAssertEqual(v, 4.0)
         }
     }
+  
+  func testStd() {
+        let a1: RealArray = [2.0, 4.0, 4.0, 4.0, 5.0, 5.0, 7.0, 9.0]
+        let r = std(a1)
+        XCTAssertEqual(r, 2.0)
+  }
 }

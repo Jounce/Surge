@@ -62,6 +62,13 @@ public func rmsq<M: ContiguousMemory where M.Element == Double>(x: M) -> Double 
     return result
 }
 
+// Return the standard deviation, a measure of the spread of deviation
+public func std<M: ContiguousMemory where M.Element == Double>(x: M) -> Double {
+    let diff = x - mean(x)
+    let variance = measq(diff)
+    return sqrt(variance)
+}
+
 public func mod<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, _ rhs: MR) -> ValueArray<Double> {
     precondition(lhs.step == 1, "mod doesn't support step values other than 1")
     let results = ValueArray<Double>(count: lhs.count)
