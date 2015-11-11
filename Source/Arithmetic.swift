@@ -65,8 +65,7 @@ public func rmsq<M: ContiguousMemory where M.Element == Double>(x: M) -> Double 
 // Return the standard deviation, a measure of the spread of deviation
 public func std<M: ContiguousMemory where M.Element == Double>(x: M) -> Double {
     let diff = x - mean(x)
-    let squared = diff * diff
-    let variance = mean(squared)
+    let variance = measq(diff)
     return sqrt(variance)
 }
 
