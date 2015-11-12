@@ -62,11 +62,30 @@ public func rmsq<M: ContiguousMemory where M.Element == Double>(x: M) -> Double 
     return result
 }
 
-// Return the standard deviation, a measure of the spread of deviation
+/// Compute the standard deviation, a measure of the spread of deviation.
 public func std<M: ContiguousMemory where M.Element == Double>(x: M) -> Double {
     let diff = x - mean(x)
     let variance = measq(diff)
     return sqrt(variance)
+}
+
+/**
+    Perform a linear regression.
+
+    - parameter x: Array of x-values
+    - parameter y: Array of y-values
+    - returns: The slope and intercept of the regression line
+*/
+public func linregress<MX: ContiguousMemory, MY: ContiguousMemory where MX.Element == Double, MY.Element == Double>(x: MX, _ y: MY) -> (slope: Double, intercept: Double) {
+    precondition(x.count == y.count, "Vectors must have equal count")
+    let meanx = mean(x)
+    let meany = mean(y)
+    let meanxy = mean(x * y)
+    let meanx_sqr = measq(x)
+
+    let slope = (meanx * meany - meanxy) / (meanx * meanx - meanx_sqr)
+    let intercept = meany - slope * meanx
+    return (slope, intercept)
 }
 
 public func mod<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Double, MR.Element == Double>(lhs: ML, _ rhs: MR) -> ValueArray<Double> {

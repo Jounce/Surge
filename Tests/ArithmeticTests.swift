@@ -102,4 +102,10 @@ class ArithmeticTests: XCTestCase {
         let r = std(a1)
         XCTAssertEqual(r, 2.0)
   }
+
+  func testLinregress() {
+        let a1: RealArray = [1.0, 2.0, 3.0, 4.0, 5.0]
+        let (slope, intercept) = linregress(a1, a1)
+        XCTAssertEqual(slope, 1.0)
+        XCTAssertEqual(intercept, 0.0)  }
 }
