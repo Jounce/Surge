@@ -18,20 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import XCTest
+#import <Foundation/Foundation.h>
+#import <Accelerate/Accelerate.h>
 
-extension XCTestCase {
-    func measureAndValidateMappedFunctionWithAccuracy<C : CollectionType where C.Generator.Element: protocol<FloatLiteralConvertible, FloatingPointType>>(source: C, member: (C.Generator.Element) -> (C.Generator.Element), mapped: (C) -> ([C.Generator.Element]), accuracy: C.Generator.Element) {
-        var expected = source.map(member)
+//! Project version number for Upsurge.
+FOUNDATION_EXPORT double UpsurgeVersionNumber;
 
-        var actual: [C.Generator.Element] = []
-        self.measureBlock {
-            actual = mapped(source)
-        }
+//! Project version string for Upsurge.
+FOUNDATION_EXPORT const unsigned char UpsurgeVersionString[];
 
-        for (i, _) in source.enumerate() {
-            XCTAssertEqualWithAccuracy(actual[i], expected[i], accuracy: accuracy)
-        }
-    }
-}

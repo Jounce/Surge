@@ -1,6 +1,4 @@
-// Power.swift
-//
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,20 +18,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Accelerate
 
-// MARK: Power
-
-public func pow(x: [Float], y: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvpowf(&results, x, y, [Int32(x.count)])
-
-    return results
+public struct RangedDimension : CollectionType, IntegerLiteralConvertible {
+    var range: Range<Int>
+    public var startIndex: Int {
+        get {
+            return range.startIndex
+        }
+    }
+    public var endIndex: Int {
+        get {
+            return range.endIndex
+        }
+    }
+    
+    public init(integerLiteral value: Int) {
+        self.range = Range<Int>(start: value, end: value + 1)
+    }
+    
+    public init(range: Range<Int>) {
+        self.range = range
+    }
+    
+    public init(min: Int, max: Int) {
+        self.range = Range<Int>(start: min, end: max + 1)
+    }
+    
+    public subscript(index: Int) -> Int {
+        return index
+    }
 }
 
-public func pow(x: [Double], y: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvpow(&results, x, y, [Int32(x.count)])
+public func ...(min: Int, max: Int) -> RangedDimension {
+    return RangedDimension(min: min, max: max)
+}
 
-    return results
+public func ..<(min: Int, upper: Int) -> RangedDimension {
+    return RangedDimension(min: min, max: upper - 1)
 }

@@ -1,0 +1,13 @@
+# Xcode per-user config
+*.mode1
+*.mode1v3
+*.mode2v3
+*.pbxuser
+xcuserdata/
+*.xccheckout
+*.xctimeline
+*.xcscmblueprint
+
+# Dependency management
+Pods
+Carthage

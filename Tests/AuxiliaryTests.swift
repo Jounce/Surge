@@ -1,5 +1,3 @@
-// AuxiliaryTests.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,30 +19,30 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
+import Upsurge
 import XCTest
 
 class AuxiliaryTests: XCTestCase {
     let n = 10000
 
-    func test_copysign() {
-        let signs = [Double](map(0..<n) {$0 % 2 == 0 ? 1.0 : -1.0})
+    func testCopysign() {
+        let signs = RealArray((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
 
-        var magnitudes = [Double]()
-        for _ in enumerate(0..<n) {
-            magnitudes.append(Double(arc4random_uniform(10)))
+        let magnitudes = RealArray(count: n)
+        for i in 0..<n {
+            magnitudes[i] = Real(arc4random_uniform(10))
         }
 
-        var expected: [Double] = []
-        for (sign, magnitude) in Zip2(signs, magnitudes) {
-            expected.append(sign * abs(magnitude))
+        let expected = RealArray(count: n)
+        for (i, (sign, magnitude)) in Zip2Sequence(signs, magnitudes).enumerate() {
+            expected[i] = sign * abs(magnitude)
         }
 
-        var actual: [Double] = []
+        var actual: RealArray = []
         self.measureBlock {
-            actual = copysign(signs, magnitudes)
+            actual = copysign(signs, magnitude: magnitudes)
         }
 
-        XCTAssertEqual(actual, expected)
+        XCTAssert(actual == expected)
     }
 }

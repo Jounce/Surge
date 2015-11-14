@@ -1,6 +1,4 @@
-// Surge.h
-//
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <Accelerate/Accelerate.h>
+import Foundation
+import Upsurge
+import XCTest
 
-//! Project version number for Surge.
-FOUNDATION_EXPORT double SurgeVersionNumber;
+class DSPTests: XCTestCase {
+    func testConvolution() {
+        let actual = convolution([0.0, 1.0, 2.0, 0.0], [0.0, -1.0])
+        let expected: RealArray = [0.0, -1.0, -2.0]
+        XCTAssert(actual == expected)
+    }
 
-//! Project version string for Surge.
-FOUNDATION_EXPORT const unsigned char SurgeVersionString[];
+    func testCorrelation() {
+        let actual = correlation([0.0, 1.0, 2.0, 0.0], [0.0, -1.0])
+        let expected: RealArray = [-1.0, -2.0, 0.0]
+        XCTAssert(actual == expected)
+    }
 
+    func testAutocorrelation() {
+        let actual = autocorrelation([1.0, 1.0], maxLag: 1)
+        let expected: RealArray = [2.0, 1.0]
+        XCTAssert(actual == expected)
+    }
+}

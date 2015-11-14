@@ -1,5 +1,3 @@
-// Auxilliary.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,162 +20,87 @@
 
 import Accelerate
 
-// MARK: Absolute Value
+/// Absolute Value
+public func abs<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    let results = ValueArray<Double>(count: x.count)
+    vDSP_vabsD(x.pointer + x.startIndex, x.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
+    return results
+}
 
-public func abs(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvfabs(&results, x, [Int32(x.count)])
+/// Ceiling
+public func ceil<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "ceil doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvceil(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    return results
+}
+
+/// Clip
+public func clip<M: ContiguousMemory where M.Element == Double>(x: M, low: Double, high: Double) -> ValueArray<Double> {
+    var results = ValueArray<Double>(count: x.count), y = low, z = high
+    vDSP_vclipD(x.pointer + x.startIndex, x.step, &y, &z, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
+    return results
+}
+
+// Copy Sign
+public func copysign<M: ContiguousMemory where M.Element == Double>(sign: M, magnitude: M) -> ValueArray<Double> {
+    precondition(sign.step == 1 && magnitude.step == 1, "copysign doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: sign.count)
+    vvcopysign(results.mutablePointer + results.startIndex, magnitude.pointer + magnitude.startIndex, sign.pointer + sign.startIndex, [Int32(sign.count)])
+    return results
+}
+
+/// Floor
+public func floor<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "floor doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvfloor(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
+    return results
+}
+
+/// Negate
+public func neg<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    let results = ValueArray<Double>(count: x.count)
+    vDSP_vnegD(x.pointer + x.startIndex, x.step, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
 
     return results
 }
 
-public func abs(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvfabsf(&results, x, [Int32(x.count)])
-
+/// Reciprocal
+public func rec<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "rec doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvrec(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
     return results
 }
 
-// MARK: Ceiling
-
-public func ceil(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvceilf(&results, x, [Int32(x.count)])
-
+/// Round
+public func round<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "round doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvnint(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
     return results
 }
 
-public func ceil(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvceil(&results, x, [Int32(x.count)])
-
+/// Threshold
+public func threshold<M: ContiguousMemory where M.Element == Double>(x: M, low: Double) -> ValueArray<Double> {
+    var results = ValueArray<Double>(count: x.count), y = low
+    vDSP_vthrD(x.pointer + x.startIndex, x.step, &y, results.mutablePointer + results.startIndex, results.step, vDSP_Length(x.count))
     return results
 }
 
-// MARK: Clip
-
-public func clip(x: [Float], low: Float, high: Float) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0), y = low, z = high
-    vDSP_vclip(x, 1, &y, &z, &results, 1, vDSP_Length(x.count))
-
+/// Truncate
+public func trunc<M: ContiguousMemory where M.Element == Double>(x: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "trunc doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvint(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
     return results
 }
 
-public func clip(x: [Double], low: Double, high: Double) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0), y = low, z = high
-    vDSP_vclipD(x, 1, &y, &z, &results, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-// MARK: Copy Sign
-
-public func copysign(sign: [Float], magnitude: [Float]) -> [Float] {
-    var results = [Float](count: sign.count, repeatedValue: 0.0)
-    vvcopysignf(&results, magnitude, sign, [Int32(sign.count)])
-
-    return results
-}
-
-public func copysign(sign: [Double], magnitude: [Double]) -> [Double] {
-    var results = [Double](count: sign.count, repeatedValue: 0.0)
-    vvcopysign(&results, magnitude, sign, [Int32(sign.count)])
-
-    return results
-}
-
-// MARK: Floor
-
-public func floor(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvfloorf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func floor(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvfloor(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Negate
-
-public func neg(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vDSP_vneg(x, 1, &results, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-public func neg(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vDSP_vnegD(x, 1, &results, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-// MARK: Reciprocal
-
-public func rec(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvrecf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func rec(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvrec(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Round
-
-public func round(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvnintf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func round(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvnint(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-// MARK: Threshold
-
-public func threshold(x: [Float], low: Float) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0), y = low
-    vDSP_vthr(x, 1, &y, &results, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-public func threshold(x: [Double], low: Double) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0), y = low
-    vDSP_vthrD(x, 1, &y, &results, 1, vDSP_Length(x.count))
-
-    return results
-}
-
-// MARK: Truncate
-
-public func trunc(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvintf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func trunc(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvint(&results, x, [Int32(x.count)])
-
+/// Power
+public func pow<M: ContiguousMemory where M.Element == Double>(x: M, y: M) -> ValueArray<Double> {
+    precondition(x.step == 1, "pow doesn't support step values other than 1")
+    let results = ValueArray<Double>(count: x.count)
+    vvpow(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, y.pointer + y.startIndex, [Int32(x.count)])
     return results
 }

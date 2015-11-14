@@ -1,5 +1,3 @@
-// FFT.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,46 +20,65 @@
 
 import Accelerate
 
-// MARK: Fast Fourier Transform
+public class FFT {
+    private var setup: FFTSetupD
+    public private(set) var maxLength: vDSP_Length
 
-public func fft(input: [Float]) -> [Float] {
-    var real = [Float](input)
-    var imaginary = [Float](count: input.count, repeatedValue: 0.0)
-    var splitComplex = DSPSplitComplex(realp: &real, imagp: &imaginary)
+    private let real: ValueArray<Double>
+    private let imag: ValueArray<Double>
 
-    let length = vDSP_Length(floor(log2(Float(input.count))))
-    let radix = FFTRadix(kFFTRadix2)
-    let weights = vDSP_create_fftsetup(length, radix)
-    vDSP_fft_zip(weights, &splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+    public init(inputLength: Int) {
+        let maxLengthLog2 = vDSP_Length(ceil(log2(Real(inputLength))))
+        maxLength = vDSP_Length(exp2(Real(maxLengthLog2)))
+        setup = vDSP_create_fftsetupD(maxLengthLog2, FFTRadix(kFFTRadix2))
 
-    var magnitudes = [Float](count: input.count, repeatedValue: 0.0)
-    vDSP_zvmags(&splitComplex, 1, &magnitudes, 1, vDSP_Length(input.count))
+        real = ValueArray<Double>(count: Int(maxLength))
+        imag = ValueArray<Double>(count: Int(maxLength))
+    }
 
-    var normalizedMagnitudes = [Float](count: input.count, repeatedValue: 0.0)
-    vDSP_vsmul(sqrt(magnitudes), 1, [2.0 / Float(input.count)], &normalizedMagnitudes, 1, vDSP_Length(input.count))
+    deinit {
+        vDSP_destroy_fftsetupD(setup)
+    }
 
-    vDSP_destroy_fftsetup(weights)
+    /// Performs a real to complex forward FFT
+    public func forward<M: ContiguousMemory where M.Element == Double>(input: M) -> ComplexArray {
+        let lengthLog2 = vDSP_Length(log2(Double(input.count)))
+        let length = vDSP_Length(exp2(Real(lengthLog2)))
+        precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
-    return normalizedMagnitudes
-}
+        real.mutablePointer.assignFrom(UnsafeMutablePointer<Double>(input.pointer), count: input.count)
+        for i in 0..<input.count {
+            imag.mutablePointer[i] = 0.0
+        }
 
-public func fft(input: [Double]) -> [Double] {
-    var real = [Double](input)
-    var imaginary = [Double](count: input.count, repeatedValue: 0.0)
-    var splitComplex = DSPDoubleSplitComplex(realp: &real, imagp: &imaginary)
+        var splitComplex = DSPDoubleSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
+        vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
 
-    let length = vDSP_Length(floor(log2(Float(input.count))))
-    let radix = FFTRadix(kFFTRadix2)
-    let weights = vDSP_create_fftsetupD(length, radix)
-    vDSP_fft_zipD(weights, &splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+        let result = ComplexArray(count: input.count/2)
+        vDSP_ztocD(&splitComplex, 1, UnsafeMutablePointer<DSPDoubleComplex>(result.mutablePointer), 1, length/2)
 
-    var magnitudes = [Double](count: input.count, repeatedValue: 0.0)
-    vDSP_zvmagsD(&splitComplex, 1, &magnitudes, 1, vDSP_Length(input.count))
+        let scale = 2.0 / Real(input.count)
+        return result * scale * scale
+    }
 
-    var normalizedMagnitudes = [Double](count: input.count, repeatedValue: 0.0)
-    vDSP_vsmulD(sqrt(magnitudes), 1, [2.0 / Double(input.count)], &normalizedMagnitudes, 1, vDSP_Length(input.count))
+    /// Performs a real to real forward FFT by taking the square magnitudes of the complex result
+    public func forwardMags<M: ContiguousMemory where M.Element == Double>(input: M) -> ValueArray<Double> {
+        let lengthLog2 = vDSP_Length(log2(Double(input.count)))
+        let length = vDSP_Length(exp2(Real(lengthLog2)))
+        precondition(length <= maxLength, "Input should have at most \(maxLength) elements")
 
-    vDSP_destroy_fftsetupD(weights)
+        real.mutablePointer.assignFrom(UnsafeMutablePointer<Double>(input.pointer), count: input.count)
+        for i in 0..<input.count {
+            imag.mutablePointer[i] = 0.0
+        }
 
-    return normalizedMagnitudes
+        var splitComplex = DSPDoubleSplitComplex(realp: real.mutablePointer, imagp: imag.mutablePointer)
+        vDSP_fft_zipD(setup, &splitComplex, 1, lengthLog2, FFTDirection(FFT_FORWARD))
+
+        let magnitudes = ValueArray<Double>(count: input.count/2)
+        vDSP_zvmagsD(&splitComplex, 1, magnitudes.mutablePointer, 1, length/2)
+
+        let scale = 2.0 / Real(input.count)
+        return magnitudes * scale * scale
+    }
 }

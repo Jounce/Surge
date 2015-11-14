@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,20 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import XCTest
+/// A real number
+public typealias Real = Double
 
-extension XCTestCase {
-    func measureAndValidateMappedFunctionWithAccuracy<C : CollectionType where C.Generator.Element: protocol<FloatLiteralConvertible, FloatingPointType>>(source: C, member: (C.Generator.Element) -> (C.Generator.Element), mapped: (C) -> ([C.Generator.Element]), accuracy: C.Generator.Element) {
-        var expected = source.map(member)
-
-        var actual: [C.Generator.Element] = []
-        self.measureBlock {
-            actual = mapped(source)
-        }
-
-        for (i, _) in source.enumerate() {
-            XCTAssertEqualWithAccuracy(actual[i], expected[i], accuracy: accuracy)
-        }
-    }
-}
+public typealias RealArray = ValueArray<Real>
+public typealias RealArraySlice = ValueArraySlice<Real>
+public typealias RealMatrix = Matrix<Real>

@@ -1,5 +1,3 @@
-// Hyperbolic.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,98 +20,62 @@
 
 import Accelerate
 
-// MARK: Hyperbolic Sine
+/// Hyperbolic Sine
+public func sinh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "sinh doesn't support step values other than 1")
 
-public func sinh(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvsinhf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func sinh(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvsinh(&results, x, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvsinh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Hyperbolic Cosine
+/// Hyperbolic Cosine
+public func cosh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "cosh doesn't support step values other than 1")
 
-public func cosh(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvcoshf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func cosh(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvcosh(&results, x, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvcosh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Hyperbolic Tangent
+/// Hyperbolic Tangent
+public func tanh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "tanh doesn't support step values other than 1")
 
-public func tanh(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvtanhf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func tanh(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvtanh(&results, x, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvtanh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Inverse Hyperbolic Sine
+/// Inverse Hyperbolic Sine
+public func asinh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "asinh doesn't support step values other than 1")
 
-public func asinh(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvasinhf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func asinh(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvasinh(&results, x, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvasinh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Inverse Hyperbolic Cosine
+/// Inverse Hyperbolic Cosine
+public func acosh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "acosh doesn't support step values other than 1")
 
-public func acosh(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvacoshf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func acosh(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvacosh(&results, x, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvacosh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }
 
-// MARK: Inverse Hyperbolic Tangent
+/// Inverse Hyperbolic Tangent
+public func atanh<C: ContiguousMemory where C.Element == Double>(x: C) -> ValueArray<Double> {
+    precondition(x.step == 1, "atanh doesn't support step values other than 1")
 
-public func atanh(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    vvatanhf(&results, x, [Int32(x.count)])
-
-    return results
-}
-
-public func atanh(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    vvatanh(&results, x, [Int32(x.count)])
+    let results = ValueArray<Double>(count: x.count)
+    vvatanh(results.mutablePointer + results.startIndex, x.pointer + x.startIndex, [Int32(x.count)])
 
     return results
 }

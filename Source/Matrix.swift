@@ -1,6 +1,4 @@
-// Hyperbolic.swift
-//
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,57 +20,89 @@
 
 import Accelerate
 
-public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
-    typealias Element = T
+public class Matrix<ElementType where ElementType: CustomStringConvertible, ElementType: Equatable> : CustomStringConvertible {
+    public typealias Index = (Int, Int)
+    public typealias Element = ElementType
+    
+    public var rows: Int
+    public var columns: Int
+    public var elements: ValueArray<Element>
+    
+    public var pointer: UnsafePointer<Element> {
+        return elements.pointer
+    }
+    
+    public var mutablePointer: UnsafeMutablePointer<Element> {
+        return elements.mutablePointer
+    }
+    
+    /// Construct a Matrix of `rows` by `columns` with every the given elements in row-major order
+    public init<M: ContiguousMemory where M.Element == Element>(rows: Int, columns: Int, elements: M) {
+        assert(rows * columns == elements.count)
+        self.rows = rows
+        self.columns = columns
+        self.elements = ValueArray(elements)
+    }
 
-    let rows: Int
-    let columns: Int
-    var grid: [Element]
+    /// Construct a Matrix of `rows` by `columns` with uninitialized elements
+    public init(rows: Int, columns: Int) {
+        self.rows = rows
+        self.columns = columns
+        self.elements = ValueArray(count: rows * columns)
+    }
 
+    /// Construct a Matrix of `rows` by `columns` with elements initialized to repeatedValue
     public init(rows: Int, columns: Int, repeatedValue: Element) {
         self.rows = rows
         self.columns = columns
-
-        self.grid = [Element](count: rows * columns, repeatedValue: repeatedValue)
+        self.elements = ValueArray(count: rows * columns, repeatedValue: repeatedValue)
     }
+    
+    /// Construct a Matrix from an array of rows
+    public convenience init(_ contents: [[Element]]) {
+        let rows = contents.count
+        let cols = contents[0].count
 
-    public init(_ contents: [[Element]]) {
-        let m: Int = contents.count
-        let n: Int = contents[0].count
-        let repeatedValue: Element = 0.0
+        self.init(rows: rows, columns: cols)
 
-        self.init(rows: m, columns: n, repeatedValue: repeatedValue)
-
-        for (i, row) in enumerate(contents) {
-            grid.replaceRange(i*n..<i*n+min(m, row.count), with: row)
+        for (i, row) in contents.enumerate() {
+            elements.replaceRange(i*cols..<i*cols+min(cols, row.count), with: row)
         }
     }
 
     public subscript(row: Int, column: Int) -> Element {
         get {
             assert(indexIsValidForRow(row, column: column))
-            return grid[(row * columns) + column]
+            return elements[(row * columns) + column]
         }
-
         set {
             assert(indexIsValidForRow(row, column: column))
-            grid[(row * columns) + column] = newValue
+            elements[(row * columns) + column] = newValue
         }
+    }
+
+    public func row(index: Int) -> ValueArraySlice<Element> {
+        return ValueArraySlice<Element>(base: elements, startIndex: index * columns, endIndex: (index + 1) * columns, step: 1)
+    }
+
+    public func column(index: Int) -> ValueArraySlice<Element> {
+        return ValueArraySlice<Element>(base: elements, startIndex: index, endIndex: rows * columns - columns + index + 1, step: columns)
+    }
+
+    public func copy() -> Matrix {
+        let copy = elements.copy()
+        return Matrix(rows: rows, columns: columns, elements: copy)
     }
 
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns
     }
-}
-
-// MARK: - Printable
-
-extension Matrix: Printable {
+    
     public var description: String {
         var description = ""
 
         for i in 0..<rows {
-            let contents = join("\t", map(0..<columns){"\(self[i, $0])"})
+            let contents = (0..<columns).map{"\(self[i, $0])"}.joinWithSeparator("\t")
 
             switch (i, rows) {
             case (0, 1):
@@ -95,11 +125,11 @@ extension Matrix: Printable {
 // MARK: - SequenceType
 
 extension Matrix: SequenceType {
-    public func generate() -> GeneratorOf<ArraySlice<Element>> {
+    public func generate() -> AnyGenerator<MutableSlice<ValueArray<Element>>> {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
-        return GeneratorOf<ArraySlice<Element>> {
+        return anyGenerator {
             if nextRowStartIndex == endIndex {
                 return nil
             }
@@ -107,146 +137,22 @@ extension Matrix: SequenceType {
             let currentRowStartIndex = nextRowStartIndex
             nextRowStartIndex += self.columns
 
-            return self.grid[currentRowStartIndex..<nextRowStartIndex]
+            return self.elements[currentRowStartIndex..<nextRowStartIndex]
         }
     }
 }
 
+// MARK: - Equatable
+
+extension Matrix : Equatable {}
+public func ==<T: Equatable>(lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
+    return lhs.elements == rhs.elements
+}
+
 // MARK: -
 
-public func add(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
-
-    var results = y
-    cblas_saxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
-
-    return results
-}
-
-public func add(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
-
-    var results = y
-    cblas_daxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
-
-    return results
-}
-
-public func mul(alpha: Float, x: Matrix<Float>) -> Matrix<Float> {
-    var results = x
-    cblas_sscal(Int32(x.grid.count), alpha, &(results.grid), 1)
-
-    return results
-}
-
-public func mul(alpha: Double, x: Matrix<Double>) -> Matrix<Double> {
-    var results = x
-    cblas_dscal(Int32(x.grid.count), alpha, &(results.grid), 1)
-
-    return results
-}
-
-public func mul(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
-
-    var results = Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
-    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, &(results.grid), Int32(results.columns))
-
-    return results
-}
-
-public func mul(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
-
-    var results = Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, &(results.grid), Int32(results.columns))
-
-    return results
-}
-
-public func inv(x : Matrix<Float>) -> Matrix<Float> {
-    precondition(x.rows == x.columns, "Matrix must be square")
-
-    var results = x
-
-    var ipiv = [__CLPK_integer](count: x.rows * x.rows, repeatedValue: 0)
-    var lwork = __CLPK_integer(x.columns * x.columns)
-    var work = [CFloat](count: Int(lwork), repeatedValue: 0.0)
-    var error: __CLPK_integer = 0
-    var nc = __CLPK_integer(x.columns)
-
-    sgetrf_(&nc, &nc, &(results.grid), &nc, &ipiv, &error)
-    sgetri_(&nc, &(results.grid), &nc, &ipiv, &work, &lwork, &error)
-
-    assert(error == 0, "Matrix not invertible")
-
-    return results
-}
-
-public func inv(x : Matrix<Double>) -> Matrix<Double> {
-    precondition(x.rows == x.columns, "Matrix must be square")
-
-    var results = x
-
-    var ipiv = [__CLPK_integer](count: x.rows * x.rows, repeatedValue: 0)
-    var lwork = __CLPK_integer(x.columns * x.columns)
-    var work = [CDouble](count: Int(lwork), repeatedValue: 0.0)
-    var error: __CLPK_integer = 0
-    var nc = __CLPK_integer(x.columns)
-
-    dgetrf_(&nc, &nc, &(results.grid), &nc, &ipiv, &error)
-    dgetri_(&nc, &(results.grid), &nc, &ipiv, &work, &lwork, &error)
-
-    assert(error == 0, "Matrix not invertible")
-
-    return results
-}
-
-public func transpose(x: Matrix<Float>) -> Matrix<Float> {
-    var results = Matrix<Float>(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
-    vDSP_mtrans(x.grid, 1, &(results.grid), 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
-
-    return results
-}
-
-public func transpose(x: Matrix<Double>) -> Matrix<Double> {
-    var results = Matrix<Double>(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
-    vDSP_mtransD(x.grid, 1, &(results.grid), 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
-
-    return results
-}
-
-// MARK: - Operators
-
-public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return add(lhs, rhs)
-}
-
-public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return add(lhs, rhs)
-}
-
-public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, rhs)
-}
-
-postfix operator ′ {}
-public postfix func ′ (value: Matrix<Float>) -> Matrix<Float> {
-    return transpose(value)
-}
-
-public postfix func ′ (value: Matrix<Double>) -> Matrix<Double> {
-    return transpose(value)
+public func swap<T>(lhs: Matrix<T>, rhs: Matrix<T>) {
+    swap(&lhs.rows, &rhs.rows)
+    swap(&lhs.columns, &rhs.columns)
+    swap(&lhs.elements, &rhs.elements)
 }
