@@ -20,7 +20,7 @@
 
 import Accelerate
 
-public class Matrix<ElementType where ElementType: CustomStringConvertible, ElementType: Equatable> : CustomStringConvertible {
+public class Matrix<ElementType where ElementType: CustomStringConvertible, ElementType: Equatable> : Equatable, CustomStringConvertible {
     public typealias Index = (Int, Int)
     public typealias Element = ElementType
     
@@ -144,8 +144,7 @@ extension Matrix: SequenceType {
 
 // MARK: - Equatable
 
-extension Matrix : Equatable {}
-public func ==<T: Equatable>(lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
+public func ==<T>(lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
     return lhs.elements == rhs.elements
 }
 

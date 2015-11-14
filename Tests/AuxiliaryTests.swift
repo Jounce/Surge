@@ -43,6 +43,6 @@ class AuxiliaryTests: XCTestCase {
             actual = copysign(signs, magnitude: magnitudes)
         }
 
-        XCTAssert(actual == expected)
+        XCTAssertEqual(actual, expected)
     }
 }
