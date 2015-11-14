@@ -65,6 +65,18 @@
 		616A35D21BE2E359004F974A /* ComplexArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616A35D01BE2E359004F974A /* ComplexArray.swift */; };
 		61BC4D8A1BDDEEEE00E3DC2B /* ValueArraySlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4D891BDDEEEE00E3DC2B /* ValueArraySlice.swift */; };
 		61BC4D8B1BDDEEEE00E3DC2B /* ValueArraySlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4D891BDDEEEE00E3DC2B /* ValueArraySlice.swift */; };
+		8CF208051BF6A87200473B46 /* Tensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208041BF6A87200473B46 /* Tensor.swift */; };
+		8CF208061BF6A87200473B46 /* Tensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208041BF6A87200473B46 /* Tensor.swift */; };
+		8CF208091BF6A8A600473B46 /* RangedDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208071BF6A8A600473B46 /* RangedDimension.swift */; };
+		8CF2080A1BF6A8A600473B46 /* RangedDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208071BF6A8A600473B46 /* RangedDimension.swift */; };
+		8CF2080B1BF6A8A600473B46 /* TensorSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208081BF6A8A600473B46 /* TensorSlice.swift */; };
+		8CF2080C1BF6A8A600473B46 /* TensorSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208081BF6A8A600473B46 /* TensorSlice.swift */; };
+		8CF208101BF6AA8300473B46 /* TensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */; };
+		8CF208111BF6AA8300473B46 /* TensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */; };
+		8CF208131BF8005E00473B46 /* RangedIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208121BF8005E00473B46 /* RangedIndexTests.swift */; };
+		8CF208141BF8005E00473B46 /* RangedIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208121BF8005E00473B46 /* RangedIndexTests.swift */; };
+		8CF208161BFA3E6500473B46 /* RangedIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208151BFA3E6500473B46 /* RangedIndex.swift */; };
+		8CF208171BFA3E6500473B46 /* RangedIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208151BFA3E6500473B46 /* RangedIndex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +131,12 @@
 		616A35CD1BE2DA97004F974A /* ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexTests.swift; sourceTree = "<group>"; };
 		616A35D01BE2E359004F974A /* ComplexArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexArray.swift; sourceTree = "<group>"; };
 		61BC4D891BDDEEEE00E3DC2B /* ValueArraySlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueArraySlice.swift; sourceTree = "<group>"; };
+		8CF208041BF6A87200473B46 /* Tensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tensor.swift; sourceTree = "<group>"; };
+		8CF208071BF6A8A600473B46 /* RangedDimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangedDimension.swift; sourceTree = "<group>"; };
+		8CF208081BF6A8A600473B46 /* TensorSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TensorSlice.swift; sourceTree = "<group>"; };
+		8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TensorTests.swift; sourceTree = "<group>"; };
+		8CF208121BF8005E00473B46 /* RangedIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangedIndexTests.swift; sourceTree = "<group>"; };
+		8CF208151BFA3E6500473B46 /* RangedIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangedIndex.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,7 +211,11 @@
 				614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */,
 				614ACA921BD1CBB200A1C13E /* Matrix.swift */,
 				614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */,
+				8CF208071BF6A8A600473B46 /* RangedDimension.swift */,
+				8CF208151BFA3E6500473B46 /* RangedIndex.swift */,
 				6159F8C11BD2E6E10010F83C /* Real.swift */,
+				8CF208041BF6A87200473B46 /* Tensor.swift */,
+				8CF208081BF6A8A600473B46 /* TensorSlice.swift */,
 				614ACA991BD1CBB200A1C13E /* Trigonometric.swift */,
 				614ACA971BD1CBB200A1C13E /* ValueArray.swift */,
 				61BC4D891BDDEEEE00E3DC2B /* ValueArraySlice.swift */,
@@ -211,8 +233,10 @@
 				614ACA9E1BD1CBB200A1C13E /* DSPTests.swift */,
 				614ACA9F1BD1CBB200A1C13E /* ExponentialTests.swift */,
 				614ACAA01BD1CBB200A1C13E /* HyperbolicTests.swift */,
+				8CF208121BF8005E00473B46 /* RangedIndexTests.swift */,
 				614ACAA31BD1CBB200A1C13E /* RealArrayTests.swift */,
 				614ACAA21BD1CBB200A1C13E /* RealMatrixTests.swift */,
+				8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */,
 				614ACAA51BD1CBB200A1C13E /* TrigonometricTests.swift */,
 				614ACAA61BD1CBB200A1C13E /* XCTestCase+Surge.swift */,
 			);
@@ -400,13 +424,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CF208051BF6A87200473B46 /* Tensor.swift in Sources */,
 				614ACAAF1BD1CBB200A1C13E /* Hyperbolic.swift in Sources */,
+				8CF208161BFA3E6500473B46 /* RangedIndex.swift in Sources */,
 				616A35C91BE2C239004F974A /* ComplexArrayRealSlice.swift in Sources */,
+				8CF2080B1BF6A8A600473B46 /* TensorSlice.swift in Sources */,
 				614ACAAA1BD1CBB200A1C13E /* Complex.swift in Sources */,
 				614ACAA91BD1CBB200A1C13E /* Auxiliary.swift in Sources */,
 				61BC4D8A1BDDEEEE00E3DC2B /* ValueArraySlice.swift in Sources */,
 				614ACAB51BD1CBB200A1C13E /* ValueArray.swift in Sources */,
 				614ACAAB1BD1CBB200A1C13E /* ComplexArithmetic.swift in Sources */,
+				8CF208091BF6A8A600473B46 /* RangedDimension.swift in Sources */,
 				6161BF2A1BE19851003A30E1 /* ContiguousMemory.swift in Sources */,
 				614ACAB71BD1CBB200A1C13E /* Trigonometric.swift in Sources */,
 				614ACAAC1BD1CBB200A1C13E /* DSP.swift in Sources */,
@@ -432,8 +460,10 @@
 				614ACAEC1BD1CC3C00A1C13E /* RealArrayTests.swift in Sources */,
 				614ACAED1BD1CC3C00A1C13E /* TrigonometricTests.swift in Sources */,
 				614ACAE51BD1CC3600A1C13E /* HyperbolicTests.swift in Sources */,
+				8CF208101BF6AA8300473B46 /* TensorTests.swift in Sources */,
 				614ACAE11BD1CC3600A1C13E /* ArithmeticTests.swift in Sources */,
 				614ACAE41BD1CC3600A1C13E /* ExponentialTests.swift in Sources */,
+				8CF208131BF8005E00473B46 /* RangedIndexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,13 +471,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CF208061BF6A87200473B46 /* Tensor.swift in Sources */,
 				614ACAFA1BD1CD0700A1C13E /* Hyperbolic.swift in Sources */,
+				8CF208171BFA3E6500473B46 /* RangedIndex.swift in Sources */,
 				616A35CA1BE2C239004F974A /* ComplexArrayRealSlice.swift in Sources */,
+				8CF2080C1BF6A8A600473B46 /* TensorSlice.swift in Sources */,
 				614ACAF51BD1CD0700A1C13E /* Complex.swift in Sources */,
 				614ACAF41BD1CD0700A1C13E /* Auxiliary.swift in Sources */,
 				61BC4D8B1BDDEEEE00E3DC2B /* ValueArraySlice.swift in Sources */,
 				614ACB001BD1CD0700A1C13E /* ValueArray.swift in Sources */,
 				614ACAF61BD1CD0700A1C13E /* ComplexArithmetic.swift in Sources */,
+				8CF2080A1BF6A8A600473B46 /* RangedDimension.swift in Sources */,
 				6161BF2B1BE19851003A30E1 /* ContiguousMemory.swift in Sources */,
 				614ACB021BD1CD0700A1C13E /* Trigonometric.swift in Sources */,
 				614ACAF71BD1CD0700A1C13E /* DSP.swift in Sources */,
@@ -473,8 +507,10 @@
 				614ACAF11BD1CC3D00A1C13E /* TrigonometricTests.swift in Sources */,
 				614ACAF01BD1CC3D00A1C13E /* RealArrayTests.swift in Sources */,
 				614ACAF21BD1CC3D00A1C13E /* XCTestCase+Surge.swift in Sources */,
+				8CF208111BF6AA8300473B46 /* TensorTests.swift in Sources */,
 				614ACAE61BD1CC3700A1C13E /* ArithmeticTests.swift in Sources */,
 				614ACAE81BD1CC3700A1C13E /* DSPTests.swift in Sources */,
+				8CF208141BF8005E00473B46 /* RangedIndexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
