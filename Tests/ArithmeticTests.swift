@@ -84,6 +84,26 @@ class ArithmeticTests: XCTestCase {
         }
     }
 
+    func testSub() {
+      let a1: RealArray = [5.0, 4.0, 3.0, 2.0]
+      let a2: RealArray = [4.0, 3.0, 2.0, 1.0]
+      let r = a1 - a2
+      XCTAssertEqual(r.count, 4)
+      for v in r {
+        XCTAssertEqual(v, 1.0)
+      }
+    }
+
+    func testSubAssign() {
+      var a1: RealArray = [5.0, 4.0, 3.0, 2.0]
+      let a2: RealArray = [4.0, 3.0, 2.0, 1.0]
+      a1 -= a2
+      XCTAssertEqual(a1.count, 4)
+      for v in a1 {
+        XCTAssertEqual(v, 1.0)
+      }
+    }
+
     func testAddSlice() {
         let a1: RealArray = [1.0, 1.0, 2.0, 2.0, 3.0, 3.0]
         let s1 = RealArraySlice(base: a1, startIndex: 0, endIndex: a1.count, step: 2)

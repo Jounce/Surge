@@ -157,13 +157,13 @@ public func -<ML: ContiguousMemory, MR: ContiguousMemory where ML.Element == Dou
 }
 
 public func -=<ML: ContiguousMutableMemory where ML.Element == Double>(inout lhs: ML, rhs: Double) {
-    var scalar: Double = -1 * rhs
+    var scalar: Double = -rhs
     vDSP_vsaddD(lhs.pointer + lhs.startIndex, lhs.step, &scalar, lhs.mutablePointer + lhs.startIndex, lhs.step, vDSP_Length(lhs.count))
 }
 
 public func -<ML: ContiguousMemory where ML.Element == Double>(lhs: ML, rhs: Double) -> ValueArray<Double> {
     let results = ValueArray<Double>(count: lhs.count)
-    var scalar: Double = -1 * rhs
+    var scalar: Double = -rhs
     vDSP_vsaddD(lhs.pointer + lhs.startIndex, lhs.step, &scalar, results.mutablePointer + results.startIndex, results.step, vDSP_Length(lhs.count))
     return results
 }
