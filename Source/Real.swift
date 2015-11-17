@@ -24,3 +24,6 @@ public typealias Real = Double
 public typealias RealArray = ValueArray<Real>
 public typealias RealArraySlice = ValueArraySlice<Real>
 public typealias RealMatrix = Matrix<Real>
+
+public typealias RealTensor = Tensor<Real>
+public typealias RealTensorSlice = TensorSlice<Real>
