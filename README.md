@@ -82,6 +82,12 @@ let B = inv(A) * C // [2.0, 1.0]′
 let r = A*B - C    // zero   
 ```
 
+
+### Tensors
+
+The `Tensor` class make it easy to manipulate multi-dimensional data. You can easily slice or flatten a tensor to get matrices and vectors that you can operate on.
+
+
 ---
 
 ## License
