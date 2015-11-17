@@ -19,8 +19,9 @@
 // THE SOFTWARE.
 
 
-public struct RangedIndex : ArrayLiteralConvertible, SequenceType {
-    public typealias Element = RangedDimension
+/// Span is a collection of Ranges to specify a multi-dimensional slice of a Tensor.
+public struct Span : ArrayLiteralConvertible, SequenceType {
+    public typealias Element = IntegerRange
     
     public var index: [Element]
     public var startIndex: [Int]
@@ -36,15 +37,15 @@ public struct RangedIndex : ArrayLiteralConvertible, SequenceType {
     
     public init(index: [Element]) {
         self.index = index
-        self.startIndex = index.map{ $0.startIndex }
-        self.endIndex = index.map{ $0.endIndex }
+        self.startIndex = index.map{ $0.start }
+        self.endIndex = index.map{ $0.end }
         self.dimensions = index.map{ $0.count }
     }
     
     public init(arrayLiteral elements: Element...) {
         index = elements
-        startIndex = elements.map{ $0.startIndex }
-        endIndex = elements.map{ $0.endIndex }
+        startIndex = elements.map{ $0.start }
+        endIndex = elements.map{ $0.end }
         self.dimensions = index.map{ $0.count }
     }
     
@@ -55,8 +56,8 @@ public struct RangedIndex : ArrayLiteralConvertible, SequenceType {
         self.dimensions = index.map{ $0.count }
     }
     
-    public func generate() -> RangedIndexGenerator {
-        return RangedIndexGenerator(rangedIndex: self)
+    public func generate() -> SpanGenerator {
+        return SpanGenerator(span: self)
     }
     
     public subscript(index: Int) -> Element {
@@ -64,14 +65,14 @@ public struct RangedIndex : ArrayLiteralConvertible, SequenceType {
     }
 }
 
-public class RangedIndexGenerator: GeneratorType {
-    private var rangedIndex: RangedIndex
+public class SpanGenerator: GeneratorType {
+    private var span: Span
     private var presentIndex: [Int]
     private var kill = false
     
-    init(rangedIndex: RangedIndex) {
-        self.rangedIndex = rangedIndex
-        self.presentIndex = rangedIndex.startIndex
+    init(span: Span) {
+        self.span = span
+        self.presentIndex = span.startIndex
     }
     
     public func next() -> [Int]? {
@@ -79,9 +80,9 @@ public class RangedIndexGenerator: GeneratorType {
     }
     
     func incrementIndex(position: Int) -> [Int]? {
-        if position < 0 || rangedIndex.count <= position || kill {
+        if position < 0 || span.count <= position || kill {
             return nil
-        } else if presentIndex[position] + 1 < rangedIndex[position].endIndex {
+        } else if presentIndex[position] + 1 < span[position].end {
             let result = presentIndex
             presentIndex[position] += 1
             return result
@@ -90,7 +91,7 @@ public class RangedIndexGenerator: GeneratorType {
                 kill = true
                 return presentIndex
             }
-            presentIndex[position] = rangedIndex[position].startIndex
+            presentIndex[position] = span[position].start
             return result
         }
     }

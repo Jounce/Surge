@@ -75,60 +75,60 @@ public class Tensor<ElementType where ElementType: CustomStringConvertible, Elem
         }
     }
     
-    public subscript(slice: RangedDimension...) -> TensorSlice<Element> {
+    public subscript(ranges: IntegerRange...) -> TensorSlice<Element> {
         get {
-            return self[slice]
+            return self[ranges]
         }
         set {
-            self[slice] = newValue
+            self[ranges] = newValue
         }
     }
     
-    public subscript(slice: [RangedDimension]) -> TensorSlice<Element> {
+    public subscript(ranges: [IntegerRange]) -> TensorSlice<Element> {
         get {
-            return self[RangedIndex(index: slice)]
+            return self[Span(index: ranges)]
         }
         set {
-            self[RangedIndex(index: slice)] = newValue
+            self[Span(index: ranges)] = newValue
         }
     }
 
-    public subscript(slice: RangedIndex) -> TensorSlice<Element> {
+    public subscript(span: Span) -> TensorSlice<Element> {
         get {
-            assert(rangedIndexIsValid(slice))
-            return TensorSlice(base: self, slice: slice)
+            assert(spanIsValid(span))
+            return TensorSlice(base: self, span: span)
         }
         set {
-            assert(rangedIndexIsValid(slice))
-            var tensorSlice = TensorSlice(base: self, slice: slice)
-            let index = RangedIndex(index: tensorSlice.dimensions.map{ 0..<$0 })
+            assert(spanIsValid(span))
+            var tensorSlice = TensorSlice(base: self, span: span)
+            let index = Span(index: tensorSlice.dimensions.map{ 0..<$0 })
             tensorSlice[index] = newValue
         }
     }
     
-    /** preconditions:
-            - All but the last two dimensions of slice must be an specific index, not a range.
-            - If the second last dimension is a range, the last slice range must span the full dimension.
-              Otherwise, the last dimension has no restrictions
+    /**
+     Extract a matrix from the tensor.
+
+     - Precondition: All but the last two elements of the span must be an specific index, not a range. If the second-last element is a range, the last element must span the full dimension.
      */
-    public func extractMatrix(slice: RangedIndex) -> Matrix<Element> {
-        assert(rangedIndexIsValid(slice))
-        _ = slice.index[0..<slice.dimensions.count - 2].map{ assert($0.count == 1) }
-        if slice[slice.dimensions.count - 2].count != 1 {
-            assert(slice.index.last!.count == dimensions.last!)
+    public func extractMatrix(span: Span) -> Matrix<Element> {
+        assert(spanIsValid(span))
+        span.index[0..<span.dimensions.count - 2].forEach{ assert($0.count == 1) }
+        if span[span.dimensions.count - 2].count != 1 {
+            assert(span.index.last!.count == dimensions.last!)
         }
                 
-        let rows = slice[slice.dimensions.count - 2].count
-        let columns = slice[slice.dimensions.count - 1].count
+        let rows = span[span.dimensions.count - 2].count
+        let columns = span[span.dimensions.count - 1].count
         
-        let pointerOffset = constructIndex(slice.startIndex)
-        let count = slice.count
+        let pointerOffset = constructIndex(span.startIndex)
+        let count = span.count
         
         return Matrix(rows: rows, columns: columns, elements: elements[pointerOffset..<pointerOffset + count])
     }
     
-    public func extractMatrix(slice: RangedDimension...) -> Matrix<Element> {
-        return extractMatrix(RangedIndex(index: slice))
+    public func extractMatrix(ranges: IntegerRange...) -> Matrix<Element> {
+        return extractMatrix(Span(index: ranges))
     }
     
     public func copy() -> Tensor {
@@ -155,9 +155,9 @@ public class Tensor<ElementType where ElementType: CustomStringConvertible, Elem
         return true
     }
     
-    public func rangedIndexIsValid(indices: RangedIndex) -> Bool {
-        assert(indices.dimensions.count == dimensions.count)
-        for (i, range) in indices.enumerate() {
+    public func spanIsValid(span: Span) -> Bool {
+        assert(span.dimensions.count == dimensions.count)
+        for (i, range) in span.enumerate() {
             if range.startIndex < 0 && dimensions[i] <= range.endIndex {
                 return false
             }

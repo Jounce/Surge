@@ -102,7 +102,7 @@ public class ValueArray<ElementType where ElementType: CustomStringConvertible, 
         }
     }
 
-    public subscript(range: Range<Int>) -> ValueArraySlice<Element> {
+    public subscript(range: Swift.Range<Int>) -> ValueArraySlice<Element> {
         get {
             return ValueArraySlice<Element>(base: self, startIndex: range.startIndex, endIndex: range.endIndex, step: step)
         }
