@@ -43,6 +43,11 @@ public class Tensor<ElementType where ElementType: CustomStringConvertible, Elem
         self.elements = ValueArray(elements)
     }
     
+    public init(matrix: Matrix<ElementType>) {
+        self.dimensions = [matrix.rows, matrix.columns]
+        self.elements = matrix.elements
+    }
+    
     public init(dimensions: [Int]) {
         self.dimensions = dimensions
         self.elements = ValueArray(count: dimensions.reduce(1, combine: *))

@@ -23,30 +23,29 @@
 public struct Span : ArrayLiteralConvertible, SequenceType {
     public typealias Element = IntegerRange
     
-    public var index: [Element]
-    public var startIndex: [Int]
-    public var endIndex: [Int]
+    public var span: [Element]
+    public var startIndex: [Int] {
+        return span.map{ $0.start }
+    }
+    public var endIndex: [Int] {
+        return span.map{ $0.end }
+    }
     
     public var count: Int {
-        return index.reduce(1){ (var a, b) in
-            a *= b.count
-            return a
-        }
+        return dimensions.reduce(1, combine: *)
     }
-    public var dimensions: [Int]
+    public var dimensions: [Int] {
+        return span.map{ $0.count }
+    }
     
-    public init(index: [Element]) {
-        self.index = index
-        self.startIndex = index.map{ $0.start }
-        self.endIndex = index.map{ $0.end }
-        self.dimensions = index.map{ $0.count }
+    public init(span: [Element]) {
+        self.span = span
     }
     
     public init(arrayLiteral elements: Element...) {
-        index = elements
-        startIndex = elements.map{ $0.start }
-        endIndex = elements.map{ $0.end }
-        self.dimensions = index.map{ $0.count }
+        self.init(span: elements)
+    }
+    
     public init(dimensions: [Int], elements: [Interval]) {
         var span = [Element]()
         for (dimension, interval) in zip(dimensions, elements) {
@@ -59,13 +58,25 @@ public struct Span : ArrayLiteralConvertible, SequenceType {
         }
         self.init(span: span)
     }
+    
+    public init(zeroTo dimensions: [Int]) {
+        let start = [Int](count: dimensions.count, repeatedValue: 0)
+        self.init(start: start, end: dimensions)
     }
     
     public init(start: [Int], end: [Int]) {
-        startIndex = start
-        endIndex = end
-        index = zip(start, end).map{ $0...$1 }
-        self.dimensions = index.map{ $0.count }
+        span = zip(start, end).map{ $0..<$1 }
+    }
+    
+    public init(start: [Int], length: [Int]) {
+        let end = zip(start, length).map{ $0 + $1 }
+        self.init(start: start, end: end)
+    }
+    
+    public init(base: [Int], subSpan: Span) {
+        let start = zip(base, subSpan.startIndex).map{ $0 + $1 }
+        let length = subSpan.span.map{ $0.count }
+        self.init(start: start, length: length)
     }
     
     public func generate() -> SpanGenerator {
@@ -73,7 +84,7 @@ public struct Span : ArrayLiteralConvertible, SequenceType {
     }
     
     public subscript(index: Int) -> Element {
-        return self.index[index]
+        return self.span[index]
     }
 }
 
