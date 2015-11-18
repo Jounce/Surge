@@ -108,3 +108,16 @@ public class SpanGenerator: GeneratorType {
         }
     }
 }
+
+// MARK: - Dimensional Congruency
+
+infix operator ≅ { precedence 130 }
+public func ≅(lhs: Span, rhs: Span) -> Bool {
+    let (max, min) = lhs.dimensions.count > rhs.dimensions.count ? (lhs, rhs) : (rhs, lhs)
+    if (min.dimensions == max.dimensions) {
+        return true
+    } else if max.dimensions[0..<max.dimensions.count - min.dimensions.count].reduce(1, combine: *) == 1 && Array(max.dimensions[max.dimensions.count - min.dimensions.count..<max.dimensions.count]) == min.dimensions {
+        return true
+    }
+    return false
+}
