@@ -47,6 +47,18 @@ public struct Span : ArrayLiteralConvertible, SequenceType {
         startIndex = elements.map{ $0.start }
         endIndex = elements.map{ $0.end }
         self.dimensions = index.map{ $0.count }
+    public init(dimensions: [Int], elements: [Interval]) {
+        var span = [Element]()
+        for (dimension, interval) in zip(dimensions, elements) {
+            switch interval {
+            case .All:
+                span.append(0..<dimension)
+            case .Range(let range):
+                span.append(range)
+            }
+        }
+        self.init(span: span)
+    }
     }
     
     public init(start: [Int], end: [Int]) {
