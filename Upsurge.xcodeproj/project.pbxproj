@@ -69,8 +69,6 @@
 		8C2526AA1BFBEF640038A73F /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2526A81BFBEF640038A73F /* Interval.swift */; };
 		8CF208051BF6A87200473B46 /* Tensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208041BF6A87200473B46 /* Tensor.swift */; };
 		8CF208061BF6A87200473B46 /* Tensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208041BF6A87200473B46 /* Tensor.swift */; };
-		8CF208091BF6A8A600473B46 /* IntegerRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208071BF6A8A600473B46 /* IntegerRange.swift */; };
-		8CF2080A1BF6A8A600473B46 /* IntegerRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208071BF6A8A600473B46 /* IntegerRange.swift */; };
 		8CF2080B1BF6A8A600473B46 /* TensorSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208081BF6A8A600473B46 /* TensorSlice.swift */; };
 		8CF2080C1BF6A8A600473B46 /* TensorSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF208081BF6A8A600473B46 /* TensorSlice.swift */; };
 		8CF208101BF6AA8300473B46 /* TensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */; };
@@ -135,7 +133,6 @@
 		61BC4D891BDDEEEE00E3DC2B /* ValueArraySlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueArraySlice.swift; sourceTree = "<group>"; };
 		8C2526A81BFBEF640038A73F /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		8CF208041BF6A87200473B46 /* Tensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tensor.swift; sourceTree = "<group>"; };
-		8CF208071BF6A8A600473B46 /* IntegerRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerRange.swift; sourceTree = "<group>"; };
 		8CF208081BF6A8A600473B46 /* TensorSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TensorSlice.swift; sourceTree = "<group>"; };
 		8CF2080D1BF6A8AC00473B46 /* TensorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TensorTests.swift; sourceTree = "<group>"; };
 		8CF208121BF8005E00473B46 /* SpanTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpanTests.swift; sourceTree = "<group>"; };
@@ -212,7 +209,6 @@
 				614ACA8F1BD1CBB200A1C13E /* Exponential.swift */,
 				614ACA901BD1CBB200A1C13E /* FFT.swift */,
 				614ACA911BD1CBB200A1C13E /* Hyperbolic.swift */,
-				8CF208071BF6A8A600473B46 /* IntegerRange.swift */,
 				8C2526A81BFBEF640038A73F /* Interval.swift */,
 				614ACA921BD1CBB200A1C13E /* Matrix.swift */,
 				614ACA931BD1CBB200A1C13E /* MatrixArithmetic.swift */,
@@ -438,7 +434,6 @@
 				61BC4D8A1BDDEEEE00E3DC2B /* ValueArraySlice.swift in Sources */,
 				614ACAB51BD1CBB200A1C13E /* ValueArray.swift in Sources */,
 				614ACAAB1BD1CBB200A1C13E /* ComplexArithmetic.swift in Sources */,
-				8CF208091BF6A8A600473B46 /* IntegerRange.swift in Sources */,
 				6161BF2A1BE19851003A30E1 /* ContiguousMemory.swift in Sources */,
 				614ACAB71BD1CBB200A1C13E /* Trigonometric.swift in Sources */,
 				614ACAAC1BD1CBB200A1C13E /* DSP.swift in Sources */,
@@ -486,7 +481,6 @@
 				61BC4D8B1BDDEEEE00E3DC2B /* ValueArraySlice.swift in Sources */,
 				614ACB001BD1CD0700A1C13E /* ValueArray.swift in Sources */,
 				614ACAF61BD1CD0700A1C13E /* ComplexArithmetic.swift in Sources */,
-				8CF2080A1BF6A8A600473B46 /* IntegerRange.swift in Sources */,
 				6161BF2B1BE19851003A30E1 /* ContiguousMemory.swift in Sources */,
 				614ACB021BD1CD0700A1C13E /* Trigonometric.swift in Sources */,
 				614ACAF71BD1CD0700A1C13E /* DSP.swift in Sources */,

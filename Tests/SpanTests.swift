@@ -19,17 +19,17 @@
 // THE SOFTWARE.
 
 import XCTest
-import Upsurge
+@testable import Upsurge
 
 class RangedIndexTests: XCTestCase {
-    var rangedDimension: IntegerRange?
-    var indexedDimension: IntegerRange?
+    var rangedDimension: Range<Int>?
+    var indexedDimension: Range<Int>?
     var rangedIndex: Span?
     
     override func setUp() {
         rangedDimension = 4...7
-        indexedDimension = 1
-        rangedIndex = [0...1, 5, 3...4, 2...3, 0]
+        indexedDimension = 1...1
+        rangedIndex = [0...1, 5...5, 3...4, 2...3, 0...0]
     }
     
     func testDimensionGenerator() {

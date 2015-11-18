@@ -22,83 +22,56 @@ import XCTest
 import Upsurge
 
 class TensorTests: XCTestCase {
-    var t1: Tensor<Int>?
-    var s1: TensorSlice<Int>?
-    
-    var t2: Tensor<Real>?
-    var s2: TensorSlice<Real>?
+    var diagonalTensor3D: Tensor<Real>!
+    var diagonalTensor4D: Tensor<Real>!
     
     override func setUp() {
         super.setUp()
-        /*
-        in front:
-        ⎛1, 2⎞
-        ⎝2, 2⎠
-        behind:
-        ⎛5, 2⎞
-        ⎝5, 1⎠
-        */
-        t1 = Tensor(dimensions: [2, 2, 2], elements: [1, 2, 2, 2, 5, 2, 5, 1])
-        s1 = t1![1, 0...1, 0] // [5, 5]
-        
-        /*
-        Cube 1:
-        in front:
-        ⎛6.4, 2.4⎞
-        ⎝8.6, 0.2⎠
-        behind:
-        ⎛6.4, 1.5⎞
-        ⎝7.3, 1.1⎠
-        
-        Cube 2:
-        in front:
-        ⎛6.0, 1.4⎞
-        ⎝7.8, 9.2⎠
-        behind:
-        ⎛4.2, 6.1⎞
-        ⎝8.7, 3.6⎠
-        */
-        t2 = Tensor(dimensions: [2, 2, 2, 2], elements: [6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1, 6.0, 1.4, 7.8, 9.2, 4.2, 6.1, 8.7, 3.6])
-        /*
-        in front:
-        ⎛6.4, 1.5⎞
-        ⎝7.3, 1.1⎠
-        behind:
-        ⎛4.2, 6.1⎞
-        ⎝8.7, 3.6⎠
-        */
-        s2 = t2![0...1, 1, 0...1, 0...1]
+        diagonalTensor3D = Tensor(dimensions: [5, 5, 5], repeatedValue: 0)
+        diagonalTensor3D[0, 0, 0] = 1
+        diagonalTensor3D[1, 1, 1] = 1
+        diagonalTensor3D[2, 2, 2] = 1
+        diagonalTensor3D[3, 3, 3] = 1
+        diagonalTensor3D[4, 4, 4] = 1
 
+        diagonalTensor4D = Tensor(dimensions: [2, 2, 2, 2], repeatedValue: 0)
+        diagonalTensor4D[0, 0, 0, 0] = 1
+        diagonalTensor4D[1, 1, 1, 1] = 1
     }
     
-    func testSlice() {
-        XCTAssertEqual(t1![1, 1, 0], 5)
-        XCTAssertEqual(t1![0, 0, 0], 1)
-        
-        XCTAssertEqual(s1![0, 0, 0], 5)
-        XCTAssertEqual(s1![0, 1, 0], 5)
+    func testSliceAndSubscript() {
+        let slice1 = diagonalTensor3D[3, 2...3, 2...3]
+        let slice2 = diagonalTensor4D[1, 1, .All, .All]
+        let slice3 = diagonalTensor4D.extractMatrix(1, 1, 0...1, 0...1)
+
+        XCTAssertEqual(slice1, slice2)
+        XCTAssert(slice1 == slice3)
+        XCTAssert(slice3 == slice2)
+        XCTAssertEqual(slice1[0, 1, 1], 1)
     }
     
-    func testValueAssignment() {
-        t1![0, 1, 1] = 16
-        let expected = Tensor(dimensions: [2, 2, 2], elements: [1, 2, 2, 16, 5, 2, 5, 1])
-        XCTAssertEqual(t1, expected)
+    func testSliceAndValueAssignment() {
+        XCTAssertEqual(diagonalTensor3D[0, 1, 1], 0)
+
+        diagonalTensor3D[0, 1, 1] = 16
+        XCTAssertEqual(diagonalTensor3D[0, 1, 1], 16)
     }
     
     func testSliceValueAssignment() {
-        t2![1, 0...1, 0...1, 0...1] = t2![0, 0...1, 0...1, 0...1]
-        let expected = Tensor(dimensions: [2, 2, 2, 2], elements: [6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1, 6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1])
-        XCTAssertEqual(t2, expected)
-        XCTAssertEqual(t2![1, 0...1, 0...1, 0...1], t2![0, 0...1, 0...1, 0...1])
+        let tensor = Tensor(dimensions: [2, 2, 2, 2], elements: [6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1, 6.0, 1.4, 7.8, 9.2, 4.2, 6.1, 8.7, 3.6])
+        diagonalTensor4D[1, .All, 0...1, 0...1] = tensor[0, 0...1, .All, 0...1]
+
+        let expected = Tensor(dimensions: [2, 2, 2, 2], elements: [1, 0, 0, 0, 0, 0, 0, 0, 6.4, 2.4, 8.6, 0.2, 6.4, 1.5, 7.3, 1.1])
+        XCTAssertEqual(diagonalTensor4D, expected)
     }
     
     func testMatrixExtraction() {
-        var m = t2!.extractMatrix(1, 1, 0...1, 0...1)
-        var expected = RealMatrix([[4.2, 6.1], [8.7, 3.6]])
-        XCTAssertEqual(m, expected)
+        var matrix = diagonalTensor4D.extractMatrix(1, 1, 0...1, 0...1)
+        var expected = RealMatrix([[0, 0], [0, 1]])
+        XCTAssertEqual(matrix, expected)
         
-        m = t2!.extractMatrix(0, 1, 0, 1)
-        expected = RealMatrix([[1.5]])
-        XCTAssertEqual(m, expected)
+        matrix = diagonalTensor4D.extractMatrix(0, 0, 0, 0)
+        expected = RealMatrix([[1]])
+        XCTAssertEqual(matrix, expected)
     }
 }

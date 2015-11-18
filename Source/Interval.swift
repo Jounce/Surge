@@ -21,14 +21,14 @@
 
 public enum Interval : IntegerLiteralConvertible {
     case All
-    case Range(IntegerRange)
+    case Range(Swift.Range<Int>)
     
-    public init(range: IntegerRange) {
+    public init(range: Swift.Range<Int>) {
         self = Interval.Range(range)
     }
     
     public init(integerLiteral value: Int) {
-        self = Interval.Range(IntegerRange(integerLiteral: value))
+        self = Interval.Range(value...value)
     }
 }
 
