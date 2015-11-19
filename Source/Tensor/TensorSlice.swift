@@ -111,6 +111,23 @@ public struct TensorSlice<Element: Value> : Equatable {
         }
     }
     
+    public func isContiguous() -> Bool {
+        var condition = true
+        let baseSpan: [Range<Int>] = base.dimensions.map{ 0..<$0 }
+        for (range, baseRange) in zip(span.ranges, baseSpan) {
+            if range.count == 1 && condition {
+                continue
+            } else if range.count != 1 && condition {
+                condition = false
+            } else if range == baseRange && !condition {
+                continue
+            } else {
+                return false
+            }
+        }
+        return true
+    }
+    
     public func indexIsValid(indices: [Int]) -> Bool {
         assert(indices.count == dimensions.count)
         for (i, index) in indices.enumerate() {
