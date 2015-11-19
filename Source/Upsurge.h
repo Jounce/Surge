@@ -18,31 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import Upsurge
-import XCTest
+#import <Foundation/Foundation.h>
+#import <Accelerate/Accelerate.h>
 
-class AuxiliaryTests: XCTestCase {
-    let n = 10000
+//! Project version number for Upsurge.
+FOUNDATION_EXPORT double UpsurgeVersionNumber;
 
-    func testCopysign() {
-        let signs = RealArray((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
+//! Project version string for Upsurge.
+FOUNDATION_EXPORT const unsigned char UpsurgeVersionString[];
 
-        let magnitudes = RealArray(count: n)
-        for i in 0..<n {
-            magnitudes[i] = Real(arc4random_uniform(10))
-        }
-
-        let expected = RealArray(count: n)
-        for (i, (sign, magnitude)) in Zip2Sequence(signs, magnitudes).enumerate() {
-            expected[i] = sign * abs(magnitude)
-        }
-
-        var actual: RealArray = []
-        self.measureBlock {
-            actual = copysign(signs, magnitude: magnitudes)
-        }
-
-        XCTAssertEqual(actual, expected)
-    }
-}

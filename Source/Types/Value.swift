@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,30 +19,8 @@
 // THE SOFTWARE.
 
 import Foundation
-import Upsurge
-import XCTest
 
-class AuxiliaryTests: XCTestCase {
-    let n = 10000
+public protocol Value : AbsoluteValuable, Comparable, CustomStringConvertible, Equatable, Hashable  {}
 
-    func testCopysign() {
-        let signs = RealArray((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
-
-        let magnitudes = RealArray(count: n)
-        for i in 0..<n {
-            magnitudes[i] = Real(arc4random_uniform(10))
-        }
-
-        let expected = RealArray(count: n)
-        for (i, (sign, magnitude)) in Zip2Sequence(signs, magnitudes).enumerate() {
-            expected[i] = sign * abs(magnitude)
-        }
-
-        var actual: RealArray = []
-        self.measureBlock {
-            actual = copysign(signs, magnitude: magnitudes)
-        }
-
-        XCTAssertEqual(actual, expected)
-    }
-}
+extension Double : Value {}
+extension Float : Value {}

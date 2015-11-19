@@ -1,5 +1,3 @@
-// ExponentialTests.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,19 +19,19 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
+import Upsurge
 import XCTest
 
 class ExponentialTests: XCTestCase {
     let n = 10000
 
-    func test_exp() {
-        let values = map(0...n){_ in Double(arc4random_uniform(10))}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: exp, mapped: exp, accuracy: 0.0001)
+    func testExp() {
+        let values = (0...n).map{_ in Real(arc4random_uniform(10))}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { exp($0) }, mapped: { $0.map{ exp($0) } }, accuracy: 0.0001)
     }
 
-    func test_exp2() {
-        let values = map(0...n){_ in Double(arc4random_uniform(10))}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: exp2, mapped: exp2, accuracy: 0.0001)
+    func testExp2() {
+        let values = (0...n).map{_ in Real(arc4random_uniform(10))}
+        measureAndValidateMappedFunctionWithAccuracy(values, member: { exp2($0) }, mapped: { $0.map{ exp2($0) } }, accuracy: 0.0001)
     }
 }

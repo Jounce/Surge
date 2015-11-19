@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,31 +18,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import Upsurge
-import XCTest
 
-class AuxiliaryTests: XCTestCase {
-    let n = 10000
-
-    func testCopysign() {
-        let signs = RealArray((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
-
-        let magnitudes = RealArray(count: n)
-        for i in 0..<n {
-            magnitudes[i] = Real(arc4random_uniform(10))
-        }
-
-        let expected = RealArray(count: n)
-        for (i, (sign, magnitude)) in Zip2Sequence(signs, magnitudes).enumerate() {
-            expected[i] = sign * abs(magnitude)
-        }
-
-        var actual: RealArray = []
-        self.measureBlock {
-            actual = copysign(signs, magnitude: magnitudes)
-        }
-
-        XCTAssertEqual(actual, expected)
+public enum Interval : IntegerLiteralConvertible {
+    case All
+    case Range(Swift.Range<Int>)
+    
+    public init(range: Swift.Range<Int>) {
+        self = Interval.Range(range)
+    }
+    
+    public init(integerLiteral value: Int) {
+        self = Interval.Range(value...value)
     }
 }
+
+public func ...(min: Int, max: Int) -> Interval {
+    return Interval(range: min..<max + 1)
+}
+
+public func ..<(min: Int, upper: Int) -> Interval {
+    return Interval(range: min..<upper)
+}
+

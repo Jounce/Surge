@@ -1,0 +1,4 @@
+language: objective-c
+xcode_workspace: Upsurge.xcworkspace
+xcode_scheme: Upsurge OSX
+osx_image: xcode7

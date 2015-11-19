@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,22 @@ import Foundation
 import Upsurge
 import XCTest
 
-class AuxiliaryTests: XCTestCase {
-    let n = 10000
+class DSPTests: XCTestCase {
+    func testConvolution() {
+        let actual = convolution([0.0, 1.0, 2.0, 0.0], [0.0, -1.0])
+        let expected: RealArray = [0.0, -1.0, -2.0]
+        XCTAssertEqual(actual, expected)
+    }
 
-    func testCopysign() {
-        let signs = RealArray((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
+    func testCorrelation() {
+        let actual = correlation([0.0, 1.0, 2.0, 0.0], [0.0, -1.0])
+        let expected: RealArray = [-1.0, -2.0, 0.0]
+        XCTAssertEqual(actual, expected)
+    }
 
-        let magnitudes = RealArray(count: n)
-        for i in 0..<n {
-            magnitudes[i] = Real(arc4random_uniform(10))
-        }
-
-        let expected = RealArray(count: n)
-        for (i, (sign, magnitude)) in Zip2Sequence(signs, magnitudes).enumerate() {
-            expected[i] = sign * abs(magnitude)
-        }
-
-        var actual: RealArray = []
-        self.measureBlock {
-            actual = copysign(signs, magnitude: magnitudes)
-        }
-
+    func testAutocorrelation() {
+        let actual = autocorrelation([1.0, 1.0], maxLag: 1)
+        let expected: RealArray = [2.0, 1.0]
         XCTAssertEqual(actual, expected)
     }
 }

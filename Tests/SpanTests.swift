@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2015 Venture Media Labs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,31 +18,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import Upsurge
 import XCTest
+@testable import Upsurge
 
-class AuxiliaryTests: XCTestCase {
-    let n = 10000
-
-    func testCopysign() {
-        let signs = RealArray((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
-
-        let magnitudes = RealArray(count: n)
-        for i in 0..<n {
-            magnitudes[i] = Real(arc4random_uniform(10))
+class RangedIndexTests: XCTestCase {
+    var rangedDimension: Range<Int>?
+    var indexedDimension: Range<Int>?
+    var rangedIndex: Span?
+    
+    override func setUp() {
+        rangedDimension = 4...7
+        indexedDimension = 1...1
+        rangedIndex = [0...1, 5...5, 3...4, 2...3, 0...0]
+    }
+    
+    func testDimensionGenerator() {
+        var result = [Int]()
+        for i in rangedDimension! {
+            result.append(i)
         }
-
-        let expected = RealArray(count: n)
-        for (i, (sign, magnitude)) in Zip2Sequence(signs, magnitudes).enumerate() {
-            expected[i] = sign * abs(magnitude)
+        for i in indexedDimension! {
+            result.append(i)
         }
+        XCTAssertEqual(result, [4, 5, 6, 7, 1])
+    }
 
-        var actual: RealArray = []
-        self.measureBlock {
-            actual = copysign(signs, magnitude: magnitudes)
+    func testIndexGenerator() {
+        var result = [[Int]]()
+        for index in rangedIndex! {
+            result.append(index)
         }
-
-        XCTAssertEqual(actual, expected)
+        let expected: [[Int]] = [
+            [0, 5, 3, 2, 0],
+            [0, 5, 3, 3, 0],
+            [0, 5, 4, 2, 0],
+            [0, 5, 4, 3, 0],
+            [1, 5, 3, 2, 0],
+            [1, 5, 3, 3, 0],
+            [1, 5, 4, 2, 0],
+            [1, 5, 4, 3, 0]
+        ]
+        
+        XCTAssertEqual(result, expected)
     }
 }

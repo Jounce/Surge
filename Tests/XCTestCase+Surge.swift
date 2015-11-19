@@ -1,5 +1,3 @@
-// XCTestCase+Surge.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,15 +23,15 @@ import XCTest
 
 extension XCTestCase {
     func measureAndValidateMappedFunctionWithAccuracy<C : CollectionType where C.Generator.Element: protocol<FloatLiteralConvertible, FloatingPointType>>(source: C, member: (C.Generator.Element) -> (C.Generator.Element), mapped: (C) -> ([C.Generator.Element]), accuracy: C.Generator.Element) {
-        var expected = map(source, member)
+        var expected = source.map(member)
 
         var actual: [C.Generator.Element] = []
         self.measureBlock {
             actual = mapped(source)
         }
 
-        for (i, _) in enumerate(source) {
-            XCTAssertEqualWithAccuracy(actual[i], expected[i], accuracy)
+        for (i, _) in source.enumerate() {
+            XCTAssertEqualWithAccuracy(actual[i], expected[i], accuracy: accuracy)
         }
     }
 }
