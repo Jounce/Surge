@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 /// A slice of reals from a ComplexArray.
-public struct ComplexArrayRealSlice : ContiguousMutableMemory {
+public struct ComplexArrayRealSlice : ContiguousMutableMemory, Equatable {
     public typealias Index = Int
     public typealias Element = Real
 
@@ -55,4 +55,17 @@ public struct ComplexArrayRealSlice : ContiguousMutableMemory {
             mutablePointer[baseIndex] = newValue
         }
     }
+}
+
+public func ==(lhs: ComplexArrayRealSlice, rhs: ComplexArrayRealSlice) -> Bool {
+    if lhs.count != rhs.count {
+        return false
+    }
+
+    for i in 0..<lhs.count {
+        if lhs[i] != rhs[i] {
+            return false
+        }
+    }
+    return true
 }

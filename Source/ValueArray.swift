@@ -168,14 +168,10 @@ public func ==<T>(lhs: ValueArray<T>, rhs: ValueArray<T>) -> Bool {
         return false
     }
 
-    var i = lhs.startIndex
-    var j = rhs.startIndex
-    while i < lhs.endIndex && j < rhs.endIndex {
-        if lhs.pointer[i] != rhs.pointer[j] {
+    for i in 0..<lhs.count {
+        if lhs[i] != rhs[i] {
             return false
         }
-        i += lhs.step
-        j += rhs.step
     }
     return true
 }

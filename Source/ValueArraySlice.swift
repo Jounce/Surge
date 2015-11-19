@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 /// A slice of a `ValueArray`. Slices not only specify start and end indexes, they also specify a step size.
-public struct ValueArraySlice<Element: Value> : ContiguousMutableMemory, MutableIndexable, CustomStringConvertible {
+public struct ValueArraySlice<Element: Value> : ContiguousMutableMemory, MutableIndexable, CustomStringConvertible, Equatable {
     public typealias Index = Int
 
     var base: ValueArray<Element>
@@ -69,4 +69,17 @@ public struct ValueArraySlice<Element: Value> : ContiguousMutableMemory, Mutable
         }
         return string
     }
+}
+
+public func ==<T>(lhs: ValueArraySlice<T>, rhs: ValueArraySlice<T>) -> Bool {
+    if lhs.count != rhs.count {
+        return false
+    }
+
+    for i in 0..<lhs.count {
+        if lhs[i] != rhs[i] {
+            return false
+        }
+    }
+    return true
 }

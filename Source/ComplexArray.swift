@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public class ComplexArray : ContiguousMutableMemory, MutableCollectionType, ArrayLiteralConvertible  {
+public class ComplexArray : ContiguousMutableMemory, MutableCollectionType, ArrayLiteralConvertible, Equatable  {
     public typealias Index = Int
     public typealias Element = Complex
 
@@ -155,4 +155,17 @@ public class ComplexArray : ContiguousMutableMemory, MutableCollectionType, Arra
     public func toColumnMatrix() -> Matrix<Element> {
         return Matrix(rows: count, columns: 1, elements: self)
     }
+}
+
+public func ==(lhs: ComplexArray, rhs: ComplexArray) -> Bool {
+    if lhs.count != rhs.count {
+        return false
+    }
+
+    for i in 0..<lhs.count {
+        if lhs[i] != rhs[i] {
+            return false
+        }
+    }
+    return true
 }
