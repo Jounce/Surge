@@ -48,6 +48,13 @@ public class Tensor<Element: Value> : Equatable {
         self.dimensions = tensor.dimensions
         self.elements = ValueArray<Element>(tensor.elements)
     }
+    
+    public convenience init(_ tensorSlice: TensorSlice<Element>) {
+        self.init(dimensions: tensorSlice.dimensions)
+        for index in Span(zeroTo: dimensions) {
+            self[index] = tensorSlice[index]
+        }
+    }
 
     public init(_ matrix: Matrix<Element>) {
         self.dimensions = [matrix.rows, matrix.columns]
@@ -121,6 +128,11 @@ public class Tensor<Element: Value> : Equatable {
             let index = Span(zeroTo: tensorSlice.dimensions)
             tensorSlice[index] = newValue
         }
+    }
+    
+    public func Reshape(dimensions: Int...) {
+        precondition(dimensions.reduce(1, combine: *) == count)
+        self.dimensions = dimensions
     }
 
     func extractMatrix(span: Span) -> Matrix<Element> {
