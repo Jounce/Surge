@@ -21,9 +21,8 @@
 import Accelerate
 
 /// A `Tensor` is a multi-dimensional collection of values.
-public class Tensor<ElementType where ElementType: CustomStringConvertible, ElementType: Equatable> : Equatable {
+public class Tensor<Element: Value> : Equatable {
     public typealias Index = [Int]
-    public typealias Element = ElementType
 
     public var dimensions: [Int]
     public var elements: ValueArray<Element>
@@ -50,7 +49,7 @@ public class Tensor<ElementType where ElementType: CustomStringConvertible, Elem
         self.elements = ValueArray<Element>(tensor.elements)
     }
 
-    public init(_ matrix: Matrix<ElementType>) {
+    public init(_ matrix: Matrix<Element>) {
         self.dimensions = [matrix.rows, matrix.columns]
         self.elements = matrix.elements
     }

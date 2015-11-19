@@ -20,9 +20,8 @@
 
 import Accelerate
 
-public class Matrix<ElementType where ElementType: CustomStringConvertible, ElementType: Equatable> : Equatable, CustomStringConvertible {
+public class Matrix<Element: Value> : Equatable, CustomStringConvertible {
     public typealias Index = (Int, Int)
-    public typealias Element = ElementType
     
     public var rows: Int
     public var columns: Int

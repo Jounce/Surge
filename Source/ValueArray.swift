@@ -19,9 +19,8 @@
 // THE SOFTWARE.
 
 /// A `ValueArray` is similar to an `Array` but it's a `class` instead of a `struct` and it has a fixed size. As opposed to an `Array`, assigning a `ValueArray` to a new variable will not create a copy, it only creates a new reference. If any reference is modified all other references will reflect the change. To copy a `ValueArray` you have to explicitly call `copy()`.
-public class ValueArray<ElementType where ElementType: CustomStringConvertible, ElementType: Equatable> : ContiguousMutableMemory, MutableCollectionType, ArrayLiteralConvertible, Equatable, CustomStringConvertible {
+public class ValueArray<Element: Value> : ContiguousMutableMemory, MutableCollectionType, ArrayLiteralConvertible, Equatable, CustomStringConvertible {
     public typealias Index = Int
-    public typealias Element = ElementType
 
     public internal(set) var mutablePointer: UnsafeMutablePointer<Element>
     public internal(set) var capacity: Int

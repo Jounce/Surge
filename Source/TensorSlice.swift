@@ -19,9 +19,8 @@
 // THE SOFTWARE.
 
 
-public struct TensorSlice<ElementType where ElementType: CustomStringConvertible, ElementType: Equatable> : Equatable {
+public struct TensorSlice<Element: Value> : Equatable {
     public typealias Index = [Int]
-    public typealias Element = ElementType
     
     var base: Tensor<Element>
     public let dimensions: [Int]

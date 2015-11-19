@@ -49,6 +49,8 @@
 		6159F8C31BD2E6E10010F83C /* Real.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6159F8C11BD2E6E10010F83C /* Real.swift */; };
 		6161BF2A1BE19851003A30E1 /* ContiguousMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6161BF291BE19851003A30E1 /* ContiguousMemory.swift */; };
 		6161BF2B1BE19851003A30E1 /* ContiguousMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6161BF291BE19851003A30E1 /* ContiguousMemory.swift */; };
+		6168325A1BFE5BAD00C4DC6D /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832591BFE5BAD00C4DC6D /* Value.swift */; };
+		6168325B1BFE5BAD00C4DC6D /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616832591BFE5BAD00C4DC6D /* Value.swift */; };
 		616A35BD1BE28685004F974A /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616A35B71BE19A29004F974A /* Arithmetic.swift */; };
 		616A35BE1BE28686004F974A /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616A35B71BE19A29004F974A /* Arithmetic.swift */; };
 		616A35BF1BE286D5004F974A /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ACA901BD1CBB200A1C13E /* FFT.swift */; };
@@ -126,6 +128,7 @@
 		614ACAD31BD1CBF300A1C13E /* UpsurgeTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UpsurgeTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6159F8C11BD2E6E10010F83C /* Real.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Real.swift; sourceTree = "<group>"; };
 		6161BF291BE19851003A30E1 /* ContiguousMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousMemory.swift; sourceTree = "<group>"; };
+		616832591BFE5BAD00C4DC6D /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		616A35B71BE19A29004F974A /* Arithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arithmetic.swift; sourceTree = "<group>"; };
 		616A35C81BE2C239004F974A /* ComplexArrayRealSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexArrayRealSlice.swift; sourceTree = "<group>"; };
 		616A35CD1BE2DA97004F974A /* ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexTests.swift; sourceTree = "<group>"; };
@@ -217,6 +220,7 @@
 				8CF208041BF6A87200473B46 /* Tensor.swift */,
 				8CF208081BF6A8A600473B46 /* TensorSlice.swift */,
 				614ACA991BD1CBB200A1C13E /* Trigonometric.swift */,
+				616832591BFE5BAD00C4DC6D /* Value.swift */,
 				614ACA971BD1CBB200A1C13E /* ValueArray.swift */,
 				61BC4D891BDDEEEE00E3DC2B /* ValueArraySlice.swift */,
 			);
@@ -437,6 +441,7 @@
 				6161BF2A1BE19851003A30E1 /* ContiguousMemory.swift in Sources */,
 				614ACAB71BD1CBB200A1C13E /* Trigonometric.swift in Sources */,
 				614ACAAC1BD1CBB200A1C13E /* DSP.swift in Sources */,
+				6168325A1BFE5BAD00C4DC6D /* Value.swift in Sources */,
 				8C2526A91BFBEF640038A73F /* Interval.swift in Sources */,
 				616A35C11BE289D1004F974A /* Matrix.swift in Sources */,
 				616A35BF1BE286D5004F974A /* FFT.swift in Sources */,
@@ -484,6 +489,7 @@
 				6161BF2B1BE19851003A30E1 /* ContiguousMemory.swift in Sources */,
 				614ACB021BD1CD0700A1C13E /* Trigonometric.swift in Sources */,
 				614ACAF71BD1CD0700A1C13E /* DSP.swift in Sources */,
+				6168325B1BFE5BAD00C4DC6D /* Value.swift in Sources */,
 				8C2526AA1BFBEF640038A73F /* Interval.swift in Sources */,
 				616A35C21BE289D1004F974A /* Matrix.swift in Sources */,
 				616A35C01BE286D6004F974A /* FFT.swift in Sources */,

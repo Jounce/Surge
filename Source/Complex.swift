@@ -18,11 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public struct Complex : CustomStringConvertible, Equatable {
+public struct Complex : Value {
     public var real: Real = 0.0
     public var imag: Real = 0.0
 
     public init() {}
+
+    public init(integerLiteral value: Int) {
+        real = Real(value)
+    }
 
     public init(real: Real, imag: Real) {
         self.real = real
@@ -32,10 +36,19 @@ public struct Complex : CustomStringConvertible, Equatable {
     public var magnitude: Real {
         return hypot(real, imag)
     }
+
     public var phase: Real {
         return atan2(imag, real)
     }
 
+    public static func abs(x: Complex) -> Complex {
+        return Complex(real: x.magnitude, imag: 0.0)
+    }
+
+    public var hashValue: Int {
+        return real.hashValue ^ imag.hashValue
+    }
+    
     public var description: String {
         return "\(real) + \(imag)i"
     }
@@ -43,6 +56,10 @@ public struct Complex : CustomStringConvertible, Equatable {
 
 public func ==(lhs: Complex, rhs: Complex) -> Bool {
     return lhs.real == rhs.real && lhs.imag == rhs.imag
+}
+
+public func <(lhs: Complex, rhs: Complex) -> Bool {
+    return lhs.real < rhs.real || (lhs.real == rhs.real && lhs.imag < rhs.imag)
 }
 
 public func + (lhs: Complex, rhs: Complex) -> Complex {
