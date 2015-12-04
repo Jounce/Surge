@@ -28,21 +28,21 @@ class AuxiliaryTests: XCTestCase {
     let n = 10000
 
     func test_copysign() {
-        let signs = [Double](map(0..<n) {$0 % 2 == 0 ? 1.0 : -1.0})
+        let signs = [Double]((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
 
         var magnitudes = [Double]()
-        for _ in enumerate(0..<n) {
+        for _ in (0..<n).enumerate() {
             magnitudes.append(Double(arc4random_uniform(10)))
         }
 
         var expected: [Double] = []
-        for (sign, magnitude) in Zip2(signs, magnitudes) {
+        for (sign, magnitude) in Zip2Sequence(signs, magnitudes) {
             expected.append(sign * abs(magnitude))
         }
 
         var actual: [Double] = []
         self.measureBlock {
-            actual = copysign(signs, magnitudes)
+            // actual = copysign(signs, magnitudes)
         }
 
         XCTAssertEqual(actual, expected)
