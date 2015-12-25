@@ -164,6 +164,18 @@ public func mul(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func div(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
+    let yInv = y′
+    precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
+    return mul(x, y: yInv)
+}
+
+public func div(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
+    let yInv = y′
+    precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
+    return mul(x, y: yInv)
+}
+
 public func inv(x : Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == x.columns, "Matrix must be square")
 
@@ -240,6 +252,14 @@ public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 
 public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return mul(lhs, y: rhs)
+}
+
+public func / (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    return div(lhs, y: rhs)
+}
+
+public func / (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    return div(lhs, y: rhs)
 }
 
 postfix operator ′ {}
