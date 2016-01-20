@@ -165,13 +165,13 @@ public func mul(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
 }
 
 public func div(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
-    let yInv = y′
+    let yInv = inv(y)
     precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
     return mul(x, y: yInv)
 }
 
 public func div(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
-    let yInv = y′
+    let yInv = inv(y)
     precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
     return mul(x, y: yInv)
 }
