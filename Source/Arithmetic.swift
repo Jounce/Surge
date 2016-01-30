@@ -245,6 +245,26 @@ public func dot(x: [Double], y: [Double]) -> Double {
     return result
 }
 
+// MARK: - Distance
+
+public func dist(x: [Float], y: [Float]) -> Float {
+    precondition(x.count == y.count, "Vectors must have equal count")
+    let sub = x - y
+    var squared = [Float](count: x.count, repeatedValue: 0.0)
+    vDSP_vsq(sub, 1, &squared, 1, vDSP_Length(x.count))
+    
+    return sqrt(sum(squared))
+}
+
+public func dist(x: [Double], y: [Double]) -> Double {
+    precondition(x.count == y.count, "Vectors must have equal count")
+    let sub = x - y
+    var squared = [Double](count: x.count, repeatedValue: 0.0)
+    vDSP_vsqD(sub, 1, &squared, 1, vDSP_Length(x.count))
+    
+    return sqrt(sum(squared))
+}
+
 // MARK: - Operators
 
 func + (lhs: [Float], rhs: [Float]) -> [Float] {
