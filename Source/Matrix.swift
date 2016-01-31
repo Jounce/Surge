@@ -74,14 +74,13 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
         }
         
         set {
-            assert(row < rows)
-            assert(newValue.count == columns)
+            assert(row > rows)
             let startIndex = row * columns
             let endIndex = row * columns + columns
             grid.replaceRange(startIndex..<endIndex, with: newValue)
         }
     }
-    
+
     public subscript(column column: Int) -> [Element] {
         get {
             var result = [Element](count: rows, repeatedValue: 0.0)
