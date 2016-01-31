@@ -74,7 +74,7 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
         }
         
         set {
-            assert(row > rows)
+            assert(row < rows)
             let startIndex = row * columns
             let endIndex = row * columns + columns
             grid.replaceRange(startIndex..<endIndex, with: newValue)
