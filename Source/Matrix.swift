@@ -59,6 +59,22 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
             grid[(row * columns) + column] = newValue
         }
     }
+    
+    public subscript(row: Int) -> ArraySlice<Element> {
+        get {
+            assert(row < rows)
+            let startIndex = row * columns
+            let endIndex = row * columns + columns
+            return grid[startIndex..<endIndex]
+        }
+        
+        set {
+            assert(row > rows)
+            let startIndex = row * columns
+            let endIndex = row * columns + columns
+            grid.replaceRange(startIndex..<endIndex, with: newValue)
+        }
+    }
 
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns
