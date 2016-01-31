@@ -144,6 +144,16 @@ public func add(x: [Double], y: [Double]) -> [Double] {
     return results
 }
 
+// MARK: Subtract
+
+public func sub(x: [Float], y: [Float]) -> [Float] {
+    return add(x, y: y*(-1))
+}
+
+public func sub(x: [Double], y: [Double]) -> [Double] {
+    return add(x, y: y*(-1))
+}
+
 // MARK: Multiply
 
 public func mul(x: [Float], y: [Float]) -> [Float] {
@@ -281,6 +291,22 @@ func + (lhs: [Float], rhs: Float) -> [Float] {
 
 func + (lhs: [Double], rhs: Double) -> [Double] {
     return add(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
+}
+
+func - (lhs: [Float], rhs: [Float]) -> [Float] {
+    return sub(lhs, y: rhs)
+}
+
+func - (lhs: [Double], rhs: [Double]) -> [Double] {
+    return sub(lhs, y: rhs)
+}
+
+func - (lhs: [Double], rhs: Double) -> [Double] {
+    return sub(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
+}
+
+func - (lhs: [Float], rhs: Float) -> [Float] {
+    return sub(lhs, y: [Float](count: lhs.count, repeatedValue: rhs))
 }
 
 func / (lhs: [Float], rhs: [Float]) -> [Float] {
