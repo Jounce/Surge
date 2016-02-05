@@ -283,91 +283,91 @@ public func dist(x: [Double], y: [Double]) -> Double {
 
 // MARK: - Operators
 
-func + (lhs: [Float], rhs: [Float]) -> [Float] {
+public func + (lhs: [Float], rhs: [Float]) -> [Float] {
     return add(lhs, y: rhs)
 }
 
-func + (lhs: [Double], rhs: [Double]) -> [Double] {
+public func + (lhs: [Double], rhs: [Double]) -> [Double] {
     return add(lhs, y: rhs)
 }
 
-func + (lhs: [Float], rhs: Float) -> [Float] {
+public func + (lhs: [Float], rhs: Float) -> [Float] {
     return add(lhs, y: [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func + (lhs: [Double], rhs: Double) -> [Double] {
+public func + (lhs: [Double], rhs: Double) -> [Double] {
     return add(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
 }
 
-func - (lhs: [Float], rhs: [Float]) -> [Float] {
+public func - (lhs: [Float], rhs: [Float]) -> [Float] {
     return sub(lhs, y: rhs)
 }
 
-func - (lhs: [Double], rhs: [Double]) -> [Double] {
+public func - (lhs: [Double], rhs: [Double]) -> [Double] {
     return sub(lhs, y: rhs)
 }
 
-func - (lhs: [Float], rhs: Float) -> [Float] {
+public func - (lhs: [Float], rhs: Float) -> [Float] {
     return sub(lhs, y: [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func - (lhs: [Double], rhs: Double) -> [Double] {
+public func - (lhs: [Double], rhs: Double) -> [Double] {
     return sub(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
 }
 
-func / (lhs: [Float], rhs: [Float]) -> [Float] {
+public func / (lhs: [Float], rhs: [Float]) -> [Float] {
     return div(lhs, y: rhs)
 }
 
-func / (lhs: [Double], rhs: [Double]) -> [Double] {
+public func / (lhs: [Double], rhs: [Double]) -> [Double] {
     return div(lhs, y: rhs)
 }
 
-func / (lhs: [Float], rhs: Float) -> [Float] {
+public func / (lhs: [Float], rhs: Float) -> [Float] {
     return div(lhs, y: [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func / (lhs: [Double], rhs: Double) -> [Double] {
+public func / (lhs: [Double], rhs: Double) -> [Double] {
     return div(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
 }
 
-func * (lhs: [Float], rhs: [Float]) -> [Float] {
+public func * (lhs: [Float], rhs: [Float]) -> [Float] {
     return mul(lhs, y: rhs)
 }
 
-func * (lhs: [Double], rhs: [Double]) -> [Double] {
+public func * (lhs: [Double], rhs: [Double]) -> [Double] {
     return mul(lhs, y: rhs)
 }
 
-func * (lhs: [Float], rhs: Float) -> [Float] {
+public func * (lhs: [Float], rhs: Float) -> [Float] {
     return mul(lhs, y: [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func * (lhs: [Double], rhs: Double) -> [Double] {
+public func * (lhs: [Double], rhs: Double) -> [Double] {
     return mul(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
 }
 
-func % (lhs: [Float], rhs: [Float]) -> [Float] {
+public func % (lhs: [Float], rhs: [Float]) -> [Float] {
     return mod(lhs, y: rhs)
 }
 
-func % (lhs: [Double], rhs: [Double]) -> [Double] {
+public func % (lhs: [Double], rhs: [Double]) -> [Double] {
     return mod(lhs, y: rhs)
 }
 
-func % (lhs: [Float], rhs: Float) -> [Float] {
+public func % (lhs: [Float], rhs: Float) -> [Float] {
     return mod(lhs, y: [Float](count: lhs.count, repeatedValue: rhs))
 }
 
-func % (lhs: [Double], rhs: Double) -> [Double] {
+public func % (lhs: [Double], rhs: Double) -> [Double] {
     return mod(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
 }
 
 infix operator • {}
-func • (lhs: [Double], rhs: [Double]) -> Double {
+public func • (lhs: [Double], rhs: [Double]) -> Double {
     return dot(lhs, y: rhs)
 }
 
-func • (lhs: [Float], rhs: [Float]) -> Float {
+public func • (lhs: [Float], rhs: [Float]) -> Float {
     return dot(lhs, y: rhs)
 }
