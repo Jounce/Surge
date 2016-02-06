@@ -27,7 +27,7 @@ import Accelerate
 
 // Convolution of a signal [x], with a kernel [k]. The signal must be at least as long as the kernel.
 public func conv(x: [Float], _ k: [Float]) -> [Float] {
-    assert(x.count >= k.count, "Input vector [x] must have at least as many elements as the kernel,  [k]")
+    precondition(x.count >= k.count, "Input vector [x] must have at least as many elements as the kernel,  [k]")
     
     let resultSize = x.count + k.count - 1
     var result = [Float](count: resultSize, repeatedValue: 0)
@@ -41,7 +41,7 @@ public func conv(x: [Float], _ k: [Float]) -> [Float] {
 
 // Convolution of a signal [x], with a kernel [k]. The signal must be at least as long as the kernel.
 public func conv(x: [Double], _ k: [Double]) -> [Double] {
-    assert(x.count >= k.count, "Input vector [x] must have at least as many elements as the kernel,  [k]")
+    precondition(x.count >= k.count, "Input vector [x] must have at least as many elements as the kernel,  [k]")
     
     let resultSize = x.count + k.count - 1
     var result = [Double](count: resultSize, repeatedValue: 0)
@@ -58,7 +58,7 @@ public func conv(x: [Double], _ k: [Double]) -> [Double] {
 // Cross-correlation of a signal [x], with another signal [y]. The signal [y]
 // is padded so that it is the same length as [x].
 public func xcorr(x: [Float], _ y: [Float]) -> [Float] {
-    assert(x.count >= y.count, "Input vector [x] must have at least as many elements as [y]")
+    precondition(x.count >= y.count, "Input vector [x] must have at least as many elements as [y]")
     var yPadded = y
     if x.count > y.count {
         let padding = Repeat(count: x.count - y.count, repeatedValue: Float(0.0))
@@ -77,7 +77,7 @@ public func xcorr(x: [Float], _ y: [Float]) -> [Float] {
 // Cross-correlation of a signal [x], with another signal [y]. The signal [y]
 // is padded so that it is the same length as [x].
 public func xcorr(x: [Double], _ y: [Double]) -> [Double] {
-    assert(x.count >= y.count, "Input vector [x] must have at least as many elements as [y]")
+    precondition(x.count >= y.count, "Input vector [x] must have at least as many elements as [y]")
     var yPadded = y
     if x.count > y.count {
         let padding = Repeat(count: x.count - y.count, repeatedValue: Double(0.0))
