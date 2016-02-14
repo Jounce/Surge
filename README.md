@@ -62,6 +62,7 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 - `meamg`
 - `measq`
 - `add`
+- `sub`
 - `mul`
 - `div`
 - `mod`
@@ -77,6 +78,11 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 - `rec`
 - `round`
 - `trunc`
+
+### Convolution
+
+- `conv`
+- `xcorr`
 
 ### Exponential
 
