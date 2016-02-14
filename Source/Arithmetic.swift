@@ -144,6 +144,22 @@ public func add(x: [Double], y: [Double]) -> [Double] {
     return results
 }
 
+// MARK: Subtraction
+
+public func sub(x: [Float], y: [Float]) -> [Float] {
+    var results = [Float](y)
+    catlas_saxpby(Int32(x.count), 1.0, x, 1, -1, &results, 1)
+    
+    return results
+}
+
+public func sub(x: [Double], y: [Double]) -> [Double] {
+    var results = [Double](y)
+    catlas_daxpby(Int32(x.count), 1.0, x, 1, -1, &results, 1)
+    
+    return results
+}
+
 // MARK: Multiply
 
 public func mul(x: [Float], y: [Float]) -> [Float] {
@@ -281,6 +297,22 @@ func + (lhs: [Float], rhs: Float) -> [Float] {
 
 func + (lhs: [Double], rhs: Double) -> [Double] {
     return add(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
+}
+
+func - (lhs: [Float], rhs: [Float]) -> [Float] {
+    return sub(lhs, y: rhs)
+}
+
+func - (lhs: [Double], rhs: [Double]) -> [Double] {
+    return sub(lhs, y: rhs)
+}
+
+func - (lhs: [Float], rhs: Float) -> [Float] {
+    return sub(lhs, y: [Float](count: lhs.count, repeatedValue: rhs))
+}
+
+func - (lhs: [Double], rhs: Double) -> [Double] {
+    return sub(lhs, y: [Double](count: lhs.count, repeatedValue: rhs))
 }
 
 func / (lhs: [Float], rhs: [Float]) -> [Float] {
