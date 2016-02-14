@@ -75,9 +75,30 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
         
         set {
             assert(row < rows)
+            assert(newValue.count == columns)
             let startIndex = row * columns
             let endIndex = row * columns + columns
             grid.replaceRange(startIndex..<endIndex, with: newValue)
+        }
+    }
+    
+    public subscript(column column: Int) -> [Element] {
+        get {
+            var result = [Element](count: rows, repeatedValue: 0.0)
+            for i in 0..<rows {
+                let index = i * columns + column
+                result[i] = self.grid[index]
+            }
+            return result
+        }
+        
+        set {
+            assert(column < columns)
+            assert(newValue.count == rows)
+            for i in 0..<rows {
+                let index = i * columns + column
+                grid[index] = newValue[i]
+            }
         }
     }
 
