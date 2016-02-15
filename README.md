@@ -1,4 +1,5 @@
-# Surge
+# Surge [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE)
+
 *Swift + Accelerate*
 
 [Accelerate](https://developer.apple.com/library/mac/documentation/Accelerate/Reference/AccelerateFWRef/_index.html) is a framework that provides high-performance functions for matrix math, digital signal processing, and image manipulation. It harnesses [SIMD](http://en.wikipedia.org/wiki/SIMD) instructions available in modern CPUs to significantly improve performance of certain calculations.
