@@ -21,7 +21,6 @@
 		F8A1E1D719917C2B009735E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A1E1D619917C2B009735E2 /* Foundation.framework */; };
 		F8AE90FE19D1D9120078C7B2 /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE90FD19D1D9120078C7B2 /* FFT.swift */; };
 		F8BD5C591A6C1C6500DD357E /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C531A6C1C6500DD357E /* ArithmeticTests.swift */; };
-		F8BD5C5A1A6C1C6500DD357E /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C541A6C1C6500DD357E /* AuxiliaryTests.swift */; };
 		F8BD5C5B1A6C1C6500DD357E /* ExponentialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C551A6C1C6500DD357E /* ExponentialTests.swift */; };
 		F8BD5C5C1A6C1C6500DD357E /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */; };
 		F8BD5C5D1A6C1C6500DD357E /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */; };
@@ -283,7 +282,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8BD5C5C1A6C1C6500DD357E /* HyperbolicTests.swift in Sources */,
-				F8BD5C5A1A6C1C6500DD357E /* AuxiliaryTests.swift in Sources */,
 				F8BD5C5D1A6C1C6500DD357E /* TrigonometricTests.swift in Sources */,
 				F8BD5C5E1A6C1C6500DD357E /* XCTestCase+Surge.swift in Sources */,
 				D26964F01C646C8D00F456D4 /* ConvolutionTests.swift in Sources */,
