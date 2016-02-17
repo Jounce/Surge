@@ -1,4 +1,5 @@
-# Surge [![Build Status](https://travis-ci.org/mattt/Surge.svg?branch=master)](https://travis-ci.org/mattt/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE)
+# Surge [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE)
+
 
 *Swift + Accelerate*
 
