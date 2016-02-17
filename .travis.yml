@@ -2,6 +2,6 @@ language: objective-c
 osx_image: xcode7.3
 
 script:
-  - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3'
+  - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2'
   
 
