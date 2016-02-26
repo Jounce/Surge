@@ -37,3 +37,13 @@ public func pow(x: [Double], y: [Double]) -> [Double] {
 
     return results
 }
+
+public func pow(x: [Float], _ y: Float) -> [Float] {
+    let yVec = [Float](count: x.count, repeatedValue: y)
+    return pow(yVec, y: x)
+}
+
+public func pow(x: [Double], _ y: Double) -> [Double] {
+    let yVec = [Double](count: x.count, repeatedValue: y)
+    return pow(yVec, y: x)
+}

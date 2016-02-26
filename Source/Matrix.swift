@@ -22,6 +22,11 @@
 
 import Accelerate
 
+public enum MatrixAxies {
+    case Row
+    case Column
+}
+
 public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
     public typealias Element = T
 
@@ -57,6 +62,43 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
         set {
             assert(indexIsValidForRow(row, column: column))
             grid[(row * columns) + column] = newValue
+        }
+    }
+    
+    public subscript(row row: Int) -> [Element] {
+        get {
+            assert(row < rows)
+            let startIndex = row * columns
+            let endIndex = row * columns + columns
+            return Array(grid[startIndex..<endIndex])
+        }
+        
+        set {
+            assert(row < rows)
+            assert(newValue.count == columns)
+            let startIndex = row * columns
+            let endIndex = row * columns + columns
+            grid.replaceRange(startIndex..<endIndex, with: newValue)
+        }
+    }
+    
+    public subscript(column column: Int) -> [Element] {
+        get {
+            var result = [Element](count: rows, repeatedValue: 0.0)
+            for i in 0..<rows {
+                let index = i * columns + column
+                result[i] = self.grid[index]
+            }
+            return result
+        }
+        
+        set {
+            assert(column < columns)
+            assert(newValue.count == rows)
+            for i in 0..<rows {
+                let index = i * columns + column
+                grid[index] = newValue[i]
+            }
         }
     }
 
@@ -112,6 +154,12 @@ extension Matrix: SequenceType {
     }
 }
 
+extension Matrix: Equatable {}
+public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
+    return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.grid == rhs.grid
+}
+
+
 // MARK: -
 
 public func add(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
@@ -164,6 +212,20 @@ public func mul(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func elmul(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
+    var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    result.grid = x.grid * y.grid
+    return result
+}
+
+public func elmul(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
+    var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    result.grid = x.grid * y.grid
+    return result
+}
+
 public func div(x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     let yInv = inv(y)
     precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
@@ -174,6 +236,49 @@ public func div(x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
     let yInv = inv(y)
     precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
     return mul(x, y: yInv)
+}
+
+public func pow(x: Matrix<Double>, _ y: Double) -> Matrix<Double> {
+    var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    result.grid = pow(x.grid, y)
+    return result
+}
+
+public func pow(x: Matrix<Float>, _ y: Float) -> Matrix<Float> {
+    var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    result.grid = pow(x.grid, y)
+    return result
+}
+
+public func exp(x: Matrix<Double>) -> Matrix<Double> {
+    var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    result.grid = exp(x.grid)
+    return result
+}
+
+public func exp(x: Matrix<Float>) -> Matrix<Float> {
+    var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    result.grid = exp(x.grid)
+    return result
+}
+
+public func sum(x: Matrix<Double>, axies: MatrixAxies = .Column) -> Matrix<Double> {
+    
+    switch axies {
+    case .Column:
+        var result = Matrix<Double>(rows: 1, columns: x.columns, repeatedValue: 0.0)
+        for i in 0..<x.columns {
+            result.grid[i] = sum(x[column: i])
+        }
+        return result
+        
+    case .Row:
+        var result = Matrix<Double>(rows: x.rows, columns: 1, repeatedValue: 0.0)
+        for i in 0..<x.rows {
+            result.grid[i] = sum(x[row: i])
+        }
+        return result
+    }
 }
 
 public func inv(x : Matrix<Float>) -> Matrix<Float> {
@@ -260,6 +365,18 @@ public func / (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 
 public func / (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     return div(lhs, y: rhs)
+}
+
+public func / (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
+    var result = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = lhs.grid / rhs;
+    return result;
+}
+
+public func / (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
+    var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = lhs.grid / rhs;
+    return result;
 }
 
 postfix operator ′ {}
