@@ -102,26 +102,6 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
         }
     }
 
-    public subscript(column column: Int) -> [Element] {
-        get {
-            var result = [Element](count: rows, repeatedValue: 0.0)
-            for i in 0..<rows {
-                let index = i * columns + column
-                result[i] = self.grid[index]
-            }
-            return result
-        }
-        
-        set {
-            assert(column < columns)
-            assert(newValue.count == rows)
-            for i in 0..<rows {
-                let index = i * columns + column
-                grid[index] = newValue[i]
-            }
-        }
-    }
-
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns
     }
@@ -161,7 +141,7 @@ extension Matrix: SequenceType {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
-        return anyGenerator {
+        return AnyGenerator {
             if nextRowStartIndex == endIndex {
                 return nil
             }
