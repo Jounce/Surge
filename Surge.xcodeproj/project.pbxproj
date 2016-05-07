@@ -27,6 +27,8 @@
 		5FF2F7771CDE855500C15E3A /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C561A6C1C6500DD357E /* HyperbolicTests.swift */; };
 		5FF2F7781CDE855500C15E3A /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C571A6C1C6500DD357E /* TrigonometricTests.swift */; };
 		5FF2F7791CDE855700C15E3A /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BD5C581A6C1C6500DD357E /* XCTestCase+Surge.swift */; };
+		5FF2F77B1CDE85D900C15E3A /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF2F77A1CDE85D900C15E3A /* Accelerate.framework */; };
+		5FF2F77D1CDE85DD00C15E3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF2F77C1CDE85DD00C15E3A /* Foundation.framework */; };
 		B897D7431C70507F00989C26 /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B897D7421C70507F00989C26 /* MatrixTests.swift */; };
 		B897D7451C7053AF00989C26 /* PowerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B897D7441C7053AF00989C26 /* PowerTests.swift */; };
 		D26964ED1C646AD800F456D4 /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26964EC1C646AD800F456D4 /* Convolution.swift */; };
@@ -73,6 +75,8 @@
 		5FF2F75A1CDE850F00C15E3A /* SurgeOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FF2F75F1CDE850F00C15E3A /* SurgeOSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurgeOSXTests.swift; sourceTree = "<group>"; };
 		5FF2F7611CDE850F00C15E3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FF2F77A1CDE85D900C15E3A /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
+		5FF2F77C1CDE85DD00C15E3A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		B897D7421C70507F00989C26 /* MatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 		B897D7441C7053AF00989C26 /* PowerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerTests.swift; sourceTree = "<group>"; };
 		D26964EC1C646AD800F456D4 /* Convolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convolution.swift; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FF2F77D1CDE85DD00C15E3A /* Foundation.framework in Frameworks */,
+				5FF2F77B1CDE85D900C15E3A /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +247,8 @@
 		F8A1E1D419917C17009735E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5FF2F77C1CDE85DD00C15E3A /* Foundation.framework */,
+				5FF2F77A1CDE85D900C15E3A /* Accelerate.framework */,
 				F8A1E1D619917C2B009735E2 /* Foundation.framework */,
 				F8A1E1D219917C0B009735E2 /* Accelerate.framework */,
 			);
