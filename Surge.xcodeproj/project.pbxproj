@@ -523,6 +523,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULE_NAME = Surge;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mattt.Surge.SurgeOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -548,6 +549,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULE_NAME = Surge;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mattt.Surge.SurgeOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -755,6 +757,7 @@
 				5FF2F7631CDE850F00C15E3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5FF2F7671CDE850F00C15E3A /* Build configuration list for PBXNativeTarget "SurgeOSXTests" */ = {
 			isa = XCConfigurationList;
@@ -763,6 +766,7 @@
 				5FF2F7651CDE850F00C15E3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F84A6AB419A9A72F007B53E1 /* Build configuration list for PBXNativeTarget "SurgeTests" */ = {
 			isa = XCConfigurationList;
