@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SurgeOSX
+@testable import Surge
 
 class SurgeOSXTests: XCTestCase {
     

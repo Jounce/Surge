@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5FF2F7541CDE850F00C15E3A /* SurgeOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FF2F7531CDE850F00C15E3A /* SurgeOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5FF2F75B1CDE850F00C15E3A /* SurgeOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF2F7511CDE850F00C15E3A /* SurgeOSX.framework */; };
+		5FF2F75B1CDE850F00C15E3A /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF2F7511CDE850F00C15E3A /* Surge.framework */; };
 		5FF2F7601CDE850F00C15E3A /* SurgeOSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2F75F1CDE850F00C15E3A /* SurgeOSXTests.swift */; };
 		5FF2F7681CDE851A00C15E3A /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C419917B0A009735E2 /* Arithmetic.swift */; };
 		5FF2F7691CDE851A00C15E3A /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26964EC1C646AD800F456D4 /* Convolution.swift */; };
@@ -69,7 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5FF2F7511CDE850F00C15E3A /* SurgeOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SurgeOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FF2F7511CDE850F00C15E3A /* Surge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Surge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FF2F7531CDE850F00C15E3A /* SurgeOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurgeOSX.h; sourceTree = "<group>"; };
 		5FF2F7551CDE850F00C15E3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FF2F75A1CDE850F00C15E3A /* SurgeOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,7 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FF2F75B1CDE850F00C15E3A /* SurgeOSX.framework in Frameworks */,
+				5FF2F75B1CDE850F00C15E3A /* Surge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +203,7 @@
 			children = (
 				F8A1E1AA19917A79009735E2 /* Surge.framework */,
 				F84A6AAE19A9A72F007B53E1 /* SurgeTests.xctest */,
-				5FF2F7511CDE850F00C15E3A /* SurgeOSX.framework */,
+				5FF2F7511CDE850F00C15E3A /* Surge.framework */,
 				5FF2F75A1CDE850F00C15E3A /* SurgeOSXTests.xctest */,
 			);
 			name = Products;
@@ -293,7 +293,7 @@
 			);
 			name = SurgeOSX;
 			productName = SurgeOSX;
-			productReference = 5FF2F7511CDE850F00C15E3A /* SurgeOSX.framework */;
+			productReference = 5FF2F7511CDE850F00C15E3A /* Surge.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		5FF2F7591CDE850F00C15E3A /* SurgeOSXTests */ = {
@@ -522,10 +522,10 @@
 				INFOPLIST_FILE = SurgeOSX/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULE_NAME = Surge;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULE_NAME = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mattt.Surge.SurgeOSX;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Surge;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -548,10 +548,10 @@
 				INFOPLIST_FILE = SurgeOSX/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULE_NAME = Surge;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULE_NAME = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mattt.Surge.SurgeOSX;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Surge;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
