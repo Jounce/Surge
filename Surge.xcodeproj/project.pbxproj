@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5FF2F7541CDE850F00C15E3A /* SurgeOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FF2F7531CDE850F00C15E3A /* SurgeOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5FF2F75B1CDE850F00C15E3A /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF2F7511CDE850F00C15E3A /* Surge.framework */; };
-		5FF2F7601CDE850F00C15E3A /* SurgeOSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2F75F1CDE850F00C15E3A /* SurgeOSXTests.swift */; };
 		5FF2F7681CDE851A00C15E3A /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C419917B0A009735E2 /* Arithmetic.swift */; };
 		5FF2F7691CDE851A00C15E3A /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26964EC1C646AD800F456D4 /* Convolution.swift */; };
 		5FF2F76A1CDE851A00C15E3A /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1E1C519917B0A009735E2 /* Auxiliary.swift */; };
@@ -73,7 +72,6 @@
 		5FF2F7531CDE850F00C15E3A /* SurgeOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurgeOSX.h; sourceTree = "<group>"; };
 		5FF2F7551CDE850F00C15E3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FF2F75A1CDE850F00C15E3A /* SurgeOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5FF2F75F1CDE850F00C15E3A /* SurgeOSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurgeOSXTests.swift; sourceTree = "<group>"; };
 		5FF2F7611CDE850F00C15E3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FF2F77A1CDE85D900C15E3A /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		5FF2F77C1CDE85DD00C15E3A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -154,7 +152,6 @@
 		5FF2F75E1CDE850F00C15E3A /* SurgeOSXTests */ = {
 			isa = PBXGroup;
 			children = (
-				5FF2F75F1CDE850F00C15E3A /* SurgeOSXTests.swift */,
 				5FF2F7611CDE850F00C15E3A /* Info.plist */,
 			);
 			path = SurgeOSXTests;
@@ -453,7 +450,6 @@
 				5FF2F7741CDE855100C15E3A /* ArithmeticTests.swift in Sources */,
 				5FF2F7771CDE855500C15E3A /* HyperbolicTests.swift in Sources */,
 				5FF2F7781CDE855500C15E3A /* TrigonometricTests.swift in Sources */,
-				5FF2F7601CDE850F00C15E3A /* SurgeOSXTests.swift in Sources */,
 				5FF2F7731CDE855100C15E3A /* PowerTests.swift in Sources */,
 				5FF2F7761CDE855500C15E3A /* ExponentialTests.swift in Sources */,
 			);
