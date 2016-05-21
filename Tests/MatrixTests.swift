@@ -42,4 +42,13 @@ class MatrixTests: XCTestCase {
         let matrix2 = Matrix<Double>([[2,3,4,5], [6,7,8,9], [10, 11, 12, 13]])
         XCTAssertEqual(elmul(matrix, y: matrix2), Matrix<Double>([[2,6,12,20], [30,42,56,72], [90, 110, 132,156]]))
     }
+    
+    func testNegation() {
+        let matrix2 = negate(matrix)
+        let matrix3 = mul(-1, x: matrix)
+        let matrix4 = negate(matrix2)
+        
+        XCTAssertEqual(matrix2, matrix3)
+        XCTAssertEqual(matrix, matrix4)
+    }
 }

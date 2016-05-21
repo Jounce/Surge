@@ -30,8 +30,8 @@ public enum MatrixAxies {
 public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
     public typealias Element = T
 
-    let rows: Int
-    let columns: Int
+    public let rows: Int
+    public let columns: Int
     var grid: [Element]
 
     public init(rows: Int, columns: Int, repeatedValue: Element) {
@@ -101,6 +101,10 @@ public struct Matrix<T where T: FloatingPointType, T: FloatLiteralConvertible> {
             }
         }
     }
+    
+    public var size:Int {
+        return rows * columns
+    }
 
     private func indexIsValidForRow(row: Int, column: Int) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns
@@ -141,7 +145,7 @@ extension Matrix: SequenceType {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
-        return anyGenerator {
+        return AnyGenerator(body:{
             if nextRowStartIndex == endIndex {
                 return nil
             }
@@ -150,7 +154,7 @@ extension Matrix: SequenceType {
             nextRowStartIndex += self.columns
 
             return self.grid[currentRowStartIndex..<nextRowStartIndex]
-        }
+        })
     }
 }
 
@@ -316,6 +320,18 @@ public func inv(x : Matrix<Double>) -> Matrix<Double> {
 
     assert(error == 0, "Matrix not invertible")
 
+    return results
+}
+
+public func negate(x: Matrix<Float>) -> Matrix<Float> {
+    var results = x
+    vDSP_vneg(x.grid, 1, &(results.grid), 1, vDSP_Length(results.grid.count))
+    return results
+}
+
+public func negate(x: Matrix<Double>) -> Matrix<Double> {
+    var results = x
+    vDSP_vnegD(x.grid, 1, &(results.grid), 1, vDSP_Length(results.grid.count))
     return results
 }
 

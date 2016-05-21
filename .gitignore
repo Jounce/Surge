@@ -1,1 +1,3 @@
 .build
+.DS_Store
+*.xcuserdatad
