@@ -141,13 +141,12 @@ extension Matrix: CustomStringConvertible {
 
 // MARK: - SequenceType
 
-/* // FIXME: Simply couldn't get this to behave in Swift 3.
 extension Matrix: Sequence {
     public func makeIterator() -> AnyIterator<ArraySlice<Element>> {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
         
-        return AnyIterator(body:{ () -> ArraySlice? in
+        return AnyIterator({
             if nextRowStartIndex == endIndex {
                 return nil
             }
@@ -160,7 +159,7 @@ extension Matrix: Sequence {
         })
     }
 }
- */
+
 
 extension Matrix: Equatable {}
 public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
