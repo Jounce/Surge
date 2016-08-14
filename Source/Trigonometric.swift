@@ -24,17 +24,17 @@ import Accelerate
 
 // MARK: Sine-Cosine
 
-public func sincos(x: [Float]) -> (sin: [Float], cos: [Float]) {
-    var sin = [Float](count: x.count, repeatedValue: 0.0)
-    var cos = [Float](count: x.count, repeatedValue: 0.0)
+public func sincos(_ x: [Float]) -> (sin: [Float], cos: [Float]) {
+    var sin = [Float](repeating: 0.0, count: x.count)
+    var cos = [Float](repeating: 0.0, count: x.count)
     vvsincosf(&sin, &cos, x, [Int32(x.count)])
 
     return (sin, cos)
 }
 
-public func sincos(x: [Double]) -> (sin: [Double], cos: [Double]) {
-    var sin = [Double](count: x.count, repeatedValue: 0.0)
-    var cos = [Double](count: x.count, repeatedValue: 0.0)
+public func sincos(_ x: [Double]) -> (sin: [Double], cos: [Double]) {
+    var sin = [Double](repeating: 0.0, count: x.count)
+    var cos = [Double](repeating: 0.0, count: x.count)
     vvsincos(&sin, &cos, x, [Int32(x.count)])
 
     return (sin, cos)
@@ -42,15 +42,15 @@ public func sincos(x: [Double]) -> (sin: [Double], cos: [Double]) {
 
 // MARK: Sine
 
-public func sin(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
+public func sin(_ x: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
     vvsinf(&results, x, [Int32(x.count)])
 
     return results
 }
 
-public func sin(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
+public func sin(_ x: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
     vvsin(&results, x, [Int32(x.count)])
 
     return results
@@ -58,15 +58,15 @@ public func sin(x: [Double]) -> [Double] {
 
 // MARK: Cosine
 
-public func cos(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
+public func cos(_ x: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
     vvcosf(&results, x, [Int32(x.count)])
 
     return results
 }
 
-public func cos(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
+public func cos(_ x: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
     vvcos(&results, x, [Int32(x.count)])
 
     return results
@@ -74,15 +74,15 @@ public func cos(x: [Double]) -> [Double] {
 
 // MARK: Tangent
 
-public func tan(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
+public func tan(_ x: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
     vvtanf(&results, x, [Int32(x.count)])
 
     return results
 }
 
-public func tan(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
+public func tan(_ x: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
     vvtan(&results, x, [Int32(x.count)])
 
     return results
@@ -90,15 +90,15 @@ public func tan(x: [Double]) -> [Double] {
 
 // MARK: Arcsine
 
-public func asin(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
+public func asin(_ x: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
     vvasinf(&results, x, [Int32(x.count)])
 
     return results
 }
 
-public func asin(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
+public func asin(_ x: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
     vvasin(&results, x, [Int32(x.count)])
 
     return results
@@ -106,15 +106,15 @@ public func asin(x: [Double]) -> [Double] {
 
 // MARK: Arccosine
 
-public func acos(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
+public func acos(_ x: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
     vvacosf(&results, x, [Int32(x.count)])
 
     return results
 }
 
-public func acos(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
+public func acos(_ x: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
     vvacos(&results, x, [Int32(x.count)])
 
     return results
@@ -122,15 +122,15 @@ public func acos(x: [Double]) -> [Double] {
 
 // MARK: Arctangent
 
-public func atan(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
+public func atan(_ x: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
     vvatanf(&results, x, [Int32(x.count)])
 
     return results
 }
 
-public func atan(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
+public func atan(_ x: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
     vvatan(&results, x, [Int32(x.count)])
 
     return results
@@ -140,17 +140,17 @@ public func atan(x: [Double]) -> [Double] {
 
 // MARK: Radians to Degrees
 
-func rad2deg(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    let divisor = [Float](count: x.count, repeatedValue: Float(M_PI / 180.0))
+func rad2deg(_ x: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
+    let divisor = [Float](repeating: Float(M_PI / 180.0), count: x.count)
     vvdivf(&results, x, divisor, [Int32(x.count)])
 
     return results
 }
 
-func rad2deg(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    let divisor = [Double](count: x.count, repeatedValue: M_PI / 180.0)
+func rad2deg(_ x: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
+    let divisor = [Double](repeating: M_PI / 180.0, count: x.count)
     vvdiv(&results, x, divisor, [Int32(x.count)])
 
     return results
@@ -158,17 +158,17 @@ func rad2deg(x: [Double]) -> [Double] {
 
 // MARK: Degrees to Radians
 
-func deg2rad(x: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
-    let divisor = [Float](count: x.count, repeatedValue: Float(180.0 / M_PI))
+func deg2rad(_ x: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
+    let divisor = [Float](repeating: Float(180.0 / M_PI), count: x.count)
     vvdivf(&results, x, divisor, [Int32(x.count)])
 
     return results
 }
 
-func deg2rad(x: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
-    let divisor = [Double](count: x.count, repeatedValue: 180.0 / M_PI)
+func deg2rad(_ x: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
+    let divisor = [Double](repeating: 180.0 / M_PI, count: x.count)
     vvdiv(&results, x, divisor, [Int32(x.count)])
 
     return results

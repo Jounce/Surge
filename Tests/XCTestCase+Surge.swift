@@ -24,27 +24,27 @@ import Foundation
 import XCTest
 
 extension XCTestCase {
-    func measureAndValidateMappedFunctionWithAccuracy<C : CollectionType where C.Generator.Element: protocol<FloatLiteralConvertible, FloatingPointType>>(source: C, member: (C.Generator.Element) -> (C.Generator.Element), mapped: (C) -> ([C.Generator.Element]), accuracy: C.Generator.Element) {
+    func measureAndValidateMappedFunctionWithAccuracy<C : Collection where C.Iterator.Element: protocol<FloatLiteralConvertible, FloatingPoint>>(_ source: C, member: (C.Iterator.Element) -> (C.Iterator.Element), mapped: (C) -> ([C.Iterator.Element]), accuracy: C.Iterator.Element) {
         var expected = source.map(member)
 
-        var actual: [C.Generator.Element] = []
-        self.measureBlock {
+        var actual: [C.Iterator.Element] = []
+        self.measure {
             actual = mapped(source)
         }
 
-        for (i, _) in source.enumerate() {
+        for (i, _) in source.enumerated() {
             XCTAssertEqualWithAccuracy(actual[i], expected[i], accuracy: accuracy)
         }
     }
     
-    func XCTAssertArrayFloatEqualWithAccuracy(calcArray: [Float], _ testArray: [Float], _ accuracy: Float) {
+    func XCTAssertArrayFloatEqualWithAccuracy(_ calcArray: [Float], _ testArray: [Float], _ accuracy: Float) {
         assert(calcArray.count == testArray.count, "XCTAssertArrayFloatEqualWithAccuracy arrays must be same size")
         for i:Int in 0..<calcArray.count {
             XCTAssertEqualWithAccuracy(calcArray[i], testArray[i], accuracy: accuracy)
         }
     }
     
-    func XCTAssertArrayDoubleEqualWithAccuracy(calcArray: [Double], _ testArray: [Double], _ accuracy: Double) {
+    func XCTAssertArrayDoubleEqualWithAccuracy(_ calcArray: [Double], _ testArray: [Double], _ accuracy: Double) {
         assert(calcArray.count == testArray.count, "XCTAssertArrayFloatEqualWithAccuracy arrays must be same size")
         for i:Int in 0..<calcArray.count {
             XCTAssertEqualWithAccuracy(calcArray[i], testArray[i], accuracy: accuracy)
