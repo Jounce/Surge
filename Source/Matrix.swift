@@ -146,7 +146,7 @@ extension Matrix: Sequence {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
         
-        return AnyIterator({
+        return AnyIterator {
             if nextRowStartIndex == endIndex {
                 return nil
             }
@@ -156,7 +156,7 @@ extension Matrix: Sequence {
             
             let v = self.grid[currentRowStartIndex..<nextRowStartIndex]
             return v
-        })
+        }
     }
 }
 
@@ -388,14 +388,14 @@ public func / (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 
 public func / (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
     var result = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
-    result.grid = lhs.grid / rhs;
-    return result;
+    result.grid = lhs.grid / rhs
+    return result
 }
 
 public func / (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
     var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
-    result.grid = lhs.grid / rhs;
-    return result;
+    result.grid = lhs.grid / rhs
+    return result
 }
 
 postfix operator ′ {}
