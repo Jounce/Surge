@@ -27,7 +27,7 @@ public enum MatrixAxies {
     case column
 }
 
-public struct Matrix<T where T: FloatingPoint, T: ExpressibleByFloatLiteral> {
+public struct Matrix<T> where T: FloatingPoint, T: ExpressibleByFloatLiteral {
     public typealias Element = T
 
     public let rows: Int
