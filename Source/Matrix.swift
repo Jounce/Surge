@@ -141,7 +141,7 @@ extension Matrix: SequenceType {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
-        return anyGenerator {
+        return AnyGenerator {
             if nextRowStartIndex == endIndex {
                 return nil
             }
