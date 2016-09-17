@@ -24,15 +24,15 @@ import Foundation
 import XCTest
 
 extension XCTestCase {
-    func measureAndValidateMappedFunctionWithAccuracy<C : CollectionType where C.Generator.Element: protocol<FloatLiteralConvertible, FloatingPointType>>(source: C, member: (C.Generator.Element) -> (C.Generator.Element), mapped: (C) -> ([C.Generator.Element]), accuracy: C.Generator.Element) {
+    func measureAndValidateMappedFunctionWithAccuracy<C : Collection>(source: C, member: (C.Iterator.Element) -> (C.Iterator.Element), mapped: @escaping (C) -> ([C.Iterator.Element]), accuracy: C.Iterator.Element) where C.Iterator.Element: ExpressibleByFloatLiteral & FloatingPoint {
         var expected = source.map(member)
 
         var actual: [C.Generator.Element] = []
-        self.measureBlock {
+        self.measure {
             actual = mapped(source)
         }
-
-        for (i, _) in source.enumerate() {
+        
+        for (i, _) in source.enumerated() {
             XCTAssertEqualWithAccuracy(actual[i], expected[i], accuracy: accuracy)
         }
     }
