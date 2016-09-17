@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F8A1E1A919917A79009735E2"
+               BlueprintIdentifier = "5FF2F7501CDE850F00C15E3A"
                BuildableName = "Surge.framework"
-               BlueprintName = "Surge"
+               BlueprintName = "SurgeOSX"
                ReferencedContainer = "container:Surge.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F84A6AAD19A9A72F007B53E1"
-               BuildableName = "SurgeTests.xctest"
-               BlueprintName = "SurgeTests"
+               BlueprintIdentifier = "5FF2F7591CDE850F00C15E3A"
+               BuildableName = "SurgeOSXTests.xctest"
+               BlueprintName = "SurgeOSXTests"
                ReferencedContainer = "container:Surge.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8A1E1A919917A79009735E2"
+            BlueprintIdentifier = "5FF2F7501CDE850F00C15E3A"
             BuildableName = "Surge.framework"
-            BlueprintName = "Surge"
+            BlueprintName = "SurgeOSX"
             ReferencedContainer = "container:Surge.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8A1E1A919917A79009735E2"
+            BlueprintIdentifier = "5FF2F7501CDE850F00C15E3A"
             BuildableName = "Surge.framework"
-            BlueprintName = "Surge"
+            BlueprintName = "SurgeOSX"
             ReferencedContainer = "container:Surge.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8A1E1A919917A79009735E2"
+            BlueprintIdentifier = "5FF2F7501CDE850F00C15E3A"
             BuildableName = "Surge.framework"
-            BlueprintName = "Surge"
+            BlueprintName = "SurgeOSX"
             ReferencedContainer = "container:Surge.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
