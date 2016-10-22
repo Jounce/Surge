@@ -252,7 +252,7 @@ public func eigendecompostion(x: Matrix<Double>) ->(Matrix<Double>, [Double]) {
     lwork = __CLPK_integer(workspaceQuery)
 
     "V".withCString { (V) -> Void in
-        dgeev_(UnsafeMutablePointer(V), UnsafeMutablePointer(V), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspaceQuery, &lwork, &error)
+        dgeev_(UnsafeMutablePointer(V), UnsafeMutablePointer(V), &N, &mat, &N, &wr, &wi, &vl, &N, &vr, &N, &workspace, &lwork, &error)
     }
 
     var eigenVectors: Matrix<Double> = Matrix(rows: Int(N), columns: Int(N), repeatedValue: 0.0)
