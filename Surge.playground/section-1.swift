@@ -25,7 +25,7 @@ let B = inv(A) * C
 
 func plot<T>(values: [T], title: String) {
     for value in values {
-        XCPlaygroundPage.currentPage.captureValue(value, withIdentifier: title)
+        XCPlaygroundPage.currentPage.captureValue(value: value, withIdentifier: title)
     }
 }
 
@@ -35,6 +35,6 @@ let amplitude = 3.0
 
 let x = (0..<count).map{ 2.0 * M_PI / Double(count) * Double($0) * frequency }
 
-plot(sin(x), title:"Sine Wave")
-plot(fft(sin(x)), title:"FFT")
+plot(values: sin(x), title:"Sine Wave")
+plot(values: fft(sin(x)), title:"FFT")
 
