@@ -41,6 +41,19 @@ public struct Matrix<T> where T: FloatingPoint, T: ExpressibleByFloatLiteral {
         self.grid = [Element](repeating: repeatedValue, count: rows * columns)
     }
 
+    public init(rows: Int, columns: Int, valueFunc: ()->Element){
+        self.rows = rows
+        self.columns = columns
+        
+        self.grid = [Element](repeating: valueFunc(), count: rows * columns)
+        for i in 0..<grid.count{
+            self.grid[i] = valueFunc()
+        }
+    }
+    
+    
+
+    
     public init(_ contents: [[Element]]) {
         let m: Int = contents.count
         let n: Int = contents[0].count
@@ -333,6 +346,19 @@ public func transpose(_ x: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+
+public func apply<T>(_ x: Matrix<T>, function : (T)->T)->Matrix<T>{
+    var m = Matrix<T>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    for i in 0..<x.grid.count{
+        m.grid[i] = function(x.grid[i])
+    }
+    return m
+}
+
+public func dump<T>(matrix:Matrix<T>) -> [T]{
+    return matrix.grid
+}
+
 // MARK: - Operators
 
 public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
@@ -387,3 +413,4 @@ public postfix func ′ (value: Matrix<Float>) -> Matrix<Float> {
 public postfix func ′ (value: Matrix<Double>) -> Matrix<Double> {
     return transpose(value)
 }
+
