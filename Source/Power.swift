@@ -24,16 +24,26 @@ import Accelerate
 
 // MARK: Power
 
-public func pow(x: [Float], y: [Float]) -> [Float] {
-    var results = [Float](count: x.count, repeatedValue: 0.0)
+public func pow(_ x: [Float], y: [Float]) -> [Float] {
+    var results = [Float](repeating: 0.0, count: x.count)
     vvpowf(&results, x, y, [Int32(x.count)])
 
     return results
 }
 
-public func pow(x: [Double], y: [Double]) -> [Double] {
-    var results = [Double](count: x.count, repeatedValue: 0.0)
+public func pow(_ x: [Double], y: [Double]) -> [Double] {
+    var results = [Double](repeating: 0.0, count: x.count)
     vvpow(&results, x, y, [Int32(x.count)])
 
     return results
+}
+
+public func pow(_ x: [Float], _ y: Float) -> [Float] {
+    let yVec = [Float](repeating: y, count: x.count)
+    return pow(yVec, y: x)
+}
+
+public func pow(_ x: [Double], _ y: Double) -> [Double] {
+    let yVec = [Double](repeating: y, count: x.count)
+    return pow(yVec, y: x)
 }

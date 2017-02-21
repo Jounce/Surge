@@ -28,7 +28,7 @@ class ArithmeticTests: XCTestCase {
     let n = 100000
 
     func test_sqrt() {
-        let values = map(0...n){_ in Double(arc4random())}
-        measureAndValidateMappedFunctionWithAccuracy(values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
+        let values = (0...n).map{_ in Double(arc4random())}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
     }
 }

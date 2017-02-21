@@ -1,0 +1,7 @@
+language: objective-c
+osx_image: xcode8
+
+script:
+  - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2'
+  
+

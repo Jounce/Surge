@@ -9,7 +9,7 @@ let sum = Surge.sum(n)
 
 let a = [1.0, 3.0, 5.0, 7.0]
 let b = [2.0, 4.0, 6.0, 8.0]
-let product = Surge.mul(a, b)
+let product = Surge.mul(a, y: b)
 
 // MARK: - Matrix
 
@@ -25,7 +25,7 @@ let B = inv(A) * C
 
 func plot<T>(values: [T], title: String) {
     for value in values {
-        XCPCaptureValue(title, value)
+        XCPlaygroundPage.currentPage.captureValue(value, withIdentifier: title)
     }
 }
 
@@ -33,8 +33,8 @@ let count = 64
 let frequency = 4.0
 let amplitude = 3.0
 
-let x = map(0..<count){ 2.0 * M_PI / Double(count) * Double($0) * frequency }
+let x = (0..<count).map{ 2.0 * M_PI / Double(count) * Double($0) * frequency }
 
-plot(sin(x), "Sine Wave")
-plot(fft(sin(x)), "FFT")
+plot(sin(x), title:"Sine Wave")
+plot(fft(sin(x)), title:"FFT")
 
