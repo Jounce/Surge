@@ -1,4 +1,4 @@
-// Hyperbolic.swift
+// Matrix.swift
 //
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
@@ -50,6 +50,15 @@ public struct Matrix<T> where T: FloatingPoint, T: ExpressibleByFloatLiteral {
 
         for (i, row) in contents.enumerated() {
             grid.replaceSubrange(i*n..<i*n+Swift.min(m, row.count), with: row)
+        }
+    }
+    
+    public init(rows: Int, columns: Int, valueFunc: ()->Element){
+        self.rows = rows
+        self.columns = columns
+        self.grid = [Element](repeating: valueFunc(), count: rows * columns)
+        for i in 0..<grid.count{
+            self.grid[i] = valueFunc()
         }
     }
 
@@ -279,6 +288,19 @@ public func sum(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Dou
         }
         return result
     }
+}
+
+public func negate(_ x: Matrix<Float>) -> Matrix<Float> {
+    var results = x
+    vDSP_vneg(x.grid, 1, &(results.grid), 1, vDSP_Length(results.grid.count))
+    
+    return results
+}
+
+public func negate(_ x: Matrix<Double>) -> Matrix<Double> {
+    var results = x
+    vDSP_vnegD(x.grid, 1, &(results.grid), 1, vDSP_Length(results.grid.count))
+    return results
 }
 
 public func inv(_ x : Matrix<Float>) -> Matrix<Float> {

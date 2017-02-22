@@ -281,6 +281,19 @@ public func dist(_ x: [Double], y: [Double]) -> Double {
     return sqrt(sum(squared))
 }
 
+// MARK: - Sum of Square Values
+public func sumsq(_ x: [Float]) -> Float {
+    var result: Float = 0
+    vDSP_svesq(x, 1, &result, vDSP_Length(x.count))
+    return result
+}
+
+public func sumsq(_ x: [Double]) -> Double {
+    var result: Double = 0
+    vDSP_svesqD(x, 1, &result, vDSP_Length(x.count))
+    return result
+}
+
 // MARK: - Operators
 
 public func + (lhs: [Float], rhs: [Float]) -> [Float] {
