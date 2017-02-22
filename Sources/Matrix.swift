@@ -189,6 +189,23 @@ public func add(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func sub(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
+    
+    var results = negate(y)
+    cblas_saxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
+    
+    return results
+}
+
+public func sub(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
+    
+    var results = negate(y)
+    cblas_daxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
+    
+    return results
+}
 public func mul(_ alpha: Float, x: Matrix<Float>) -> Matrix<Float> {
     var results = x
     cblas_sscal(Int32(x.grid.count), alpha, &(results.grid), 1)
@@ -364,6 +381,15 @@ public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return add(lhs, y: rhs)
 }
+
+public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    return sub(lhs, y: rhs)
+}
+
+public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    return sub(lhs, y: rhs)
+}
+
 
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
     return mul(lhs, x: rhs)
