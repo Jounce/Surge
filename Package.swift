@@ -21,5 +21,6 @@
 import PackageDescription
 
 let package = Package(
-    name: "Surge"
+    name: "Surge",
+    targets: []
 )

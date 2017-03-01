@@ -1,4 +1,4 @@
-// Hyperbolic.swift
+// Matrix.swift
 //
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
@@ -50,6 +50,15 @@ public struct Matrix<T> where T: FloatingPoint, T: ExpressibleByFloatLiteral {
 
         for (i, row) in contents.enumerated() {
             grid.replaceSubrange(i*n..<i*n+Swift.min(m, row.count), with: row)
+        }
+    }
+    
+    public init(rows: Int, columns: Int, valueFunc: ()->Element){
+        self.rows = rows
+        self.columns = columns
+        self.grid = [Element](repeating: valueFunc(), count: rows * columns)
+        for i in 0..<grid.count{
+            self.grid[i] = valueFunc()
         }
     }
 
@@ -180,6 +189,23 @@ public func add(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func sub(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
+    
+    var results = negate(y)
+    cblas_saxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
+    
+    return results
+}
+
+public func sub(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
+    
+    var results = negate(y)
+    cblas_daxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
+    
+    return results
+}
 public func mul(_ alpha: Float, x: Matrix<Float>) -> Matrix<Float> {
     var results = x
     cblas_sscal(Int32(x.grid.count), alpha, &(results.grid), 1)
@@ -281,6 +307,19 @@ public func sum(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Dou
     }
 }
 
+public func negate(_ x: Matrix<Float>) -> Matrix<Float> {
+    var results = x
+    vDSP_vneg(x.grid, 1, &(results.grid), 1, vDSP_Length(results.grid.count))
+    
+    return results
+}
+
+public func negate(_ x: Matrix<Double>) -> Matrix<Double> {
+    var results = x
+    vDSP_vnegD(x.grid, 1, &(results.grid), 1, vDSP_Length(results.grid.count))
+    return results
+}
+
 public func inv(_ x : Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == x.columns, "Matrix must be square")
 
@@ -342,6 +381,15 @@ public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return add(lhs, y: rhs)
 }
+
+public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    return sub(lhs, y: rhs)
+}
+
+public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    return sub(lhs, y: rhs)
+}
+
 
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
     return mul(lhs, x: rhs)
