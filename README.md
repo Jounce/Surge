@@ -1,4 +1,4 @@
-# Surge [![Build Status](https://travis-ci.org/mattt/Surge.svg?branch=master)](https://travis-ci.org/mattt/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE)
+# Surge [![Build Status](https://travis-ci.org/mattt/Surge.svg?branch=master)](https://travis-ci.org/mattt/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE)[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Surge is a Swift library that uses the Accelerate framework to provide high-performance functions for matrix math, digital signal processing, and image manipulation.
 
@@ -44,6 +44,22 @@ _(Time in milliseconds, Optimization Level `-Ofast`)_
 ## Installation
 
 _The infrastructure and best practices for distributing Swift libraries are currently in flux during this beta period of Swift & Xcode. In the meantime, you can add Surge as a git submodule, drag the `Surge.xcodeproj` file into your Xcode project, and add `Surge.framework` as a dependency for your target._
+
+### Installation with Carthage
+
+To use [Carthage](https://github.com/Carthage/Carthage) (a more lightweight but more hands on package manager) just create a `Cartfile` with 
+
+```ruby
+github "mattt/Surge"
+```
+
+Then follow the [steps in the Carthage guide](https://github.com/Carthage/Carthage#getting-started) basically (for iOS):
+
+* run `carthage update`
+* drag the framework from Carthage/Build into Linked Frameworks on the General tab
+* add `carthage copy-frameworks` to a `Run Scripts` phase
+
+and you're done.  The [steps for Mac are very similar](https://github.com/Carthage/Carthage#getting-started).
 
 ---
 
