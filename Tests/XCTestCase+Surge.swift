@@ -45,7 +45,7 @@ extension XCTestCase {
     }
     
     func XCTAssertArrayDoubleEqualWithAccuracy(calcArray: [Double], _ testArray: [Double], _ accuracy: Double) {
-        assert(calcArray.count == testArray.count, "XCTAssertArrayFloatEqualWithAccuracy arrays must be same size")
+        assert(calcArray.count == testArray.count, "XCTAssertArrayDoubleEqualWithAccuracy arrays must be same size")
         for i:Int in 0..<calcArray.count {
             XCTAssertEqualWithAccuracy(calcArray[i], testArray[i], accuracy: accuracy)
         }
