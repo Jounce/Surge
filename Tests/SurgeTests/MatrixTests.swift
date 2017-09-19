@@ -27,8 +27,11 @@ class MatrixTests: XCTestCase {
     var matrix : Matrix<Double> = Matrix<Double>([[1, 2, 3, 4], [5,6,7,8], [9, 10, 11, 12]])
 
     func testInit() {
-        let m = Matrix([[1.0, 2.0]])
-        XCTAssertEqual(m.grid, [1.0, 2.0])
+        let m1 = Matrix([[1.0, 2.0]])
+        XCTAssertEqual(m1.grid, [1.0, 2.0])
+
+        let m2 = Matrix([[1, 1], [1, -1]])
+        XCTAssertEqual(m2.grid, [1, 1, 1, -1])
     }
 
     func testSubscriptRow() {

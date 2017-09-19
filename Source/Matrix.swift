@@ -38,14 +38,11 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
     }
 
     public init(_ contents: [[Scalar]]) {
-        let m: Int = contents.count
-        let n: Int = contents[0].count
-        let repeatedValue: Scalar = 0.0
-
-        self.init(rows: m, columns: n, repeatedValue: repeatedValue)
+        self.init(rows: contents.count, columns: contents[0].count, repeatedValue: 0.0)
 
         for (i, row) in contents.enumerated() {
-            grid.replaceSubrange(i*n ... i*n+Swift.min(m, row.count), with: row)
+            precondition(row.count == columns, "All rows should have the same number of columns")
+            grid.replaceSubrange(i*columns ..< (i + 1)*columns, with: row)
         }
     }
 
