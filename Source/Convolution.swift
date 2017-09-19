@@ -1,5 +1,3 @@
-// Convolution.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 // Copyright (c) 2015-2016 Remy Prechelt
 //

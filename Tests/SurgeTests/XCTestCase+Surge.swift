@@ -1,5 +1,3 @@
-// XCTestCase+Surge.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,21 +31,21 @@ extension XCTestCase {
         }
         
         for (i, _) in source.enumerated() {
-            XCTAssertEqualWithAccuracy(actual[i], expected[i], accuracy: accuracy)
+            XCTAssertEqual(actual[i], expected[i], accuracy: accuracy)
         }
     }
     
     func XCTAssertArrayFloatEqualWithAccuracy(calcArray: [Float], _ testArray: [Float], _ accuracy: Float) {
         assert(calcArray.count == testArray.count, "XCTAssertArrayFloatEqualWithAccuracy arrays must be same size")
         for i:Int in 0..<calcArray.count {
-            XCTAssertEqualWithAccuracy(calcArray[i], testArray[i], accuracy: accuracy)
+            XCTAssertEqual(calcArray[i], testArray[i], accuracy: accuracy)
         }
     }
     
     func XCTAssertArrayDoubleEqualWithAccuracy(calcArray: [Double], _ testArray: [Double], _ accuracy: Double) {
         assert(calcArray.count == testArray.count, "XCTAssertArrayFloatEqualWithAccuracy arrays must be same size")
         for i:Int in 0..<calcArray.count {
-            XCTAssertEqualWithAccuracy(calcArray[i], testArray[i], accuracy: accuracy)
+            XCTAssertEqual(calcArray[i], testArray[i], accuracy: accuracy)
         }
     }
 }

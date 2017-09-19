@@ -18,30 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Accelerate
+import Foundation
+import Surge
+import XCTest
 
-// MARK: Power
+class ExponentialTests: XCTestCase {
+    let n = 10000
 
-public func pow(_ x: [Float], y: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    vvpowf(&results, x, y, [Int32(x.count)])
+    func test_exp() {
+        let values = (0...n).map{_ in Double(arc4random_uniform(10))}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp, mapped: exp, accuracy: 0.0001)
+    }
 
-    return results
-}
-
-public func pow(_ x: [Double], y: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    vvpow(&results, x, y, [Int32(x.count)])
-
-    return results
-}
-
-public func pow(_ x: [Float], _ y: Float) -> [Float] {
-    let yVec = [Float](repeating: y, count: x.count)
-    return pow(yVec, y: x)
-}
-
-public func pow(_ x: [Double], _ y: Double) -> [Double] {
-    let yVec = [Double](repeating: y, count: x.count)
-    return pow(yVec, y: x)
+    func test_exp2() {
+        let values = (0...n).map{_ in Double(arc4random_uniform(10))}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp2, mapped: exp2, accuracy: 0.0001)
+    }
 }

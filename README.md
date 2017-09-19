@@ -84,7 +84,7 @@ and you're done.  The [steps for Mac are very similar](https://github.com/Cartha
 - `remainder`
 - `sqrt`
 
-### Auxilliary
+### Auxiliary
 
 - `abs`
 - `ceil`

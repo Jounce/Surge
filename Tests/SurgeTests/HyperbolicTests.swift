@@ -1,5 +1,3 @@
-// TrigonometricTests.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,36 +22,36 @@ import Foundation
 import Surge
 import XCTest
 
-class TrigonometricTests: XCTestCase {
+class HyperbolicTests: XCTestCase {
     let n = 10000
 
-    func test_sin() {
-        let values = (0...n).map{_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sin, mapped: sin, accuracy: 0.0001)
+    func test_sinh() {
+        let values = (0...n).map{_ in drand48() * Double.pi}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sinh, mapped: sinh, accuracy: 0.0001)
     }
 
-    func test_cos() {
-        let values = (0...n).map{_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: cos, mapped: cos, accuracy: 0.0001)
+    func test_cosh() {
+        let values = (0...n).map{_ in drand48() * Double.pi}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: cosh, mapped: cosh, accuracy: 0.0001)
     }
 
-    func test_tan() {
-        let values = (0...n).map{_ in drand48() * M_PI}
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: tan, mapped: tan, accuracy: 0.0001)
+    func test_tanh() {
+        let values = (0...n).map{_ in drand48() * Double.pi}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: tanh, mapped: tanh, accuracy: 0.0001)
     }
 
-//    func test_asin() {
+//    func test_asinh() {
 //        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: asin, mapped: asin, accuracy: 0.0001)
+//        measureAndValidateMappedFunctionWithAccuracy(values, member: asinh, mapped: asinh, accuracy: 0.0001)
 //    }
 //
-//    func test_acos() {
+//    func test_acosh() {
 //        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: acos, mapped: acos, accuracy: 0.0001)
+//        measureAndValidateMappedFunctionWithAccuracy(values, member: acosh, mapped: acosh, accuracy: 0.0001)
 //    }
 //
-//    func test_atan() {
+//    func test_atanh() {
 //        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: atan, mapped: atan, accuracy: 0.0001)
+//        measureAndValidateMappedFunctionWithAccuracy(values, member: atanh, mapped: atanh, accuracy: 0.0001)
 //    }
 }

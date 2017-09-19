@@ -1,5 +1,3 @@
-// ArithmeticTests.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,11 +22,27 @@ import Foundation
 import Surge
 import XCTest
 
-class ArithmeticTests: XCTestCase {
-    let n = 100000
+class AuxiliaryTests: XCTestCase {
+    let n = 10000
 
-    func test_sqrt() {
-        let values = (0...n).map{_ in Double(arc4random())}
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
+    func test_copysign() {
+        let signs = [Double]((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
+
+        var magnitudes = [Double]()
+        for _ in (0..<n).enumerated() {
+            magnitudes.append(Double(arc4random_uniform(10)))
+        }
+
+        var expected: [Double] = []
+        for (sign, magnitude) in zip(signs, magnitudes) {
+            expected.append(sign * abs(magnitude))
+        }
+
+        var actual: [Double] = []
+        self.measure {
+            actual = copysign(signs, magnitude: magnitudes)
+        }
+
+        XCTAssertEqual(actual, expected)
     }
 }

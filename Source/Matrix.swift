@@ -1,5 +1,3 @@
-// Hyperbolic.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,33 +25,31 @@ public enum MatrixAxies {
     case column
 }
 
-public struct Matrix<T> where T: FloatingPoint, T: ExpressibleByFloatLiteral {
-    public typealias Element = T
+public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
+    public let rows: Int
+    public let columns: Int
+    var grid: [Scalar]
 
-    let rows: Int
-    let columns: Int
-    var grid: [Element]
-
-    public init(rows: Int, columns: Int, repeatedValue: Element) {
+    public init(rows: Int, columns: Int, repeatedValue: Scalar) {
         self.rows = rows
         self.columns = columns
 
-        self.grid = [Element](repeating: repeatedValue, count: rows * columns)
+        self.grid = [Scalar](repeating: repeatedValue, count: rows * columns)
     }
 
-    public init(_ contents: [[Element]]) {
+    public init(_ contents: [[Scalar]]) {
         let m: Int = contents.count
         let n: Int = contents[0].count
-        let repeatedValue: Element = 0.0 
+        let repeatedValue: Scalar = 0.0
 
         self.init(rows: m, columns: n, repeatedValue: repeatedValue)
 
         for (i, row) in contents.enumerated() {
-            grid.replaceSubrange(i*n..<i*n+Swift.min(m, row.count), with: row)
+            grid.replaceSubrange(i*n ... i*n+Swift.min(m, row.count), with: row)
         }
     }
 
-    public subscript(row: Int, column: Int) -> Element {
+    public subscript(row: Int, column: Int) -> Scalar {
         get {
             assert(indexIsValidForRow(row, column: column))
             return grid[(row * columns) + column]
@@ -65,7 +61,7 @@ public struct Matrix<T> where T: FloatingPoint, T: ExpressibleByFloatLiteral {
         }
     }
     
-    public subscript(row row: Int) -> [Element] {
+    public subscript(row row: Int) -> [Scalar] {
         get {
             assert(row < rows)
             let startIndex = row * columns
@@ -82,9 +78,9 @@ public struct Matrix<T> where T: FloatingPoint, T: ExpressibleByFloatLiteral {
         }
     }
     
-    public subscript(column column: Int) -> [Element] {
+    public subscript(column column: Int) -> [Scalar] {
         get {
-            var result = [Element](repeating: 0.0, count: rows)
+            var result = [Scalar](repeating: 0.0, count: rows)
             for i in 0..<rows {
                 let index = i * columns + column
                 result[i] = self.grid[index]
@@ -137,7 +133,7 @@ extension Matrix: CustomStringConvertible {
 // MARK: - SequenceType
 
 extension Matrix: Sequence {
-    public func makeIterator() -> AnyIterator<ArraySlice<Element>> {
+    public func makeIterator() -> AnyIterator<ArraySlice<Scalar>> {
         let endIndex = rows * columns
         var nextRowStartIndex = 0
 
@@ -290,10 +286,12 @@ public func inv(_ x : Matrix<Float>) -> Matrix<Float> {
     var lwork = __CLPK_integer(x.columns * x.columns)
     var work = [CFloat](repeating: 0.0, count: Int(lwork))
     var error: __CLPK_integer = 0
-    var nc = __CLPK_integer(x.columns)
+    var mc = __CLPK_integer(x.columns)
+    var nc = __CLPK_integer(x.rows)
+    var lda = __CLPK_integer(x.columns)
 
-    sgetrf_(&nc, &nc, &(results.grid), &nc, &ipiv, &error)
-    sgetri_(&nc, &(results.grid), &nc, &ipiv, &work, &lwork, &error)
+    sgetrf_(&mc, &nc, &(results.grid), &lda, &ipiv, &error)
+    sgetri_(&nc, &(results.grid), &lda, &ipiv, &work, &lwork, &error)
 
     assert(error == 0, "Matrix not invertible")
 
@@ -309,10 +307,12 @@ public func inv(_ x : Matrix<Double>) -> Matrix<Double> {
     var lwork = __CLPK_integer(x.columns * x.columns)
     var work = [CDouble](repeating: 0.0, count: Int(lwork))
     var error: __CLPK_integer = 0
-    var nc = __CLPK_integer(x.columns)
+    var mc = __CLPK_integer(x.columns)
+    var nc = __CLPK_integer(x.rows)
+    var lda = __CLPK_integer(x.columns)
 
-    dgetrf_(&nc, &nc, &(results.grid), &nc, &ipiv, &error)
-    dgetri_(&nc, &(results.grid), &nc, &ipiv, &work, &lwork, &error)
+    dgetrf_(&mc, &nc, &(results.grid), &lda, &ipiv, &error)
+    dgetri_(&nc, &(results.grid), &lda, &ipiv, &work, &lwork, &error)
 
     assert(error == 0, "Matrix not invertible")
 

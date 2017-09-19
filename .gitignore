@@ -13,13 +13,23 @@ DerivedData/
 !default.perspectivev3
 xcuserdata/
 
+## Other
+*.moved-aside
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
+## Swift Package Manager
+Packages/
 .build/
 
-# Carthage
-Carthage/Checkouts
+## Carthage
 Carthage/Build

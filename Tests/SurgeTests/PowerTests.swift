@@ -1,3 +1,4 @@
+// Created by Wenbin Zhang on 2/13/16.
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,30 +19,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Accelerate
+import XCTest
+import Surge
 
-// MARK: Power
-
-public func pow(_ x: [Float], y: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    vvpowf(&results, x, y, [Int32(x.count)])
-
-    return results
-}
-
-public func pow(_ x: [Double], y: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    vvpow(&results, x, y, [Int32(x.count)])
-
-    return results
-}
-
-public func pow(_ x: [Float], _ y: Float) -> [Float] {
-    let yVec = [Float](repeating: y, count: x.count)
-    return pow(yVec, y: x)
-}
-
-public func pow(_ x: [Double], _ y: Double) -> [Double] {
-    let yVec = [Double](repeating: y, count: x.count)
-    return pow(yVec, y: x)
+class PowerTests: XCTestCase {
+    
+    let vector = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    
+    func testPower() {
+        let powered = pow(vector, 2.0)
+        XCTAssertEqual(powered, [1.0, 4.0, 9.0, 16.0, 25.0, 36.0])
+    }
 }

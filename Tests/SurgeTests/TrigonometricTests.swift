@@ -1,5 +1,3 @@
-// ExponentialTests.swift
-//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,16 +22,36 @@ import Foundation
 import Surge
 import XCTest
 
-class ExponentialTests: XCTestCase {
+class TrigonometricTests: XCTestCase {
     let n = 10000
 
-    func test_exp() {
-        let values = (0...n).map{_ in Double(arc4random_uniform(10))}
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp, mapped: exp, accuracy: 0.0001)
+    func test_sin() {
+        let values = (0...n).map{_ in drand48() * Double.pi}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sin, mapped: sin, accuracy: 0.0001)
     }
 
-    func test_exp2() {
-        let values = (0...n).map{_ in Double(arc4random_uniform(10))}
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp2, mapped: exp2, accuracy: 0.0001)
+    func test_cos() {
+        let values = (0...n).map{_ in drand48() * Double.pi}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: cos, mapped: cos, accuracy: 0.0001)
     }
+
+    func test_tan() {
+        let values = (0...n).map{_ in drand48() * Double.pi}
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: tan, mapped: tan, accuracy: 0.0001)
+    }
+
+//    func test_asin() {
+//        let values = map(0...n){_ in drand48()}
+//        measureAndValidateMappedFunctionWithAccuracy(values, member: asin, mapped: asin, accuracy: 0.0001)
+//    }
+//
+//    func test_acos() {
+//        let values = map(0...n){_ in drand48()}
+//        measureAndValidateMappedFunctionWithAccuracy(values, member: acos, mapped: acos, accuracy: 0.0001)
+//    }
+//
+//    func test_atan() {
+//        let values = map(0...n){_ in drand48()}
+//        measureAndValidateMappedFunctionWithAccuracy(values, member: atan, mapped: atan, accuracy: 0.0001)
+//    }
 }
