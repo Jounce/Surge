@@ -26,8 +26,8 @@ public enum MatrixAxies {
 }
 
 public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
-    let rows: Int
-    let columns: Int
+    public let rows: Int
+    public let columns: Int
     var grid: [Scalar]
 
     public init(rows: Int, columns: Int, repeatedValue: Scalar) {
