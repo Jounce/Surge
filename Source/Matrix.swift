@@ -45,7 +45,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         self.init(rows: m, columns: n, repeatedValue: repeatedValue)
 
         for (i, row) in contents.enumerated() {
-            grid.replaceSubrange(i*n..<i*n+Swift.min(m, row.count), with: row)
+            grid.replaceSubrange(i*n ... i*n+Swift.min(m, row.count), with: row)
         }
     }
 
