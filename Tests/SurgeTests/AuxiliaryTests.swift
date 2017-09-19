@@ -31,18 +31,18 @@ class AuxiliaryTests: XCTestCase {
         let signs = [Double]((0..<n).map {$0 % 2 == 0 ? 1.0 : -1.0})
 
         var magnitudes = [Double]()
-        for _ in (0..<n).enumerate() {
+        for _ in (0..<n).enumerated() {
             magnitudes.append(Double(arc4random_uniform(10)))
         }
 
         var expected: [Double] = []
-        for (sign, magnitude) in Zip2Sequence(signs, magnitudes) {
+        for (sign, magnitude) in zip(signs, magnitudes) {
             expected.append(sign * abs(magnitude))
         }
 
         var actual: [Double] = []
-        self.measureBlock {
-            // actual = copysign(signs, magnitudes)
+        self.measure {
+            actual = copysign(signs, magnitude: magnitudes)
         }
 
         XCTAssertEqual(actual, expected)
