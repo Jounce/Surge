@@ -50,6 +50,9 @@
 		61A0AD731F70D22600B99FFB /* PowerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerTests.swift; sourceTree = "<group>"; };
 		61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrigonometricTests.swift; sourceTree = "<group>"; };
 		61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Surge.swift"; sourceTree = "<group>"; };
+		61A0AD7F1F70D99B00B99FFB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		61A0AD801F70D99B00B99FFB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		61A0AD811F70D99B00B99FFB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D26964EC1C646AD800F456D4 /* Convolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convolution.swift; sourceTree = "<group>"; };
 		E65C5BE319FF9CF600149FF1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		F84A6AAE19A9A72F007B53E1 /* SurgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +127,9 @@
 		F8A1E1A019917A79009735E2 = {
 			isa = PBXGroup;
 			children = (
+				61A0AD7F1F70D99B00B99FFB /* README.md */,
+				61A0AD811F70D99B00B99FFB /* LICENSE */,
+				61A0AD801F70D99B00B99FFB /* Package.swift */,
 				F8A1E1C319917B0A009735E2 /* Source */,
 				F8A1E1AD19917A79009735E2 /* Supporting Files */,
 				F84A6AAF19A9A72F007B53E1 /* Tests */,
