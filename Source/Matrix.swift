@@ -159,7 +159,9 @@ public func add(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
 
     var results = y
-    cblas_saxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        cblas_saxpy(Int32(x.grid.count), 1.0, x.grid, 1, pointer.baseAddress!, 1)
+    }
 
     return results
 }
@@ -168,21 +170,27 @@ public func add(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
 
     var results = y
-    cblas_daxpy(Int32(x.grid.count), 1.0, x.grid, 1, &(results.grid), 1)
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        cblas_daxpy(Int32(x.grid.count), 1.0, x.grid, 1, pointer.baseAddress!, 1)
+    }
 
     return results
 }
 
 public func mul(_ alpha: Float, x: Matrix<Float>) -> Matrix<Float> {
     var results = x
-    cblas_sscal(Int32(x.grid.count), alpha, &(results.grid), 1)
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        cblas_sscal(Int32(x.grid.count), alpha, pointer.baseAddress!, 1)
+    }
 
     return results
 }
 
 public func mul(_ alpha: Double, x: Matrix<Double>) -> Matrix<Double> {
     var results = x
-    cblas_dscal(Int32(x.grid.count), alpha, &(results.grid), 1)
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        cblas_dscal(Int32(x.grid.count), alpha, pointer.baseAddress!, 1)
+    }
 
     return results
 }
@@ -191,7 +199,9 @@ public func mul(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
 
     var results = Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
-    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, &(results.grid), Int32(results.columns))
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, pointer.baseAddress!, Int32(results.columns))
+    }
 
     return results
 }
@@ -200,7 +210,9 @@ public func mul(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
 
     var results = Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, &(results.grid), Int32(results.columns))
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, pointer.baseAddress!, Int32(results.columns))
+    }
 
     return results
 }
@@ -283,12 +295,14 @@ public func inv(_ x : Matrix<Float>) -> Matrix<Float> {
     var lwork = __CLPK_integer(x.columns * x.columns)
     var work = [CFloat](repeating: 0.0, count: Int(lwork))
     var error: __CLPK_integer = 0
-    var mc = __CLPK_integer(x.columns)
-    var nc = __CLPK_integer(x.rows)
-    var lda = __CLPK_integer(x.columns)
+    var nc = __CLPK_integer(x.columns)
 
-    sgetrf_(&mc, &nc, &(results.grid), &lda, &ipiv, &error)
-    sgetri_(&nc, &(results.grid), &lda, &ipiv, &work, &lwork, &error)
+    withUnsafeMutableBufferPointersTo(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
+        withUnsafeMutablePointersTo(&nc, &lwork, &error) { nc, lwork, error in
+            sgetrf_(nc, nc, grid.baseAddress!, nc, ipiv.baseAddress!, error)
+            sgetri_(nc, grid.baseAddress!, nc, ipiv.baseAddress!, work.baseAddress!, lwork, error)
+        }
+    }
 
     assert(error == 0, "Matrix not invertible")
 
@@ -304,12 +318,14 @@ public func inv(_ x : Matrix<Double>) -> Matrix<Double> {
     var lwork = __CLPK_integer(x.columns * x.columns)
     var work = [CDouble](repeating: 0.0, count: Int(lwork))
     var error: __CLPK_integer = 0
-    var mc = __CLPK_integer(x.columns)
-    var nc = __CLPK_integer(x.rows)
-    var lda = __CLPK_integer(x.columns)
+    var nc = __CLPK_integer(x.columns)
 
-    dgetrf_(&mc, &nc, &(results.grid), &lda, &ipiv, &error)
-    dgetri_(&nc, &(results.grid), &lda, &ipiv, &work, &lwork, &error)
+    withUnsafeMutableBufferPointersTo(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
+        withUnsafeMutablePointersTo(&nc, &lwork, &error) { nc, lwork, error in
+            dgetrf_(nc, nc, grid.baseAddress!, nc, ipiv.baseAddress!, error)
+            dgetri_(nc, grid.baseAddress!, nc, ipiv.baseAddress!, work.baseAddress!, lwork, error)
+        }
+    }
 
     assert(error == 0, "Matrix not invertible")
 
@@ -318,14 +334,18 @@ public func inv(_ x : Matrix<Double>) -> Matrix<Double> {
 
 public func transpose(_ x: Matrix<Float>) -> Matrix<Float> {
     var results = Matrix<Float>(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
-    vDSP_mtrans(x.grid, 1, &(results.grid), 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        vDSP_mtrans(x.grid, 1, pointer.baseAddress!, 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
+    }
 
     return results
 }
 
 public func transpose(_ x: Matrix<Double>) -> Matrix<Double> {
     var results = Matrix<Double>(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
-    vDSP_mtransD(x.grid, 1, &(results.grid), 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        vDSP_mtransD(x.grid, 1, pointer.baseAddress!, 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
+    }
 
     return results
 }

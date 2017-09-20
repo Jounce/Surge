@@ -25,16 +25,18 @@ import Accelerate
 public func sincos(_ x: [Float]) -> (sin: [Float], cos: [Float]) {
     var sin = [Float](repeating: 0.0, count: x.count)
     var cos = [Float](repeating: 0.0, count: x.count)
-    vvsincosf(&sin, &cos, x, [Int32(x.count)])
-
+    withUnsafeMutableBufferPointersTo(&sin, &cos) { sin, cos in
+        vvsincosf(sin.baseAddress!, cos.baseAddress!, x, [Int32(x.count)])
+    }
     return (sin, cos)
 }
 
 public func sincos(_ x: [Double]) -> (sin: [Double], cos: [Double]) {
     var sin = [Double](repeating: 0.0, count: x.count)
     var cos = [Double](repeating: 0.0, count: x.count)
-    vvsincos(&sin, &cos, x, [Int32(x.count)])
-
+    withUnsafeMutableBufferPointersTo(&sin, &cos) { sin, cos in
+        vvsincos(sin.baseAddress!, cos.baseAddress!, x, [Int32(x.count)])
+    }
     return (sin, cos)
 }
 
@@ -42,14 +44,18 @@ public func sincos(_ x: [Double]) -> (sin: [Double], cos: [Double]) {
 
 public func sin(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvsinf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvsinf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func sin(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvsin(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvsin(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -58,14 +64,18 @@ public func sin(_ x: [Double]) -> [Double] {
 
 public func cos(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvcosf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvcosf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func cos(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvcos(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvcos(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -74,14 +84,18 @@ public func cos(_ x: [Double]) -> [Double] {
 
 public func tan(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvtanf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvtanf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func tan(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvtan(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvtan(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -90,14 +104,18 @@ public func tan(_ x: [Double]) -> [Double] {
 
 public func asin(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvasinf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvasinf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func asin(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvasin(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvasin(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -106,14 +124,18 @@ public func asin(_ x: [Double]) -> [Double] {
 
 public func acos(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvacosf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvacosf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func acos(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvacos(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvacos(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -122,14 +144,18 @@ public func acos(_ x: [Double]) -> [Double] {
 
 public func atan(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvatanf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvatanf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func atan(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvatan(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvatan(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -141,7 +167,9 @@ public func atan(_ x: [Double]) -> [Double] {
 func rad2deg(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
     let divisor = [Float](repeating: Float.pi / 180.0, count: x.count)
-    vvdivf(&results, x, divisor, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvdivf(pointer.baseAddress!, x, divisor, [Int32(x.count)])
+    }
 
     return results
 }
@@ -149,7 +177,9 @@ func rad2deg(_ x: [Float]) -> [Float] {
 func rad2deg(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
     let divisor = [Double](repeating: Double.pi / 180.0, count: x.count)
-    vvdiv(&results, x, divisor, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvdiv(pointer.baseAddress!, x, divisor, [Int32(x.count)])
+    }
 
     return results
 }
@@ -159,7 +189,9 @@ func rad2deg(_ x: [Double]) -> [Double] {
 func deg2rad(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
     let divisor = [Float](repeating: 180.0 / Float.pi, count: x.count)
-    vvdivf(&results, x, divisor, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvdivf(pointer.baseAddress!, x, divisor, [Int32(x.count)])
+    }
 
     return results
 }
@@ -167,7 +199,9 @@ func deg2rad(_ x: [Float]) -> [Float] {
 func deg2rad(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
     let divisor = [Double](repeating: 180.0 / Double.pi, count: x.count)
-    vvdiv(&results, x, divisor, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvdiv(pointer.baseAddress!, x, divisor, [Int32(x.count)])
+    }
 
     return results
 }

@@ -24,15 +24,17 @@ import Accelerate
 
 public func sum(_ x: [Float]) -> Float {
     var result: Float = 0.0
-    vDSP_sve(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_sve(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func sum(_ x: [Double]) -> Double {
     var result: Double = 0.0
-    vDSP_sveD(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_sveD(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
@@ -50,28 +52,34 @@ public func asum(_ x: [Double]) -> Double {
 
 public func sumsq(_ x: [Float]) -> Float {
     var result: Float = 0
-    vDSP_svesq(x, 1, &result, vDSP_Length(x.count))
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_svesq(x, 1,pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func sumsq(_ x: [Double]) -> Double {
     var result: Double = 0
-    vDSP_svesqD(x, 1, &result, vDSP_Length(x.count))
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_svesqD(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 // MARK: Maximum
 
 public func max(_ x: [Float]) -> Float {
     var result: Float = 0.0
-    vDSP_maxv(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_maxv(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func max(_ x: [Double]) -> Double {
     var result: Double = 0.0
-    vDSP_maxvD(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_maxvD(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
@@ -79,15 +87,17 @@ public func max(_ x: [Double]) -> Double {
 
 public func min(_ x: [Float]) -> Float {
     var result: Float = 0.0
-    vDSP_minv(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_minv(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func min(_ x: [Double]) -> Double {
     var result: Double = 0.0
-    vDSP_minvD(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_minvD(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
@@ -95,15 +105,17 @@ public func min(_ x: [Double]) -> Double {
 
 public func mean(_ x: [Float]) -> Float {
     var result: Float = 0.0
-    vDSP_meanv(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_meanv(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func mean(_ x: [Double]) -> Double {
     var result: Double = 0.0
-    vDSP_meanvD(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_meanvD(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
@@ -111,15 +123,17 @@ public func mean(_ x: [Double]) -> Double {
 
 public func meamg(_ x: [Float]) -> Float {
     var result: Float = 0.0
-    vDSP_meamgv(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_meamgv(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func meamg(_ x: [Double]) -> Double {
     var result: Double = 0.0
-    vDSP_meamgvD(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_meamgvD(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
@@ -127,15 +141,17 @@ public func meamg(_ x: [Double]) -> Double {
 
 public func measq(_ x: [Float]) -> Float {
     var result: Float = 0.0
-    vDSP_measqv(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_measqv(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
 public func measq(_ x: [Double]) -> Double {
     var result: Double = 0.0
-    vDSP_measqvD(x, 1, &result, vDSP_Length(x.count))
-
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_measqvD(x, 1, pointer, vDSP_Length(x.count))
+    }
     return result
 }
 
@@ -143,15 +159,17 @@ public func measq(_ x: [Double]) -> Double {
 
 public func add(_ x: [Float], y: [Float]) -> [Float] {
     var results = [Float](y)
-    cblas_saxpy(Int32(x.count), 1.0, x, 1, &results, 1)
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        cblas_saxpy(Int32(x.count), 1.0, x, 1, bufferPointer.baseAddress, 1)
+    }
     return results
 }
 
 public func add(_ x: [Double], y: [Double]) -> [Double] {
     var results = [Double](y)
-    cblas_daxpy(Int32(x.count), 1.0, x, 1, &results, 1)
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        cblas_daxpy(Int32(x.count), 1.0, x, 1, bufferPointer.baseAddress, 1)
+    }
     return results
 }
 
@@ -159,15 +177,17 @@ public func add(_ x: [Double], y: [Double]) -> [Double] {
 
 public func sub(_ x: [Float], y: [Float]) -> [Float] {
     var results = [Float](y)
-    catlas_saxpby(Int32(x.count), 1.0, x, 1, -1, &results, 1)
-    
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        catlas_saxpby(Int32(x.count), 1.0, x, 1, -1, bufferPointer.baseAddress, 1)
+    }
     return results
 }
 
 public func sub(_ x: [Double], y: [Double]) -> [Double] {
     var results = [Double](y)
-    catlas_daxpby(Int32(x.count), 1.0, x, 1, -1, &results, 1)
-    
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        catlas_daxpby(Int32(x.count), 1.0, x, 1, -1, bufferPointer.baseAddress, 1)
+    }
     return results
 }
 
@@ -175,15 +195,17 @@ public func sub(_ x: [Double], y: [Double]) -> [Double] {
 
 public func mul(_ x: [Float], y: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vDSP_vmul(x, 1, y, 1, &results, 1, vDSP_Length(x.count))
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_vmul(x, 1, y, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+    }
     return results
 }
 
 public func mul(_ x: [Double], y: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vDSP_vmulD(x, 1, y, 1, &results, 1, vDSP_Length(x.count))
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_vmulD(x, 1, y, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+    }
     return results
 }
 
@@ -191,15 +213,17 @@ public func mul(_ x: [Double], y: [Double]) -> [Double] {
 
 public func div(_ x: [Float], y: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvdivf(&results, x, y, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvdivf(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+    }
     return results
 }
 
 public func div(_ x: [Double], y: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvdiv(&results, x, y, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvdiv(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+    }
     return results
 }
 
@@ -207,15 +231,17 @@ public func div(_ x: [Double], y: [Double]) -> [Double] {
 
 public func mod(_ x: [Float], y: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvfmodf(&results, x, y, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvfmodf(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+    }
     return results
 }
 
 public func mod(_ x: [Double], y: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvfmod(&results, x, y, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvfmod(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+    }
     return results
 }
 
@@ -223,15 +249,17 @@ public func mod(_ x: [Double], y: [Double]) -> [Double] {
 
 public func remainder(_ x: [Float], y: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvremainderf(&results, x, y, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvremainderf(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+    }
     return results
 }
 
 public func remainder(_ x: [Double], y: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvremainder(&results, x, y, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvremainder(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+    }
     return results
 }
 
@@ -239,15 +267,17 @@ public func remainder(_ x: [Double], y: [Double]) -> [Double] {
 
 public func sqrt(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvsqrtf(&results, x, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvsqrtf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
     return results
 }
 
 public func sqrt(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvsqrt(&results, x, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvsqrt(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
     return results
 }
 
@@ -257,7 +287,9 @@ public func dot(_ x: [Float], y: [Float]) -> Float {
     precondition(x.count == y.count, "Vectors must have equal count")
 
     var result: Float = 0.0
-    vDSP_dotpr(x, 1, y, 1, &result, vDSP_Length(x.count))
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_dotpr(x, 1, y, 1, pointer, vDSP_Length(x.count))
+    }
 
     return result
 }
@@ -267,7 +299,9 @@ public func dot(_ x: [Double], y: [Double]) -> Double {
     precondition(x.count == y.count, "Vectors must have equal count")
 
     var result: Double = 0.0
-    vDSP_dotprD(x, 1, y, 1, &result, vDSP_Length(x.count))
+    withUnsafeMutablePointer(to: &result) { pointer in
+        vDSP_dotprD(x, 1, y, 1, pointer, vDSP_Length(x.count))
+    }
 
     return result
 }
@@ -278,8 +312,9 @@ public func dist(_ x: [Float], y: [Float]) -> Float {
     precondition(x.count == y.count, "Vectors must have equal count")
     let sub = x - y
     var squared = [Float](repeating: 0.0, count: x.count)
-    vDSP_vsq(sub, 1, &squared, 1, vDSP_Length(x.count))
-    
+    squared.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_vsq(sub, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+    }
     return sqrt(sum(squared))
 }
 
@@ -287,8 +322,9 @@ public func dist(_ x: [Double], y: [Double]) -> Double {
     precondition(x.count == y.count, "Vectors must have equal count")
     let sub = x - y
     var squared = [Double](repeating: 0.0, count: x.count)
-    vDSP_vsqD(sub, 1, &squared, 1, vDSP_Length(x.count))
-    
+    squared.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_vsqD(sub, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+    }
     return sqrt(sum(squared))
 }
 

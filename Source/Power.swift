@@ -24,15 +24,17 @@ import Accelerate
 
 public func pow(_ x: [Float], y: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvpowf(&results, x, y, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvpowf(pointer.baseAddress!, x, y, [Int32(x.count)])
+    }
     return results
 }
 
 public func pow(_ x: [Double], y: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvpow(&results, x, y, [Int32(x.count)])
-
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvpow(pointer.baseAddress!, x, y, [Int32(x.count)])
+    }
     return results
 }
 

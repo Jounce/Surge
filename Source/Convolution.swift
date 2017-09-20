@@ -32,7 +32,9 @@ public func conv(_ x: [Float], _ k: [Float]) -> [Float] {
     let kEnd = UnsafePointer<Float>(k).advanced(by: k.count - 1)
     let xPad = repeatElement(Float(0.0), count: k.count-1)
     let xPadded = xPad + x + xPad
-    vDSP_conv(xPadded, 1, kEnd, -1, &result, 1, vDSP_Length(resultSize), vDSP_Length(k.count))
+    result.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_conv(xPadded, 1, kEnd, -1, bufferPointer.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(k.count))
+    }
 
     return result
 }
@@ -46,7 +48,9 @@ public func conv(_ x: [Double], _ k: [Double]) -> [Double] {
     let kEnd = UnsafePointer<Double>(k).advanced(by: k.count - 1)
     let xPad = repeatElement(Double(0.0), count: k.count-1)
     let xPadded = xPad + x + xPad
-    vDSP_convD(xPadded, 1, kEnd, -1, &result, 1, vDSP_Length(resultSize), vDSP_Length(k.count))
+    result.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_convD(xPadded, 1, kEnd, -1, bufferPointer.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(k.count))
+    }
     
     return result
 }
@@ -67,7 +71,9 @@ public func xcorr(_ x: [Float], _ y: [Float]) -> [Float] {
     var result = [Float](repeating: 0, count: resultSize)
     let xPad = repeatElement(Float(0.0), count: yPadded.count-1)
     let xPadded = xPad + x + xPad
-    vDSP_conv(xPadded, 1, yPadded, 1, &result, 1, vDSP_Length(resultSize), vDSP_Length(yPadded.count))
+    result.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_conv(xPadded, 1, yPadded, 1, bufferPointer.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(yPadded.count))
+    }
     
     return result
 }
@@ -86,7 +92,9 @@ public func xcorr(_ x: [Double], _ y: [Double]) -> [Double] {
     var result = [Double](repeating: 0, count: resultSize)
     let xPad = repeatElement(Double(0.0), count: yPadded.count-1)
     let xPadded = xPad + x + xPad
-    vDSP_convD(xPadded, 1, yPadded, 1, &result, 1, vDSP_Length(resultSize), vDSP_Length(yPadded.count))
+    result.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_convD(xPadded, 1, yPadded, 1, bufferPointer.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(yPadded.count))
+    }
     
     return result
 }
@@ -99,8 +107,10 @@ public func xcorr(_ x: [Float]) -> [Float] {
     var result = [Float](repeating: 0, count: resultSize)
     let xPad = repeatElement(Float(0.0), count: x.count-1)
     let xPadded = xPad + x + xPad
-    vDSP_conv(xPadded, 1, x, 1, &result, 1, vDSP_Length(resultSize), vDSP_Length(x.count))
-    
+    result.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_conv(xPadded, 1, x, 1, bufferPointer.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(x.count))
+    }
+
     return result
 }
 
@@ -110,7 +120,9 @@ public func xcorr(_ x: [Double]) -> [Double] {
     var result = [Double](repeating: 0, count: resultSize)
     let xPad = repeatElement(Double(0.0), count: x.count-1)
     let xPadded = xPad + x + xPad
-    vDSP_convD(xPadded, 1, x, 1, &result, 1, vDSP_Length(resultSize), vDSP_Length(x.count))
+    result.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_convD(xPadded, 1, x, 1, bufferPointer.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(x.count))
+    }
     
     return result
 }

@@ -24,14 +24,18 @@ import Accelerate
 
 public func sinh(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvsinhf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvsinhf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func sinh(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvsinh(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvsinh(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -40,14 +44,18 @@ public func sinh(_ x: [Double]) -> [Double] {
 
 public func cosh(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvcoshf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvcoshf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func cosh(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvcosh(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvcosh(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -56,14 +64,18 @@ public func cosh(_ x: [Double]) -> [Double] {
 
 public func tanh(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvtanhf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvtanhf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func tanh(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvtanh(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvtanh(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -72,14 +84,18 @@ public func tanh(_ x: [Double]) -> [Double] {
 
 public func asinh(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvasinhf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvasinhf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func asinh(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvasinh(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvasinh(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -88,14 +104,18 @@ public func asinh(_ x: [Double]) -> [Double] {
 
 public func acosh(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvacoshf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvacoshf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func acosh(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvacosh(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvacosh(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -104,14 +124,18 @@ public func acosh(_ x: [Double]) -> [Double] {
 
 public func atanh(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvatanhf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvatanhf(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func atanh(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvatanh(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { pointer in
+        vvatanh(pointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }

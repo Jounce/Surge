@@ -24,14 +24,18 @@ import Accelerate
 
 public func exp(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvexpf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvexpf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func exp(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvexp(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvexp(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -40,14 +44,18 @@ public func exp(_ x: [Double]) -> [Double] {
 
 public func exp2(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvexp2f(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvexp2f(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func exp2(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvexp2(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvexp2(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -56,14 +64,18 @@ public func exp2(_ x: [Double]) -> [Double] {
 
 public func log(_ x: [Float]) -> [Float] {
     var results = [Float](x)
-    vvlogf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvlogf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func log(_ x: [Double]) -> [Double] {
     var results = [Double](x)
-    vvlog(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvlog(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -72,14 +84,18 @@ public func log(_ x: [Double]) -> [Double] {
 
 public func log2(_ x: [Float]) -> [Float] {
     var results = [Float](x)
-    vvlog2f(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvlog2f(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func log2(_ x: [Double]) -> [Double] {
     var results = [Double](x)
-    vvlog2(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvlog2(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -88,14 +104,18 @@ public func log2(_ x: [Double]) -> [Double] {
 
 public func log10(_ x: [Float]) -> [Float] {
     var results = [Float](x)
-    vvlog10f(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvlog10f(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func log10(_ x: [Double]) -> [Double] {
     var results = [Double](x)
-    vvlog10(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvlog10(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -104,14 +124,18 @@ public func log10(_ x: [Double]) -> [Double] {
 
 public func logb(_ x: [Float]) -> [Float] {
     var results = [Float](x)
-    vvlogbf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvlogbf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func logb(_ x: [Double]) -> [Double] {
     var results = [Double](x)
-    vvlogb(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvlogb(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }

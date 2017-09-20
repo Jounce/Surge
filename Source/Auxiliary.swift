@@ -24,14 +24,18 @@ import Accelerate
 
 public func abs(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvfabs(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvfabs(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func abs(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvfabsf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvfabsf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -40,14 +44,18 @@ public func abs(_ x: [Float]) -> [Float] {
 
 public func ceil(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvceilf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvceilf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func ceil(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvceil(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvceil(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -55,15 +63,27 @@ public func ceil(_ x: [Double]) -> [Double] {
 // MARK: Clip
 
 public func clip(_ x: [Float], low: Float, high: Float) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count), y = low, z = high
-    vDSP_vclip(x, 1, &y, &z, &results, 1, vDSP_Length(x.count))
+    var results = [Float](repeating: 0.0, count: x.count)
+    var y = low
+    var z = high
+    withUnsafePointersTo(&y, &z) { y, z in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vDSP_vclip(x, 1, y, z, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+        }
+    }
 
     return results
 }
 
 public func clip(_ x: [Double], low: Double, high: Double) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count), y = low, z = high
-    vDSP_vclipD(x, 1, &y, &z, &results, 1, vDSP_Length(x.count))
+    var results = [Double](repeating: 0.0, count: x.count)
+    var y = low
+    var z = high
+    withUnsafePointersTo(&y, &z) { y, z in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vDSP_vclipD(x, 1, y, z, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+        }
+    }
 
     return results
 }
@@ -72,14 +92,18 @@ public func clip(_ x: [Double], low: Double, high: Double) -> [Double] {
 
 public func copysign(_ sign: [Float], magnitude: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: sign.count)
-    vvcopysignf(&results, magnitude, sign, [Int32(sign.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvcopysignf(bufferPointer.baseAddress!, magnitude, sign, [Int32(sign.count)])
+    }
 
     return results
 }
 
 public func copysign(_ sign: [Double], magnitude: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: sign.count)
-    vvcopysign(&results, magnitude, sign, [Int32(sign.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvcopysign(bufferPointer.baseAddress!, magnitude, sign, [Int32(sign.count)])
+    }
 
     return results
 }
@@ -88,14 +112,18 @@ public func copysign(_ sign: [Double], magnitude: [Double]) -> [Double] {
 
 public func floor(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvfloorf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvfloorf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func floor(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvfloor(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvfloor(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -104,14 +132,18 @@ public func floor(_ x: [Double]) -> [Double] {
 
 public func neg(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vDSP_vneg(x, 1, &results, 1, vDSP_Length(x.count))
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_vneg(x, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+    }
 
     return results
 }
 
 public func neg(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vDSP_vnegD(x, 1, &results, 1, vDSP_Length(x.count))
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vDSP_vnegD(x, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+    }
 
     return results
 }
@@ -120,14 +152,18 @@ public func neg(_ x: [Double]) -> [Double] {
 
 public func rec(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvrecf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvrecf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func rec(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvrec(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvrec(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -136,14 +172,18 @@ public func rec(_ x: [Double]) -> [Double] {
 
 public func round(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvnintf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvnintf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func round(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvnint(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvnint(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
@@ -151,15 +191,25 @@ public func round(_ x: [Double]) -> [Double] {
 // MARK: Threshold
 
 public func threshold(_ x: [Float], low: Float) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count), y = low
-    vDSP_vthr(x, 1, &y, &results, 1, vDSP_Length(x.count))
+    var results = [Float](repeating: 0.0, count: x.count)
+    var y = low
+    withUnsafePointer(to: &y) { y in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vDSP_vthr(x, 1, y, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+        }
+    }
 
     return results
 }
 
 public func threshold(_ x: [Double], low: Double) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count), y = low
-    vDSP_vthrD(x, 1, &y, &results, 1, vDSP_Length(x.count))
+    var results = [Double](repeating: 0.0, count: x.count)
+    var y = low
+    withUnsafePointer(to: &y) { y in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vDSP_vthrD(x, 1, y, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+        }
+    }
 
     return results
 }
@@ -168,14 +218,18 @@ public func threshold(_ x: [Double], low: Double) -> [Double] {
 
 public func trunc(_ x: [Float]) -> [Float] {
     var results = [Float](repeating: 0.0, count: x.count)
-    vvintf(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvintf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }
 
 public func trunc(_ x: [Double]) -> [Double] {
     var results = [Double](repeating: 0.0, count: x.count)
-    vvint(&results, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { bufferPointer in
+        vvint(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    }
 
     return results
 }

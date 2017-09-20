@@ -30,13 +30,21 @@ public func fft(_ input: [Float]) -> [Float] {
     let length = vDSP_Length(floor(log2(Float(input.count))))
     let radix = FFTRadix(kFFTRadix2)
     let weights = vDSP_create_fftsetup(length, radix)
-    vDSP_fft_zip(weights!, &splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+    withUnsafeMutablePointer(to: &splitComplex) { splitComplex in
+        vDSP_fft_zip(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+    }
 
     var magnitudes = [Float](repeating: 0.0, count: input.count)
-    vDSP_zvmags(&splitComplex, 1, &magnitudes, 1, vDSP_Length(input.count))
+    withUnsafePointer(to: &splitComplex) { splitComplex in
+        magnitudes.withUnsafeMutableBufferPointer { magnitudes in
+            vDSP_zvmags(splitComplex, 1, magnitudes.baseAddress!, 1, vDSP_Length(input.count))
+        }
+    }
 
     var normalizedMagnitudes = [Float](repeating: 0.0, count: input.count)
-    vDSP_vsmul(sqrt(magnitudes), 1, [2.0 / Float(input.count)], &normalizedMagnitudes, 1, vDSP_Length(input.count))
+    normalizedMagnitudes.withUnsafeMutableBufferPointer { normalizedMagnitudes in
+        vDSP_vsmul(sqrt(magnitudes), 1, [2.0 / Float(input.count)], normalizedMagnitudes.baseAddress!, 1, vDSP_Length(input.count))
+    }
 
     vDSP_destroy_fftsetup(weights)
 
@@ -51,13 +59,21 @@ public func fft(_ input: [Double]) -> [Double] {
     let length = vDSP_Length(floor(log2(Float(input.count))))
     let radix = FFTRadix(kFFTRadix2)
     let weights = vDSP_create_fftsetupD(length, radix)
-    vDSP_fft_zipD(weights!, &splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+    withUnsafeMutablePointer(to: &splitComplex) { splitComplex in
+        vDSP_fft_zipD(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+    }
 
     var magnitudes = [Double](repeating: 0.0, count: input.count)
-    vDSP_zvmagsD(&splitComplex, 1, &magnitudes, 1, vDSP_Length(input.count))
+    withUnsafePointer(to: &splitComplex) { splitComplex in
+        magnitudes.withUnsafeMutableBufferPointer { magnitudes in
+            vDSP_zvmagsD(splitComplex, 1, magnitudes.baseAddress!, 1, vDSP_Length(input.count))
+        }
+    }
 
     var normalizedMagnitudes = [Double](repeating: 0.0, count: input.count)
-    vDSP_vsmulD(sqrt(magnitudes), 1, [2.0 / Double(input.count)], &normalizedMagnitudes, 1, vDSP_Length(input.count))
+    normalizedMagnitudes.withUnsafeMutableBufferPointer { normalizedMagnitudes in
+        vDSP_vsmulD(sqrt(magnitudes), 1, [2.0 / Double(input.count)], normalizedMagnitudes.baseAddress!, 1, vDSP_Length(input.count))
+    }
 
     vDSP_destroy_fftsetupD(weights)
 

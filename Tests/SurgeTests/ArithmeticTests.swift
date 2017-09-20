@@ -29,4 +29,9 @@ class ArithmeticTests: XCTestCase {
         let values = (0...n).map{_ in Double(arc4random())}
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
     }
+
+    func test_sqrt_empty() {
+        let values = [Double]()
+        XCTAssertEqual(sqrt(values), [])
+    }
 }
