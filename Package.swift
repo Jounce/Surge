@@ -1,3 +1,5 @@
+// swift-tools-version:4.0
+//
 // Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,5 +23,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "Surge"
+    name: "Surge",
+    products: [
+        .library(
+            name: "Surge",
+            targets: ["Surge"]
+        ),
+    ],
+    targets: [
+        .target(
+            name: "Surge",
+            dependencies: []
+        ),
+        .testTarget(
+            name: "SurgeTests",
+            dependencies: ["Surge"]
+        ),
+    ]
 )
