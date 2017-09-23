@@ -22,214 +22,294 @@ import Accelerate
 
 // MARK: Absolute Value
 
-public func abs(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvfabs(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func abs<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvfabs(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
-public func abs(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvfabsf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func abs<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvfabsf(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
 // MARK: Ceiling
 
-public func ceil(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvceilf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func ceil<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvceilf(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
-public func ceil(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvceil(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func ceil<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvceil(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
 // MARK: Clip
 
-public func clip(_ x: [Float], low: Float, high: Float) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    var y = low
-    var z = high
-    withUnsafePointersTo(&y, &z) { y, z in
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vDSP_vclip(x, 1, y, z, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+public func clip<C: ContinuousCollection>(_ x: C, low: Float, high: Float) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            var y = low
+            var z = high
+            withUnsafePointersTo(&y, &z) { y, z in
+                vDSP_vclip(xp, 1, y, z, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+            }
         }
     }
-
     return results
 }
 
-public func clip(_ x: [Double], low: Double, high: Double) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    var y = low
-    var z = high
-    withUnsafePointersTo(&y, &z) { y, z in
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vDSP_vclipD(x, 1, y, z, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+public func clip<C: ContinuousCollection>(_ x: C, low: Double, high: Double) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            var y = low
+            var z = high
+            withUnsafePointersTo(&y, &z) { y, z in
+                vDSP_vclipD(xp, 1, y, z, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+            }
         }
     }
-
     return results
 }
 
 // MARK: Copy Sign
 
-public func copysign(_ sign: [Float], magnitude: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: sign.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvcopysignf(bufferPointer.baseAddress!, magnitude, sign, [Int32(sign.count)])
+public func copysign<S: ContinuousCollection, M: ContinuousCollection>(sign: S, magnitude: M) -> [Float] where S.Iterator.Element == Float, M.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(sign.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafeBufferPointersTo(sign, magnitude) { sbp, mbp in
+            guard let sp = sbp.baseAddress, let mp = mbp.baseAddress else {
+                return
+            }
+            vvcopysignf(rbp.baseAddress!, mp, sp, [Int32(sbp.count)])
+        }
     }
-
     return results
 }
 
-public func copysign(_ sign: [Double], magnitude: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: sign.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvcopysign(bufferPointer.baseAddress!, magnitude, sign, [Int32(sign.count)])
+public func copysign<S: ContinuousCollection, M: ContinuousCollection>(sign: S, magnitude: M) -> [Double] where S.Iterator.Element == Double, M.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(sign.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafeBufferPointersTo(sign, magnitude) { sbp, mbp in
+            guard let sp = sbp.baseAddress, let mp = mbp.baseAddress else {
+                return
+            }
+            vvcopysign(rbp.baseAddress!, mp, sp, [Int32(sbp.count)])
+        }
     }
-
     return results
 }
 
 // MARK: Floor
 
-public func floor(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvfloorf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func floor<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvfloorf(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
-public func floor(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvfloor(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func floor<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvfloor(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
 // MARK: Negate
 
-public func neg(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vneg(x, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+public func neg<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vDSP_vneg(xp, 1, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+        }
     }
-
     return results
 }
 
-public func neg(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vnegD(x, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+public func neg<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vDSP_vnegD(xp, 1, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+        }
     }
-
     return results
 }
 
 // MARK: Reciprocal
 
-public func rec(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvrecf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func rec<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvrecf(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
-public func rec(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvrec(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func rec<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvrec(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
 // MARK: Round
 
-public func round(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvnintf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func round<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvnintf(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
-public func round(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvnint(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func round<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvnint(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
 // MARK: Threshold
 
-public func threshold(_ x: [Float], low: Float) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    var y = low
-    withUnsafePointer(to: &y) { y in
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vDSP_vthr(x, 1, y, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+public func threshold<C: ContinuousCollection>(_ x: C, low: Float) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            var y = low
+            withUnsafePointer(to: &y) { y in
+                vDSP_vthr(xp, 1, y, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+            }
         }
     }
-
     return results
 }
 
-public func threshold(_ x: [Double], low: Double) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    var y = low
-    withUnsafePointer(to: &y) { y in
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vDSP_vthrD(x, 1, y, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+public func threshold<C: ContinuousCollection>(_ x: C, low: Double) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            var y = low
+            withUnsafePointer(to: &y) { y in
+                vDSP_vthrD(xp, 1, y, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+            }
         }
     }
-
     return results
 }
 
 // MARK: Truncate
 
-public func trunc(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvintf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func trunc<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvintf(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
 
-public func trunc(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvint(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func trunc<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        x.withUnsafeBufferPointer { xbp in
+            guard let xp = xbp.baseAddress else {
+                return
+            }
+            vvint(rbp.baseAddress!, xp, [Int32(xbp.count)])
+        }
     }
-
     return results
 }
