@@ -25,7 +25,7 @@ extension XCTestCase {
     func measureAndValidateMappedFunctionWithAccuracy<C : Collection>(source: C, member: (C.Iterator.Element) -> (C.Iterator.Element), mapped: @escaping (C) -> ([C.Iterator.Element]), accuracy: C.Iterator.Element) where C.Iterator.Element: ExpressibleByFloatLiteral & FloatingPoint {
         var expected = source.map(member)
 
-        var actual: [C.Generator.Element] = []
+        var actual: [C.Iterator.Element] = []
         self.measure {
             actual = mapped(source)
         }
