@@ -155,7 +155,7 @@ public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
 
 // MARK: -
 
-public func add(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
+public func add(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
 
     var results = y
@@ -166,7 +166,7 @@ public func add(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
     return results
 }
 
-public func add(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
+public func add(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
 
     var results = y
@@ -177,7 +177,7 @@ public func add(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
-public func mul(_ alpha: Float, x: Matrix<Float>) -> Matrix<Float> {
+public func mul(_ alpha: Float, _ x: Matrix<Float>) -> Matrix<Float> {
     var results = x
     results.grid.withUnsafeMutableBufferPointer { pointer in
         cblas_sscal(Int32(x.grid.count), alpha, pointer.baseAddress!, 1)
@@ -186,7 +186,7 @@ public func mul(_ alpha: Float, x: Matrix<Float>) -> Matrix<Float> {
     return results
 }
 
-public func mul(_ alpha: Double, x: Matrix<Double>) -> Matrix<Double> {
+public func mul(_ alpha: Double, _ x: Matrix<Double>) -> Matrix<Double> {
     var results = x
     results.grid.withUnsafeMutableBufferPointer { pointer in
         cblas_dscal(Int32(x.grid.count), alpha, pointer.baseAddress!, 1)
@@ -195,7 +195,7 @@ public func mul(_ alpha: Double, x: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
-public func mul(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
+public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
 
     var results = Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
@@ -206,7 +206,7 @@ public func mul(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
     return results
 }
 
-public func mul(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
+public func mul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
 
     var results = Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
@@ -217,30 +217,30 @@ public func mul(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
-public func elmul(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
+public func elmul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
     var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
     result.grid = x.grid * y.grid
     return result
 }
 
-public func elmul(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
+public func elmul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
     var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
     result.grid = x.grid * y.grid
     return result
 }
 
-public func div(_ x: Matrix<Double>, y: Matrix<Double>) -> Matrix<Double> {
+public func div(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     let yInv = inv(y)
     precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
-    return mul(x, y: yInv)
+    return mul(x, yInv)
 }
 
-public func div(_ x: Matrix<Float>, y: Matrix<Float>) -> Matrix<Float> {
+public func div(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     let yInv = inv(y)
     precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
-    return mul(x, y: yInv)
+    return mul(x, yInv)
 }
 
 public func pow(_ x: Matrix<Double>, _ y: Double) -> Matrix<Double> {
@@ -309,7 +309,7 @@ public func inv(_ x : Matrix<Float>) -> Matrix<Float> {
     return results
 }
 
-public func inv(_ x : Matrix<Double>) -> Matrix<Double> {
+public func inv(_ x: Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == x.columns, "Matrix must be square")
 
     var results = x
@@ -353,35 +353,35 @@ public func transpose(_ x: Matrix<Double>) -> Matrix<Double> {
 // MARK: - Operators
 
 public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return add(lhs, y: rhs)
+    return add(lhs, rhs)
 }
 
 public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return add(lhs, y: rhs)
+    return add(lhs, rhs)
 }
 
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, x: rhs)
+    return mul(lhs, rhs)
 }
 
 public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, x: rhs)
+    return mul(lhs, rhs)
 }
 
 public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, y: rhs)
+    return mul(lhs, rhs)
 }
 
 public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, y: rhs)
+    return mul(lhs, rhs)
 }
 
 public func / (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return div(lhs, y: rhs)
+    return div(lhs, rhs)
 }
 
 public func / (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return div(lhs, y: rhs)
+    return div(lhs, rhs)
 }
 
 public func / (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
