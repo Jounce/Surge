@@ -18,6 +18,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+// MARK: 1 Parameter
+
+/// Invokes the given closure with buffer pointers to the given arrays (1 parameter version).
+///
+/// - See: `Array.withUnsafeBufferPointer(_:)`
+@discardableResult
+public func withUnsafeBufferPointersTo<A: ContinuousCollection, Result>(_ a: A, body: (UnsafeBufferPointer<A.Element>) throws -> Result) rethrows -> Result {
+    return try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A.Element>) throws -> Result in
+        return try body(a)
+    }
+}
+
+/// Invokes the given closure with pointers to the given arrays (1 parameter version).
+///
+/// - See: `Array.withUnsafeBufferPointer(_:)`
+public func withUnsafePointersAndCountsTo<A: ContinuousCollection>(_ a: A, body: (UnsafePointer<A.Element>, Int) throws -> Void) rethrows {
+    try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A.Element>) throws -> Void in
+        if let ab = a.baseAddress {
+            try body(ab, a.count)
+        }
+    }
+}
+
+/// Invokes the given closure with mutable pointers to the given arrays (1 parameter version).
+///
+/// - See: `Array.withUnsafeMutableBufferPointer(_:)`
+public func withUnsafeMutablePointersAndCountsTo<A: ContinuousMutableCollection>(_ a: inout A, body: (UnsafeMutablePointer<A.Element>, Int) throws -> Void) rethrows {
+    try a.withUnsafeMutableBufferPointer { (a: inout UnsafeMutableBufferPointer<A.Element>) throws -> Void in
+        if let ab = a.baseAddress {
+            try body(ab, a.count)
+        }
+    }
+}
+
+
+// MARK: 2 Parameter
 
 /// Invokes the given closure with pointers to the given arguments (2 parameter version).
 ///
@@ -31,6 +67,71 @@ public func withUnsafePointersTo<A, B, Result>(_ a: inout A, _ b: inout B, body:
     }
 }
 
+/// Invokes the given closure with mutable pointers to the given arguments (2 parameter version).
+///
+/// - See: `withUnsafeMutablePointer(to:body:)`
+@discardableResult
+public func withUnsafeMutablePointersTo<A, B, Result>(_ a: inout A, _ b: inout B, body: (UnsafeMutablePointer<A>, UnsafeMutablePointer<B>) throws -> Result) rethrows -> Result {
+    return try withUnsafeMutablePointer(to: &a) { (a: UnsafeMutablePointer<A>) throws -> Result in
+        return try withUnsafeMutablePointer(to: &b) { (b: UnsafeMutablePointer<B>) throws -> Result in
+            return try body(a, b)
+        }
+    }
+}
+
+/// Invokes the given closure with pointers to the given arrays (2 parameter version).
+///
+/// - See: `Array.withUnsafeBufferPointer(_:)`
+@discardableResult
+public func withUnsafeBufferPointersTo<A: ContinuousCollection, B: ContinuousCollection, Result>(_ a: A, _ b: B, body: (UnsafeBufferPointer<A.Element>, UnsafeBufferPointer<B.Element>) throws -> Result) rethrows -> Result {
+    return try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A.Element>) throws -> Result in
+        return try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B.Element>) throws -> Result in
+            return try body(a, b)
+        }
+    }
+}
+
+/// Invokes the given closure with mutable pointers to the given arrays (2 parameter version).
+///
+/// - See: `Array.withUnsafeMutableBufferPointer(_:)`
+@discardableResult
+public func withUnsafeMutableBufferPointersTo<A: ContinuousMutableCollection, B: ContinuousMutableCollection, Result>(_ a: inout A, _ b: inout B, body: (UnsafeMutableBufferPointer<A.Element>, UnsafeMutableBufferPointer<B.Element>) throws -> Result) rethrows -> Result {
+    return try a.withUnsafeMutableBufferPointer { (a: inout UnsafeMutableBufferPointer<A.Element>) throws -> Result in
+        return try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B.Element>) throws -> Result in
+            return try body(a, b)
+        }
+    }
+}
+
+/// Invokes the given closure with pointers to the given arrays (2 parameter version).
+///
+/// - See: `Array.withUnsafeBufferPointer(_:)`
+public func withUnsafePointersAndCountsTo<A: ContinuousCollection, B: ContinuousCollection>(_ a: A, _ b: B, body: (UnsafePointer<A.Element>, Int, UnsafePointer<B.Element>, Int) throws -> Void) rethrows {
+    try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A.Element>) throws -> Void in
+        try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B.Element>) throws -> Void in
+            if let ab = a.baseAddress, let bb = b.baseAddress {
+                try body(ab, a.count, bb, b.count)
+            }
+        }
+    }
+}
+
+/// Invokes the given closure with mutable pointers to the given arrays (2 parameter version).
+///
+/// - See: `Array.withUnsafeMutableBufferPointer(_:)`
+public func withUnsafeMutablePointersAndCountsTo<A: ContinuousMutableCollection, B: ContinuousMutableCollection>(_ a: inout A, _ b: inout B, body: (UnsafeMutablePointer<A.Element>, Int, UnsafeMutablePointer<B.Element>, Int) throws -> Void) rethrows {
+    try a.withUnsafeMutableBufferPointer { (a: inout UnsafeMutableBufferPointer<A.Element>) throws -> Void in
+        try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B.Element>) throws -> Void in
+            if let ab = a.baseAddress, let bb = b.baseAddress {
+                try body(ab, a.count, bb, b.count)
+            }
+        }
+    }
+}
+
+
+// MARK: 3 Parameter
+
 /// Invokes the given closure with pointers to the given arguments (3 parameter version).
 ///
 /// - See: `withUnsafePointer(to:body:)`
@@ -41,18 +142,6 @@ public func withUnsafePointersTo<A, B, C, Result>(_ a: inout A, _ b: inout B, _ 
             return try withUnsafePointer(to: &c) { (c: UnsafePointer<C>) throws -> Result in
                 return try body(a, b, c)
             }
-        }
-    }
-}
-
-/// Invokes the given closure with mutable pointers to the given arguments (2 parameter version).
-///
-/// - See: `withUnsafeMutablePointer(to:body:)`
-@discardableResult
-public func withUnsafeMutablePointersTo<A, B, Result>(_ a: inout A, _ b: inout B, body: (UnsafeMutablePointer<A>, UnsafeMutablePointer<B>) throws -> Result) rethrows -> Result {
-    return try withUnsafeMutablePointer(to: &a) { (a: UnsafeMutablePointer<A>) throws -> Result in
-        return try withUnsafeMutablePointer(to: &b) { (b: UnsafeMutablePointer<B>) throws -> Result in
-            return try body(a, b)
         }
     }
 }
@@ -71,40 +160,16 @@ public func withUnsafeMutablePointersTo<A, B, C, Result>(_ a: inout A, _ b: inou
     }
 }
 
-/// Invokes the given closure with pointers to the given arrays (2 parameter version).
-///
-/// - See: `Array.withUnsafeBufferPointer(_:)`
-@discardableResult
-public func withUnsafeBufferPointersTo<A, B, Result>(_ a: inout [A], _ b: inout [B], body: (UnsafeBufferPointer<A>, UnsafeBufferPointer<B>) throws -> Result) rethrows -> Result {
-    return try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A>) throws -> Result in
-        return try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B>) throws -> Result in
-            return try body(a, b)
-        }
-    }
-}
-
 /// Invokes the given closure with pointers to the given arrays (3 parameter version).
 ///
 /// - See: `Array.withUnsafeBufferPointer(_:)`
 @discardableResult
-public func withUnsafeBufferPointersTo<A, B, C, Result>(_ a: inout [A], _ b: inout [B], _ c: inout [C], body: (UnsafeBufferPointer<A>, UnsafeBufferPointer<B>, UnsafeBufferPointer<C>) throws -> Result) rethrows -> Result {
-    return try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A>) throws -> Result in
-        return try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B>) throws -> Result in
-            return try c.withUnsafeBufferPointer { (c: UnsafeBufferPointer<C>) throws -> Result in
+public func withUnsafeBufferPointersTo<A: ContinuousCollection, B: ContinuousCollection, C: ContinuousCollection, Result>(_ a: A, _ b: B, _ c: inout C, body: (UnsafeBufferPointer<A.Element>, UnsafeBufferPointer<B.Element>, UnsafeBufferPointer<C.Element>) throws -> Result) rethrows -> Result {
+    return try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A.Element>) throws -> Result in
+        return try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B.Element>) throws -> Result in
+            return try c.withUnsafeBufferPointer { (c: UnsafeBufferPointer<C.Element>) throws -> Result in
                 return try body(a, b, c)
             }
-        }
-    }
-}
-
-/// Invokes the given closure with mutable pointers to the given arrays (2 parameter version).
-///
-/// - See: `Array.withUnsafeMutableBufferPointer(_:)`
-@discardableResult
-public func withUnsafeMutableBufferPointersTo<A, B, Result>(_ a: inout [A], _ b: inout [B], body: (UnsafeMutableBufferPointer<A>, UnsafeMutableBufferPointer<B>) throws -> Result) rethrows -> Result {
-    return try a.withUnsafeMutableBufferPointer { (a: inout UnsafeMutableBufferPointer<A>) throws -> Result in
-        return try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B>) throws -> Result in
-            return try body(a, b)
         }
     }
 }
@@ -113,10 +178,10 @@ public func withUnsafeMutableBufferPointersTo<A, B, Result>(_ a: inout [A], _ b:
 ///
 /// - See: `Array.withUnsafeMutableBufferPointer(_:)`
 @discardableResult
-public func withUnsafeMutableBufferPointersTo<A, B, C, Result>(_ a: inout [A], _ b: inout [B], _ c: inout [C], body: (UnsafeMutableBufferPointer<A>, UnsafeMutableBufferPointer<B>, UnsafeMutableBufferPointer<C>) throws -> Result) rethrows -> Result {
-    return try a.withUnsafeMutableBufferPointer { (a: inout UnsafeMutableBufferPointer<A>) throws -> Result in
-        return try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B>) throws -> Result in
-            return try c.withUnsafeMutableBufferPointer { (c: inout UnsafeMutableBufferPointer<C>) throws -> Result in
+public func withUnsafeMutableBufferPointersTo<A: ContinuousMutableCollection, B: ContinuousMutableCollection, C: ContinuousMutableCollection, Result>(_ a: inout A, _ b: inout B, _ c: inout C, body: (UnsafeMutableBufferPointer<A.Element>, UnsafeMutableBufferPointer<B.Element>, UnsafeMutableBufferPointer<C.Element>) throws -> Result) rethrows -> Result {
+    return try a.withUnsafeMutableBufferPointer { (a: inout UnsafeMutableBufferPointer<A.Element>) throws -> Result in
+        return try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B.Element>) throws -> Result in
+            return try c.withUnsafeMutableBufferPointer { (c: inout UnsafeMutableBufferPointer<C.Element>) throws -> Result in
                 return try body(a, b, c)
             }
         }

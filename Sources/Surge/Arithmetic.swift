@@ -22,285 +22,386 @@ import Accelerate
 
 // MARK: Sum
 
-public func sum(_ x: [Float]) -> Float {
+public func sum<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
     var result: Float = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_sve(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count -> Void in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_sve(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
-public func sum(_ x: [Double]) -> Double {
+public func sum<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
     var result: Double = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_sveD(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_sveD(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
 // MARK: Sum of Absolute Values
 
-public func asum(_ x: [Float]) -> Float {
-    return cblas_sasum(Int32(x.count), x, 1)
+public func asum<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
+    return x.withUnsafeBufferPointer { bufferPointer in
+        guard let x = bufferPointer.baseAddress else {
+            return 0
+        }
+        return cblas_sasum(Int32(bufferPointer.count), x, 1)
+    }
 }
 
-public func asum(_ x: [Double]) -> Double {
-    return cblas_dasum(Int32(x.count), x, 1)
+public func asum<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
+    return x.withUnsafeBufferPointer { bufferPointer in
+        guard let x = bufferPointer.baseAddress else {
+            return 0
+        }
+        return cblas_dasum(Int32(bufferPointer.count), x, 1)
+    }
 }
 
 // MARK: Sum of Square Values
 
-public func sumsq(_ x: [Float]) -> Float {
+public func sumsq<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
     var result: Float = 0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_svesq(x, 1,pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_svesq(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
-public func sumsq(_ x: [Double]) -> Double {
+public func sumsq<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
     var result: Double = 0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_svesqD(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_svesqD(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
+
 // MARK: Maximum
 
-public func max(_ x: [Float]) -> Float {
+public func max<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
     var result: Float = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_maxv(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_maxv(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
-public func max(_ x: [Double]) -> Double {
+public func max<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
     var result: Double = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_maxvD(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_maxvD(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
 // MARK: Minimum
 
-public func min(_ x: [Float]) -> Float {
+public func min<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
     var result: Float = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_minv(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_minv(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
-public func min(_ x: [Double]) -> Double {
+public func min<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
     var result: Double = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_minvD(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_minvD(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
 // MARK: Mean
 
-public func mean(_ x: [Float]) -> Float {
+public func mean<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
     var result: Float = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_meanv(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_meanv(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
-public func mean(_ x: [Double]) -> Double {
+public func mean<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
     var result: Double = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_meanvD(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_meanvD(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
 // MARK: Mean Magnitude
 
-public func meamg(_ x: [Float]) -> Float {
+public func meamg<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
     var result: Float = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_meamgv(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_meamgv(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
-public func meamg(_ x: [Double]) -> Double {
+public func meamg<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
     var result: Double = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_meamgvD(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_meamgvD(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
 // MARK: Mean Square Value
 
-public func measq(_ x: [Float]) -> Float {
+public func measq<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
     var result: Float = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_measqv(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_measqv(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
-public func measq(_ x: [Double]) -> Double {
+public func measq<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
     var result: Double = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_measqvD(x, 1, pointer, vDSP_Length(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_measqvD(x, 1, pointer, vDSP_Length(count))
+        }
     }
     return result
 }
 
 // MARK: Add
 
-public func add(_ x: [Float], _ y: [Float]) -> [Float] {
+public func add<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
     var results = [Float](y)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        cblas_saxpy(Int32(x.count), 1.0, x, 1, bufferPointer.baseAddress, 1)
+    x.withUnsafeBufferPointer { xbp in
+        results.withUnsafeMutableBufferPointer { rbp in
+            cblas_saxpy(Int32(xbp.count), 1.0, xbp.baseAddress, 1, rbp.baseAddress, 1)
+        }
     }
     return results
 }
 
-public func add(_ x: [Double], _ y: [Double]) -> [Double] {
+public func add<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
     var results = [Double](y)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        cblas_daxpy(Int32(x.count), 1.0, x, 1, bufferPointer.baseAddress, 1)
+    x.withUnsafeBufferPointer { xbp in
+        results.withUnsafeMutableBufferPointer { rbp in
+            cblas_daxpy(Int32(xbp.count), 1.0, xbp.baseAddress, 1, rbp.baseAddress, 1)
+        }
     }
     return results
 }
 
 // MARK: Subtraction
 
-public func sub(_ x: [Float], _ y: [Float]) -> [Float] {
+public func sub<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
     var results = [Float](y)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        catlas_saxpby(Int32(x.count), 1.0, x, 1, -1, bufferPointer.baseAddress, 1)
+    x.withUnsafeBufferPointer { xbp in
+        results.withUnsafeMutableBufferPointer { rbp in
+            catlas_saxpby(Int32(xbp.count), 1.0, xbp.baseAddress, 1, -1, rbp.baseAddress, 1)
+        }
     }
     return results
 }
 
-public func sub(_ x: [Double], _ y: [Double]) -> [Double] {
+public func sub<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
     var results = [Double](y)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        catlas_daxpby(Int32(x.count), 1.0, x, 1, -1, bufferPointer.baseAddress, 1)
+    x.withUnsafeBufferPointer { xbp in
+        results.withUnsafeMutableBufferPointer { rbp in
+            catlas_daxpby(Int32(xbp.count), 1.0, xbp.baseAddress, 1, -1, rbp.baseAddress, 1)
+        }
     }
     return results
 }
 
 // MARK: Multiply
 
-public func mul(_ x: [Float], _ y: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vmul(x, 1, y, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+public func mul<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        results.withUnsafeMutableBufferPointer { rbp in
+            vDSP_vmul(xp, 1, yp, 1, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+        }
     }
     return results
 }
 
-public func mul(_ x: [Double], _ y: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vmulD(x, 1, y, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+public func mul<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        results.withUnsafeMutableBufferPointer { rbp in
+            vDSP_vmulD(xp, 1, yp, 1, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+        }
     }
     return results
 }
 
 // MARK: Divide
 
-public func div(_ x: [Float], _ y: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvdivf(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+public func div<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvdivf(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+        }
     }
     return results
 }
 
-public func div(_ x: [Double], _ y: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvdiv(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+public func div<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvdiv(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+        }
     }
     return results
 }
 
 // MARK: Modulo
 
-public func mod(_ x: [Float], _ y: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvfmodf(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+public func mod<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvfmodf(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+        }
     }
     return results
 }
 
-public func mod(_ x: [Double], _ y: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvfmod(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+public func mod<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvfmod(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+        }
     }
     return results
 }
 
 // MARK: Remainder
 
-public func remainder(_ x: [Float], _ y: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvremainderf(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+public func remainder<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvremainderf(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+        }
     }
     return results
 }
 
-public func remainder(_ x: [Double], _ y: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvremainder(bufferPointer.baseAddress!, x, y, [Int32(x.count)])
+public func remainder<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvremainder(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+        }
     }
     return results
 }
 
 // MARK: Square Root
 
-public func sqrt(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvsqrtf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func sqrt<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vvsqrtf(bufferPointer.baseAddress!, x, [Int32(count)])
+        }
     }
     return results
 }
 
-public func sqrt(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvsqrt(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func sqrt<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    withUnsafePointersAndCountsTo(x) { x, count in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vvsqrt(bufferPointer.baseAddress!, x, [Int32(count)])
+        }
     }
     return results
 }
 
 // MARK: Dot Product
 
-public func dot(_ x: [Float], _ y: [Float]) -> Float {
+public func dot<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Float where X.Iterator.Element == Float, Y.Iterator.Element == Float {
     precondition(x.count == y.count, "Vectors must have equal count")
 
     var result: Float = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_dotpr(x, 1, y, 1, pointer, vDSP_Length(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_dotpr(xp, 1, yp, 1, pointer, vDSP_Length(xbp.count))
+        }
     }
 
     return result
 }
 
 
-public func dot(_ x: [Double], _ y: [Double]) -> Double {
+public func dot<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Double where X.Iterator.Element == Double, Y.Iterator.Element == Double {
     precondition(x.count == y.count, "Vectors must have equal count")
 
     var result: Double = 0.0
-    withUnsafeMutablePointer(to: &result) { pointer in
-        vDSP_dotprD(x, 1, y, 1, pointer, vDSP_Length(x.count))
+    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
+        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
+            return
+        }
+        withUnsafeMutablePointer(to: &result) { pointer in
+            vDSP_dotprD(xp, 1, yp, 1, pointer, vDSP_Length(xbp.count))
+        }
     }
 
     return result
@@ -308,20 +409,20 @@ public func dot(_ x: [Double], _ y: [Double]) -> Double {
 
 // MARK: - Distance
 
-public func dist(_ x: [Float], _ y: [Float]) -> Float {
+public func dist<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Float where X.Iterator.Element == Float, Y.Iterator.Element == Float {
     precondition(x.count == y.count, "Vectors must have equal count")
     let sub = x - y
-    var squared = [Float](repeating: 0.0, count: x.count)
+    var squared = [Float](repeating: 0.0, count: numericCast(x.count))
     squared.withUnsafeMutableBufferPointer { bufferPointer in
         vDSP_vsq(sub, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
     }
     return sqrt(sum(squared))
 }
 
-public func dist(_ x: [Double], _ y: [Double]) -> Double {
+public func dist<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Double where X.Iterator.Element == Double, Y.Iterator.Element == Double {
     precondition(x.count == y.count, "Vectors must have equal count")
     let sub = x - y
-    var squared = [Double](repeating: 0.0, count: x.count)
+    var squared = [Double](repeating: 0.0, count: numericCast(x.count))
     squared.withUnsafeMutableBufferPointer { bufferPointer in
         vDSP_vsqD(sub, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
     }
@@ -330,91 +431,91 @@ public func dist(_ x: [Double], _ y: [Double]) -> Double {
 
 // MARK: - Operators
 
-public func + (lhs: [Float], rhs: [Float]) -> [Float] {
+public func + <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
     return add(lhs, rhs)
 }
 
-public func + (lhs: [Double], rhs: [Double]) -> [Double] {
+public func + <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
     return add(lhs, rhs)
 }
 
-public func + (lhs: [Float], rhs: Float) -> [Float] {
-    return add(lhs, [Float](repeating: rhs, count: lhs.count))
+public func + <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+    return add(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func + (lhs: [Double], rhs: Double) -> [Double] {
-    return add(lhs, [Double](repeating: rhs, count: lhs.count))
+public func + <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+    return add(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func - (lhs: [Float], rhs: [Float]) -> [Float] {
+public func - <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
     return sub(lhs, rhs)
 }
 
-public func - (lhs: [Double], rhs: [Double]) -> [Double] {
+public func - <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
     return sub(lhs, rhs)
 }
 
-public func - (lhs: [Float], rhs: Float) -> [Float] {
-    return sub(lhs, [Float](repeating: rhs, count: lhs.count))
+public func - <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+    return sub(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func - (lhs: [Double], rhs: Double) -> [Double] {
-    return sub(lhs, [Double](repeating: rhs, count: lhs.count))
+public func - <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+    return sub(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func / (lhs: [Float], rhs: [Float]) -> [Float] {
+public func / <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
     return div(lhs, rhs)
 }
 
-public func / (lhs: [Double], rhs: [Double]) -> [Double] {
+public func / <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
     return div(lhs, rhs)
 }
 
-public func / (lhs: [Float], rhs: Float) -> [Float] {
-    return div(lhs, [Float](repeating: rhs, count: lhs.count))
+public func / <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+    return div(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func / (lhs: [Double], rhs: Double) -> [Double] {
-    return div(lhs, [Double](repeating: rhs, count: lhs.count))
+public func / <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+    return div(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func * (lhs: [Float], rhs: [Float]) -> [Float] {
+public func * <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
     return mul(lhs, rhs)
 }
 
-public func * (lhs: [Double], rhs: [Double]) -> [Double] {
+public func * <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
     return mul(lhs, rhs)
 }
 
-public func * (lhs: [Float], rhs: Float) -> [Float] {
-    return mul(lhs, [Float](repeating: rhs, count: lhs.count))
+public func * <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+    return mul(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func * (lhs: [Double], rhs: Double) -> [Double] {
-    return mul(lhs, [Double](repeating: rhs, count: lhs.count))
+public func * <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+    return mul(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func % (lhs: [Float], rhs: [Float]) -> [Float] {
+public func % <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
     return mod(lhs, rhs)
 }
 
-public func % (lhs: [Double], rhs: [Double]) -> [Double] {
+public func % <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
     return mod(lhs, rhs)
 }
 
-public func % (lhs: [Float], rhs: Float) -> [Float] {
-    return mod(lhs, [Float](repeating: rhs, count: lhs.count))
+public func % <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+    return mod(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func % (lhs: [Double], rhs: Double) -> [Double] {
-    return mod(lhs, [Double](repeating: rhs, count: lhs.count))
+public func % <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+    return mod(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
 infix operator •
-public func • (lhs: [Double], rhs: [Double]) -> Double {
+public func • <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> Double where L.Iterator.Element == Double, R.Iterator.Element == Double {
     return dot(lhs, rhs)
 }
 
-public func • (lhs: [Float], rhs: [Float]) -> Float {
+public func • <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> Float where L.Iterator.Element == Float, R.Iterator.Element == Float {
     return dot(lhs, rhs)
 }
