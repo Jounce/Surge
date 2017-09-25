@@ -26,12 +26,12 @@ class ExponentialTests: XCTestCase {
     let n = 10000
 
     func test_exp() {
-        let values = (0...n).map{_ in Double(arc4random_uniform(10))}
+        let values = (0...n).map { _ in Double(arc4random_uniform(10)) }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp, mapped: exp, accuracy: 0.0001)
     }
 
     func test_exp2() {
-        let values = (0...n).map{_ in Double(arc4random_uniform(10))}
+        let values = (0...n).map { _ in Double(arc4random_uniform(10)) }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp2, mapped: exp2, accuracy: 0.0001)
     }
 }

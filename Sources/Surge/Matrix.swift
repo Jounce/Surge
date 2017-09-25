@@ -57,7 +57,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
             grid[(row * columns) + column] = newValue
         }
     }
-    
+
     public subscript(row row: Int) -> [Scalar] {
         get {
             assert(row < rows)
@@ -65,7 +65,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
             let endIndex = row * columns + columns
             return Array(grid[startIndex..<endIndex])
         }
-        
+
         set {
             assert(row < rows)
             assert(newValue.count == columns)
@@ -74,7 +74,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
             grid.replaceSubrange(startIndex..<endIndex, with: newValue)
         }
     }
-    
+
     public subscript(column column: Int) -> [Scalar] {
         get {
             var result = [Scalar](repeating: 0.0, count: rows)
@@ -84,7 +84,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
             }
             return result
         }
-        
+
         set {
             assert(column < columns)
             assert(newValue.count == rows)
@@ -107,7 +107,7 @@ extension Matrix: CustomStringConvertible {
         var description = ""
 
         for i in 0..<rows {
-            let contents = (0..<columns).map{"\(self[i, $0])"}.joined(separator: "\t")
+            let contents = (0..<columns).map({ "\(self[i, $0])" }).joined(separator: "\t")
 
             switch (i, rows) {
             case (0, 1):
@@ -151,7 +151,6 @@ extension Matrix: Equatable {}
 public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
     return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.grid == rhs.grid
 }
-
 
 // MARK: -
 
@@ -268,7 +267,7 @@ public func exp(_ x: Matrix<Float>) -> Matrix<Float> {
 }
 
 public func sum(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Double> {
-    
+
     switch axies {
     case .column:
         var result = Matrix<Double>(rows: 1, columns: x.columns, repeatedValue: 0.0)
@@ -276,7 +275,7 @@ public func sum(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Dou
             result.grid[i] = sum(x[column: i])
         }
         return result
-        
+
     case .row:
         var result = Matrix<Double>(rows: x.rows, columns: 1, repeatedValue: 0.0)
         for i in 0..<x.rows {
@@ -286,7 +285,7 @@ public func sum(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Dou
     }
 }
 
-public func inv(_ x : Matrix<Float>) -> Matrix<Float> {
+public func inv(_ x: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == x.columns, "Matrix must be square")
 
     var results = x
@@ -386,14 +385,14 @@ public func / (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 
 public func / (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
     var result = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
-    result.grid = lhs.grid / rhs;
-    return result;
+    result.grid = lhs.grid / rhs
+    return result
 }
 
 public func / (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
     var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
-    result.grid = lhs.grid / rhs;
-    return result;
+    result.grid = lhs.grid / rhs
+    return result
 }
 
 postfix operator ′

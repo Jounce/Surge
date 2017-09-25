@@ -26,32 +26,32 @@ class TrigonometricTests: XCTestCase {
     let n = 10000
 
     func test_sin() {
-        let values = (0...n).map{_ in drand48() * Double.pi}
+        let values = (0...n).map { _ in drand48() * Double.pi }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: sin, mapped: sin, accuracy: 0.0001)
     }
 
     func test_cos() {
-        let values = (0...n).map{_ in drand48() * Double.pi}
+        let values = (0...n).map { _ in drand48() * Double.pi }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: cos, mapped: cos, accuracy: 0.0001)
     }
 
     func test_tan() {
-        let values = (0...n).map{_ in drand48() * Double.pi}
+        let values = (0...n).map { _ in drand48() * Double.pi }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: tan, mapped: tan, accuracy: 0.0001)
     }
 
-//    func test_asin() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: asin, mapped: asin, accuracy: 0.0001)
-//    }
-//
-//    func test_acos() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: acos, mapped: acos, accuracy: 0.0001)
-//    }
-//
-//    func test_atan() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: atan, mapped: atan, accuracy: 0.0001)
-//    }
+    func test_asin() {
+        let values = (0...n).map { _ in drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: asin, mapped: asin, accuracy: 0.0001)
+    }
+
+    func test_acos() {
+        let values = (0...n).map { _ in drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: acos, mapped: acos, accuracy: 0.0001)
+    }
+
+    func test_atan() {
+        let values = (0...n).map { _ in drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: atan, mapped: atan, accuracy: 0.0001)
+    }
 }

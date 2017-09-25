@@ -26,7 +26,7 @@ class ArithmeticTests: XCTestCase {
     let n = 100000
 
     func test_sum() {
-        let values = (0...n).map{ _ in Double(arc4random()) / Double(UInt32.max) }
+        let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
         var actual = 0.0
         measure {
             actual = sum(values)
@@ -41,7 +41,7 @@ class ArithmeticTests: XCTestCase {
     }
 
     func test_sum_slice() {
-        let values = (0...n).map{ _ in Double(arc4random()) / Double(UInt32.max) }
+        let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
         var actual = 0.0
         measure {
             actual = sum(values[0..<n/2])
@@ -56,7 +56,7 @@ class ArithmeticTests: XCTestCase {
     }
 
     func test_sqrt() {
-        let values = (0...n).map{ _ in Double(arc4random()) }
+        let values = (0...n).map { _ in Double(arc4random()) }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
     }
 

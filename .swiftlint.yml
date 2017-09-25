@@ -1,0 +1,9 @@
+disabled_rules:
+  - file_length
+  - identifier_name
+  - line_length
+  - trailing_comma
+
+opt_in_rules:
+  - closure_spacing
+

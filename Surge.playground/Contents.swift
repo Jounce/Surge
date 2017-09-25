@@ -27,7 +27,7 @@ let count = 64
 let frequency = 4.0
 let amplitude = 3.0
 
-let x = (0..<count).map{ 2.0 * Double.pi / Double(count) * Double($0) * frequency }
+let x = (0..<count).map { 2.0 * Double.pi / Double(count) * Double($0) * frequency }
 
 for value in sin(x) {
     value

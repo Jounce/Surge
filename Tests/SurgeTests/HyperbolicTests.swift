@@ -26,32 +26,32 @@ class HyperbolicTests: XCTestCase {
     let n = 10000
 
     func test_sinh() {
-        let values = (0...n).map{_ in drand48() * Double.pi}
+        let values = (0...n).map { _ in drand48() * Double.pi }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: sinh, mapped: sinh, accuracy: 0.0001)
     }
 
     func test_cosh() {
-        let values = (0...n).map{_ in drand48() * Double.pi}
+        let values = (0...n).map { _ in drand48() * Double.pi }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: cosh, mapped: cosh, accuracy: 0.0001)
     }
 
     func test_tanh() {
-        let values = (0...n).map{_ in drand48() * Double.pi}
+        let values = (0...n).map { _ in drand48() * Double.pi }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: tanh, mapped: tanh, accuracy: 0.0001)
     }
 
-//    func test_asinh() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: asinh, mapped: asinh, accuracy: 0.0001)
-//    }
-//
-//    func test_acosh() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: acosh, mapped: acosh, accuracy: 0.0001)
-//    }
-//
-//    func test_atanh() {
-//        let values = map(0...n){_ in drand48()}
-//        measureAndValidateMappedFunctionWithAccuracy(values, member: atanh, mapped: atanh, accuracy: 0.0001)
-//    }
+    func test_asinh() {
+        let values = (0...n).map { _ in drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: asinh, mapped: asinh, accuracy: 0.0001)
+    }
+
+    func test_acosh() {
+        let values = (0...n).map { _ in 1 + drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: acosh, mapped: acosh, accuracy: 0.0001)
+    }
+
+    func test_atanh() {
+        let values = (0...n).map { _ in drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: atanh, mapped: atanh, accuracy: 0.0001)
+    }
 }

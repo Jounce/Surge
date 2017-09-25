@@ -22,29 +22,29 @@ import Foundation
 import XCTest
 
 extension XCTestCase {
-    func measureAndValidateMappedFunctionWithAccuracy<C : Collection>(source: C, member: (C.Iterator.Element) -> (C.Iterator.Element), mapped: @escaping (C) -> ([C.Iterator.Element]), accuracy: C.Iterator.Element) where C.Iterator.Element: ExpressibleByFloatLiteral & FloatingPoint {
+    func measureAndValidateMappedFunctionWithAccuracy<C: Collection>(source: C, member: (C.Iterator.Element) -> (C.Iterator.Element), mapped: @escaping (C) -> ([C.Iterator.Element]), accuracy: C.Iterator.Element) where C.Iterator.Element: ExpressibleByFloatLiteral & FloatingPoint {
         var expected = source.map(member)
 
         var actual: [C.Iterator.Element] = []
         self.measure {
             actual = mapped(source)
         }
-        
-        for (i, _) in source.enumerated() {
-            XCTAssertEqual(actual[i], expected[i], accuracy: accuracy)
+
+        for (i, j) in zip(actual.indices, expected.indices) {
+            XCTAssertEqual(actual[i], expected[j], accuracy: accuracy)
         }
     }
-    
+
     func XCTAssertArrayFloatEqualWithAccuracy(calcArray: [Float], _ testArray: [Float], _ accuracy: Float) {
         assert(calcArray.count == testArray.count, "XCTAssertArrayFloatEqualWithAccuracy arrays must be same size")
-        for i:Int in 0..<calcArray.count {
+        for i: Int in 0..<calcArray.count {
             XCTAssertEqual(calcArray[i], testArray[i], accuracy: accuracy)
         }
     }
-    
+
     func XCTAssertArrayDoubleEqualWithAccuracy(calcArray: [Double], _ testArray: [Double], _ accuracy: Double) {
         assert(calcArray.count == testArray.count, "XCTAssertArrayFloatEqualWithAccuracy arrays must be same size")
-        for i:Int in 0..<calcArray.count {
+        for i: Int in 0..<calcArray.count {
             XCTAssertEqual(calcArray[i], testArray[i], accuracy: accuracy)
         }
     }

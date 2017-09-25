@@ -390,7 +390,6 @@ public func dot<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y
     return result
 }
 
-
 public func dot<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Double where X.Iterator.Element == Double, Y.Iterator.Element == Double {
     precondition(x.count == y.count, "Vectors must have equal count")
 

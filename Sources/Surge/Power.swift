@@ -25,7 +25,7 @@ import Accelerate
 public func pow<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x, y) { xp, xc, yp, yc in
+        withUnsafePointersAndCountsTo(x, y) { xp, xc, yp, _ in
             vvpowf(pointer.baseAddress!, xp, yp, [Int32(xc)])
         }
     }
@@ -35,7 +35,7 @@ public func pow<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y
 public func pow<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x, y) { xp, xc, yp, yc in
+        withUnsafePointersAndCountsTo(x, y) { xp, xc, yp, _ in
             vvpow(pointer.baseAddress!, xp, yp, [Int32(xc)])
         }
     }

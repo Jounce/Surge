@@ -26,7 +26,7 @@ import Accelerate
 // Convolution of a signal [x], with a kernel [k]. The signal must be at least as long as the kernel.
 public func conv<X: ContinuousCollection, K: ContinuousCollection>(_ x: X, _ k: K) -> [Float] where X.Iterator.Element == Float, K.Iterator.Element == Float {
     precondition(x.count >= k.count, "Input vector [x] must have at least as many elements as the kernel,  [k]")
-    
+
     let resultSize = numericCast(x.count) + numericCast(k.count) - 1
     var result = [Float](repeating: 0, count: resultSize)
     result.withUnsafeMutableBufferPointer { rbp in
@@ -80,7 +80,7 @@ public func xcorr<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y:
         let padding = repeatElement(0 as Float, count: numericCast(x.count) - numericCast(y.count))
         yPadded.append(contentsOf: padding)
     }
-    
+
     let resultSize = numericCast(x.count) + yPadded.count - 1
     var result = [Float](repeating: 0, count: resultSize)
     let xPad = repeatElement(0 as Float, count: yPadded.count-1)
@@ -94,7 +94,7 @@ public func xcorr<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y:
     result.withUnsafeMutableBufferPointer { rbp in
         vDSP_conv(xPadded, 1, yPadded, 1, rbp.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(yPadded.count))
     }
-    
+
     return result
 }
 
@@ -107,7 +107,7 @@ public func xcorr<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y:
         let padding = repeatElement(0 as Double, count: numericCast(x.count) - numericCast(y.count))
         yPadded.append(contentsOf: padding)
     }
-    
+
     let resultSize = numericCast(x.count) + yPadded.count - 1
     var result = [Double](repeating: 0, count: resultSize)
     let xPad = repeatElement(0 as Double, count: yPadded.count-1)
@@ -121,7 +121,7 @@ public func xcorr<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y:
     result.withUnsafeMutableBufferPointer { rbp in
         vDSP_convD(xPadded, 1, yPadded, 1, rbp.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(yPadded.count))
     }
-    
+
     return result
 }
 
@@ -165,6 +165,6 @@ public func xcorr<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.
             vDSP_convD(xPadded, 1, xp, 1, rbp.baseAddress!, 1, vDSP_Length(resultSize), vDSP_Length(xc))
         }
     }
-    
+
     return result
 }

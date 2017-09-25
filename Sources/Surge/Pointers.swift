@@ -52,7 +52,6 @@ public func withUnsafeMutablePointersAndCountsTo<A: ContinuousMutableCollection>
     }
 }
 
-
 // MARK: 2 Parameter
 
 /// Invokes the given closure with pointers to the given arguments (2 parameter version).
@@ -128,7 +127,6 @@ public func withUnsafeMutablePointersAndCountsTo<A: ContinuousMutableCollection,
         }
     }
 }
-
 
 // MARK: 3 Parameter
 
