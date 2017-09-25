@@ -22,141 +22,157 @@ import Accelerate
 
 // MARK: Sine-Cosine
 
-public func sincos(_ x: [Float]) -> (sin: [Float], cos: [Float]) {
-    var sin = [Float](repeating: 0.0, count: x.count)
-    var cos = [Float](repeating: 0.0, count: x.count)
+public func sincos<X: ContinuousCollection>(_ x: X) -> (sin: [Float], cos: [Float]) where X.Iterator.Element == Float {
+    var sin = [Float](repeating: 0.0, count: numericCast(x.count))
+    var cos = [Float](repeating: 0.0, count: numericCast(x.count))
     withUnsafeMutableBufferPointersTo(&sin, &cos) { sin, cos in
-        vvsincosf(sin.baseAddress!, cos.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvsincosf(sin.baseAddress!, cos.baseAddress!, xp, [Int32(xc)])
+        }
     }
     return (sin, cos)
 }
 
-public func sincos(_ x: [Double]) -> (sin: [Double], cos: [Double]) {
-    var sin = [Double](repeating: 0.0, count: x.count)
-    var cos = [Double](repeating: 0.0, count: x.count)
+public func sincos<X: ContinuousCollection>(_ x: X) -> (sin: [Double], cos: [Double]) where X.Iterator.Element == Double {
+    var sin = [Double](repeating: 0.0, count: numericCast(x.count))
+    var cos = [Double](repeating: 0.0, count: numericCast(x.count))
     withUnsafeMutableBufferPointersTo(&sin, &cos) { sin, cos in
-        vvsincos(sin.baseAddress!, cos.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvsincos(sin.baseAddress!, cos.baseAddress!, xp, [Int32(xc)])
+        }
     }
     return (sin, cos)
 }
 
 // MARK: Sine
 
-public func sin(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
+public func sin<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvsinf(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvsinf(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func sin(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
+public func sin<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvsin(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvsin(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Cosine
 
-public func cos(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
+public func cos<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvcosf(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvcosf(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func cos(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
+public func cos<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvcos(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvcos(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Tangent
 
-public func tan(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
+public func tan<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvtanf(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvtanf(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func tan(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
+public func tan<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvtan(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvtan(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Arcsine
 
-public func asin(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
+public func asin<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvasinf(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvasinf(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func asin(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
+public func asin<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvasin(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvasin(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Arccosine
 
-public func acos(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
+public func acos<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvacosf(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvacosf(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func acos(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
+public func acos<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvacos(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvacos(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Arctangent
 
-public func atan(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
+public func atan<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvatanf(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvatanf(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func atan(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
+public func atan<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvatan(pointer.baseAddress!, x, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvatan(pointer.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
@@ -164,44 +180,48 @@ public func atan(_ x: [Double]) -> [Double] {
 
 // MARK: Radians to Degrees
 
-func rad2deg(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    let divisor = [Float](repeating: Float.pi / 180.0, count: x.count)
+func rad2deg<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    let divisor = [Float](repeating: Float.pi / 180.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvdivf(pointer.baseAddress!, x, divisor, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvdivf(pointer.baseAddress!, xp, divisor, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-func rad2deg(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    let divisor = [Double](repeating: Double.pi / 180.0, count: x.count)
+func rad2deg<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    let divisor = [Double](repeating: Double.pi / 180.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvdiv(pointer.baseAddress!, x, divisor, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvdiv(pointer.baseAddress!, xp, divisor, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Degrees to Radians
 
-func deg2rad(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    let divisor = [Float](repeating: 180.0 / Float.pi, count: x.count)
+func deg2rad<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    let divisor = [Float](repeating: 180.0 / Float.pi, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvdivf(pointer.baseAddress!, x, divisor, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvdivf(pointer.baseAddress!, xp, divisor, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-func deg2rad(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    let divisor = [Double](repeating: 180.0 / Double.pi, count: x.count)
+func deg2rad<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    let divisor = [Double](repeating: 180.0 / Double.pi, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvdiv(pointer.baseAddress!, x, divisor, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvdiv(pointer.baseAddress!, xp, divisor, [Int32(xc)])
+        }
     }
-
     return results
 }

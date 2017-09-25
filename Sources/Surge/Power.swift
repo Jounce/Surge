@@ -22,28 +22,32 @@ import Accelerate
 
 // MARK: Power
 
-public func pow(_ x: [Float], _ y: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
+public func pow<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvpowf(pointer.baseAddress!, x, y, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x, y) { xp, xc, yp, yc in
+            vvpowf(pointer.baseAddress!, xp, yp, [Int32(xc)])
+        }
     }
     return results
 }
 
-public func pow(_ x: [Double], _ y: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
+public func pow<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { pointer in
-        vvpow(pointer.baseAddress!, x, y, [Int32(x.count)])
+        withUnsafePointersAndCountsTo(x, y) { xp, xc, yp, yc in
+            vvpow(pointer.baseAddress!, xp, yp, [Int32(xc)])
+        }
     }
     return results
 }
 
-public func pow(_ x: [Float], _ y: Float) -> [Float] {
-    let yVec = [Float](repeating: y, count: x.count)
+public func pow<X: ContinuousCollection>(_ x: X, _ y: Float) -> [Float] where X.Iterator.Element == Float {
+    let yVec = [Float](repeating: y, count: numericCast(x.count))
     return pow(yVec, x)
 }
 
-public func pow(_ x: [Double], _ y: Double) -> [Double] {
-    let yVec = [Double](repeating: y, count: x.count)
+public func pow<X: ContinuousCollection>(_ x: X, _ y: Double) -> [Double] where X.Iterator.Element == Double {
+    let yVec = [Double](repeating: y, count: numericCast(x.count))
     return pow(yVec, x)
 }

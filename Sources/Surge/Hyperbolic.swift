@@ -22,19 +22,23 @@ import Accelerate
 
 // MARK: Hyperbolic Sine
 
-public func sinh(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvsinhf(pointer.baseAddress!, x, [Int32(x.count)])
+public func sinh<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvsinhf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
 }
 
-public func sinh(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvsinh(pointer.baseAddress!, x, [Int32(x.count)])
+public func sinh<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvsinh(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
@@ -42,19 +46,23 @@ public func sinh(_ x: [Double]) -> [Double] {
 
 // MARK: Hyperbolic Cosine
 
-public func cosh(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvcoshf(pointer.baseAddress!, x, [Int32(x.count)])
+public func cosh<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvcoshf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
 }
 
-public func cosh(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvcosh(pointer.baseAddress!, x, [Int32(x.count)])
+public func cosh<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvcosh(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
@@ -62,19 +70,23 @@ public func cosh(_ x: [Double]) -> [Double] {
 
 // MARK: Hyperbolic Tangent
 
-public func tanh(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvtanhf(pointer.baseAddress!, x, [Int32(x.count)])
+public func tanh<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvtanhf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
 }
 
-public func tanh(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvtanh(pointer.baseAddress!, x, [Int32(x.count)])
+public func tanh<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvtanh(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
@@ -82,19 +94,23 @@ public func tanh(_ x: [Double]) -> [Double] {
 
 // MARK: Inverse Hyperbolic Sine
 
-public func asinh(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvasinhf(pointer.baseAddress!, x, [Int32(x.count)])
+public func asinh<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvasinhf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
 }
 
-public func asinh(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvasinh(pointer.baseAddress!, x, [Int32(x.count)])
+public func asinh<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvasinh(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
@@ -102,19 +118,23 @@ public func asinh(_ x: [Double]) -> [Double] {
 
 // MARK: Inverse Hyperbolic Cosine
 
-public func acosh(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvacoshf(pointer.baseAddress!, x, [Int32(x.count)])
+public func acosh<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvacoshf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
 }
 
-public func acosh(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvacosh(pointer.baseAddress!, x, [Int32(x.count)])
+public func acosh<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvacosh(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
@@ -122,19 +142,23 @@ public func acosh(_ x: [Double]) -> [Double] {
 
 // MARK: Inverse Hyperbolic Tangent
 
-public func atanh(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvatanhf(pointer.baseAddress!, x, [Int32(x.count)])
+public func atanh<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvatanhf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results
 }
 
-public func atanh(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { pointer in
-        vvatanh(pointer.baseAddress!, x, [Int32(x.count)])
+public func atanh<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvatanh(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
 
     return results

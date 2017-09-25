@@ -22,120 +22,132 @@ import Accelerate
 
 // MARK: Exponentiation
 
-public func exp(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvexpf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func exp<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvexpf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func exp(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvexp(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func exp<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvexp(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Square Exponentiation
 
-public func exp2(_ x: [Float]) -> [Float] {
-    var results = [Float](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvexp2f(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func exp2<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvexp2f(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func exp2(_ x: [Double]) -> [Double] {
-    var results = [Double](repeating: 0.0, count: x.count)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvexp2(bufferPointer.baseAddress!, x, [Int32(x.count)])
+public func exp2<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvexp2(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Natural Logarithm
 
-public func log(_ x: [Float]) -> [Float] {
+public func log<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
     var results = [Float](x)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvlogf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvlogf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func log(_ x: [Double]) -> [Double] {
+public func log<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
     var results = [Double](x)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvlog(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvlog(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Base-2 Logarithm
 
-public func log2(_ x: [Float]) -> [Float] {
+public func log2<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
     var results = [Float](x)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvlog2f(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvlog2f(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func log2(_ x: [Double]) -> [Double] {
+public func log2<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
     var results = [Double](x)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvlog2(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvlog2(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Base-10 Logarithm
 
-public func log10(_ x: [Float]) -> [Float] {
+public func log10<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
     var results = [Float](x)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvlog10f(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvlog10f(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func log10(_ x: [Double]) -> [Double] {
+public func log10<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
     var results = [Double](x)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvlog10(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvlog10(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
 // MARK: Logarithmic Exponentiation
 
-public func logb(_ x: [Float]) -> [Float] {
+public func logb<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
     var results = [Float](x)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvlogbf(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvlogbf(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
 
-public func logb(_ x: [Double]) -> [Double] {
+public func logb<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
     var results = [Double](x)
-    results.withUnsafeMutableBufferPointer { bufferPointer in
-        vvlogb(bufferPointer.baseAddress!, x, [Int32(x.count)])
+    results.withUnsafeMutableBufferPointer { rbp in
+        withUnsafePointersAndCountsTo(x) { xp, xc in
+            vvlogb(rbp.baseAddress!, xp, [Int32(xc)])
+        }
     }
-
     return results
 }
