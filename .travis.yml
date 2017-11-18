@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9
+osx_image: xcode9.1
 
 script:
   - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge-iOS -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.1'
