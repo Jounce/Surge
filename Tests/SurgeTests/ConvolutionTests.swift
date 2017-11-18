@@ -78,7 +78,7 @@ class ConvolutionTests: XCTestCase {
         XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(b1d, b2d), b3d, doubleAccuracy)
         XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(c1d, c2d), c3d, doubleAccuracy)
         XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(d1d, d2d), d3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray:  conv(e1d, e2d), e3d, doubleAccuracy)
+        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(e1d, e2d), e3d, doubleAccuracy)
     }
 
     // MARK: Cross-Correlation - Float
