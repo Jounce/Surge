@@ -176,6 +176,28 @@ public func add(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func sub(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with subtraction")
+
+    var results = y
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        catlas_saxpby(Int32(x.grid.count), 1.0, x.grid, 1, -1, pointer.baseAddress!, 1)
+    }
+
+    return results
+}
+
+public func sub(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with subtraction")
+
+    var results = y
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        catlas_daxpby(Int32(x.grid.count), 1.0, x.grid, 1, -1, pointer.baseAddress!, 1)
+    }
+
+    return results
+}
+
 public func mul(_ alpha: Float, _ x: Matrix<Float>) -> Matrix<Float> {
     var results = x
     results.grid.withUnsafeMutableBufferPointer { pointer in
@@ -357,6 +379,14 @@ public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 
 public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return add(lhs, rhs)
+}
+
+public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    return sub(lhs, rhs)
+}
+
+public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    return sub(lhs, rhs)
 }
 
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {

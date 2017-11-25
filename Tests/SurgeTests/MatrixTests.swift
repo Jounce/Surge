@@ -58,6 +58,16 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(pow(matrix, 2), expectedResult)
     }
 
+    func testMatrixAddition() {
+        let expectedResult: Matrix<Double> = Matrix<Double>([[2, 4, 6, 8], [10, 12, 14, 16], [18, 20, 22, 24]])
+        XCTAssertEqual(matrix + matrix, expectedResult)
+    }
+
+    func testMatrixSubtraction() {
+        let expectedResult: Matrix<Double> = Matrix<Double>([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
+        XCTAssertEqual(matrix - matrix, expectedResult)
+    }
+
     func testElementWiseMultiplication() {
         let matrix2 = Matrix<Double>([[2, 3, 4, 5], [6, 7, 8, 9], [10, 11, 12, 13]])
         XCTAssertEqual(elmul(matrix, matrix2), Matrix<Double>([[2, 6, 12, 20], [30, 42, 56, 72], [90, 110, 132, 156]]))
