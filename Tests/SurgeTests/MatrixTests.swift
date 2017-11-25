@@ -1,5 +1,4 @@
-// Created by Wenbin Zhang on 2/13/16.
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2016 Wenbin Zhang, Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import XCTest
 @testable import Surge
+import XCTest
 
 class MatrixTests: XCTestCase {
 
@@ -46,7 +45,7 @@ class MatrixTests: XCTestCase {
 
     func testSetRow() {
         matrix[row: 0] = [13.0, 14.0, 15.0, 16.0]
-        XCTAssertTrue(matrix==Matrix<Double>([[13, 14, 15, 16], [5, 6, 7, 8], [9, 10, 11, 12]]))
+        XCTAssertTrue(matrix == Matrix<Double>([[13, 14, 15, 16], [5, 6, 7, 8], [9, 10, 11, 12]]))
     }
 
     func testSetColumn() {

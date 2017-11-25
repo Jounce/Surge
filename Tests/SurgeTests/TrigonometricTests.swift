@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,35 +23,35 @@ import Surge
 import XCTest
 
 class TrigonometricTests: XCTestCase {
-    let n = 10000
+    let n = 10_000
 
     func test_sin() {
         let values = (0...n).map { _ in drand48() * Double.pi }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sin, mapped: sin, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sin, mapped: sin, accuracy: 1e-4)
     }
 
     func test_cos() {
         let values = (0...n).map { _ in drand48() * Double.pi }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: cos, mapped: cos, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: cos, mapped: cos, accuracy: 1e-4)
     }
 
     func test_tan() {
         let values = (0...n).map { _ in drand48() * Double.pi }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: tan, mapped: tan, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: tan, mapped: tan, accuracy: 1e-4)
     }
 
     func test_asin() {
         let values = (0...n).map { _ in drand48() }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: asin, mapped: asin, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: asin, mapped: asin, accuracy: 1e-4)
     }
 
     func test_acos() {
         let values = (0...n).map { _ in drand48() }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: acos, mapped: acos, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: acos, mapped: acos, accuracy: 1e-4)
     }
 
     func test_atan() {
         let values = (0...n).map { _ in drand48() }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: atan, mapped: atan, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: atan, mapped: atan, accuracy: 1e-4)
     }
 }

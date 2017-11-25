@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,15 +23,15 @@ import Surge
 import XCTest
 
 class ExponentialTests: XCTestCase {
-    let n = 10000
+    let n = 10_000
 
     func test_exp() {
         let values = (0...n).map { _ in Double(arc4random_uniform(10)) }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp, mapped: exp, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp, mapped: exp, accuracy: 1e-4)
     }
 
     func test_exp2() {
         let values = (0...n).map { _ in Double(arc4random_uniform(10)) }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp2, mapped: exp2, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: exp2, mapped: exp2, accuracy: 1e-4)
     }
 }

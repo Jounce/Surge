@@ -1,5 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
-// Copyright (c) 2015-2016 Remy Prechelt
+// Copyright © 2016 Remy Prechelt, Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +23,8 @@ import Surge
 import XCTest
 
 class ConvolutionTests: XCTestCase {
-    let floatAccuracy: Float = 0.00000001
-    let doubleAccuracy: Double = 0.00000000001
+    let floatAccuracy: Float = 1e-8
+    let doubleAccuracy: Double = 1e-11
 
     // MARK: Test Arrays - Float
     let a1f: [Float] = [0, 0, 1, 0, 0]

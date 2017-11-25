@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@ import Surge
 import XCTest
 
 class AuxiliaryTests: XCTestCase {
-    let n = 10000
+    let n = 10_000
 
     func test_copysign() {
         let signs = Array((0..<n).map({ $0 % 2 == 0 ? 1.0 : -1.0 }))

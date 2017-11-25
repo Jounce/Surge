@@ -1,4 +1,4 @@
-// Copyright (c) 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@ import Surge
 import XCTest
 
 class ArithmeticTests: XCTestCase {
-    let n = 100000
+    let n = 100_000
 
     func test_sum() {
         let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
@@ -57,7 +57,7 @@ class ArithmeticTests: XCTestCase {
 
     func test_sqrt() {
         let values = (0...n).map { _ in Double(arc4random()) }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sqrt, mapped: sqrt, accuracy: 0.0001)
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sqrt, mapped: sqrt, accuracy: 1e-4)
     }
 
     func test_sqrt_empty() {

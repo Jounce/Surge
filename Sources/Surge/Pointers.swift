@@ -1,4 +1,4 @@
-// Copyright (c) 2017 Alejandro Isaza
+// Copyright © 2017 Alejandro Isaza
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 @discardableResult
 public func withUnsafeBufferPointersTo<A: ContinuousCollection, Result>(_ a: A, body: (UnsafeBufferPointer<A.Element>) throws -> Result) rethrows -> Result {
     return try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A.Element>) throws -> Result in
-        return try body(a)
+        try body(a)
     }
 }
 
@@ -84,8 +84,8 @@ public func withUnsafeMutablePointersTo<A, B, Result>(_ a: inout A, _ b: inout B
 @discardableResult
 public func withUnsafeBufferPointersTo<A: ContinuousCollection, B: ContinuousCollection, Result>(_ a: A, _ b: B, body: (UnsafeBufferPointer<A.Element>, UnsafeBufferPointer<B.Element>) throws -> Result) rethrows -> Result {
     return try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A.Element>) throws -> Result in
-        return try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B.Element>) throws -> Result in
-            return try body(a, b)
+        try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B.Element>) throws -> Result in
+            try body(a, b)
         }
     }
 }
@@ -96,8 +96,8 @@ public func withUnsafeBufferPointersTo<A: ContinuousCollection, B: ContinuousCol
 @discardableResult
 public func withUnsafeMutableBufferPointersTo<A: ContinuousMutableCollection, B: ContinuousMutableCollection, Result>(_ a: inout A, _ b: inout B, body: (UnsafeMutableBufferPointer<A.Element>, UnsafeMutableBufferPointer<B.Element>) throws -> Result) rethrows -> Result {
     return try a.withUnsafeMutableBufferPointer { (a: inout UnsafeMutableBufferPointer<A.Element>) throws -> Result in
-        return try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B.Element>) throws -> Result in
-            return try body(a, b)
+        try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B.Element>) throws -> Result in
+            try body(a, b)
         }
     }
 }
@@ -164,9 +164,9 @@ public func withUnsafeMutablePointersTo<A, B, C, Result>(_ a: inout A, _ b: inou
 @discardableResult
 public func withUnsafeBufferPointersTo<A: ContinuousCollection, B: ContinuousCollection, C: ContinuousCollection, Result>(_ a: A, _ b: B, _ c: inout C, body: (UnsafeBufferPointer<A.Element>, UnsafeBufferPointer<B.Element>, UnsafeBufferPointer<C.Element>) throws -> Result) rethrows -> Result {
     return try a.withUnsafeBufferPointer { (a: UnsafeBufferPointer<A.Element>) throws -> Result in
-        return try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B.Element>) throws -> Result in
-            return try c.withUnsafeBufferPointer { (c: UnsafeBufferPointer<C.Element>) throws -> Result in
-                return try body(a, b, c)
+        try b.withUnsafeBufferPointer { (b: UnsafeBufferPointer<B.Element>) throws -> Result in
+            try c.withUnsafeBufferPointer { (c: UnsafeBufferPointer<C.Element>) throws -> Result in
+                try body(a, b, c)
             }
         }
     }
@@ -178,9 +178,9 @@ public func withUnsafeBufferPointersTo<A: ContinuousCollection, B: ContinuousCol
 @discardableResult
 public func withUnsafeMutableBufferPointersTo<A: ContinuousMutableCollection, B: ContinuousMutableCollection, C: ContinuousMutableCollection, Result>(_ a: inout A, _ b: inout B, _ c: inout C, body: (UnsafeMutableBufferPointer<A.Element>, UnsafeMutableBufferPointer<B.Element>, UnsafeMutableBufferPointer<C.Element>) throws -> Result) rethrows -> Result {
     return try a.withUnsafeMutableBufferPointer { (a: inout UnsafeMutableBufferPointer<A.Element>) throws -> Result in
-        return try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B.Element>) throws -> Result in
-            return try c.withUnsafeMutableBufferPointer { (c: inout UnsafeMutableBufferPointer<C.Element>) throws -> Result in
-                return try body(a, b, c)
+        try b.withUnsafeMutableBufferPointer { (b: inout UnsafeMutableBufferPointer<B.Element>) throws -> Result in
+            try c.withUnsafeMutableBufferPointer { (c: inout UnsafeMutableBufferPointer<C.Element>) throws -> Result in
+                try body(a, b, c)
             }
         }
     }
