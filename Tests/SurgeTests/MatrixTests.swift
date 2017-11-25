@@ -22,6 +22,8 @@
 import XCTest
 
 class MatrixTests: XCTestCase {
+    let floatAccuracy: Float = 1e-8
+    let doubleAccuracy: Double = 1e-11
 
     var matrix: Matrix<Double> = Matrix<Double>([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
 
@@ -71,5 +73,15 @@ class MatrixTests: XCTestCase {
     func testElementWiseMultiplication() {
         let matrix2 = Matrix<Double>([[2, 3, 4, 5], [6, 7, 8, 9], [10, 11, 12, 13]])
         XCTAssertEqual(elmul(matrix, matrix2), Matrix<Double>([[2, 6, 12, 20], [30, 42, 56, 72], [90, 110, 132, 156]]))
+    }
+
+    func testDeterminantFloat() {
+        let matrix = Matrix<Float>([[1, 2], [5, 6]])
+        XCTAssertEqual(det(matrix)!, Float(6 - 10), accuracy: floatAccuracy)
+    }
+
+    func testDeterminantDouble() {
+        let matrix = Matrix<Double>([[-4, -5], [5, 6]])
+        XCTAssertEqual(det(matrix)!, Double(-24 + 25), accuracy: doubleAccuracy)
     }
 }

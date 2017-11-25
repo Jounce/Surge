@@ -371,6 +371,62 @@ public func transpose(_ x: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+/// Computes the matrix determinant.
+public func det(_ x: Matrix<Float>) -> Float? {
+    var decomposed = x
+    var pivots = [__CLPK_integer](repeating: 0, count: min(x.rows, x.columns))
+    var info = __CLPK_integer()
+    var m = __CLPK_integer(x.rows)
+    var n = __CLPK_integer(x.columns)
+    withUnsafeMutableBufferPointersTo(&pivots, &(decomposed.grid)) { ipiv, grid in
+        withUnsafeMutablePointersTo(&m, &n, &info) { m, n, info in
+            sgetrf_(m, n, grid.baseAddress!, m, ipiv.baseAddress!, info)
+        }
+    }
+
+    if info != 0 {
+        return nil
+    }
+
+    var det = 1 as Float
+    for (i, p) in zip(pivots.indices, pivots) {
+        if p != i + 1 {
+            det = -det * decomposed[i, i]
+        } else {
+            det = det * decomposed[i, i]
+        }
+    }
+    return det
+}
+
+/// Computes the matrix determinant.
+public func det(_ x: Matrix<Double>) -> Double? {
+    var decomposed = x
+    var pivots = [__CLPK_integer](repeating: 0, count: min(x.rows, x.columns))
+    var info = __CLPK_integer()
+    var m = __CLPK_integer(x.rows)
+    var n = __CLPK_integer(x.columns)
+    withUnsafeMutableBufferPointersTo(&pivots, &(decomposed.grid)) { ipiv, grid in
+        withUnsafeMutablePointersTo(&m, &n, &info) { m, n, info in
+            dgetrf_(m, n, grid.baseAddress!, m, ipiv.baseAddress!, info)
+        }
+    }
+
+    if info != 0 {
+        return nil
+    }
+
+    var det = 1 as Double
+    for (i, p) in zip(pivots.indices, pivots) {
+        if p != i + 1 {
+            det = -det * decomposed[i, i]
+        } else {
+            det = det * decomposed[i, i]
+        }
+    }
+    return det
+}
+
 // MARK: - Operators
 
 public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
