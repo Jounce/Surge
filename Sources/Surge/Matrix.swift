@@ -221,7 +221,7 @@ public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
 
     var results = Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, pointer.baseAddress!, Int32(results.columns))
+        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, pointer.baseAddress!, Int32(y.columns))
     }
 
     return results
@@ -232,7 +232,7 @@ public func mul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
 
     var results = Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, pointer.baseAddress!, Int32(results.columns))
+        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, pointer.baseAddress!, Int32(y.columns))
     }
 
     return results
@@ -356,7 +356,7 @@ public func inv(_ x: Matrix<Double>) -> Matrix<Double> {
 public func transpose(_ x: Matrix<Float>) -> Matrix<Float> {
     var results = Matrix<Float>(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        vDSP_mtrans(x.grid, 1, pointer.baseAddress!, 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
+        vDSP_mtrans(x.grid, 1, pointer.baseAddress!, 1, vDSP_Length(x.columns), vDSP_Length(x.rows))
     }
 
     return results
@@ -365,7 +365,7 @@ public func transpose(_ x: Matrix<Float>) -> Matrix<Float> {
 public func transpose(_ x: Matrix<Double>) -> Matrix<Double> {
     var results = Matrix<Double>(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        vDSP_mtransD(x.grid, 1, pointer.baseAddress!, 1, vDSP_Length(results.rows), vDSP_Length(results.columns))
+        vDSP_mtransD(x.grid, 1, pointer.baseAddress!, 1, vDSP_Length(x.columns), vDSP_Length(x.rows))
     }
 
     return results
