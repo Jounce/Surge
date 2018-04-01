@@ -1,4 +1,4 @@
-// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014-2018 the Surge contributors
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +22,21 @@ import Accelerate
 
 // MARK: Sum
 
-public func sum<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
+public func sum<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count -> Void in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_sve(x, 1, pointer, vDSP_Length(count))
+            vDSP_sve(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
 }
 
-public func sum<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
+public func sum<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == Double {
     var result: Double = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_sveD(x, 1, pointer, vDSP_Length(count))
+            vDSP_sveD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
@@ -44,41 +44,35 @@ public func sum<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Elem
 
 // MARK: Sum of Absolute Values
 
-public func asum<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
-    return x.withUnsafeBufferPointer { bufferPointer in
-        guard let x = bufferPointer.baseAddress else {
-            return 0
-        }
-        return cblas_sasum(Int32(bufferPointer.count), x, 1)
+public func asum<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
+    return x.withUnsafeMemory { xm in
+        cblas_sasum(numericCast(xm.count), xm.pointer, numericCast(xm.stride))
     }
 }
 
-public func asum<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
-    return x.withUnsafeBufferPointer { bufferPointer in
-        guard let x = bufferPointer.baseAddress else {
-            return 0
-        }
-        return cblas_dasum(Int32(bufferPointer.count), x, 1)
+public func asum<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == Double {
+    return x.withUnsafeMemory { xm in
+        cblas_dasum(numericCast(xm.count), xm.pointer, numericCast(xm.stride))
     }
 }
 
 // MARK: Sum of Square Values
 
-public func sumsq<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
+public func sumsq<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_svesq(x, 1, pointer, vDSP_Length(count))
+            vDSP_svesq(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
 }
 
-public func sumsq<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
+public func sumsq<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == Double {
     var result: Double = 0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_svesqD(x, 1, pointer, vDSP_Length(count))
+            vDSP_svesqD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
@@ -86,21 +80,21 @@ public func sumsq<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.El
 
 // MARK: Maximum
 
-public func max<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
+public func max<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_maxv(x, 1, pointer, vDSP_Length(count))
+            vDSP_maxv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
 }
 
-public func max<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
+public func max<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == Double {
     var result: Double = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_maxvD(x, 1, pointer, vDSP_Length(count))
+            vDSP_maxvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
@@ -108,21 +102,21 @@ public func max<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Elem
 
 // MARK: Minimum
 
-public func min<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
+public func min<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_minv(x, 1, pointer, vDSP_Length(count))
+            vDSP_minv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
 }
 
-public func min<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
+public func min<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == Double {
     var result: Double = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_minvD(x, 1, pointer, vDSP_Length(count))
+            vDSP_minvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
@@ -130,21 +124,21 @@ public func min<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Elem
 
 // MARK: Mean
 
-public func mean<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
+public func mean<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_meanv(x, 1, pointer, vDSP_Length(count))
+            vDSP_meanv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
 }
 
-public func mean<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
+public func mean<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == Double {
     var result: Double = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_meanvD(x, 1, pointer, vDSP_Length(count))
+            vDSP_meanvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
@@ -152,21 +146,21 @@ public func mean<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Ele
 
 // MARK: Mean Magnitude
 
-public func meamg<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
+public func meamg<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_meamgv(x, 1, pointer, vDSP_Length(count))
+            vDSP_meamgv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
 }
 
-public func meamg<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
+public func meamg<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == Double {
     var result: Double = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_meamgvD(x, 1, pointer, vDSP_Length(count))
+            vDSP_meamgvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
@@ -174,21 +168,21 @@ public func meamg<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.El
 
 // MARK: Mean Square Value
 
-public func measq<C: ContinuousCollection>(_ x: C) -> Float where C.Iterator.Element == Float {
+public func measq<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_measqv(x, 1, pointer, vDSP_Length(count))
+            vDSP_measqv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
 }
 
-public func measq<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.Element == Double {
+public func measq<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == Double {
     var result: Double = 0.0
-    withUnsafePointersAndCountsTo(x) { x, count in
+    x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_measqvD(x, 1, pointer, vDSP_Length(count))
+            vDSP_measqvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
         }
     }
     return result
@@ -196,21 +190,21 @@ public func measq<C: ContinuousCollection>(_ x: C) -> Double where C.Iterator.El
 
 // MARK: Add
 
-public func add<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
+public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
     var results = [Float](y)
-    x.withUnsafeBufferPointer { xbp in
+    x.withUnsafeMemory { xm in
         results.withUnsafeMutableBufferPointer { rbp in
-            cblas_saxpy(Int32(xbp.count), 1.0, xbp.baseAddress, 1, rbp.baseAddress, 1)
+            cblas_saxpy(numericCast(xm.count), 1.0, xm.pointer, numericCast(xm.stride), rbp.baseAddress, 1)
         }
     }
     return results
 }
 
-public func add<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
+public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
     var results = [Double](y)
-    x.withUnsafeBufferPointer { xbp in
+    x.withUnsafeMemory { xm in
         results.withUnsafeMutableBufferPointer { rbp in
-            cblas_daxpy(Int32(xbp.count), 1.0, xbp.baseAddress, 1, rbp.baseAddress, 1)
+            cblas_daxpy(numericCast(xm.count), 1.0, xm.pointer, numericCast(xm.stride), rbp.baseAddress, 1)
         }
     }
     return results
@@ -218,21 +212,21 @@ public func add<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y
 
 // MARK: Subtraction
 
-public func sub<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
+public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
     var results = [Float](y)
-    x.withUnsafeBufferPointer { xbp in
+    x.withUnsafeMemory { xm in
         results.withUnsafeMutableBufferPointer { rbp in
-            catlas_saxpby(Int32(xbp.count), 1.0, xbp.baseAddress, 1, -1, rbp.baseAddress, 1)
+            catlas_saxpby(numericCast(xm.count), 1.0, xm.pointer, numericCast(xm.stride), -1, rbp.baseAddress, 1)
         }
     }
     return results
 }
 
-public func sub<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
+public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
     var results = [Double](y)
-    x.withUnsafeBufferPointer { xbp in
+    x.withUnsafeMemory { xm in
         results.withUnsafeMutableBufferPointer { rbp in
-            catlas_daxpby(Int32(xbp.count), 1.0, xbp.baseAddress, 1, -1, rbp.baseAddress, 1)
+            catlas_daxpby(numericCast(xm.count), 1.0, xm.pointer, numericCast(xm.stride), -1, rbp.baseAddress, 1)
         }
     }
     return results
@@ -240,281 +234,283 @@ public func sub<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y
 
 // MARK: Multiply
 
-public func mul<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    return withUnsafeMemory(x, y) { xm, ym in
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vmul(xp, 1, yp, 1, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+            vDSP_vmul(xm.pointer, xm.stride, ym.pointer, ym.stride, rbp.baseAddress!, 1, numericCast(xm.count))
         }
+        return results
     }
-    return results
 }
 
-public func mul<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    return withUnsafeMemory(x, y) { xm, ym in
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vmulD(xp, 1, yp, 1, rbp.baseAddress!, 1, vDSP_Length(xbp.count))
+            vDSP_vmulD(xm.pointer, xm.stride, ym.pointer, ym.stride, rbp.baseAddress!, 1, numericCast(xm.count))
         }
+        return results
     }
-    return results
 }
 
 // MARK: Divide
 
-public func div<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+/// Elemen-wise vector division.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vvdivf(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+            vvdivf(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func div<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+/// Elemen-wise vector division.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vvdiv(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+            vvdiv(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Modulo
 
-public func mod<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+/// Elemen-wise modulo.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vvfmodf(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+            vvfmodf(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func mod<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+/// Elemen-wise modulo.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vvfmod(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+            vvfmod(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Remainder
 
-public func remainder<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+/// Elemen-wise remainder.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vvremainderf(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+            vvremainderf(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func remainder<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+/// Elemen-wise remainder.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vvremainder(rbp.baseAddress!, xp, yp, [Int32(xbp.count)])
+            vvremainder(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Square Root
 
-public func sqrt<C: ContinuousCollection>(_ x: C) -> [Float] where C.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    withUnsafePointersAndCountsTo(x) { x, count in
+/// Elemen-wise square root.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func sqrt<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { bufferPointer in
-            vvsqrtf(bufferPointer.baseAddress!, x, [Int32(count)])
+            vvsqrtf(bufferPointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func sqrt<C: ContinuousCollection>(_ x: C) -> [Double] where C.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    withUnsafePointersAndCountsTo(x) { x, count in
+/// Elemen-wise square root.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func sqrt<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { bufferPointer in
-            vvsqrt(bufferPointer.baseAddress!, x, [Int32(count)])
+            vvsqrt(bufferPointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Dot Product
 
-public func dot<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Float where X.Iterator.Element == Float, Y.Iterator.Element == Float {
-    precondition(x.count == y.count, "Vectors must have equal count")
+public func dot<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Float where X.Element == Float, Y.Element == Float {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.count == ym.count, "Vectors must have equal count")
 
-    var result: Float = 0.0
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+        var result: Float = 0.0
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_dotpr(xp, 1, yp, 1, pointer, vDSP_Length(xbp.count))
+            vDSP_dotpr(xm.pointer, xm.stride, ym.pointer, ym.stride, pointer, numericCast(xm.count))
         }
-    }
 
-    return result
+        return result
+    }
 }
 
-public func dot<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Double where X.Iterator.Element == Double, Y.Iterator.Element == Double {
-    precondition(x.count == y.count, "Vectors must have equal count")
+public func dot<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Double where X.Element == Double, Y.Element == Double {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.count == ym.count, "Vectors must have equal count")
 
-    var result: Double = 0.0
-    withUnsafeBufferPointersTo(x, y) { xbp, ybp in
-        guard let xp = xbp.baseAddress, let yp = ybp.baseAddress else {
-            return
-        }
+        var result: Double = 0.0
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_dotprD(xp, 1, yp, 1, pointer, vDSP_Length(xbp.count))
+            vDSP_dotprD(xm.pointer, xm.stride, ym.pointer, ym.stride, pointer, numericCast(xm.count))
         }
-    }
 
-    return result
+        return result
+    }
 }
 
 // MARK: - Distance
 
-public func dist<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Float where X.Iterator.Element == Float, Y.Iterator.Element == Float {
+public func dist<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Float where X.Element == Float, Y.Element == Float {
     precondition(x.count == y.count, "Vectors must have equal count")
     let sub = x - y
     var squared = [Float](repeating: 0.0, count: numericCast(x.count))
     squared.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vsq(sub, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+        vDSP_vsq(sub, 1, bufferPointer.baseAddress!, 1, numericCast(x.count))
     }
     return sqrt(sum(squared))
 }
 
-public func dist<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> Double where X.Iterator.Element == Double, Y.Iterator.Element == Double {
+public func dist<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Double where X.Element == Double, Y.Element == Double {
     precondition(x.count == y.count, "Vectors must have equal count")
     let sub = x - y
     var squared = [Double](repeating: 0.0, count: numericCast(x.count))
     squared.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vsqD(sub, 1, bufferPointer.baseAddress!, 1, vDSP_Length(x.count))
+        vDSP_vsqD(sub, 1, bufferPointer.baseAddress!, 1, numericCast(x.count))
     }
     return sqrt(sum(squared))
 }
 
 // MARK: - Operators
 
-public func + <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
+public func + <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
     return add(lhs, rhs)
 }
 
-public func + <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
+public func + <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
     return add(lhs, rhs)
 }
 
-public func + <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
     return add(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func + <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
     return add(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func - <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
+public func - <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
     return sub(lhs, rhs)
 }
 
-public func - <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
+public func - <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
     return sub(lhs, rhs)
 }
 
-public func - <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+public func - <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
     return sub(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func - <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+public func - <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
     return sub(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func / <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
+public func / <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
     return div(lhs, rhs)
 }
 
-public func / <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
+public func / <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
     return div(lhs, rhs)
 }
 
-public func / <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+public func / <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
     return div(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func / <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+public func / <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
     return div(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func * <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
+public func * <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
     return mul(lhs, rhs)
 }
 
-public func * <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
+public func * <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
     return mul(lhs, rhs)
 }
 
-public func * <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
     return mul(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func * <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
     return mul(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func % <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Float] where L.Iterator.Element == Float, R.Iterator.Element == Float {
+public func % <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
     return mod(lhs, rhs)
 }
 
-public func % <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> [Double] where L.Iterator.Element == Double, R.Iterator.Element == Double {
+public func % <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
     return mod(lhs, rhs)
 }
 
-public func % <L: ContinuousCollection>(lhs: L, rhs: Float) -> [Float] where L.Iterator.Element == Float {
+public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
     return mod(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
 }
 
-public func % <L: ContinuousCollection>(lhs: L, rhs: Double) -> [Double] where L.Iterator.Element == Double {
+public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
     return mod(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
 infix operator •
-public func • <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> Double where L.Iterator.Element == Double, R.Iterator.Element == Double {
+public func • <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> Double where L.Element == Double, R.Element == Double {
     return dot(lhs, rhs)
 }
 
-public func • <L: ContinuousCollection, R: ContinuousCollection>(lhs: L, rhs: R) -> Float where L.Iterator.Element == Float, R.Iterator.Element == Float {
+public func • <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> Float where L.Element == Float, R.Element == Float {
     return dot(lhs, rhs)
 }

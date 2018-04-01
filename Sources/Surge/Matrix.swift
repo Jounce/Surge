@@ -1,4 +1,4 @@
-// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014-2018 the Surge contributors
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -318,10 +318,10 @@ public func inv(_ x: Matrix<Float>) -> Matrix<Float> {
     var error: __CLPK_integer = 0
     var nc = __CLPK_integer(x.columns)
 
-    withUnsafeMutableBufferPointersTo(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
-        withUnsafeMutablePointersTo(&nc, &lwork, &error) { nc, lwork, error in
-            sgetrf_(nc, nc, grid.baseAddress!, nc, ipiv.baseAddress!, error)
-            sgetri_(nc, grid.baseAddress!, nc, ipiv.baseAddress!, work.baseAddress!, lwork, error)
+    withUnsafeMutablePointers(&nc, &lwork, &error) { nc, lwork, error in
+        withUnsafeMutableMemory(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
+            sgetrf_(nc, nc, grid.pointer, nc, ipiv.pointer, error)
+            sgetri_(nc, grid.pointer, nc, ipiv.pointer, work.pointer, lwork, error)
         }
     }
 
@@ -341,10 +341,10 @@ public func inv(_ x: Matrix<Double>) -> Matrix<Double> {
     var error: __CLPK_integer = 0
     var nc = __CLPK_integer(x.columns)
 
-    withUnsafeMutableBufferPointersTo(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
-        withUnsafeMutablePointersTo(&nc, &lwork, &error) { nc, lwork, error in
-            dgetrf_(nc, nc, grid.baseAddress!, nc, ipiv.baseAddress!, error)
-            dgetri_(nc, grid.baseAddress!, nc, ipiv.baseAddress!, work.baseAddress!, lwork, error)
+    withUnsafeMutablePointers(&nc, &lwork, &error) { nc, lwork, error in
+        withUnsafeMutableMemory(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
+            dgetrf_(nc, nc, grid.pointer, nc, ipiv.pointer, error)
+            dgetri_(nc, grid.pointer, nc, ipiv.pointer, work.pointer, lwork, error)
         }
     }
 
@@ -378,9 +378,9 @@ public func det(_ x: Matrix<Float>) -> Float? {
     var info = __CLPK_integer()
     var m = __CLPK_integer(x.rows)
     var n = __CLPK_integer(x.columns)
-    withUnsafeMutableBufferPointersTo(&pivots, &(decomposed.grid)) { ipiv, grid in
-        withUnsafeMutablePointersTo(&m, &n, &info) { m, n, info in
-            sgetrf_(m, n, grid.baseAddress!, m, ipiv.baseAddress!, info)
+    _ = withUnsafeMutableMemory(&pivots, &(decomposed.grid)) { ipiv, grid in
+        withUnsafeMutablePointers(&m, &n, &info) { m, n, info in
+            sgetrf_(m, n, grid.pointer, m, ipiv.pointer, info)
         }
     }
 
@@ -406,9 +406,9 @@ public func det(_ x: Matrix<Double>) -> Double? {
     var info = __CLPK_integer()
     var m = __CLPK_integer(x.rows)
     var n = __CLPK_integer(x.columns)
-    withUnsafeMutableBufferPointersTo(&pivots, &(decomposed.grid)) { ipiv, grid in
-        withUnsafeMutablePointersTo(&m, &n, &info) { m, n, info in
-            dgetrf_(m, n, grid.baseAddress!, m, ipiv.baseAddress!, info)
+    _ = withUnsafeMutableMemory(&pivots, &(decomposed.grid)) { ipiv, grid in
+        withUnsafeMutablePointers(&m, &n, &info) { m, n, info in
+            dgetrf_(m, n, grid.pointer, m, ipiv.pointer, info)
         }
     }
 

@@ -19,7 +19,6 @@
 		614AD33F1FC0AF72002BFE1C /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394521F762B58002A4AD2 /* Pointers.swift */; };
 		614AD3401FC0AF72002BFE1C /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
 		614AD3411FC0AF72002BFE1C /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394551F762B58002A4AD2 /* Trigonometric.swift */; };
-		614AD3421FC0AF72002BFE1C /* ContinuousCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394E31F76D3ED002A4AD2 /* ContinuousCollection.swift */; };
 		614AD3431FC0AF77002BFE1C /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */; };
 		614AD3441FC0AF77002BFE1C /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */; };
 		614AD3451FC0AF77002BFE1C /* ConvolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */; };
@@ -41,7 +40,6 @@
 		614AD3701FC0B0CC002BFE1C /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394521F762B58002A4AD2 /* Pointers.swift */; };
 		614AD3711FC0B0CC002BFE1C /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
 		614AD3721FC0B0CC002BFE1C /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394551F762B58002A4AD2 /* Trigonometric.swift */; };
-		614AD3731FC0B0CC002BFE1C /* ContinuousCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394E31F76D3ED002A4AD2 /* ContinuousCollection.swift */; };
 		614AD3741FC0B0D2002BFE1C /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */; };
 		614AD3751FC0B0D2002BFE1C /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */; };
 		614AD3761FC0B0D2002BFE1C /* ConvolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */; };
@@ -62,7 +60,6 @@
 		614AD3921FC0B134002BFE1C /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394521F762B58002A4AD2 /* Pointers.swift */; };
 		614AD3931FC0B134002BFE1C /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
 		614AD3941FC0B134002BFE1C /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394551F762B58002A4AD2 /* Trigonometric.swift */; };
-		614AD3951FC0B134002BFE1C /* ContinuousCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394E31F76D3ED002A4AD2 /* ContinuousCollection.swift */; };
 		615394561F762B59002A4AD2 /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944B1F762B58002A4AD2 /* Arithmetic.swift */; };
 		615394571F762B59002A4AD2 /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944C1F762B58002A4AD2 /* Auxiliary.swift */; };
 		615394581F762B59002A4AD2 /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944D1F762B58002A4AD2 /* Convolution.swift */; };
@@ -74,7 +71,6 @@
 		6153945E1F762B59002A4AD2 /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
 		6153945F1F762B59002A4AD2 /* Surge.h in Headers */ = {isa = PBXBuildFile; fileRef = 615394541F762B58002A4AD2 /* Surge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		615394601F762B59002A4AD2 /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394551F762B58002A4AD2 /* Trigonometric.swift */; };
-		615394E41F76D3ED002A4AD2 /* ContinuousCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394E31F76D3ED002A4AD2 /* ContinuousCollection.swift */; };
 		61A0AD761F70D22600B99FFB /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */; };
 		61A0AD771F70D22600B99FFB /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */; };
 		61A0AD781F70D22600B99FFB /* ConvolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */; };
@@ -84,6 +80,22 @@
 		61A0AD7C1F70D22600B99FFB /* PowerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD731F70D22600B99FFB /* PowerTests.swift */; };
 		61A0AD7D1F70D22600B99FFB /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */; };
 		61A0AD7E1F70D22600B99FFB /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */; };
+		61E930B8207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
+		61E930B9207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
+		61E930BA207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
+		61E930BB207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
+		61E930BD2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */; };
+		61E930BE2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */; };
+		61E930BF2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */; };
+		61E930C02070104600694FCB /* ArrayUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */; };
+		61E930C22070B69300694FCB /* UnsafeMutableMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */; };
+		61E930C32070B69300694FCB /* UnsafeMutableMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */; };
+		61E930C42070B69300694FCB /* UnsafeMutableMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */; };
+		61E930C52070B69300694FCB /* UnsafeMutableMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */; };
+		61E930C82070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
+		61E930C92070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
+		61E930CA2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
+		61E930CB2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
 		F8A1E1D519917C25009735E2 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A1E1D219917C0B009735E2 /* Accelerate.framework */; };
 		F8A1E1D719917C2B009735E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A1E1D619917C2B009735E2 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -132,7 +144,6 @@
 		615394531F762B58002A4AD2 /* Power.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
 		615394541F762B58002A4AD2 /* Surge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Surge.h; sourceTree = "<group>"; };
 		615394551F762B58002A4AD2 /* Trigonometric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trigonometric.swift; sourceTree = "<group>"; };
-		615394E31F76D3ED002A4AD2 /* ContinuousCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousCollection.swift; sourceTree = "<group>"; };
 		61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArithmeticTests.swift; sourceTree = "<group>"; };
 		61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuxiliaryTests.swift; sourceTree = "<group>"; };
 		61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvolutionTests.swift; sourceTree = "<group>"; };
@@ -145,6 +156,10 @@
 		61A0AD7F1F70D99B00B99FFB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		61A0AD801F70D99B00B99FFB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		61A0AD811F70D99B00B99FFB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		61E930B7207002EA00694FCB /* UnsafeMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeMemory.swift; sourceTree = "<group>"; };
+		61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUnsafeMemory.swift; sourceTree = "<group>"; };
+		61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeMutableMemory.swift; sourceTree = "<group>"; };
+		61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArraySliceUnsafeMemory.swift; sourceTree = "<group>"; };
 		F84A6AAE19A9A72F007B53E1 /* SurgeTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurgeTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A1E1AA19917A79009735E2 /* Surge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Surge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A1E1D219917C0B009735E2 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -221,6 +236,8 @@
 			children = (
 				615394541F762B58002A4AD2 /* Surge.h */,
 				6153944B1F762B58002A4AD2 /* Arithmetic.swift */,
+				61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */,
+				61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */,
 				6153944C1F762B58002A4AD2 /* Auxiliary.swift */,
 				6153944D1F762B58002A4AD2 /* Convolution.swift */,
 				6153944E1F762B58002A4AD2 /* Exponential.swift */,
@@ -230,7 +247,8 @@
 				615394521F762B58002A4AD2 /* Pointers.swift */,
 				615394531F762B58002A4AD2 /* Power.swift */,
 				615394551F762B58002A4AD2 /* Trigonometric.swift */,
-				615394E31F76D3ED002A4AD2 /* ContinuousCollection.swift */,
+				61E930B7207002EA00694FCB /* UnsafeMemory.swift */,
+				61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */,
 			);
 			path = Surge;
 			sourceTree = "<group>";
@@ -660,6 +678,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				614AD33E1FC0AF72002BFE1C /* Matrix.swift in Sources */,
+				61E930C32070B69300694FCB /* UnsafeMutableMemory.swift in Sources */,
+				61E930C92070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */,
 				614AD3391FC0AF72002BFE1C /* Auxiliary.swift in Sources */,
 				614AD3411FC0AF72002BFE1C /* Trigonometric.swift in Sources */,
 				614AD3381FC0AF72002BFE1C /* Arithmetic.swift in Sources */,
@@ -667,9 +687,10 @@
 				614AD33A1FC0AF72002BFE1C /* Convolution.swift in Sources */,
 				614AD33F1FC0AF72002BFE1C /* Pointers.swift in Sources */,
 				614AD33C1FC0AF72002BFE1C /* FFT.swift in Sources */,
+				61E930BE2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
+				61E930B9207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				614AD3401FC0AF72002BFE1C /* Power.swift in Sources */,
 				614AD33B1FC0AF72002BFE1C /* Exponential.swift in Sources */,
-				614AD3421FC0AF72002BFE1C /* ContinuousCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +715,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				614AD36F1FC0B0CC002BFE1C /* Matrix.swift in Sources */,
+				61E930C42070B69300694FCB /* UnsafeMutableMemory.swift in Sources */,
+				61E930CA2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */,
 				614AD36A1FC0B0CC002BFE1C /* Auxiliary.swift in Sources */,
 				614AD3721FC0B0CC002BFE1C /* Trigonometric.swift in Sources */,
 				614AD3691FC0B0CC002BFE1C /* Arithmetic.swift in Sources */,
@@ -701,9 +724,10 @@
 				614AD36B1FC0B0CC002BFE1C /* Convolution.swift in Sources */,
 				614AD3701FC0B0CC002BFE1C /* Pointers.swift in Sources */,
 				614AD36D1FC0B0CC002BFE1C /* FFT.swift in Sources */,
+				61E930BF2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
+				61E930BA207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				614AD3711FC0B0CC002BFE1C /* Power.swift in Sources */,
 				614AD36C1FC0B0CC002BFE1C /* Exponential.swift in Sources */,
-				614AD3731FC0B0CC002BFE1C /* ContinuousCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,6 +752,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				614AD3911FC0B134002BFE1C /* Matrix.swift in Sources */,
+				61E930C52070B69300694FCB /* UnsafeMutableMemory.swift in Sources */,
+				61E930CB2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */,
 				614AD38C1FC0B134002BFE1C /* Auxiliary.swift in Sources */,
 				614AD3941FC0B134002BFE1C /* Trigonometric.swift in Sources */,
 				614AD38B1FC0B134002BFE1C /* Arithmetic.swift in Sources */,
@@ -735,9 +761,10 @@
 				614AD38D1FC0B134002BFE1C /* Convolution.swift in Sources */,
 				614AD3921FC0B134002BFE1C /* Pointers.swift in Sources */,
 				614AD38F1FC0B134002BFE1C /* FFT.swift in Sources */,
+				61E930C02070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
+				61E930BB207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				614AD3931FC0B134002BFE1C /* Power.swift in Sources */,
 				614AD38E1FC0B134002BFE1C /* Exponential.swift in Sources */,
-				614AD3951FC0B134002BFE1C /* ContinuousCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +789,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6153945C1F762B59002A4AD2 /* Matrix.swift in Sources */,
+				61E930C22070B69300694FCB /* UnsafeMutableMemory.swift in Sources */,
+				61E930C82070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */,
 				615394571F762B59002A4AD2 /* Auxiliary.swift in Sources */,
 				615394601F762B59002A4AD2 /* Trigonometric.swift in Sources */,
 				615394561F762B59002A4AD2 /* Arithmetic.swift in Sources */,
@@ -769,9 +798,10 @@
 				615394581F762B59002A4AD2 /* Convolution.swift in Sources */,
 				6153945D1F762B59002A4AD2 /* Pointers.swift in Sources */,
 				6153945A1F762B59002A4AD2 /* FFT.swift in Sources */,
+				61E930BD2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
+				61E930B8207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				6153945E1F762B59002A4AD2 /* Power.swift in Sources */,
 				615394591F762B59002A4AD2 /* Exponential.swift in Sources */,
-				615394E41F76D3ED002A4AD2 /* ContinuousCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,4 +1,4 @@
-// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014-2018 the Surge contributors
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,206 +22,242 @@ import Accelerate
 
 // MARK: Sine-Cosine
 
-public func sincos<X: ContinuousCollection>(_ x: X) -> (sin: [Float], cos: [Float]) where X.Iterator.Element == Float {
-    var sin = [Float](repeating: 0.0, count: numericCast(x.count))
-    var cos = [Float](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeMutableBufferPointersTo(&sin, &cos) { sin, cos in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvsincosf(sin.baseAddress!, cos.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func sincos<X: UnsafeMemoryAccessible>(_ x: X) -> (sin: [Float], cos: [Float]) where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var sin = [Float](repeating: 0.0, count: numericCast(xm.count))
+        var cos = [Float](repeating: 0.0, count: numericCast(xm.count))
+        withUnsafeMutableMemory(&sin, &cos) { sinm, cosm in
+            vvsincosf(sinm.pointer, cosm.pointer, xm.pointer, [numericCast(xm.count)])
         }
+        return (sin, cos)
     }
-    return (sin, cos)
 }
 
-public func sincos<X: ContinuousCollection>(_ x: X) -> (sin: [Double], cos: [Double]) where X.Iterator.Element == Double {
-    var sin = [Double](repeating: 0.0, count: numericCast(x.count))
-    var cos = [Double](repeating: 0.0, count: numericCast(x.count))
-    withUnsafeMutableBufferPointersTo(&sin, &cos) { sin, cos in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvsincos(sin.baseAddress!, cos.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func sincos<X: UnsafeMemoryAccessible>(_ x: X) -> (sin: [Double], cos: [Double]) where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var sin = [Double](repeating: 0.0, count: numericCast(xm.count))
+        var cos = [Double](repeating: 0.0, count: numericCast(xm.count))
+        withUnsafeMutableMemory(&sin, &cos) { sinm, cosm in
+            vvsincos(sinm.pointer, cosm.pointer, xm.pointer, [numericCast(xm.count)])
         }
+        return (sin, cos)
     }
-    return (sin, cos)
 }
 
 // MARK: Sine
 
-public func sin<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvsinf(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func sin<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvsinf(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func sin<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvsin(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func sin<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvsin(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Cosine
 
-public func cos<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvcosf(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func cos<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvcosf(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func cos<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvcos(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func cos<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvcos(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Tangent
 
-public func tan<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvtanf(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func tan<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+    var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvtanf(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func tan<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvtan(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func tan<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvtan(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Arcsine
 
-public func asin<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvasinf(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func asin<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvasinf(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func asin<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvasin(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func asin<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvasin(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Arccosine
 
-public func acos<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvacosf(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func acos<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvacosf(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func acos<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvacos(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func acos<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvacos(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Arctangent
 
-public func atan<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvatanf(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func atan<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvatanf(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func atan<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvatan(pointer.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func atan<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvatan(pointer.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: -
 
 // MARK: Radians to Degrees
 
-func rad2deg<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    let divisor = [Float](repeating: Float.pi / 180.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvdivf(pointer.baseAddress!, xp, divisor, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+func rad2deg<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        let divisor = [Float](repeating: Float.pi / 180.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvdivf(pointer.baseAddress!, xm.pointer, divisor, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-func rad2deg<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    let divisor = [Double](repeating: Double.pi / 180.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvdiv(pointer.baseAddress!, xp, divisor, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+func rad2deg<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        let divisor = [Double](repeating: Double.pi / 180.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvdiv(pointer.baseAddress!, xm.pointer, divisor, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Degrees to Radians
 
-func deg2rad<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    let divisor = [Float](repeating: 180.0 / Float.pi, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvdivf(pointer.baseAddress!, xp, divisor, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+func deg2rad<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        let divisor = [Float](repeating: 180.0 / Float.pi, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvdivf(pointer.baseAddress!, xm.pointer, divisor, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-func deg2rad<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    let divisor = [Double](repeating: 180.0 / Double.pi, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvdiv(pointer.baseAddress!, xp, divisor, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+func deg2rad<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return withUnsafeMemory(x) { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        let divisor = [Double](repeating: 180.0 / Double.pi, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvdiv(pointer.baseAddress!, xm.pointer, divisor, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }

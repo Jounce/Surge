@@ -1,4 +1,4 @@
-// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014-2018 the Surge contributors
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,132 +22,156 @@ import Accelerate
 
 // MARK: Exponentiation
 
-public func exp<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvexpf(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func exp<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvexpf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func exp<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvexp(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func exp<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvexp(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Square Exponentiation
 
-public func exp2<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvexp2f(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func exp2<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvexp2f(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func exp2<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvexp2(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func exp2<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvexp2(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Natural Logarithm
 
-public func log<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](x)
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvlogf(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func log<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](x)
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvlogf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func log<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](x)
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvlog(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func log<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](x)
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvlog(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Base-2 Logarithm
 
-public func log2<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](x)
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvlog2f(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func log2<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](x)
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvlog2f(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func log2<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](x)
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvlog2(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func log2<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](x)
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvlog2(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Base-10 Logarithm
 
-public func log10<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](x)
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvlog10f(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func log10<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](x)
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvlog10f(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func log10<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](x)
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvlog10(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func log10<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](x)
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvlog10(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
 // MARK: Logarithmic Exponentiation
 
-public func logb<X: ContinuousCollection>(_ x: X) -> [Float] where X.Iterator.Element == Float {
-    var results = [Float](x)
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvlogbf(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func logb<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](x)
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvlogbf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func logb<X: ContinuousCollection>(_ x: X) -> [Double] where X.Iterator.Element == Double {
-    var results = [Double](x)
-    results.withUnsafeMutableBufferPointer { rbp in
-        withUnsafePointersAndCountsTo(x) { xp, xc in
-            vvlogb(rbp.baseAddress!, xp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func logb<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](x)
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvlogb(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
