@@ -1,4 +1,4 @@
-// Copyright © 2014–2015 Mattt Thompson (http://mattt.me)
+// Copyright © 2014-2018 the Surge contributors
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,32 +22,36 @@ import Accelerate
 
 // MARK: Power
 
-public func pow<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Float] where X.Iterator.Element == Float, Y.Iterator.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x, y) { xp, xc, yp, _ in
-            vvpowf(pointer.baseAddress!, xp, yp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func pow<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvpowf(pointer.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func pow<X: ContinuousCollection, Y: ContinuousCollection>(_ x: X, _ y: Y) -> [Double] where X.Iterator.Element == Double, Y.Iterator.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    results.withUnsafeMutableBufferPointer { pointer in
-        withUnsafePointersAndCountsTo(x, y) { xp, xc, yp, _ in
-            vvpow(pointer.baseAddress!, xp, yp, [Int32(xc)])
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func pow<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    return withUnsafeMemory(x, y) { xm, ym in
+        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
+        results.withUnsafeMutableBufferPointer { pointer in
+            vvpow(pointer.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
         }
+        return results
     }
-    return results
 }
 
-public func pow<X: ContinuousCollection>(_ x: X, _ y: Float) -> [Float] where X.Iterator.Element == Float {
+public func pow<X: UnsafeMemoryAccessible>(_ x: X, _ y: Float) -> [Float] where X.Element == Float {
     let yVec = [Float](repeating: y, count: numericCast(x.count))
     return pow(yVec, x)
 }
 
-public func pow<X: ContinuousCollection>(_ x: X, _ y: Double) -> [Double] where X.Iterator.Element == Double {
+public func pow<X: UnsafeMemoryAccessible>(_ x: X, _ y: Double) -> [Double] where X.Element == Double {
     let yVec = [Double](repeating: y, count: numericCast(x.count))
     return pow(yVec, x)
 }
