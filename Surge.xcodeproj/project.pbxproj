@@ -60,6 +60,10 @@
 		614AD3921FC0B134002BFE1C /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394521F762B58002A4AD2 /* Pointers.swift */; };
 		614AD3931FC0B134002BFE1C /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
 		614AD3941FC0B134002BFE1C /* Trigonometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394551F762B58002A4AD2 /* Trigonometric.swift */; };
+		6152A42120719E9200043627 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152A42020719E9200043627 /* Statistics.swift */; };
+		6152A42220719E9200043627 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152A42020719E9200043627 /* Statistics.swift */; };
+		6152A42320719E9200043627 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152A42020719E9200043627 /* Statistics.swift */; };
+		6152A42420719E9200043627 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152A42020719E9200043627 /* Statistics.swift */; };
 		615394561F762B59002A4AD2 /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944B1F762B58002A4AD2 /* Arithmetic.swift */; };
 		615394571F762B59002A4AD2 /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944C1F762B58002A4AD2 /* Auxiliary.swift */; };
 		615394581F762B59002A4AD2 /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944D1F762B58002A4AD2 /* Convolution.swift */; };
@@ -133,6 +137,7 @@
 		614AD3541FC0B001002BFE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		614AD3591FC0B001002BFE1C /* SurgeTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurgeTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		614AD3821FC0B125002BFE1C /* Surge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Surge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6152A42020719E9200043627 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		6153944B1F762B58002A4AD2 /* Arithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arithmetic.swift; sourceTree = "<group>"; };
 		6153944C1F762B58002A4AD2 /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		6153944D1F762B58002A4AD2 /* Convolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convolution.swift; sourceTree = "<group>"; };
@@ -246,6 +251,7 @@
 				615394511F762B58002A4AD2 /* Matrix.swift */,
 				615394521F762B58002A4AD2 /* Pointers.swift */,
 				615394531F762B58002A4AD2 /* Power.swift */,
+				6152A42020719E9200043627 /* Statistics.swift */,
 				615394551F762B58002A4AD2 /* Trigonometric.swift */,
 				61E930B7207002EA00694FCB /* UnsafeMemory.swift */,
 				61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */,
@@ -690,6 +696,7 @@
 				61E930BE2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
 				61E930B9207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				614AD3401FC0AF72002BFE1C /* Power.swift in Sources */,
+				6152A42220719E9200043627 /* Statistics.swift in Sources */,
 				614AD33B1FC0AF72002BFE1C /* Exponential.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -727,6 +734,7 @@
 				61E930BF2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
 				61E930BA207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				614AD3711FC0B0CC002BFE1C /* Power.swift in Sources */,
+				6152A42320719E9200043627 /* Statistics.swift in Sources */,
 				614AD36C1FC0B0CC002BFE1C /* Exponential.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -764,6 +772,7 @@
 				61E930C02070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
 				61E930BB207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				614AD3931FC0B134002BFE1C /* Power.swift in Sources */,
+				6152A42420719E9200043627 /* Statistics.swift in Sources */,
 				614AD38E1FC0B134002BFE1C /* Exponential.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -801,6 +810,7 @@
 				61E930BD2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
 				61E930B8207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				6153945E1F762B59002A4AD2 /* Power.swift in Sources */,
+				6152A42120719E9200043627 /* Statistics.swift in Sources */,
 				615394591F762B59002A4AD2 /* Exponential.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
