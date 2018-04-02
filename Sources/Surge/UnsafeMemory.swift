@@ -31,6 +31,12 @@ public struct UnsafeMemory<Element>: Sequence {
     /// Number of elements
     public var count: Int
 
+    public init(pointer: UnsafePointer<Element>, stride: Int = 1, count: Int) {
+        self.pointer = pointer
+        self.stride = stride
+        self.count = count
+    }
+
     public func makeIterator() -> UnsafeMemoryIterator<Element> {
         return UnsafeMemoryIterator(self)
     }
