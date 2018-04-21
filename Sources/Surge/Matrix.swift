@@ -37,13 +37,30 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         self.grid = [Scalar](repeating: repeatedValue, count: rows * columns)
     }
 
-    public init(_ contents: [[Scalar]]) {
-        self.init(rows: contents.count, columns: contents[0].count, repeatedValue: 0.0)
+    public init<T: Collection, U: Collection>(_ contents: T) where T.Element == U, U.Element == Scalar {
+        self.init(rows: contents.count, columns: contents.first!.count, repeatedValue: 0.0)
 
         for (i, row) in contents.enumerated() {
             precondition(row.count == columns, "All rows should have the same number of columns")
             grid.replaceSubrange(i*columns ..< (i + 1)*columns, with: row)
         }
+    }
+
+    public init(row: [Scalar]) {
+        self.init(rows: 1, columns: row.count, grid: row)
+    }
+
+    public init(column: [Scalar]) {
+        self.init(rows: column.count, columns: 1, grid: column)
+    }
+
+    public init(rows: Int, columns: Int, grid: [Scalar]) {
+        precondition(grid.count == rows * columns)
+
+        self.rows = rows
+        self.columns = columns
+
+        self.grid = grid
     }
 
     public subscript(row: Int, column: Int) -> Scalar {
@@ -151,6 +168,7 @@ extension Matrix: Equatable {}
 public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
     return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.grid == rhs.grid
 }
+
 
 // MARK: -
 
@@ -307,6 +325,25 @@ public func sum(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Dou
     }
 }
 
+public func sum(_ x: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Float> {
+
+    switch axies {
+    case .column:
+        var result = Matrix<Float>(rows: 1, columns: x.columns, repeatedValue: 0.0)
+        for i in 0..<x.columns {
+            result.grid[i] = sum(x[column: i])
+        }
+        return result
+
+    case .row:
+        var result = Matrix<Float>(rows: x.rows, columns: 1, repeatedValue: 0.0)
+        for i in 0..<x.rows {
+            result.grid[i] = sum(x[row: i])
+        }
+        return result
+    }
+}
+
 public func inv(_ x: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == x.columns, "Matrix must be square")
 
@@ -443,6 +480,14 @@ public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 
 public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return sub(lhs, rhs)
+}
+
+public func + (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
+    return Matrix(rows: lhs.rows, columns: lhs.columns, grid: lhs.grid + rhs)
+}
+
+public func + (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
+    return Matrix(rows: lhs.rows, columns: lhs.columns, grid: lhs.grid + rhs)
 }
 
 public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
