@@ -238,7 +238,7 @@ public func linregress<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x
     precondition(x.count == y.count, "Vectors must have equal count")
     let meanx = mean(x)
     let meany = mean(y)
-    let meanxy = mean(x * y)
+    let meanxy = mean(x .* y)
     let meanx_sqr = measq(x)
 
     let slope = (meanx * meany - meanxy) / (meanx * meanx - meanx_sqr)
@@ -256,7 +256,7 @@ public func linregress<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x
     precondition(x.count == y.count, "Vectors must have equal count")
     let meanx = mean(x)
     let meany = mean(y)
-    let meanxy = mean(x * y)
+    let meanxy = mean(x .* y)
     let meanx_sqr = measq(x)
 
     let slope = (meanx * meany - meanxy) / (meanx * meanx - meanx_sqr)
