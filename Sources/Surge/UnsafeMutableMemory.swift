@@ -23,13 +23,19 @@ import Foundation
 /// Mutable memory region.
 public struct UnsafeMutableMemory<Element> {
     /// Pointer to the first element
-    var pointer: UnsafeMutablePointer<Element>
+    public var pointer: UnsafeMutablePointer<Element>
 
     /// Pointer stride between elements
-    var stride: Int
+    public var stride: Int
 
     /// Number of elements
-    var count: Int
+    public var count: Int
+
+    public init(pointer: UnsafeMutablePointer<Element>, stride: Int = 1, count: Int) {
+        self.pointer = pointer
+        self.stride = stride
+        self.count = count
+    }
 
     public func makeIterator() -> UnsafeMutableMemoryIterator<Element> {
         return UnsafeMutableMemoryIterator(self)
