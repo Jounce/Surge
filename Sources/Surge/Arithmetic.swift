@@ -23,6 +23,7 @@ import Accelerate
 // MARK: Add
 
 public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    precondition(x.count == y.count, "Collections must have the same size")
     var results = [Float](y)
     x.withUnsafeMemory { xm in
         results.withUnsafeMutableBufferPointer { rbp in
@@ -33,6 +34,7 @@ public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 }
 
 public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    precondition(x.count == y.count, "Collections must have the same size")
     var results = [Double](y)
     x.withUnsafeMemory { xm in
         results.withUnsafeMutableBufferPointer { rbp in
@@ -45,6 +47,7 @@ public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 // MARK: Subtraction
 
 public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    precondition(x.count == y.count, "Collections must have the same size")
     var results = [Float](y)
     x.withUnsafeMemory { xm in
         results.withUnsafeMutableBufferPointer { rbp in
@@ -55,6 +58,7 @@ public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 }
 
 public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    precondition(x.count == y.count, "Collections must have the same size")
     var results = [Double](y)
     x.withUnsafeMemory { xm in
         results.withUnsafeMutableBufferPointer { rbp in
@@ -67,6 +71,7 @@ public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 // MARK: Multiply
 
 public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    precondition(x.count == y.count, "Collections must have the same size")
     return withUnsafeMemory(x, y) { xm, ym in
         var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
@@ -77,6 +82,7 @@ public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 }
 
 public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    precondition(x.count == y.count, "Collections must have the same size")
     return withUnsafeMemory(x, y) { xm, ym in
         var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
@@ -89,28 +95,24 @@ public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 // MARK: Divide
 
 /// Elemen-wise vector division.
-///
-/// - Warning: does not support memory stride (assumes stride is 1).
 public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    precondition(x.count == y.count, "Collections must have the same size")
     return withUnsafeMemory(x, y) { xm, ym in
-        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
         var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vvdivf(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
+            vDSP_vdiv(ym.pointer, ym.stride, xm.pointer, xm.stride, rbp.baseAddress!, 1, numericCast(xm.count))
         }
         return results
     }
 }
 
 /// Elemen-wise vector division.
-///
-/// - Warning: does not support memory stride (assumes stride is 1).
 public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    precondition(x.count == y.count, "Collections must have the same size")
     return withUnsafeMemory(x, y) { xm, ym in
-        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
         var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vvdiv(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
+            vDSP_vdivD(ym.pointer, ym.stride, xm.pointer, xm.stride, rbp.baseAddress!, 1, numericCast(xm.count))
         }
         return results
     }
@@ -122,6 +124,7 @@ public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    precondition(x.count == y.count, "Collections must have the same size")
     return withUnsafeMemory(x, y) { xm, ym in
         precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
         var results = [Float](repeating: 0.0, count: numericCast(xm.count))
@@ -136,6 +139,7 @@ public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    precondition(x.count == y.count, "Collections must have the same size")
     return withUnsafeMemory(x, y) { xm, ym in
         precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
         var results = [Double](repeating: 0.0, count: numericCast(xm.count))
@@ -152,6 +156,7 @@ public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
+    precondition(x.count == y.count, "Collections must have the same size")
     return withUnsafeMemory(x, y) { xm, ym in
         precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
         var results = [Float](repeating: 0.0, count: numericCast(xm.count))
@@ -166,6 +171,7 @@ public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x:
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
+    precondition(x.count == y.count, "Collections must have the same size")
     return withUnsafeMemory(x, y) { xm, ym in
         precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
         var results = [Double](repeating: 0.0, count: numericCast(xm.count))
@@ -313,7 +319,7 @@ public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
 public func -= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vsub(lm.pointer, lm.stride, rm.pointer, rm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vsub(rm.pointer, rm.stride, lm.pointer, lm.stride, lm.pointer, lm.stride, numericCast(lm.count))
         }
     }
 }
@@ -321,7 +327,7 @@ public func -= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs
 public func -= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vsubD(lm.pointer, lm.stride, rm.pointer, rm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vsubD(rm.pointer, rm.stride, lm.pointer, lm.stride, lm.pointer, lm.stride, numericCast(lm.count))
         }
     }
 }
