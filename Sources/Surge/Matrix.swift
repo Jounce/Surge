@@ -259,14 +259,14 @@ public func mul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
 public func elmul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
     var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    result.grid = x.grid * y.grid
+    result.grid = x.grid .* y.grid
     return result
 }
 
 public func elmul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
     var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    result.grid = x.grid * y.grid
+    result.grid = x.grid .* y.grid
     return result
 }
 
