@@ -169,7 +169,6 @@ public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
     return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.grid == rhs.grid
 }
 
-
 // MARK: -
 
 public func add(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {

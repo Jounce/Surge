@@ -515,7 +515,7 @@ public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
 
 // MARK: Dot product
 
-infix operator •
+infix operator •: MultiplicationPrecedence
 public func • <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> Double where L.Element == Double, R.Element == Double {
     return dot(lhs, rhs)
 }
