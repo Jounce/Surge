@@ -1,7 +1,11 @@
 language: objective-c
 osx_image: xcode9.3
 
+install:
+  - brew update && brew install swiftlint
+
 script:
+  - swiftlint --strict
   - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge-iOS -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.1'
   - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge-macOS -destination 'platform=OS X,arch=x86_64'
   - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge-tvOS -destination 'platform=tvOS Simulator,name=Apple TV 4K,OS=11.1'
