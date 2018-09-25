@@ -89,7 +89,7 @@ public func clip<C: UnsafeMemoryAccessible>(_ x: C, low: Float, high: Float) -> 
             var y = low
             var z = high
             withUnsafePointers(&y, &z) { y, z in
-                vDSP_vclip(xm.pointer, xm.stride, y, z, rbp.baseAddress!, 1, numericCast(xm.count))
+                vDSP_vclip(xm.pointer, numericCast(xm.stride), y, z, rbp.baseAddress!, 1, numericCast(xm.count))
             }
         }
     }
@@ -103,7 +103,7 @@ public func clip<C: UnsafeMemoryAccessible>(_ x: C, low: Double, high: Double) -
             var y = low
             var z = high
             withUnsafePointers(&y, &z) { y, z in
-                vDSP_vclipD(xm.pointer, xm.stride, y, z, rbp.baseAddress!, 1, numericCast(xm.count))
+                vDSP_vclipD(xm.pointer, numericCast(xm.stride), y, z, rbp.baseAddress!, 1, numericCast(xm.count))
             }
         }
     }
@@ -172,7 +172,7 @@ public func neg<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element ==
     var results = [Float](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { rbp in
         x.withUnsafeMemory { xm in
-            vDSP_vneg(xm.pointer, xm.stride, rbp.baseAddress!, 1, numericCast(xm.count))
+            vDSP_vneg(xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(xm.count))
         }
     }
     return results
@@ -182,7 +182,7 @@ public func neg<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element =
     var results = [Double](repeating: 0.0, count: numericCast(x.count))
     results.withUnsafeMutableBufferPointer { rbp in
         x.withUnsafeMemory { xm in
-            vDSP_vnegD(xm.pointer, xm.stride, rbp.baseAddress!, 1, numericCast(xm.count))
+            vDSP_vnegD(xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(xm.count))
         }
     }
     return results
@@ -248,7 +248,7 @@ public func threshold<C: UnsafeMemoryAccessible>(_ x: C, low: Float) -> [Float] 
         x.withUnsafeMemory { xm in
             var y = low
             withUnsafePointer(to: &y) { y in
-                vDSP_vthr(xm.pointer, xm.stride, y, rbp.baseAddress!, 1, numericCast(xm.count))
+                vDSP_vthr(xm.pointer, numericCast(xm.stride), y, rbp.baseAddress!, 1, numericCast(xm.count))
             }
         }
     }
@@ -261,7 +261,7 @@ public func threshold<C: UnsafeMemoryAccessible>(_ x: C, low: Double) -> [Double
         x.withUnsafeMemory { xm in
             var y = low
             withUnsafePointer(to: &y) { y in
-                vDSP_vthrD(xm.pointer, xm.stride, y, rbp.baseAddress!, 1, numericCast(xm.count))
+                vDSP_vthrD(xm.pointer, numericCast(xm.stride), y, rbp.baseAddress!, 1, numericCast(xm.count))
             }
         }
     }

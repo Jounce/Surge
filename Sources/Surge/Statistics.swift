@@ -26,7 +26,7 @@ public func sum<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == F
     var result: Float = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_sve(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_sve(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -36,7 +36,7 @@ public func sum<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == 
     var result: Double = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_sveD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_sveD(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -62,7 +62,7 @@ public func sumsq<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element ==
     var result: Float = 0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_svesq(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_svesq(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -72,7 +72,7 @@ public func sumsq<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element =
     var result: Double = 0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_svesqD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_svesqD(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -84,7 +84,7 @@ public func max<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == F
     var result: Float = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_maxv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_maxv(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -94,7 +94,7 @@ public func max<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == 
     var result: Double = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_maxvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_maxvD(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -106,7 +106,7 @@ public func min<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == F
     var result: Float = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_minv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_minv(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -116,7 +116,7 @@ public func min<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == 
     var result: Double = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_minvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_minvD(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -128,7 +128,7 @@ public func mean<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == 
     var result: Float = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_meanv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_meanv(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -138,7 +138,7 @@ public func mean<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element ==
     var result: Double = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_meanvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_meanvD(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -150,7 +150,7 @@ public func meamg<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element ==
     var result: Float = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_meamgv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_meamgv(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -160,7 +160,7 @@ public func meamg<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element =
     var result: Double = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_meamgvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_meamgvD(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -172,7 +172,7 @@ public func measq<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element ==
     var result: Float = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_measqv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_measqv(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -182,7 +182,7 @@ public func measq<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element =
     var result: Double = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_measqvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_measqvD(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -194,7 +194,7 @@ public func rmsq<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == 
     var result: Float = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_rmsqv(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_rmsqv(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result
@@ -204,7 +204,7 @@ public func rmsq<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element ==
     var result: Double = 0.0
     x.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_rmsqvD(xm.pointer, xm.stride, pointer, numericCast(xm.count))
+            vDSP_rmsqvD(xm.pointer, numericCast(xm.stride), pointer, numericCast(xm.count))
         }
     }
     return result

@@ -75,7 +75,7 @@ public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
     return withUnsafeMemory(x, y) { xm, ym in
         var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vmul(xm.pointer, xm.stride, ym.pointer, ym.stride, rbp.baseAddress!, 1, numericCast(xm.count))
+            vDSP_vmul(xm.pointer, numericCast(xm.stride), ym.pointer, numericCast(ym.stride), rbp.baseAddress!, 1, numericCast(xm.count))
         }
         return results
     }
@@ -86,7 +86,7 @@ public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
     return withUnsafeMemory(x, y) { xm, ym in
         var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vmulD(xm.pointer, xm.stride, ym.pointer, ym.stride, rbp.baseAddress!, 1, numericCast(xm.count))
+            vDSP_vmulD(xm.pointer, numericCast(xm.stride), ym.pointer, numericCast(ym.stride), rbp.baseAddress!, 1, numericCast(xm.count))
         }
         return results
     }
@@ -100,7 +100,7 @@ public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
     return withUnsafeMemory(x, y) { xm, ym in
         var results = [Float](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vdiv(ym.pointer, ym.stride, xm.pointer, xm.stride, rbp.baseAddress!, 1, numericCast(xm.count))
+            vDSP_vdiv(ym.pointer, numericCast(ym.stride), xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(xm.count))
         }
         return results
     }
@@ -112,7 +112,7 @@ public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
     return withUnsafeMemory(x, y) { xm, ym in
         var results = [Double](repeating: 0.0, count: numericCast(xm.count))
         results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vdivD(ym.pointer, ym.stride, xm.pointer, xm.stride, rbp.baseAddress!, 1, numericCast(xm.count))
+            vDSP_vdivD(ym.pointer, numericCast(ym.stride), xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(xm.count))
         }
         return results
     }
@@ -236,7 +236,7 @@ public func dot<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 
         var result: Float = 0.0
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_dotpr(xm.pointer, xm.stride, ym.pointer, ym.stride, pointer, numericCast(xm.count))
+            vDSP_dotpr(xm.pointer, numericCast(xm.stride), ym.pointer, numericCast(ym.stride), pointer, numericCast(xm.count))
         }
 
         return result
@@ -249,7 +249,7 @@ public func dot<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 
         var result: Double = 0.0
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_dotprD(xm.pointer, xm.stride, ym.pointer, ym.stride, pointer, numericCast(xm.count))
+            vDSP_dotprD(xm.pointer, numericCast(xm.stride), ym.pointer, numericCast(ym.stride), pointer, numericCast(xm.count))
         }
 
         return result
@@ -288,7 +288,7 @@ infix operator .+=: AssignmentPrecedence
 public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vadd(lm.pointer, lm.stride, rm.pointer, rm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vadd(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
         }
     }
 }
@@ -296,7 +296,7 @@ public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lh
 public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vaddD(lm.pointer, lm.stride, rm.pointer, rm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vaddD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
         }
     }
 }
@@ -314,14 +314,14 @@ public func .+ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         var scalar = rhs
-        vDSP_vsadd(lm.pointer, lm.stride, &scalar, lm.pointer, lm.stride, numericCast(lm.count))
+        vDSP_vsadd(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 
 public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         var scalar = rhs
-        vDSP_vsaddD(lm.pointer, lm.stride, &scalar, lm.pointer, lm.stride, numericCast(lm.count))
+        vDSP_vsaddD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 
@@ -341,7 +341,7 @@ infix operator .-=: AssignmentPrecedence
 public func .-= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vsub(rm.pointer, rm.stride, lm.pointer, lm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vsub(rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
         }
     }
 }
@@ -349,7 +349,7 @@ public func .-= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lh
 public func .-= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vsubD(rm.pointer, rm.stride, lm.pointer, lm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vsubD(rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
         }
     }
 }
@@ -367,14 +367,14 @@ public func .- <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         var scalar = -rhs
-        vDSP_vsadd(lm.pointer, lm.stride, &scalar, lm.pointer, lm.stride, numericCast(lm.count))
+        vDSP_vsadd(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 
 public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         var scalar = -rhs
-        vDSP_vsaddD(lm.pointer, lm.stride, &scalar, lm.pointer, lm.stride, numericCast(lm.count))
+        vDSP_vsaddD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 
@@ -394,7 +394,7 @@ infix operator ./=: AssignmentPrecedence
 public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vdiv(lm.pointer, lm.stride, rm.pointer, rm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vdiv(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
         }
     }
 }
@@ -402,7 +402,7 @@ public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lh
 public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vdivD(lm.pointer, lm.stride, rm.pointer, rm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vdivD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
         }
     }
 }
@@ -420,14 +420,14 @@ public func ./ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         var scalar = rhs
-        vDSP_vsdiv(lm.pointer, lm.stride, &scalar, lm.pointer, lm.stride, numericCast(lm.count))
+        vDSP_vsdiv(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 
 public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         var scalar = rhs
-        vDSP_vsdivD(lm.pointer, lm.stride, &scalar, lm.pointer, lm.stride, numericCast(lm.count))
+        vDSP_vsdivD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 
@@ -447,7 +447,7 @@ infix operator .*=: AssignmentPrecedence
 public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vmul(lm.pointer, lm.stride, rm.pointer, rm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vmul(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
         }
     }
 }
@@ -455,7 +455,7 @@ public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lh
 public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
-            vDSP_vmulD(lm.pointer, lm.stride, rm.pointer, rm.stride, lm.pointer, lm.stride, numericCast(lm.count))
+            vDSP_vmulD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
         }
     }
 }
@@ -473,14 +473,14 @@ public func .* <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
         var scalar = rhs
-        vDSP_vsmul(lm.pointer, lm.stride, &scalar, lm.pointer, lm.stride, numericCast(lm.count))
+        vDSP_vsmul(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 
 public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
     lhs.withUnsafeMutableMemory { lm in
         var scalar = rhs
-        vDSP_vsmulD(lm.pointer, lm.stride, &scalar, lm.pointer, lm.stride, numericCast(lm.count))
+        vDSP_vsmulD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 

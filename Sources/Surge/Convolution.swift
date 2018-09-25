@@ -39,7 +39,7 @@ public func conv<X: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible>(_ x: X, _
             xPadded.append(contentsOf: x)
             xPadded.append(contentsOf: xPad)
 
-            vDSP_conv(xPadded, 1, kEnd, -km.stride, rbp.baseAddress!, 1, numericCast(resultSize), numericCast(km.count))
+            vDSP_conv(xPadded, 1, kEnd, -numericCast(km.stride), rbp.baseAddress!, 1, numericCast(resultSize), numericCast(km.count))
         }
     }
     return result
@@ -62,7 +62,7 @@ public func conv<X: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible>(_ x: X, _
             xPadded.append(contentsOf: x)
             xPadded.append(contentsOf: xPad)
 
-            vDSP_convD(xPadded, 1, kEnd, -km.stride, rbp.baseAddress!, 1, numericCast(resultSize), numericCast(km.count))
+            vDSP_convD(xPadded, 1, kEnd, -numericCast(km.stride), rbp.baseAddress!, 1, numericCast(resultSize), numericCast(km.count))
         }
     }
     return result
@@ -140,7 +140,7 @@ public func xcorr<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element 
 
     x.withUnsafeMemory { xm in
         result.withUnsafeMutableBufferPointer { rbp in
-            vDSP_conv(xPadded, 1, xm.pointer, xm.stride, rbp.baseAddress!, 1, numericCast(resultSize), numericCast(xm.count))
+            vDSP_conv(xPadded, 1, xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(resultSize), numericCast(xm.count))
         }
     }
 
@@ -161,7 +161,7 @@ public func xcorr<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element
 
     x.withUnsafeMemory { xm in
         result.withUnsafeMutableBufferPointer { rbp in
-            vDSP_convD(xPadded, 1, xm.pointer, xm.stride, rbp.baseAddress!, 1, numericCast(resultSize), numericCast(xm.count))
+            vDSP_convD(xPadded, 1, xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(resultSize), numericCast(xm.count))
         }
     }
 
