@@ -46,6 +46,8 @@ _(Time in milliseconds, Optimization Level `-Ofast`)_
 
 _The infrastructure and best practices for distributing Swift libraries are currently in flux during this beta period of Swift & Xcode. In the meantime, you can add Surge as a git submodule, drag the `Surge.xcodeproj` file into your Xcode project, and add `Surge.framework` as a dependency for your target._
 
+Surge uses Swift 4.0. This means that your code has to be written in Swift 4.0 or 4.2 due to current binary compatibility limitations.
+
 ### Swift Package Manager
 
 To use [Swift Package Manager](https://swift.org/package-manager/) add Surge to your `Package.swift` file:
