@@ -235,7 +235,9 @@ public func mul(_ alpha: Double, _ x: Matrix<Double>) -> Matrix<Double> {
 
 public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
-    precondition(x.rows > 0 && x.columns > 0 && y.columns > 0, "Can't multiply empty matrix")
+    if x.rows == 0 || x.columns == 0 || y.columns == 0 {
+        return Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
+    }
 
     var results = Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
@@ -247,7 +249,9 @@ public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
 
 public func mul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
-    precondition(x.rows > 0 && x.columns > 0 && y.columns > 0, "Can't multiply empty matrix")
+    if x.rows == 0 || x.columns == 0 || y.columns == 0 {
+        return Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
+    }
 
     var results = Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
