@@ -234,8 +234,8 @@ public func mul(_ alpha: Double, _ x: Matrix<Double>) -> Matrix<Double> {
 }
 
 public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.columns == y.rows && x.columns > 0, "Matrix dimensions not compatible with multiplication")
-    if x.rows == 0 || y.columns == 0 {
+    precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
+    if x.rows == 0 || x.columns == 0 || y.columns == 0 {
         return Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
     }
 
@@ -248,8 +248,8 @@ public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
 }
 
 public func mul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.columns == y.rows && x.columns > 0, "Matrix dimensions not compatible with multiplication")
-    if x.rows == 0 || y.columns == 0 {
+    precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
+    if x.rows == 0 || x.columns == 0 || y.columns == 0 {
         return Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
     }
 
