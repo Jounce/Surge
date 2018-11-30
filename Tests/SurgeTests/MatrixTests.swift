@@ -84,4 +84,13 @@ class MatrixTests: XCTestCase {
         let matrix = Matrix<Double>([[-4, -5], [5, 6]])
         XCTAssertEqual(det(matrix)!, Double(-24 + 25), accuracy: doubleAccuracy)
     }
+
+    func testMultiplyEmpty() {
+        let x = Matrix<Float>([[1]])
+        let y = Matrix<Float>([[]])
+        let result = x*y
+
+        XCTAssertEqual(result.rows, 1)
+        XCTAssertEqual(result.columns, 0)
+    }
 }
