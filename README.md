@@ -1,4 +1,5 @@
 # Surge
+
 [![Build Status](https://travis-ci.org/mattt/Surge.svg?branch=master)](https://travis-ci.org/mattt/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Surge is a Swift library that uses the Accelerate framework to provide high-performance functions for matrix math, digital signal processing, and image manipulation.
@@ -14,33 +15,6 @@ Though, keep in mind: _Accelerate is not a silver bullet_. Under certain conditi
 > Curious about the name _Surge_? Back in the mid 90's, Apple, IBM, and Motorola teamed up to create [AltiVec](http://en.wikipedia.org/wiki/AltiVec) (a.k.a the Velocity Engine), which provided a SIMD instruction set for the PowerPC architecture. When Apple made the switch to Intel CPUs, AltiVec was ported to the x86 architecture and rechristened [Accelerate](https://developer.apple.com/library/mac/documentation/Accelerate/Reference/AccelerateFWRef/_index.html). The derivative of Accelerate (and second derivative of Velocity) is known as either [jerk, jolt, surge, or lurch](http://en.wikipedia.org/wiki/Jerk_%28physics%29), hence the name of this library.
 
 ---
-
-## Performance
-
-Initial benchmarks on iOS devices and the iOS simulator indicate significant performance improvements over a conventional Swift implementation.
-
-```swift
-import Surge
-
-let numbers: [Double] = ...
-var sum: Double = 0.0
-
-// Naïve Swift Implementation
-sum = reduce(numbers, 0.0, +)
-
-// Surge Implementation
-sum = Surge.sum(numbers)
-```
-
-_(Time in milliseconds, Optimization Level `-Ofast`)_
-
-|    _n_     |   Swift          |   Surge       |   Δ       |
-|------------|------------------|---------------|-----------|
-| 100        | 0.269081         | 0.004453      | ~60x      |
-| 100000     | 251.037254       | 0.028687      | ~9000x    |
-| 100000000  | 239474.689326    | 57.009841     | ~4000x    |
-
-> Surge's performance characteristics have not yet been thoroughly evaluated, though initial benchmarks show incredible promise. Further investigation is definitely warranted.
 
 ## Installation
 
@@ -65,7 +39,6 @@ let package = Package(
     ]
 )
 ```
-
 
 Then run `swift build`.
 
