@@ -93,4 +93,16 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(result.rows, 1)
         XCTAssertEqual(result.columns, 0)
     }
+
+    func testEigenDecompositionTrivial() {
+        let matrix = Matrix<Double>([
+            [1, 0, 0],
+            [0, 2, 0],
+            [0, 0, 3],
+        ])
+        let ed = eigendecompostion(matrix)
+        let expectedResult: Matrix<Double> = Matrix<Double>([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        XCTAssertEqual(ed.0, expectedResult)
+        XCTAssertEqual(ed.1, [Double]([1, 2, 3]))
+    }
 }
