@@ -1,0 +1,65 @@
+disabled_rules:
+  - file_length
+  - identifier_name
+  - line_length
+  - trailing_comma
+
+opt_in_rules:
+  - array_init
+  - attributes
+  - closure_end_indentation
+  - closure_spacing
+  - conditional_returns_on_newline
+  - contains_over_first_not_nil
+  - empty_count
+  - explicit_enum_raw_value
+  - explicit_init
+  - extension_access_modifier
+  - fatal_error_message
+  - file_header
+  - first_where
+  - implicit_return
+  - implicitly_unwrapped_optional
+  - joined_default_parameter
+  - let_var_whitespace
+  - literal_expression_end_indentation
+  - multiline_arguments
+  - multiline_parameters
+  - nimble_operator
+  - no_extension_access_modifier
+  - number_separator
+  - object_literal
+  - overridden_super_call
+  - pattern_matching_keywords
+  - private_outlet
+  - prohibited_super_call
+  - quick_discouraged_call
+  - redundant_nil_coalescing
+  - single_test_class
+  - sorted_imports
+  - strict_fileprivate
+  - switch_case_on_newline
+  - unneeded_parentheses_in_closure_argument
+  - vertical_parameter_alignment_on_call
+
+file_header:
+  required_pattern: |
+                    \/\/ Copyright © .*
+                    \/\/
+                    \/\/ Permission is hereby granted, free of charge, to any person obtaining a copy
+                    \/\/ of this software and associated documentation files \(the "Software"\), to deal
+                    \/\/ in the Software without restriction, including without limitation the rights
+                    \/\/ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                    \/\/ copies of the Software, and to permit persons to whom the Software is
+                    \/\/ furnished to do so, subject to the following conditions:
+                    \/\/
+                    \/\/ The above copyright notice and this permission notice shall be included in
+                    \/\/ all copies or substantial portions of the Software\.
+                    \/\/
+                    \/\/ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                    \/\/ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                    \/\/ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                    \/\/ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                    \/\/ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                    \/\/ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+                    \/\/ THE SOFTWARE\.

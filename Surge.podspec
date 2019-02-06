@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Surge'
-  s.version = '0.2.1'
+  s.version = '2.0.0'
   s.license = 'MIT'
   s.summary = 'Swift + Accelerate'
   s.homepage = 'https://github.com/mattt/Surge'
@@ -10,8 +10,10 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
+  s.tvos.deployment_target = '9.0'
+  s.watchos.deployment_target = '3.0'
 
-  s.source_files = 'Source/*.swift'
+  s.source_files = 'Sources/Surge/*.swift'
 
   s.frameworks = 'Accelerate'
 

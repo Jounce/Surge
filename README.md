@@ -1,9 +1,10 @@
 # Surge
-*Swift + Accelerate*
 
-[Accelerate](https://developer.apple.com/library/mac/documentation/Accelerate/Reference/AccelerateFWRef/_index.html) is a framework that provides high-performance functions for matrix math, digital signal processing, and image manipulation. It harnesses [SIMD](http://en.wikipedia.org/wiki/SIMD) instructions available in modern CPUs to significantly improve performance of certain calculations.
+[![Build Status](https://travis-ci.org/mattt/Surge.svg?branch=master)](https://travis-ci.org/mattt/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-Because of its relative obscurity and inconvenient APIs, Accelerate is not commonly used by developers... which is a shame, since many applications could benefit from these performance optimizations.
+Surge is a Swift library that uses the Accelerate framework to provide high-performance functions for matrix math, digital signal processing, and image manipulation.
+
+Accelerate exposes [SIMD](http://en.wikipedia.org/wiki/SIMD) instructions available in modern CPUs to significantly improve performance of certain calculations. Because of its relative obscurity and inconvenient APIs, Accelerate is not commonly used by developers, which is a shame, since many applications could benefit from these performance optimizations.
 
 **Surge aims to bring Accelerate to the mainstream, making it as easy (and nearly as fast, in most cases) to perform computation over a set of numbers as for a single member.**
 
@@ -15,36 +16,57 @@ Though, keep in mind: _Accelerate is not a silver bullet_. Under certain conditi
 
 ---
 
-## Performance
-
-Initial benchmarks on iOS devices and the iOS simulator indicate significant performance improvements over a conventional Swift implementation.
-
-```swift
-import Surge
-
-let numbers: [Double] = ...
-var sum: Double = 0.0
-
-// Naïve Swift Implementation
-sum = reduce(numbers, 0.0, +)
-
-// Surge Implementation
-sum = Surge.sum(numbers)
-```
-
-_(Time in milliseconds, Optimization Level `-Ofast`)_
-
-|    _n_     |   Swift          |   Surge       |   Δ       |
-|------------|------------------|---------------|-----------|
-| 100        | 0.269081         | 0.004453      | ~60x      |
-| 100000     | 251.037254       | 0.028687      | ~9000x    |
-| 100000000  | 239474.689326    | 57.009841     | ~4000x    |
-
-> Surge's performance characteristics have not yet been thoroughly evaluated, though initial benchmarks show incredible promise. Further investigation is definitely warranted.
-
 ## Installation
 
 _The infrastructure and best practices for distributing Swift libraries are currently in flux during this beta period of Swift & Xcode. In the meantime, you can add Surge as a git submodule, drag the `Surge.xcodeproj` file into your Xcode project, and add `Surge.framework` as a dependency for your target._
+
+Surge uses Swift 4.1. This means that your code has to be written in Swift 4.x due to current binary compatibility limitations.
+
+### Swift Package Manager
+
+To use [Swift Package Manager](https://swift.org/package-manager/) add Surge to your `Package.swift` file:
+
+```swift
+let package = Package(
+    name: "myproject",
+    dependencies: [
+        .package(url: "https://github.com/mattt/Surge.git", .upToNextMajor(from: "2.0.0")),
+    ],
+    targets: [
+        .target(
+            name: "myproject",
+            dependencies: ["Surge"]),
+    ]
+)
+```
+
+Then run `swift build`.
+
+### CocoaPods
+
+To use [CocoaPods](https://cocoapods.org) add Surge to your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+    pod 'Surge', '~> 2.0.0'
+end
+```
+
+Then run `pod install`.
+
+### Carthage
+
+To use [Carthage](https://github.com/Carthage/Carthage) add Surge to your `Cartfile`:
+
+```ruby
+github "mattt/Surge" ~> 2.0.0
+```
+
+Then run `carthage update` and use the framework in `Carthage/Build/<platform>`.
 
 ---
 
@@ -62,13 +84,14 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 - `meamg`
 - `measq`
 - `add`
+- `sub`
 - `mul`
 - `div`
 - `mod`
 - `remainder`
 - `sqrt`
 
-### Auxilliary
+### Auxiliary
 
 - `abs`
 - `ceil`
@@ -77,6 +100,11 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 - `rec`
 - `round`
 - `trunc`
+
+### Convolution
+
+- `conv`
+- `xcorr`
 
 ### Exponential
 
