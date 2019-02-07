@@ -469,23 +469,62 @@ public func det(_ x: Matrix<Double>) -> Double? {
     return det
 }
 
-public func eigendecompostion(_ x: Matrix<Float>) ->(Matrix<Float>, [Float]) {
-    var input = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    input.grid = x.grid.map { Double($0) }
-    let (eigenVectors, components) = eigendecompostion(input)
-
-    var output = Matrix<Float>(rows: eigenVectors.rows, columns: eigenVectors.columns, repeatedValue: 0.0)
-    output.grid = eigenVectors.grid.map { Float($0) }
-
-    return (output, components.map { Float($0) })
+// Convert the result of dgeev into an array of complex numbers
+// See Intel's documentation on column-major results for sample code that this
+// is based on:
+// https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgeev.htm
+private func buildEigenVector(wi: [Double], v: [Double], result: inout [[(Double, Double)]]) {
+    let n = wi.count
+    for r in 0..<n {
+        var c = 0
+        while c < n {
+            if wi[c] == 0.0 {
+                // v is column-major
+                result[r][c] = (v[r+n*c], 0.0)
+                c += 1
+            } else {
+                // v is column-major
+                result[r][c] = (v[r+c*n], v[r+n*(c+1)])
+                result[r][c+1] = (v[r+c*n], -v[r+n*(c+1)])
+                c += 2
+            }
+        }
+    }
 }
 
-public func eigendecompostion(_ x: Matrix<Double>) ->(Matrix<Double>, [Double]) {
+// Returns the eigenvalues and left and right eigenvectors of a square matix
+// The decomposition may result in complex numbers, which is represented by (Float, Float), which
+//   are the (real, imaginary) parts of the complex number.
+// The return is a tuple with the following 3 components
+// .0: The eigenvalues represented as an array of complex numbers
+// .1: The left eigenvectors represented as a 2-dimensional array of complex numbers
+// .2: The right eigenvectors represented as a 2-dimensional array of complex numbers
+public func eigendecompostion(_ x: Matrix<Float>) -> ([(Float, Float)], [[(Float, Float)]], [[(Float, Float)]]) {
+    var input = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    input.grid = x.grid.map { Double($0) }
+    let (eigenValues, leftEigenVectors, rightEigenVectors) = eigendecompostion(input)
+
+    return (
+        eigenValues.map { (Float($0.0), Float($0.1)) },
+        leftEigenVectors.map { $0.map { (Float($0.0), Float($0.1)) } },
+        rightEigenVectors.map { $0.map { (Float($0.0), Float($0.1)) } }
+    )
+}
+
+// Returns the eigenvalues and left and right eigenvectors of a square matix
+// The decomposition may result in complex numbers, which is represented by (Double, Double), which
+//   are the (real, imaginary) parts of the complex number.
+// The return is a tuple with the following 3 components
+// .0: The eigenvalues represented as an array of complex numbers
+// .1: The left eigenvectors represented as a 2-dimensional array of complex numbers
+// .2: The right eigenvectors represented as a 2-dimensional array of complex numbers
+public func eigendecompostion(_ x: Matrix<Double>) -> ([(Double, Double)], [[(Double, Double)]], [[(Double, Double)]]) {
     precondition(x.rows == x.columns, "Matrix must be square")
 
-    var mat: [__CLPK_doublereal] = x.grid
+    // dgeev_ needs column-major matrices
+    var mat: [__CLPK_doublereal] = transpose(x).grid
 
-    var N1 = __CLPK_integer(sqrt(Double(x.grid.count)))
+    var N1 = __CLPK_integer(x.rows)
     // Make copies of N to silence exclusive access warnings in dgeev_ calls
     var N2 = N1
     var N3 = N1
@@ -502,17 +541,28 @@ public func eigendecompostion(_ x: Matrix<Double>) ->(Matrix<Double>, [Double]) 
     var vr = [Double](repeating: 0, count: Int(N1 * N1))
 
     let V = UnsafeMutablePointer<Int8>(mutating: ("V" as NSString).utf8String)
+    // Call dgeev to find out how much workspace to allocate
     dgeev_(V, V, &N1, &mat, &N2, &wr, &wi, &vl, &N3, &vr, &N4, &workspaceQuery, &lwork, &error)
 
+    // Allocate the workspace and call dgeev again to do the actual decomposition
     var workspace = [Double](repeating: 0.0, count: Int(workspaceQuery))
     lwork = __CLPK_integer(workspaceQuery)
-
     dgeev_(V, V, &N1, &mat, &N2, &wr, &wi, &vl, &N3, &vr, &N4, &workspace, &lwork, &error)
 
-    var eigenVectors: Matrix<Double> = Matrix(rows: Int(N1), columns: Int(N1), repeatedValue: 0.0)
-    eigenVectors.grid = vr
+    assert(error == 0, "Matrix not eigen decomposable")
 
-    return (eigenVectors, wr)
+    // The eigenvalues are an arry of (real, imaginary) results from dgeev
+    let eigenValues = Array(zip(wr, wi))
+
+    // Build the left and right eigenvectors
+    let emptyVector = [(Double, Double)](repeating: (0, 0), count: x.rows)
+    var leftEigenVectors = [[(Double, Double)]](repeating: emptyVector, count: x.rows)
+    buildEigenVector(wi: wi, v: vl, result: &leftEigenVectors)
+
+    var rightEigenVectors = [[(Double, Double)]](repeating: emptyVector, count: x.rows)
+    buildEigenVector(wi: wi, v: vr, result: &rightEigenVectors)
+
+    return (eigenValues, leftEigenVectors, rightEigenVectors)
 }
 
 // MARK: - Operators
