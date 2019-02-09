@@ -103,13 +103,13 @@ class MatrixTests: XCTestCase {
         }) == nil
     }
 
-    func testEigenDecompositionTrivialGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> MatrixEigenDecompositionResult<T>)) {
+    func testEigenDecompositionTrivialGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) throws -> MatrixEigenDecompositionResult<T>)) throws {
         let matrix = Matrix<T>([
             [1, 0, 0],
             [0, 2, 0],
             [0, 0, 3],
         ])
-        let ed = eigendecompostionFn(matrix)
+        let ed = try eigendecompostionFn(matrix)
 
         let expectedEigenValues: [(T, T)] = [(1, 0), (2, 0), (3, 0)]
         XCTAssertTrue(complexVectorMatches(ed.eigenValues, expectedEigenValues, accuracy: defaultAccuracy))
@@ -122,22 +122,22 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue(complexVectorMatches(flatRight, expectedEigenVector, accuracy: defaultAccuracy))
     }
 
-    func testEigenDecompositionTrivial() {
-        testEigenDecompositionTrivialGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> MatrixEigenDecompositionResult<Double> in
-            eigendecompostion(m)
+    func testEigenDecompositionTrivial() throws {
+        try testEigenDecompositionTrivialGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
+            try eigenDecompose(m)
         }
-        testEigenDecompositionTrivialGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> MatrixEigenDecompositionResult<Float> in
-            eigendecompostion(m)
+        try testEigenDecompositionTrivialGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
+            try eigenDecompose(m)
         }
     }
 
     // Example from https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.eig.html
-    func testEigenDecompositionComplexResultsNumpyExampleGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> MatrixEigenDecompositionResult<T>)) {
+    func testEigenDecompositionComplexResultsNumpyExampleGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) throws -> MatrixEigenDecompositionResult<T>)) throws {
         let matrix = Matrix<T>([
             [1, -1],
             [1, 1],
         ])
-        let ed = eigendecompostionFn(matrix)
+        let ed = try eigendecompostionFn(matrix)
 
         let expectedEigenValues: [(T, T)] = [(1, 1), (1, -1)]
         XCTAssertTrue(complexVectorMatches(ed.eigenValues, expectedEigenValues, accuracy: defaultAccuracy))
@@ -149,18 +149,18 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue(complexVectorMatches(flatRight, expectedEigenVector, accuracy: 0.000_001))
     }
 
-    func testEigenDecompositionComplexResultsNumpyExample() {
-        testEigenDecompositionComplexResultsNumpyExampleGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> MatrixEigenDecompositionResult<Double> in
-            eigendecompostion(m)
+    func testEigenDecompositionComplexResultsNumpyExample() throws {
+        try testEigenDecompositionComplexResultsNumpyExampleGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
+            try eigenDecompose(m)
         }
-        testEigenDecompositionComplexResultsNumpyExampleGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> MatrixEigenDecompositionResult<Float> in
-            eigendecompostion(m)
+        try testEigenDecompositionComplexResultsNumpyExampleGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
+            try eigenDecompose(m)
         }
     }
 
     // Example from Intel's DGEEV documentation
     // https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgeev.htm
-    func testEigenDecompositionComplexResultsDGEEVExampleGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> MatrixEigenDecompositionResult<T>)) {
+    func testEigenDecompositionComplexResultsDGEEVExampleGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) throws -> MatrixEigenDecompositionResult<T>)) throws {
         let matrix = Matrix<T>(rows: 5, columns: 5, grid: [
             -1.01, 0.86, -4.60, 3.31, -4.81,
             3.98, 0.53, -7.04, 5.29, 3.55,
@@ -168,7 +168,7 @@ class MatrixTests: XCTestCase {
             4.43, 4.96, -7.66, -7.33, 6.18,
             7.31, -6.43, -6.16, 2.47, 5.58
         ])
-        let ed = eigendecompostionFn(matrix)
+        let ed = try eigendecompostionFn(matrix)
 
         let expectedEigenValues: [(T, T)] = [(2.86, 10.76), (2.86, -10.76), (-0.69, 4.70), (-0.69, -4.70), (-10.46, 0)]
         XCTAssertTrue(complexVectorMatches(ed.eigenValues, expectedEigenValues, accuracy: 0.02))
@@ -198,12 +198,23 @@ class MatrixTests: XCTestCase {
         }
     }
 
-    func testEigenDecompositionComplexResultsDGEEVExample() {
-        testEigenDecompositionComplexResultsDGEEVExampleGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> MatrixEigenDecompositionResult<Double> in
-            eigendecompostion(m)
+    func testEigenDecompositionComplexResultsDGEEVExample() throws {
+        try testEigenDecompositionComplexResultsDGEEVExampleGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
+            try eigenDecompose(m)
         }
-        testEigenDecompositionComplexResultsDGEEVExampleGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> MatrixEigenDecompositionResult<Float> in
-            eigendecompostion(m)
+        try testEigenDecompositionComplexResultsDGEEVExampleGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
+            try eigenDecompose(m)
+        }
+    }
+
+    func testEigenDecomposeThrowsWhenNotSquare() throws {
+        let matrix = Matrix<Double>([
+            [1, 0, 0],
+            [0, 2, 0],
+        ])
+
+        XCTAssertThrowsError(try eigenDecompose(matrix), "not square") { e in
+            XCTAssertEqual(e as? EigenDecompositionError, EigenDecompositionError.matrixNotSquare)
         }
     }
 }

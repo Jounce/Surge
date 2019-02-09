@@ -147,6 +147,12 @@ public struct MatrixEigenDecompositionResult<Scalar> where Scalar: FloatingPoint
     }
 }
 
+/// Errors thrown when a matrix cannot be decomposed.
+public enum EigenDecompositionError: Error {
+    case matrixNotSquare
+    case matrixNotDecomposable
+}
+
 // MARK: - Printable
 
 extension Matrix: CustomStringConvertible {
@@ -524,17 +530,17 @@ private func buildEigenVector<Scalar: FloatingPoint & ExpressibleByFloatLiteral>
     }
 }
 
-// Decomposes a square matrix into its eigenvalues and left and right eigenvectors.
-// The decomposition may result in complex numbers, represented by (Float, Float), which
-//   are the (real, imaginary) parts of the complex number.
+/// Decomposes a square matrix into its eigenvalues and left and right eigenvectors.
+/// The decomposition may result in complex numbers, represented by (Float, Float), which
+///   are the (real, imaginary) parts of the complex number.
 /// - Parameters:
 ///   - x: a square matrix
 /// - Returns: a struct with the eigen values and left and right eigen vectors using (Float, Float)
 ///   to represent a complex number.
-public func eigendecompostion(_ x: Matrix<Float>) -> MatrixEigenDecompositionResult<Float> {
+public func eigenDecompose(_ x: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> {
     var input = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
     input.grid = x.grid.map { Double($0) }
-    let decomposition = eigendecompostion(input)
+    let decomposition = try eigenDecompose(input)
 
     return MatrixEigenDecompositionResult<Float>(
         eigenValues: decomposition.eigenValues.map { (Float($0.0), Float($0.1)) },
@@ -543,15 +549,17 @@ public func eigendecompostion(_ x: Matrix<Float>) -> MatrixEigenDecompositionRes
     )
 }
 
-// Decomposes a square matrix into its eigenvalues and left and right eigenvectors.
-// The decomposition may result in complex numbers, represented by (Double, Double), which
-//   are the (real, imaginary) parts of the complex number.
+/// Decomposes a square matrix into its eigenvalues and left and right eigenvectors.
+/// The decomposition may result in complex numbers, represented by (Double, Double), which
+///   are the (real, imaginary) parts of the complex number.
 /// - Parameters:
 ///   - x: a square matrix
 /// - Returns: a struct with the eigen values and left and right eigen vectors using (Double, Double)
 ///   to represent a complex number.
-public func eigendecompostion(_ x: Matrix<Double>) -> MatrixEigenDecompositionResult<Double> {
-    precondition(x.rows == x.columns, "Matrix must be square")
+public func eigenDecompose(_ x: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> {
+    guard x.rows == x.columns else {
+        throw EigenDecompositionError.matrixNotSquare
+    }
 
     // dgeev_ needs column-major matrices, so transpose x.
     var matrixGrid: [__CLPK_doublereal] = transpose(x).grid
@@ -573,13 +581,17 @@ public func eigendecompostion(_ x: Matrix<Double>) -> MatrixEigenDecompositionRe
     let decompositionJobV = UnsafeMutablePointer<Int8>(mutating: ("V" as NSString).utf8String)
     // Call dgeev to find out how much workspace to allocate
     dgeev_(decompositionJobV, decompositionJobV, &matrixRowCount, &matrixGrid, &eigenValueCount, &eigenValueRealParts, &eigenValueImaginaryParts, &leftEigenVectorWork, &leftEigenVectorCount, &rightEigenVectorWork, &rightEigenVectorCount, &workspaceQuery, &workspaceSize, &error)
-    assert(error == 0, "Matrix not eigen decomposable")
+    if error != 0 {
+        throw EigenDecompositionError.matrixNotDecomposable
+    }
 
     // Allocate the workspace and call dgeev again to do the actual decomposition
     var workspace = [Double](repeating: 0.0, count: Int(workspaceQuery))
     workspaceSize = __CLPK_integer(workspaceQuery)
     dgeev_(decompositionJobV, decompositionJobV, &matrixRowCount, &matrixGrid, &eigenValueCount, &eigenValueRealParts, &eigenValueImaginaryParts, &leftEigenVectorWork, &leftEigenVectorCount, &rightEigenVectorWork, &rightEigenVectorCount, &workspace, &workspaceSize, &error)
-    assert(error == 0, "Matrix not eigen decomposable")
+    if error != 0 {
+        throw EigenDecompositionError.matrixNotDecomposable
+    }
 
     return MatrixEigenDecompositionResult<Double>(rowCount: x.rows, eigenValueRealParts: eigenValueRealParts, eigenValueImaginaryParts: eigenValueImaginaryParts, leftEigenVectorWork: leftEigenVectorWork, rightEigenVectorWork: rightEigenVectorWork)
 }
