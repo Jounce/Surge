@@ -117,6 +117,36 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
     }
 }
 
+/// Holds the result of eigendecomposition. The (Scalar, Scalar) used
+/// in the property types represents a complex number with (real, imaginary) parts.
+public struct MatrixEigenDecompositionResult<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
+    let eigenValues: [(Scalar, Scalar)]
+    let leftEigenVectors: [[(Scalar, Scalar)]]
+    let rightEigenVectors: [[(Scalar, Scalar)]]
+
+    public init(eigenValues: [(Scalar, Scalar)], leftEigenVectors: [[(Scalar, Scalar)]], rightEigenVectors: [[(Scalar, Scalar)]]) {
+        self.eigenValues = eigenValues
+        self.leftEigenVectors = leftEigenVectors
+        self.rightEigenVectors = rightEigenVectors
+    }
+
+    public init(rowCount: Int, eigenValueRealParts: [Scalar], eigenValueImaginaryParts: [Scalar], leftEigenVectorWork: [Scalar], rightEigenVectorWork: [Scalar]) {
+        // The eigenvalues are an array of (real, imaginary) results from dgeev
+        self.eigenValues = Array(zip(eigenValueRealParts, eigenValueImaginaryParts))
+
+        // Build the left and right eigenvectors
+        let emptyVector = [(Scalar, Scalar)](repeating: (0, 0), count: rowCount)
+        var leftEigenVectors = [[(Scalar, Scalar)]](repeating: emptyVector, count: rowCount)
+        buildEigenVector(eigenValueImaginaryParts: eigenValueImaginaryParts, eigenVectorWork: leftEigenVectorWork, result: &leftEigenVectors)
+
+        var rightEigenVectors = [[(Scalar, Scalar)]](repeating: emptyVector, count: rowCount)
+        buildEigenVector(eigenValueImaginaryParts: eigenValueImaginaryParts, eigenVectorWork: rightEigenVectorWork, result: &rightEigenVectors)
+
+        self.leftEigenVectors = leftEigenVectors
+        self.rightEigenVectors = rightEigenVectors
+    }
+}
+
 // MARK: - Printable
 
 extension Matrix: CustomStringConvertible {
@@ -473,96 +503,85 @@ public func det(_ x: Matrix<Double>) -> Double? {
 // See Intel's documentation on column-major results for sample code that this
 // is based on:
 // https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgeev.htm
-private func buildEigenVector(wi: [Double], v: [Double], result: inout [[(Double, Double)]]) {
-    let n = wi.count
-    for r in 0..<n {
-        var c = 0
-        while c < n {
-            if wi[c] == 0.0 {
+private func buildEigenVector<Scalar: FloatingPoint & ExpressibleByFloatLiteral>(eigenValueImaginaryParts: [Scalar], eigenVectorWork: [Scalar], result: inout [[(Scalar, Scalar)]]) {
+    // row and col count are the same because result must be square.
+    let rowColCount = result.count
+
+    for row in 0..<rowColCount {
+        var col = 0
+        while col < rowColCount {
+            if eigenValueImaginaryParts[col] == 0.0 {
                 // v is column-major
-                result[r][c] = (v[r+n*c], 0.0)
-                c += 1
+                result[row][col] = (eigenVectorWork[row+rowColCount*col], 0.0)
+                col += 1
             } else {
                 // v is column-major
-                result[r][c] = (v[r+c*n], v[r+n*(c+1)])
-                result[r][c+1] = (v[r+c*n], -v[r+n*(c+1)])
-                c += 2
+                result[row][col] = (eigenVectorWork[row+col*rowColCount], eigenVectorWork[row+rowColCount*(col+1)])
+                result[row][col+1] = (eigenVectorWork[row+col*rowColCount], -eigenVectorWork[row+rowColCount*(col+1)])
+                col += 2
             }
         }
     }
 }
 
-// Returns the eigenvalues and left and right eigenvectors of a square matix
-// The decomposition may result in complex numbers, which is represented by (Float, Float), which
+// Decomposes a square matrix into its eigenvalues and left and right eigenvectors.
+// The decomposition may result in complex numbers, represented by (Float, Float), which
 //   are the (real, imaginary) parts of the complex number.
-// The return is a tuple with the following 3 components
-// .0: The eigenvalues represented as an array of complex numbers
-// .1: The left eigenvectors represented as a 2-dimensional array of complex numbers
-// .2: The right eigenvectors represented as a 2-dimensional array of complex numbers
-public func eigendecompostion(_ x: Matrix<Float>) -> ([(Float, Float)], [[(Float, Float)]], [[(Float, Float)]]) {
+/// - Parameters:
+///   - x: a square matrix
+/// - Returns: a struct with the eigen values and left and right eigen vectors using (Float, Float)
+///   to represent a complex number.
+public func eigendecompostion(_ x: Matrix<Float>) -> MatrixEigenDecompositionResult<Float> {
     var input = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
     input.grid = x.grid.map { Double($0) }
-    let (eigenValues, leftEigenVectors, rightEigenVectors) = eigendecompostion(input)
+    let decomposition = eigendecompostion(input)
 
-    return (
-        eigenValues.map { (Float($0.0), Float($0.1)) },
-        leftEigenVectors.map { $0.map { (Float($0.0), Float($0.1)) } },
-        rightEigenVectors.map { $0.map { (Float($0.0), Float($0.1)) } }
+    return MatrixEigenDecompositionResult<Float>(
+        eigenValues: decomposition.eigenValues.map { (Float($0.0), Float($0.1)) },
+        leftEigenVectors: decomposition.leftEigenVectors.map { $0.map { (Float($0.0), Float($0.1)) } },
+        rightEigenVectors: decomposition.rightEigenVectors.map { $0.map { (Float($0.0), Float($0.1)) } }
     )
 }
 
-// Returns the eigenvalues and left and right eigenvectors of a square matix
-// The decomposition may result in complex numbers, which is represented by (Double, Double), which
+// Decomposes a square matrix into its eigenvalues and left and right eigenvectors.
+// The decomposition may result in complex numbers, represented by (Double, Double), which
 //   are the (real, imaginary) parts of the complex number.
-// The return is a tuple with the following 3 components
-// .0: The eigenvalues represented as an array of complex numbers
-// .1: The left eigenvectors represented as a 2-dimensional array of complex numbers
-// .2: The right eigenvectors represented as a 2-dimensional array of complex numbers
-public func eigendecompostion(_ x: Matrix<Double>) -> ([(Double, Double)], [[(Double, Double)]], [[(Double, Double)]]) {
+/// - Parameters:
+///   - x: a square matrix
+/// - Returns: a struct with the eigen values and left and right eigen vectors using (Double, Double)
+///   to represent a complex number.
+public func eigendecompostion(_ x: Matrix<Double>) -> MatrixEigenDecompositionResult<Double> {
     precondition(x.rows == x.columns, "Matrix must be square")
 
-    // dgeev_ needs column-major matrices
-    var mat: [__CLPK_doublereal] = transpose(x).grid
-
-    var N1 = __CLPK_integer(x.rows)
-    // Make copies of N to silence exclusive access warnings in dgeev_ calls
-    var N2 = N1
-    var N3 = N1
-    var N4 = N1
+    // dgeev_ needs column-major matrices, so transpose x.
+    var matrixGrid: [__CLPK_doublereal] = transpose(x).grid
+    var matrixRowCount = __CLPK_integer(x.rows)
+    let matrixColCount = matrixRowCount
+    var eigenValueCount = matrixRowCount
+    var leftEigenVectorCount = matrixRowCount
+    var rightEigenVectorCount = matrixRowCount
 
     var workspaceQuery: Double = 0.0
+    var workspaceSize = __CLPK_integer(-1)
     var error: __CLPK_integer = 0
-    var lwork = __CLPK_integer(-1)
 
-    var wr = [Double](repeating: 0, count: Int(N1))
-    var wi = [Double](repeating: 0, count: Int(N1))
+    var eigenValueRealParts = [Double](repeating: 0, count: Int(eigenValueCount))
+    var eigenValueImaginaryParts = [Double](repeating: 0, count: Int(eigenValueCount))
+    var leftEigenVectorWork = [Double](repeating: 0, count: Int(leftEigenVectorCount * matrixColCount))
+    var rightEigenVectorWork = [Double](repeating: 0, count: Int(rightEigenVectorCount * matrixColCount))
 
-    var vl = [Double](repeating: 0, count: Int(N1 * N1))
-    var vr = [Double](repeating: 0, count: Int(N1 * N1))
-
-    let V = UnsafeMutablePointer<Int8>(mutating: ("V" as NSString).utf8String)
+    let decompositionJobV = UnsafeMutablePointer<Int8>(mutating: ("V" as NSString).utf8String)
     // Call dgeev to find out how much workspace to allocate
-    dgeev_(V, V, &N1, &mat, &N2, &wr, &wi, &vl, &N3, &vr, &N4, &workspaceQuery, &lwork, &error)
+    dgeev_(decompositionJobV, decompositionJobV, &matrixRowCount, &matrixGrid, &eigenValueCount, &eigenValueRealParts, &eigenValueImaginaryParts, &leftEigenVectorWork, &leftEigenVectorCount, &rightEigenVectorWork, &rightEigenVectorCount, &workspaceQuery, &workspaceSize, &error)
+    assert(error == 0, "Matrix not eigen decomposable")
 
     // Allocate the workspace and call dgeev again to do the actual decomposition
     var workspace = [Double](repeating: 0.0, count: Int(workspaceQuery))
-    lwork = __CLPK_integer(workspaceQuery)
-    dgeev_(V, V, &N1, &mat, &N2, &wr, &wi, &vl, &N3, &vr, &N4, &workspace, &lwork, &error)
-
+    workspaceSize = __CLPK_integer(workspaceQuery)
+    dgeev_(decompositionJobV, decompositionJobV, &matrixRowCount, &matrixGrid, &eigenValueCount, &eigenValueRealParts, &eigenValueImaginaryParts, &leftEigenVectorWork, &leftEigenVectorCount, &rightEigenVectorWork, &rightEigenVectorCount, &workspace, &workspaceSize, &error)
     assert(error == 0, "Matrix not eigen decomposable")
 
-    // The eigenvalues are an arry of (real, imaginary) results from dgeev
-    let eigenValues = Array(zip(wr, wi))
-
-    // Build the left and right eigenvectors
-    let emptyVector = [(Double, Double)](repeating: (0, 0), count: x.rows)
-    var leftEigenVectors = [[(Double, Double)]](repeating: emptyVector, count: x.rows)
-    buildEigenVector(wi: wi, v: vl, result: &leftEigenVectors)
-
-    var rightEigenVectors = [[(Double, Double)]](repeating: emptyVector, count: x.rows)
-    buildEigenVector(wi: wi, v: vr, result: &rightEigenVectors)
-
-    return (eigenValues, leftEigenVectors, rightEigenVectors)
+    return MatrixEigenDecompositionResult<Double>(rowCount: x.rows, eigenValueRealParts: eigenValueRealParts, eigenValueImaginaryParts: eigenValueImaginaryParts, leftEigenVectorWork: leftEigenVectorWork, rightEigenVectorWork: rightEigenVectorWork)
 }
 
 // MARK: - Operators

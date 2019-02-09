@@ -103,7 +103,7 @@ class MatrixTests: XCTestCase {
         }) == nil
     }
 
-    func testEigenDecompositionTrivialGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> ([(T, T)], [[(T, T)]], [[(T, T)]]))) {
+    func testEigenDecompositionTrivialGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> MatrixEigenDecompositionResult<T>)) {
         let matrix = Matrix<T>([
             [1, 0, 0],
             [0, 2, 0],
@@ -112,27 +112,27 @@ class MatrixTests: XCTestCase {
         let ed = eigendecompostionFn(matrix)
 
         let expectedEigenValues: [(T, T)] = [(1, 0), (2, 0), (3, 0)]
-        XCTAssertTrue(complexVectorMatches(ed.0, expectedEigenValues, accuracy: defaultAccuracy))
+        XCTAssertTrue(complexVectorMatches(ed.eigenValues, expectedEigenValues, accuracy: defaultAccuracy))
 
         let expectedEigenVector: [(T, T)] = [(1, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (1, 0)]
-        let flatLeft = ed.1.flatMap { $0 }
+        let flatLeft = ed.leftEigenVectors.flatMap { $0 }
         XCTAssertTrue(complexVectorMatches(flatLeft, expectedEigenVector, accuracy: defaultAccuracy))
 
-        let flatRight = ed.2.flatMap { $0 }
+        let flatRight = ed.rightEigenVectors.flatMap { $0 }
         XCTAssertTrue(complexVectorMatches(flatRight, expectedEigenVector, accuracy: defaultAccuracy))
     }
 
     func testEigenDecompositionTrivial() {
-        testEigenDecompositionTrivialGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> ([(Double, Double)], [[(Double, Double)]], [[(Double, Double)]]) in
+        testEigenDecompositionTrivialGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> MatrixEigenDecompositionResult<Double> in
             eigendecompostion(m)
         }
-        testEigenDecompositionTrivialGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> ([(Float, Float)], [[(Float, Float)]], [[(Float, Float)]]) in
+        testEigenDecompositionTrivialGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> MatrixEigenDecompositionResult<Float> in
             eigendecompostion(m)
         }
     }
 
     // Example from https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.eig.html
-    func testEigenDecompositionComplexResultsNumpyExampleGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> ([(T, T)], [[(T, T)]], [[(T, T)]]))) {
+    func testEigenDecompositionComplexResultsNumpyExampleGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> MatrixEigenDecompositionResult<T>)) {
         let matrix = Matrix<T>([
             [1, -1],
             [1, 1],
@@ -140,27 +140,27 @@ class MatrixTests: XCTestCase {
         let ed = eigendecompostionFn(matrix)
 
         let expectedEigenValues: [(T, T)] = [(1, 1), (1, -1)]
-        XCTAssertTrue(complexVectorMatches(ed.0, expectedEigenValues, accuracy: defaultAccuracy))
+        XCTAssertTrue(complexVectorMatches(ed.eigenValues, expectedEigenValues, accuracy: defaultAccuracy))
 
         let expectedEigenVector: [(T, T)] = [(0.707_106_78, 0), (0.707_106_78, 0), (0, -0.707_106_78), (0, 0.707_106_78)]
 
         // Numpy only gives the right eigenvector
-        let flatRight = ed.2.flatMap { $0 }
+        let flatRight = ed.rightEigenVectors.flatMap { $0 }
         XCTAssertTrue(complexVectorMatches(flatRight, expectedEigenVector, accuracy: 0.000_001))
     }
 
     func testEigenDecompositionComplexResultsNumpyExample() {
-        testEigenDecompositionComplexResultsNumpyExampleGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> ([(Double, Double)], [[(Double, Double)]], [[(Double, Double)]]) in
+        testEigenDecompositionComplexResultsNumpyExampleGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> MatrixEigenDecompositionResult<Double> in
             eigendecompostion(m)
         }
-        testEigenDecompositionComplexResultsNumpyExampleGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> ([(Float, Float)], [[(Float, Float)]], [[(Float, Float)]]) in
+        testEigenDecompositionComplexResultsNumpyExampleGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> MatrixEigenDecompositionResult<Float> in
             eigendecompostion(m)
         }
     }
 
     // Example from Intel's DGEEV documentation
     // https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgeev.htm
-    func testEigenDecompositionComplexResultsDGEEVExampleGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> ([(T, T)], [[(T, T)]], [[(T, T)]]))) {
+    func testEigenDecompositionComplexResultsDGEEVExampleGeneric<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) -> MatrixEigenDecompositionResult<T>)) {
         let matrix = Matrix<T>(rows: 5, columns: 5, grid: [
             -1.01, 0.86, -4.60, 3.31, -4.81,
             3.98, 0.53, -7.04, 5.29, 3.55,
@@ -171,7 +171,7 @@ class MatrixTests: XCTestCase {
         let ed = eigendecompostionFn(matrix)
 
         let expectedEigenValues: [(T, T)] = [(2.86, 10.76), (2.86, -10.76), (-0.69, 4.70), (-0.69, -4.70), (-10.46, 0)]
-        XCTAssertTrue(complexVectorMatches(ed.0, expectedEigenValues, accuracy: 0.02))
+        XCTAssertTrue(complexVectorMatches(ed.eigenValues, expectedEigenValues, accuracy: 0.02))
 
         let expectedLeftEigenVectors: [[(T, T)]] = [
             [(0.04, 0.29), (0.04, -0.29), (-0.13, -0.33), (-0.13, 0.33), (0.04, 0)],
@@ -180,9 +180,9 @@ class MatrixTests: XCTestCase {
             [(0.28, 0.01), (0.28, -0.01), (-0.02, -0.19), (-0.02, 0.19), (-0.80, 0)],
             [(-0.04, 0.34), (-0.04, -0.34), (-0.40, 0.22), (-0.40, -0.22), (0.18, 0)],
         ]
-        XCTAssertEqual(ed.1.count, expectedLeftEigenVectors.count)
-        for i in 0..<ed.1.count {
-            XCTAssertTrue(complexVectorMatches(ed.1[i], expectedLeftEigenVectors[i], accuracy: 0.02))
+        XCTAssertEqual(ed.leftEigenVectors.count, expectedLeftEigenVectors.count)
+        for i in 0..<ed.leftEigenVectors.count {
+            XCTAssertTrue(complexVectorMatches(ed.leftEigenVectors[i], expectedLeftEigenVectors[i], accuracy: 0.02))
         }
 
         let expectedRightEigenVectors: [[(T, T)]] = [
@@ -192,17 +192,17 @@ class MatrixTests: XCTestCase {
             [(0.40, -0.09), (0.40, 0.09), (-0.08, -0.08), (-0.08, 0.08), (-0.74, 0.0)],
             [(0.54, 0.00), (0.54, 0.00), (-0.29, -0.49), (-0.29, 0.49), (0.16, 0.0)],
         ]
-        XCTAssertEqual(ed.2.count, expectedRightEigenVectors.count)
-        for i in 0..<ed.2.count {
-            XCTAssertTrue(complexVectorMatches(ed.2[i], expectedRightEigenVectors[i], accuracy: 0.02))
+        XCTAssertEqual(ed.rightEigenVectors.count, expectedRightEigenVectors.count)
+        for i in 0..<ed.rightEigenVectors.count {
+            XCTAssertTrue(complexVectorMatches(ed.rightEigenVectors[i], expectedRightEigenVectors[i], accuracy: 0.02))
         }
     }
 
     func testEigenDecompositionComplexResultsDGEEVExample() {
-        testEigenDecompositionComplexResultsDGEEVExampleGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> ([(Double, Double)], [[(Double, Double)]], [[(Double, Double)]]) in
+        testEigenDecompositionComplexResultsDGEEVExampleGeneric(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) -> MatrixEigenDecompositionResult<Double> in
             eigendecompostion(m)
         }
-        testEigenDecompositionComplexResultsDGEEVExampleGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> ([(Float, Float)], [[(Float, Float)]], [[(Float, Float)]]) in
+        testEigenDecompositionComplexResultsDGEEVExampleGeneric(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) -> MatrixEigenDecompositionResult<Float> in
             eigendecompostion(m)
         }
     }
