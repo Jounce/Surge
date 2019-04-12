@@ -20,7 +20,7 @@ Though, keep in mind: _Accelerate is not a silver bullet_. Under certain conditi
 
 _The infrastructure and best practices for distributing Swift libraries are currently in flux during this beta period of Swift & Xcode. In the meantime, you can add Surge as a git submodule, drag the `Surge.xcodeproj` file into your Xcode project, and add `Surge.framework` as a dependency for your target._
 
-Surge uses Swift 4.1. This means that your code has to be written in Swift 4.x due to current binary compatibility limitations.
+Surge uses Swift 5. This means that your code has to be written in Swift 5 due to current binary compatibility limitations.
 
 ### Swift Package Manager
 
