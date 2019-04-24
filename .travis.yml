@@ -1,8 +1,9 @@
-language: objective-c
-osx_image: xcode9.4
+language: swift
+osx_image: xcode10.2
 
 install:
-  - brew update && brew upgrade swiftlint
+  - brew update
+  - brew outdated swiftlint || brew upgrade swiftlint
 
 script:
   - swiftlint --strict
