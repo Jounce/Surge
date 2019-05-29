@@ -207,6 +207,74 @@ public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
 
 // MARK: -
 
+public func addbc(_ x: Matrix<Float>, _ vec: Matrix<Float>, vecFactor: Float = 1.0) -> Matrix<Float> {
+    precondition(
+        x.rows == vec.rows && vec.columns == 1 || x.columns == vec.columns && vec.rows == 1,
+        "Matrix dimensions not compatible with addition"
+    )
+
+    let repColumns = vec.columns == 1
+    var results: Matrix<Float>
+
+    if repColumns {
+        results = transpose(x)
+    } else {
+        results = x
+    }
+
+    let reps = results.rows
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        for i in 0..<reps {
+            let ptr = pointer.baseAddress!.advanced(by: i * vec.grid.count)
+            cblas_saxpy(Int32(vec.grid.count), vecFactor, vec.grid, 1, ptr, 1)
+        }
+    }
+
+    if repColumns {
+        return transpose(results)
+    } else {
+        return results
+    }
+}
+
+public func addbc(_ x: Matrix<Double>, _ vec: Matrix<Double>, vecFactor: Double = 1.0) -> Matrix<Double> {
+    precondition(
+        x.rows == vec.rows && vec.columns == 1 || x.columns == vec.columns && vec.rows == 1,
+        "Matrix dimensions not compatible with addition"
+    )
+
+    let repColumns = vec.columns == 1
+    var results: Matrix<Double>
+
+    if repColumns {
+        results = transpose(x)
+    } else {
+        results = x
+    }
+
+    let reps = results.rows
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        for i in 0..<reps {
+            let ptr = pointer.baseAddress!.advanced(by: i * vec.grid.count)
+            cblas_daxpy(Int32(vec.grid.count), vecFactor, vec.grid, 1, ptr, 1)
+        }
+    }
+
+    if repColumns {
+        return transpose(results)
+    } else {
+        return results
+    }
+}
+
+public func subbc(_ x: Matrix<Float>, _ vec: Matrix<Float>) -> Matrix<Float> {
+    return addbc(x, vec, vecFactor: -1.0)
+}
+
+public func subbc(_ x: Matrix<Double>, _ vec: Matrix<Double>) -> Matrix<Double> {
+    return addbc(x, vec, vecFactor: -1.0)
+}
+
 public func add(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
 

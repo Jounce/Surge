@@ -65,6 +65,58 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix + matrix, expectedResult)
     }
 
+    func testMatrixAdditionWithBroadcasting() {
+        let mat: Matrix<Float> = Matrix<Float>([[2, 4, 6, 8], [10, 12, 14, 16], [18, 20, 22, 24]])
+
+        let rowVec: Matrix<Float> = Matrix<Float>([[1, 2, 3, 4]])
+        let res1 = addbc(mat, rowVec)
+        let exp1: Matrix<Float> = Matrix<Float>([[3, 6, 9, 12], [11, 14, 17, 20], [19, 22, 25, 28]])
+        XCTAssertEqual(res1, exp1)
+
+        let colVec: Matrix<Float> = Matrix<Float>([[1], [2], [3]])
+        let res2 = addbc(mat, colVec)
+        let exp2: Matrix<Float> = Matrix<Float>([[3, 5, 7, 9], [12, 14, 16, 18], [21, 23, 25, 27]])
+        XCTAssertEqual(res2, exp2)
+
+        let matD: Matrix<Double> = Matrix<Double>([[2, 4, 6, 8], [10, 12, 14, 16], [18, 20, 22, 24]])
+
+        let rowVecD: Matrix<Double> = Matrix<Double>([[1, 2, 3, 4]])
+        let resD1 = addbc(matD, rowVecD)
+        let expD1: Matrix<Double> = Matrix<Double>([[3, 6, 9, 12], [11, 14, 17, 20], [19, 22, 25, 28]])
+        XCTAssertEqual(resD1, expD1)
+
+        let colVecD: Matrix<Double> = Matrix<Double>([[1], [2], [3]])
+        let resD2 = addbc(matD, colVecD)
+        let expD2: Matrix<Double> = Matrix<Double>([[3, 5, 7, 9], [12, 14, 16, 18], [21, 23, 25, 27]])
+        XCTAssertEqual(resD2, expD2)
+    }
+
+    func testMatrixSubtractionWithBroadcasting() {
+        let mat: Matrix<Float> = Matrix<Float>([[2, 4, 6, 8], [10, 12, 14, 16], [18, 20, 22, 24]])
+
+        let rowVec: Matrix<Float> = Matrix<Float>([[1, 2, 3, 4]])
+        let res1 = subbc(mat, rowVec)
+        let exp1: Matrix<Float> = Matrix<Float>([[1, 2, 3, 4], [9, 10, 11, 12], [17, 18, 19, 20]])
+        XCTAssertEqual(res1, exp1)
+
+        let colVec: Matrix<Float> = Matrix<Float>([[1], [2], [3]])
+        let res2 = subbc(mat, colVec)
+        let exp2: Matrix<Float> = Matrix<Float>([[1, 3, 5, 7], [8, 10, 12, 14], [15, 17, 19, 21]])
+        XCTAssertEqual(res2, exp2)
+
+        let matD: Matrix<Double> = Matrix<Double>([[2, 4, 6, 8], [10, 12, 14, 16], [18, 20, 22, 24]])
+
+        let rowVecD: Matrix<Double> = Matrix<Double>([[1, 2, 3, 4]])
+        let resD1 = subbc(matD, rowVecD)
+        let expD1: Matrix<Double> = Matrix<Double>([[1, 2, 3, 4], [9, 10, 11, 12], [17, 18, 19, 20]])
+        XCTAssertEqual(resD1, expD1)
+
+        let colVecD: Matrix<Double> = Matrix<Double>([[1], [2], [3]])
+        let resD2 = subbc(matD, colVecD)
+        let expD2: Matrix<Double> = Matrix<Double>([[1, 3, 5, 7], [8, 10, 12, 14], [15, 17, 19, 21]])
+        XCTAssertEqual(resD2, expD2)
+    }
+
     func testMatrixSubtraction() {
         let expectedResult: Matrix<Double> = Matrix<Double>([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
         XCTAssertEqual(matrix - matrix, expectedResult)
