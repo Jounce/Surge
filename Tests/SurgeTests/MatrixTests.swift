@@ -127,6 +127,42 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(elmul(matrix, matrix2), Matrix<Double>([[2, 6, 12, 20], [30, 42, 56, 72], [90, 110, 132, 156]]))
     }
 
+    func testElementWiseMultiplicationWithBroadcasting() {
+        let mat: Matrix<Double> = Matrix<Double>([[2, 4, 6, 8], [10, 12, 14, 16], [18, 20, 22, 24]])
+
+        let rowVec: Matrix<Double> = Matrix<Double>([[1, 2, 2, 4]])
+        let res1 = elmulbc(mat, rowVec)
+        let exp1: Matrix<Double> = Matrix<Double>([[2, 8, 12, 32], [10, 24, 28, 64], [18, 40, 44, 96]])
+        XCTAssertEqual(res1, exp1)
+
+        let colVec: Matrix<Double> = Matrix<Double>([[1], [2], [3]])
+        let res2 = elmulbc(mat, colVec)
+        let exp2: Matrix<Double> = Matrix<Double>([[2, 4, 6, 8], [20, 24, 28, 32], [54, 60, 66, 72]])
+        XCTAssertEqual(res2, exp2)
+    }
+
+    func testElementWiseDivision() {
+        let matrix1 = Matrix<Double>([[2, 4, 6, 8], [10, 12, 14, 16], [18, 20, 22, 24]])
+        let matrix2 = Matrix<Double>([[2, 2, 2, 4], [4, 3, 14, 8], [9, 5, 11, 24]])
+        let res = eldiv(matrix1, matrix2)
+        let exp = Matrix<Double>([[1, 2, 3, 2], [2.5, 4, 1, 2], [2, 4, 2, 1]])
+        XCTAssertEqual(res, exp)
+    }
+
+    func testElementWiseDivisionWithBroadcasting() {
+        let mat: Matrix<Double> = Matrix<Double>([[2, 4, 6, 8], [10, 12, 14, 16], [18, 20, 22, 24]])
+
+        let rowVec: Matrix<Double> = Matrix<Double>([[1, 2, 2, 4]])
+        let res1 = eldivbc(mat, rowVec)
+        let exp1: Matrix<Double> = Matrix<Double>([[2, 2, 3, 2], [10, 6, 7, 4], [18, 10, 11, 6]])
+        XCTAssertEqual(res1, exp1)
+
+        let colVec: Matrix<Double> = Matrix<Double>([[1], [2], [3]])
+        let res2 = eldivbc(mat, colVec)
+        let exp2: Matrix<Double> = Matrix<Double>([[2, 4, 6, 8], [5, 6, 7, 8], [6, Double(20)/3, Double(22)/3, 8]])
+        XCTAssertEqual(res2, exp2)
+    }
+
     func testDeterminantFloat() {
         let matrix = Matrix<Float>([[1, 2], [5, 6]])
         XCTAssertEqual(det(matrix)!, Float(6 - 10), accuracy: floatAccuracy)

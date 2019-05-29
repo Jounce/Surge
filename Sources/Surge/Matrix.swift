@@ -365,6 +365,66 @@ public func mul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func elmulbc(_ x: Matrix<Float>, _ vec: Matrix<Float>) -> Matrix<Float> {
+    precondition(
+        x.rows == vec.rows && vec.columns == 1 || x.columns == vec.columns && vec.rows == 1,
+        "Matrix dimensions not compatible with element-wise multiplication"
+    )
+
+    let repColumns = vec.columns == 1
+    var results: Matrix<Float>
+
+    if repColumns {
+        results = transpose(x)
+    } else {
+        results = x
+    }
+
+    let reps = results.rows
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        for i in 0..<reps {
+            let ptr = pointer.baseAddress!.advanced(by: i * vec.grid.count)
+            vDSP_vmul(ptr, 1, vec.grid, 1, ptr, 1, vDSP_Length(vec.grid.count))
+        }
+    }
+
+    if repColumns {
+        return transpose(results)
+    } else {
+        return results
+    }
+}
+
+public func elmulbc(_ x: Matrix<Double>, _ vec: Matrix<Double>) -> Matrix<Double> {
+    precondition(
+        x.rows == vec.rows && vec.columns == 1 || x.columns == vec.columns && vec.rows == 1,
+        "Matrix dimensions not compatible with element-wise multiplication"
+    )
+
+    let repColumns = vec.columns == 1
+    var results: Matrix<Double>
+
+    if repColumns {
+        results = transpose(x)
+    } else {
+        results = x
+    }
+
+    let reps = results.rows
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        for i in 0..<reps {
+            let ptr = pointer.baseAddress!.advanced(by: i * vec.grid.count)
+            vDSP_vmulD(ptr, 1, vec.grid, 1, ptr, 1, vDSP_Length(vec.grid.count))
+        }
+    }
+
+    if repColumns {
+        return transpose(results)
+    } else {
+        return results
+    }
+}
+
 public func elmul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
     var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
@@ -376,6 +436,80 @@ public func elmul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
     var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
     result.grid = x.grid .* y.grid
+    return result
+}
+
+public func eldivbc(_ x: Matrix<Float>, _ vec: Matrix<Float>) -> Matrix<Float> {
+    precondition(
+        x.rows == vec.rows && vec.columns == 1 || x.columns == vec.columns && vec.rows == 1,
+        "Matrix dimensions not compatible with element-wise multiplication"
+    )
+
+    let repColumns = vec.columns == 1
+    var results: Matrix<Float>
+
+    if repColumns {
+        results = transpose(x)
+    } else {
+        results = x
+    }
+
+    let reps = results.rows
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        for i in 0..<reps {
+            let ptr = pointer.baseAddress!.advanced(by: i * vec.grid.count)
+            vDSP_vdiv(vec.grid, 1, ptr, 1, ptr, 1, vDSP_Length(vec.grid.count))
+        }
+    }
+
+    if repColumns {
+        return transpose(results)
+    } else {
+        return results
+    }
+}
+
+public func eldivbc(_ x: Matrix<Double>, _ vec: Matrix<Double>) -> Matrix<Double> {
+    precondition(
+        x.rows == vec.rows && vec.columns == 1 || x.columns == vec.columns && vec.rows == 1,
+        "Matrix dimensions not compatible with element-wise multiplication"
+    )
+
+    let repColumns = vec.columns == 1
+    var results: Matrix<Double>
+
+    if repColumns {
+        results = transpose(x)
+    } else {
+        results = x
+    }
+
+    let reps = results.rows
+    results.grid.withUnsafeMutableBufferPointer { pointer in
+        for i in 0..<reps {
+            let ptr = pointer.baseAddress!.advanced(by: i * vec.grid.count)
+            vDSP_vdivD(vec.grid, 1, ptr, 1, ptr, 1, vDSP_Length(vec.grid.count))
+        }
+    }
+
+    if repColumns {
+        return transpose(results)
+    } else {
+        return results
+    }
+}
+
+public func eldiv(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
+    var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    result.grid = x.grid ./ y.grid
+    return result
+}
+
+public func eldiv(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
+    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
+    var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
+    result.grid = x.grid ./ y.grid
     return result
 }
 
