@@ -40,6 +40,13 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix[row: 1], [5, 6, 7, 8])
     }
 
+    func testSubscriptRows() {
+        let matrix: Matrix<Double> = Matrix<Double>([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
+        XCTAssertEqual(matrix[rows: 0..<2], [1, 2, 3, 4, 5, 6, 7, 8])
+        XCTAssertEqual(matrix[rows: 0...1], [1, 2, 3, 4, 5, 6, 7, 8])
+        XCTAssertEqual(matrix[rows: 1..<3], [5, 6, 7, 8, 9, 10, 11, 12])
+    }
+
     func testSubscriptColumn() {
         XCTAssertEqual(matrix[column: 0], [1, 5, 9])
         XCTAssertEqual(matrix[column: 1], [2, 6, 10])

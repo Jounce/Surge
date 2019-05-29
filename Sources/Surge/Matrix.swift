@@ -92,6 +92,28 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         }
     }
 
+    public subscript(rows rows: Range<Int>) -> [Scalar] {
+        get {
+            let lastIndex = rows.lowerBound + rows.count - 1
+            assert(rows.lowerBound >= 0 && lastIndex < self.rows)
+            let startIndex = rows.lowerBound * columns
+            let endIndex = (lastIndex + 1) * columns
+            return Array(grid[startIndex..<endIndex])
+        }
+        set {
+            fatalError("Not Implemented")
+        }
+    }
+
+    public subscript(rows rows: ClosedRange<Int>) -> [Scalar] {
+        get {
+            return self[rows: rows.lowerBound..<(rows.upperBound + 1)]
+        }
+        set {
+            fatalError("Not Implemented")
+        }
+    }
+
     public subscript(column column: Int) -> [Scalar] {
         get {
             var result = [Scalar](repeating: 0.0, count: rows)
