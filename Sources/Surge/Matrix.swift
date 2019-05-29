@@ -549,6 +549,50 @@ public func exp(_ x: Matrix<Float>) -> Matrix<Float> {
     return result
 }
 
+public func log(_ x: Matrix<Double>) -> Matrix<Double> {
+    return Matrix<Double>(rows: x.rows, columns: x.columns, grid: log(x.grid))
+}
+
+public func log(_ x: Matrix<Float>) -> Matrix<Float> {
+    return Matrix<Float>(rows: x.rows, columns: x.columns, grid: log(x.grid))
+}
+
+public func argmax(_ x: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Float> {
+    switch axies {
+    case .column:
+        var result = Matrix<Float>(rows: 1, columns: x.columns, repeatedValue: 0.0)
+        for i in 0..<x.columns {
+            result[0, i] = Float(argmax(x[column: i]))
+        }
+        return result
+
+    case .row:
+        var result = Matrix<Float>(rows: x.rows, columns: 1, repeatedValue: 0.0)
+        for i in 0..<x.rows {
+            result[i, 0] = Float(argmax(x[row: i]))
+        }
+        return result
+    }
+}
+
+public func argmax(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Double> {
+    switch axies {
+    case .column:
+        var result = Matrix<Double>(rows: 1, columns: x.columns, repeatedValue: 0.0)
+        for i in 0..<x.columns {
+            result[0, i] = Double(argmax(x[column: i]))
+        }
+        return result
+
+    case .row:
+        var result = Matrix<Double>(rows: x.rows, columns: 1, repeatedValue: 0.0)
+        for i in 0..<x.rows {
+            result[i, 0] = Double(argmax(x[row: i]))
+        }
+        return result
+    }
+}
+
 public func sum(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Double> {
 
     switch axies {
@@ -585,6 +629,80 @@ public func sum(_ x: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Floa
         }
         return result
     }
+}
+
+public func maximum(_ alpha: Float, _ x: Matrix<Float>) -> Matrix<Float> {
+    return Matrix<Float>(rows: x.rows, columns: x.columns, grid: threshold(x.grid, low: alpha))
+}
+
+public func maximum(_ alpha: Double, _ x: Matrix<Double>) -> Matrix<Double> {
+    return Matrix<Double>(rows: x.rows, columns: x.columns, grid: threshold(x.grid, low: alpha))
+}
+
+public func mean(_ x: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Float> {
+    let s = sum(x, axies: axies)
+    if axies == .column {
+        return s / Float(x.rows)
+    } else {
+        return s / Float(x.columns)
+    }
+}
+
+public func mean(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Double> {
+    let s = sum(x, axies: axies)
+    if axies == .column {
+        return s / Double(x.rows)
+    } else {
+        return s / Double(x.columns)
+    }
+}
+
+public func measq(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Double> {
+    switch axies {
+    case .column:
+        var result = Matrix<Double>(rows: 1, columns: x.columns, repeatedValue: 0.0)
+        for i in 0..<x.columns {
+            result[0, i] = measq(x[column: i])
+        }
+        return result
+
+    case .row:
+        var result = Matrix<Double>(rows: x.rows, columns: 1, repeatedValue: 0.0)
+        for i in 0..<x.rows {
+            result[i, 0] = measq(x[row: i])
+        }
+        return result
+    }
+}
+
+public func measq(_ x: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Float> {
+    switch axies {
+    case .column:
+        var result = Matrix<Float>(rows: 1, columns: x.columns, repeatedValue: 0.0)
+        for i in 0..<x.columns {
+            result[0, i] = measq(x[column: i])
+        }
+        return result
+
+    case .row:
+        var result = Matrix<Float>(rows: x.rows, columns: 1, repeatedValue: 0.0)
+        for i in 0..<x.rows {
+            result[i, 0] = measq(x[row: i])
+        }
+        return result
+    }
+}
+
+public func variance(_ x: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Float> {
+    let mu = mean(x, axies: axies)
+    let diff = subbc(x, mu)
+    return measq(diff, axies: axies)
+}
+
+public func variance(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Double> {
+    let mu = mean(x, axies: axies)
+    let diff = subbc(x, mu)
+    return measq(diff, axies: axies)
 }
 
 public func inv(_ x: Matrix<Float>) -> Matrix<Float> {

@@ -100,6 +100,20 @@ public func max<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == 
     return result
 }
 
+public func argmax(_ x: [Float]) -> Int {
+    var max: Float = 0.0
+    var index = vDSP_Length(0)
+    vDSP_maxvi(x, 1, &max, &index, vDSP_Length(x.count))
+    return Int(index)
+}
+
+public func argmax(_ x: [Double]) -> Int {
+    var max: Double = 0.0
+    var index = vDSP_Length(0)
+    vDSP_maxviD(x, 1, &max, &index, vDSP_Length(x.count))
+    return Int(index)
+}
+
 // MARK: Minimum
 
 public func min<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
@@ -120,6 +134,20 @@ public func min<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == 
         }
     }
     return result
+}
+
+public func argmin(_ x: [Float]) -> Int {
+    var min: Float = 0.0
+    var index = vDSP_Length(0)
+    vDSP_minvi(x, 1, &min, &index, vDSP_Length(x.count))
+    return Int(index)
+}
+
+public func argmin(_ x: [Double]) -> Int {
+    var min: Double = 0.0
+    var index = vDSP_Length(0)
+    vDSP_minviD(x, 1, &min, &index, vDSP_Length(x.count))
+    return Int(index)
 }
 
 // MARK: Mean
