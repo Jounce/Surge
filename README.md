@@ -76,80 +76,87 @@ Then run `carthage update` and use the framework in `Carthage/Build/<platform>`.
 
 ### Arithmetic
 
-- `sum`
-- `asum`
-- `max`
-- `min`
-- `mean`
-- `meamg`
-- `measq`
-- `add`
-- `sub`
-- `mul`
-- `div`
-- `mod`
-- `remainder`
-- `sqrt`
+- `sum`: [Summation](https://en.wikipedia.org/wiki/Summation)
+- `asum`: [Absolute summation](https://en.wikipedia.org/wiki/Summation)
+- `max`: [Maximum](https://en.wikipedia.org/wiki/Maximal_and_minimal_elements)
+- `min`: [Minimum](https://en.wikipedia.org/wiki/Maximal_and_minimal_elements)
+- `mean`: [Arithmetic mean](https://en.wikipedia.org/wiki/Mean)
+- `meamg`: [Mean of magnitudes](https://en.wikipedia.org/wiki/Mean)
+- `measq`: [Mean of squares](https://en.wikipedia.org/wiki/Mean_square)
+- `add`: [Addition](https://en.wikipedia.org/wiki/Addition)
+- `sub`: [Subtraction](https://en.wikipedia.org/wiki/Subtraction)
+- `mul`: [Multiplication](https://en.wikipedia.org/wiki/Multiplication)
+- `div`: [Division](https://en.wikipedia.org/wiki/Division_(mathematics))
+- `mod`: [Modulo](https://en.wikipedia.org/wiki/Modulo_operation)
+- `remainder`: [Remainder](https://en.wikipedia.org/wiki/Remainder)
+- `sqrt`: [Square root](https://en.wikipedia.org/wiki/Square_root)
 
 ### Auxiliary
 
-- `abs`
-- `ceil`
-- `copysign`
-- `floor`
-- `rec`
-- `round`
-- `trunc`
+- `abs`: [Absolute value](https://en.wikipedia.org/wiki/Absolute_value)
+- `ceil`: [Ceiling function](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)
+- `copysign`: [Signum function](https://en.wikipedia.org/wiki/Sign_function)
+- `floor`: [Floor function](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)
+- `rec`: [Multiplicative inverse](https://en.wikipedia.org/wiki/Multiplicative_inverse)
+- `round`: [Rounding function](https://en.wikipedia.org/wiki/Rounding)
+- `trunc`: [Integer truncation](https://en.wikipedia.org/wiki/Truncation)
 
 ### Convolution
 
-- `conv`
-- `xcorr`
+- `conv`: [Convolution](https://en.wikipedia.org/wiki/Convolution)
+- `xcorr`: [Cross correlation](https://en.wikipedia.org/wiki/Cross-correlation)
 
 ### Exponential
 
-- `exp`
-- `exp2`
-- `log`
-- `log2`
-- `log10`
-- `logb`
+- `exp`: [Exponential function](https://en.wikipedia.org/wiki/Exponential_function)
+- `exp2`: [Base-2 exponential function](https://en.wikipedia.org/wiki/Exponential_function)
+- `log`: [Base-e logarithm](https://en.wikipedia.org/wiki/Logarithm)
+- `log2`: [Base-2 logarithm](https://en.wikipedia.org/wiki/Logarithm)
+- `log10`: [Base-10 logarithm](https://en.wikipedia.org/wiki/Logarithm)
+- `logb`: [Base-radix logarithm](https://en.wikipedia.org/wiki/Logarithm)
 
 ### FFT
 
-- `fft`
+- `fft`: [Fast fourier transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform)
 
 ### Hyperbolic
 
-- `sinh`
-- `cosh`
-- `tanh`
-- `asinh`
-- `acosh`
-- `atanh`
+- `sinh`: [Hyperbolic sine](https://en.wikipedia.org/wiki/Hyperbolic_function)
+- `cosh`: [Hyperbolic cosine](https://en.wikipedia.org/wiki/Hyperbolic_function)
+- `tanh`: [Hyperbolic tangent](https://en.wikipedia.org/wiki/Hyperbolic_function)
+- `asinh`: [Inverse hyperbolic cosine](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
+- `acosh`: [Inverse hyperbolic cosine](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
+- `atanh`: [Inverse hyperbolic cosine](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
 
 ### Matrix
 
-- `add`
-- `mul`
-- `inv`
-- `transpose`
+- `sum`: [Axis-wise summation](https://en.wikipedia.org/wiki/Summation)
+- `add`: [Matrix addition](https://en.wikipedia.org/wiki/Matrix_addition)
+- `sub`: [Matrix subtraction](https://en.wikipedia.org/wiki/Matrix_subtraction)
+- `mul`: [Matrix multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication)
+- `div`: [Matrix division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_matrices)
+- `inv`: [Matrix inversion](https://en.wikipedia.org/wiki/Matrix_inversion)
+- `transpose`: [Matrix transpose](https://en.wikipedia.org/wiki/Matrix_transpose)
+- `det`: [Determinant](https://en.wikipedia.org/wiki/Matrix_determinant)
+- `pow`: [Element-wise power](https://en.wikipedia.org/wiki/Power_(mathematics))
+- `exp`: [Element-wise exponential function](https://en.wikipedia.org/wiki/Exponential_function)
+- `elmul`: [Element-wise matrix multiplication](https://en.wikipedia.org/wiki/Multiplication)
 
 ### Power
 
-- `pow`
+- `pow`: [Power](https://en.wikipedia.org/wiki/Power_(mathematics))
 
 ### Trigonometric
 
 - `sincos`
-- `sin`
-- `cos`
-- `tan`
-- `asin`
-- `acos`
-- `atan`
-- `rad2deg`
-- `deg2rad`
+- `sin`: [Sine function](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+- `cos`: [Cosine function](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+- `tan`: [Tangent function](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+- `asin`: [Arc sine function](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+- `acos`: [Arc cosine function](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+- `atan`: [Arc tangent function](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+- `rad2deg`: [Radians to degrees](https://en.wikipedia.org/wiki/Radian)
+- `deg2rad`: [degrees to radians](https://en.wikipedia.org/wiki/Radian)
 
 ## Usage
 
