@@ -117,6 +117,12 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
     }
 }
 
+extension Matrix: ExpressibleByArrayLiteral where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
+    public init(arrayLiteral elements: [Scalar]...) {
+        self.init(AnyCollection(elements))
+    }
+}
+
 /// Holds the result of eigendecomposition. The (Scalar, Scalar) used
 /// in the property types represents a complex number with (real, imaginary) parts.
 public struct MatrixEigenDecompositionResult<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
