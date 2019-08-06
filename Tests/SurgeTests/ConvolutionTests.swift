@@ -58,11 +58,11 @@ class ConvolutionTests: XCTestCase {
         let d3f: [Float] = [0, 1, 1]
         let e3f: [Float] = [0, 0, 0, 0, 0, 0, 0]
 
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: conv(a1f, a2f), a3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: conv(b1f, b2f), b3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: conv(c1f, c2f), c3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: conv(d1f, d2f), d3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: conv(e1f, e2f), e3f, floatAccuracy)
+        XCTAssertEqual(conv(a1f, a2f), a3f, accuracy: floatAccuracy)
+        XCTAssertEqual(conv(b1f, b2f), b3f, accuracy: floatAccuracy)
+        XCTAssertEqual(conv(c1f, c2f), c3f, accuracy: floatAccuracy)
+        XCTAssertEqual(conv(d1f, d2f), d3f, accuracy: floatAccuracy)
+        XCTAssertEqual(conv(e1f, e2f), e3f, accuracy: floatAccuracy)
     }
 
     // MARK: Convolution - Double
@@ -73,11 +73,11 @@ class ConvolutionTests: XCTestCase {
         let d3d: [Double] = [0, 1, 1]
         let e3d: [Double] = [0, 0, 0, 0, 0, 0, 0]
 
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(a1d, a2d), a3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(b1d, b2d), b3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(c1d, c2d), c3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(d1d, d2d), d3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: conv(e1d, e2d), e3d, doubleAccuracy)
+        XCTAssertEqual(conv(a1d, a2d), a3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(conv(b1d, b2d), b3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(conv(c1d, c2d), c3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(conv(d1d, d2d), d3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(conv(e1d, e2d), e3d, accuracy: doubleAccuracy)
     }
 
     // MARK: Cross-Correlation - Float
@@ -88,11 +88,11 @@ class ConvolutionTests: XCTestCase {
         let d3f: [Float] = [1, 1, 0]
         let e3f: [Float] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(a1f, a2f), a3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(b1f, b2f), b3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(c1f, c2f), c3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(d1f, d2f), d3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(e1f, e2f), e3f, floatAccuracy)
+        XCTAssertEqual(xcorr(a1f, a2f), a3f, accuracy: floatAccuracy)
+        XCTAssertEqual(xcorr(b1f, b2f), b3f, accuracy: floatAccuracy)
+        XCTAssertEqual(xcorr(c1f, c2f), c3f, accuracy: floatAccuracy)
+        XCTAssertEqual(xcorr(d1f, d2f), d3f, accuracy: floatAccuracy)
+        XCTAssertEqual(xcorr(e1f, e2f), e3f, accuracy: floatAccuracy)
     }
 
     // MARK: Cross-Correlation - Double
@@ -103,11 +103,11 @@ class ConvolutionTests: XCTestCase {
         let d3d: [Double] = [1, 1, 0]
         let e3d: [Double] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(a1d, a2d), a3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(b1d, b2d), b3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(c1d, c2d), c3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(d1d, d2d), d3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(e1d, e2d), e3d, doubleAccuracy)
+        XCTAssertEqual(xcorr(a1d, a2d), a3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(xcorr(b1d, b2d), b3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(xcorr(c1d, c2d), c3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(xcorr(d1d, d2d), d3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(xcorr(e1d, e2d), e3d, accuracy: doubleAccuracy)
     }
 
     // MARK: Auto-Correlation - Float
@@ -118,11 +118,11 @@ class ConvolutionTests: XCTestCase {
         let d3f: [Float] = [1, 2, 1]
         let e3f: [Float] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(a1f), a3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(b1f), b3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(c1f), c3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(d1f), d3f, floatAccuracy)
-        XCTAssertArrayFloatEqualWithAccuracy(calcArray: xcorr(e1f), e3f, floatAccuracy)
+        XCTAssertEqual(xcorr(a1f), a3f, accuracy: floatAccuracy)
+        XCTAssertEqual(xcorr(b1f), b3f, accuracy: floatAccuracy)
+        XCTAssertEqual(xcorr(c1f), c3f, accuracy: floatAccuracy)
+        XCTAssertEqual(xcorr(d1f), d3f, accuracy: floatAccuracy)
+        XCTAssertEqual(xcorr(e1f), e3f, accuracy: floatAccuracy)
     }
 
     // MARK: Auto-Correlation - Double
@@ -133,11 +133,10 @@ class ConvolutionTests: XCTestCase {
         let d3d: [Double] = [1, 2, 1]
         let e3d: [Double] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(a1d), a3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(b1d), b3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(c1d), c3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(d1d), d3d, doubleAccuracy)
-        XCTAssertArrayDoubleEqualWithAccuracy(calcArray: xcorr(e1d), e3d, doubleAccuracy)
+        XCTAssertEqual(xcorr(a1d), a3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(xcorr(b1d), b3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(xcorr(c1d), c3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(xcorr(d1d), d3d, accuracy: doubleAccuracy)
+        XCTAssertEqual(xcorr(e1d), e3d, accuracy: doubleAccuracy)
     }
-
 }
