@@ -52,6 +52,38 @@ public func add<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] 
     return add(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
+// MARK: Addition: In Place
+
+public func addInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    lhs.withUnsafeMutableMemory { lm in
+        rhs.withUnsafeMemory { rm in
+            vDSP_vadd(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+        }
+    }
+}
+
+public func addInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    lhs.withUnsafeMutableMemory { lm in
+        rhs.withUnsafeMemory { rm in
+            vDSP_vaddD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+        }
+    }
+}
+
+public func addInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Float) where L.Element == Float {
+    lhs.withUnsafeMutableMemory { lm in
+        var scalar = rhs
+        vDSP_vsadd(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+    }
+}
+
+public func addInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Double) where L.Element == Double {
+    lhs.withUnsafeMutableMemory { lm in
+        var scalar = rhs
+        vDSP_vsaddD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+    }
+}
+
 // MARK: Subtraction
 
 public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
@@ -84,6 +116,37 @@ public func sub<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] 
     return sub(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
+// MARK: Subtraction: In Place
+
+public func subInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    lhs.withUnsafeMutableMemory { lm in
+        rhs.withUnsafeMemory { rm in
+            vDSP_vsub(rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+        }
+    }
+}
+
+public func subInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    lhs.withUnsafeMutableMemory { lm in
+        rhs.withUnsafeMemory { rm in
+            vDSP_vsubD(rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+        }
+    }
+}
+
+public func subInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Float) where L.Element == Float {
+    lhs.withUnsafeMutableMemory { lm in
+        var scalar = -rhs
+        vDSP_vsadd(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+    }
+}
+
+public func subInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Double) where L.Element == Double {
+    lhs.withUnsafeMutableMemory { lm in
+        var scalar = -rhs
+        vDSP_vsaddD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+    }
+}
 
 // MARK: Multiplication
 
@@ -115,6 +178,38 @@ public func mul<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] wh
 
 public func mul<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
     return mul(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+// MARK: Multiplication: In Place
+
+public func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    lhs.withUnsafeMutableMemory { lm in
+        rhs.withUnsafeMemory { rm in
+            vDSP_vmul(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+        }
+    }
+}
+
+public func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    lhs.withUnsafeMutableMemory { lm in
+        rhs.withUnsafeMemory { rm in
+            vDSP_vmulD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+        }
+    }
+}
+
+public func mulInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Float) where L.Element == Float {
+    lhs.withUnsafeMutableMemory { lm in
+        var scalar = rhs
+        vDSP_vsmul(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+    }
+}
+
+public func mulInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Double) where L.Element == Double {
+    lhs.withUnsafeMutableMemory { lm in
+        var scalar = rhs
+        vDSP_vsmulD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+    }
 }
 
 // MARK: Division
@@ -149,6 +244,38 @@ public func div<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] wh
 
 public func div<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
     return div(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+// MARK: Division: In Place
+
+public func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    lhs.withUnsafeMutableMemory { lm in
+        rhs.withUnsafeMemory { rm in
+            vDSP_vdiv(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+        }
+    }
+}
+
+public func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    lhs.withUnsafeMutableMemory { lm in
+        rhs.withUnsafeMemory { rm in
+            vDSP_vdivD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+        }
+    }
+}
+
+public func divInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Float) where L.Element == Float {
+    lhs.withUnsafeMutableMemory { lm in
+        var scalar = rhs
+        vDSP_vsdiv(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+    }
+}
+
+public func divInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Double) where L.Element == Double {
+    lhs.withUnsafeMutableMemory { lm in
+        var scalar = rhs
+        vDSP_vsdivD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
+    }
 }
 
 // MARK: Modulo
@@ -327,19 +454,11 @@ infix operator .+: AdditionPrecedence
 infix operator .+=: AssignmentPrecedence
 
 public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
-    lhs.withUnsafeMutableMemory { lm in
-        rhs.withUnsafeMemory { rm in
-            vDSP_vadd(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-        }
-    }
+    return addInPlace(&lhs, rhs)
 }
 
 public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
-    lhs.withUnsafeMutableMemory { lm in
-        rhs.withUnsafeMemory { rm in
-            vDSP_vaddD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-        }
-    }
+    return addInPlace(&lhs, rhs)
 }
 
 public func .+ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
@@ -353,17 +472,11 @@ public func .+ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 // MARK: Scalar addition
 
 public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
-    lhs.withUnsafeMutableMemory { lm in
-        var scalar = rhs
-        vDSP_vsadd(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-    }
+    return addInPlace(&lhs, rhs)
 }
 
 public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
-    lhs.withUnsafeMutableMemory { lm in
-        var scalar = rhs
-        vDSP_vsaddD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-    }
+    return addInPlace(&lhs, rhs)
 }
 
 public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
@@ -380,19 +493,11 @@ infix operator .-: AdditionPrecedence
 infix operator .-=: AssignmentPrecedence
 
 public func .-= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
-    lhs.withUnsafeMutableMemory { lm in
-        rhs.withUnsafeMemory { rm in
-            vDSP_vsub(rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-        }
-    }
+    return subInPlace(&lhs, rhs)
 }
 
 public func .-= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
-    lhs.withUnsafeMutableMemory { lm in
-        rhs.withUnsafeMemory { rm in
-            vDSP_vsubD(rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-        }
-    }
+    return subInPlace(&lhs, rhs)
 }
 
 public func .- <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
@@ -406,17 +511,11 @@ public func .- <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 // MARK: Scalar subtraction
 
 public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
-    lhs.withUnsafeMutableMemory { lm in
-        var scalar = -rhs
-        vDSP_vsadd(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-    }
+    return subInPlace(&lhs, rhs)
 }
 
 public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
-    lhs.withUnsafeMutableMemory { lm in
-        var scalar = -rhs
-        vDSP_vsaddD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-    }
+    return subInPlace(&lhs, rhs)
 }
 
 public func - <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
@@ -433,19 +532,11 @@ infix operator ./: MultiplicationPrecedence
 infix operator ./=: AssignmentPrecedence
 
 public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
-    lhs.withUnsafeMutableMemory { lm in
-        rhs.withUnsafeMemory { rm in
-            vDSP_vdiv(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-        }
-    }
+    return divInPlace(&lhs, rhs)
 }
 
 public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
-    lhs.withUnsafeMutableMemory { lm in
-        rhs.withUnsafeMemory { rm in
-            vDSP_vdivD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-        }
-    }
+    return divInPlace(&lhs, rhs)
 }
 
 public func ./ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
@@ -459,17 +550,11 @@ public func ./ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 // MARK: Scalar division
 
 public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
-    lhs.withUnsafeMutableMemory { lm in
-        var scalar = rhs
-        vDSP_vsdiv(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-    }
+    return divInPlace(&lhs, rhs)
 }
 
 public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
-    lhs.withUnsafeMutableMemory { lm in
-        var scalar = rhs
-        vDSP_vsdivD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-    }
+    return divInPlace(&lhs, rhs)
 }
 
 public func / <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
@@ -486,19 +571,11 @@ infix operator .*: MultiplicationPrecedence
 infix operator .*=: AssignmentPrecedence
 
 public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
-    lhs.withUnsafeMutableMemory { lm in
-        rhs.withUnsafeMemory { rm in
-            vDSP_vmul(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-        }
-    }
+    return mulInPlace(&lhs, rhs)
 }
 
 public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
-    lhs.withUnsafeMutableMemory { lm in
-        rhs.withUnsafeMemory { rm in
-            vDSP_vmulD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-        }
-    }
+    return mulInPlace(&lhs, rhs)
 }
 
 public func .* <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
@@ -512,17 +589,11 @@ public func .* <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 // MARK: Scalar multiplication
 
 public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
-    lhs.withUnsafeMutableMemory { lm in
-        var scalar = rhs
-        vDSP_vsmul(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-    }
+    return mulInPlace(&lhs, rhs)
 }
 
 public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
-    lhs.withUnsafeMutableMemory { lm in
-        var scalar = rhs
-        vDSP_vsmulD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
-    }
+    return mulInPlace(&lhs, rhs)
 }
 
 public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
