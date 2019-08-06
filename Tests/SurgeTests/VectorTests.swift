@@ -294,6 +294,40 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    func test_mul_vector_matrix_float() {
+        typealias Scalar = Float
+
+        let lhs: Vector<Scalar> = [1, 2, 4]
+
+        let rhs: Matrix<Scalar> = [
+            [1, 4],
+            [2, 5],
+            [3, 6],
+        ]
+
+        let actual = lhs * rhs
+        let expected: Vector<Scalar> = [17, 38]
+
+        XCTAssertEqual(actual, expected)
+    }
+
+    func test_mul_vector_matrix_double() {
+        typealias Scalar = Double
+
+        let lhs: Vector<Scalar> = [1, 2, 4]
+
+        let rhs: Matrix<Scalar> = [
+            [1, 4],
+            [2, 5],
+            [3, 6],
+        ]
+
+        let actual = lhs * rhs
+        let expected: Vector<Scalar> = [17, 38]
+
+        XCTAssertEqual(actual, expected)
+    }
+
     func test_mul_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
