@@ -210,21 +210,19 @@ extension Matrix: Sequence {
 
 extension Matrix: Collection {
     public subscript(_ row: Int) -> ArraySlice<Scalar> {
-        get {
-            let startIndex = row * columns
-            let endIndex = startIndex + columns
-            return self.grid[startIndex..<endIndex]
-        }
+        let startIndex = row * columns
+        let endIndex = startIndex + columns
+        return self.grid[startIndex..<endIndex]
     }
-    
+
     public var startIndex: Int {
         return 0
     }
-    
+
     public var endIndex: Int {
         return self.rows
     }
-    
+
     public func index(after i: Int) -> Int {
         return i + 1
     }

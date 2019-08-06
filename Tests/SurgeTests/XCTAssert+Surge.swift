@@ -42,32 +42,31 @@ func XCTAssertEqual<T, U>(
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool
-    where T: Collection, T.Element == U, U: FloatingPoint
-{
+    where T: Collection, T.Element == U, U: FloatingPoint {
     let (actualValues, expectedValues): (T, T)
-    
+
     do {
         (actualValues, expectedValues) = (try expression1(), try expression2())
     } catch let error {
         XCTFail("Error: \(error)", file: file, line: line)
         return false
     }
-    
+
     XCTAssertEqual(actualValues.count, expectedValues.count, file: file, line: line)
-    
+
     for (actual, expected) in Swift.zip(actualValues, expectedValues) {
         guard abs(actual - expected) > abs(accuracy) else {
             continue
         }
-        
+
         let failureMessage = "XCTAssertEqualWithAccuracy failed: (\(actual)) is not equal to (\(expected)) +/- (\(accuracy))"
         let userMessage = message()
         let message = "\(failureMessage) - \(userMessage)"
         XCTFail(message, file: file, line: line)
-        
+
         return false
     }
-    
+
     return true
 }
 
@@ -96,19 +95,18 @@ func XCTAssertEqual<T, U, V>(
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool
-where T: Collection, U: Collection, T.Element == U, U.Element == V, V: FloatingPoint
-{
+where T: Collection, U: Collection, T.Element == U, U.Element == V, V: FloatingPoint {
     let (actualValues, expectedValues): (T, T)
-    
+
     do {
         (actualValues, expectedValues) = (try expression1(), try expression2())
     } catch let error {
         XCTFail("Error: \(error)", file: file, line: line)
         return false
     }
-    
+
     XCTAssertEqual(actualValues.count, expectedValues.count, file: file, line: line)
-    
+
     for (actual, expected) in Swift.zip(actualValues, expectedValues) {
         guard XCTAssertEqual(actual, expected, accuracy: accuracy) else {
             return false
