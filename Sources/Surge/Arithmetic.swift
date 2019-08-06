@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Add
+// MARK: Addition
 
 public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
     precondition(x.count == y.count, "Collections must have the same size")
@@ -42,6 +42,14 @@ public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
         }
     }
     return results
+}
+
+public func add<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
+    return add(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+public func add<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
+    return add(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
 // MARK: Subtraction
@@ -68,7 +76,16 @@ public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
     return results
 }
 
-// MARK: Multiply
+public func sub<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
+    return sub(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+public func sub<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
+    return sub(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+
+// MARK: Multiplication
 
 public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
     precondition(x.count == y.count, "Collections must have the same size")
@@ -92,7 +109,15 @@ public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
     }
 }
 
-// MARK: Divide
+public func mul<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
+    return mul(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+public func mul<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
+    return mul(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+// MARK: Division
 
 /// Elemen-wise vector division.
 public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
@@ -116,6 +141,14 @@ public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
         }
         return results
     }
+}
+
+public func div<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
+    return div(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+public func div<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
+    return div(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
 // MARK: Modulo
@@ -148,6 +181,14 @@ public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
         }
         return results
     }
+}
+
+public func mod<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
+    return mod(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+}
+
+public func mod<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
+    return mod(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
 }
 
 // MARK: Remainder
@@ -326,11 +367,11 @@ public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 }
 
 public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
-    return add(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    return add(lhs, rhs)
 }
 
 public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
-    return add(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    return add(lhs, rhs)
 }
 
 // MARK: Element-wise subtraction
@@ -379,11 +420,11 @@ public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 }
 
 public func - <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
-    return sub(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    return sub(lhs, rhs)
 }
 
 public func - <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
-    return sub(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    return sub(lhs, rhs)
 }
 
 // MARK: Element-wise division
@@ -432,11 +473,11 @@ public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 }
 
 public func / <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
-    return div(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    return div(lhs, rhs)
 }
 
 public func / <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
-    return div(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    return div(lhs, rhs)
 }
 
 // MARK: Element-wise multiplication
@@ -485,11 +526,11 @@ public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 }
 
 public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
-    return mul(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    return mul(lhs, rhs)
 }
 
 public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
-    return mul(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    return mul(lhs, rhs)
 }
 
 // MARK: Modulo
@@ -506,11 +547,11 @@ public func .% <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 }
 
 public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
-    return mod(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    return mod(lhs, rhs)
 }
 
 public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
-    return mod(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    return mod(lhs, rhs)
 }
 
 // MARK: Dot product
