@@ -21,6 +21,8 @@
 @testable import Surge
 import XCTest
 
+// swiftlint:disable nesting type_body_length
+
 class MatrixTests: XCTestCase {
     let floatAccuracy: Float = 1e-8
     let doubleAccuracy: Double = 1e-11
@@ -363,7 +365,6 @@ class MatrixTests: XCTestCase {
             }
         )
 
-        // FIXME: Replace with `**` operator:
         XCTAssertEqual(pow(lhs, rhs), expected, accuracy: 1e-5)
     }
 
@@ -383,7 +384,6 @@ class MatrixTests: XCTestCase {
             }
         )
 
-        // FIXME: Replace with `**` operator:
         XCTAssertEqual(pow(lhs, rhs), expected, accuracy: 1e-8)
     }
 
@@ -429,7 +429,6 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
-        // FIXME: replace with row iterator:
         let expected: Matrix<Scalar> = [
             [6],
             [15],
@@ -446,7 +445,6 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
-        // FIXME: replace with column iterator:
         let expected: Matrix<Scalar> = [
             [5, 7, 9],
         ]
