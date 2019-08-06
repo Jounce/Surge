@@ -26,7 +26,301 @@ import XCTest
 
 class ArithmeticTests: XCTestCase {
     let n = 100_000
-
+    
+    func test_add_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = (0..<n).map { Scalar($0 * 3) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.add(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_add_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = (0..<n).map { Scalar($0 * 3) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.add(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_sub_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = (0..<n).map { Scalar($0 * 3) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.sub(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_sub_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = (0..<n).map { Scalar($0 * 3) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.sub(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_mul_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = (0..<n).map { Scalar($0 / 1000) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.mul(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_mul_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = (0..<n).map { Scalar($0 / 1000) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.mul(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_div_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = (0..<n).map { Scalar($0 + 1) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.div(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+    
+    func test_div_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = (0..<n).map { Scalar($0 + 1) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.div(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_mod_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = Array(repeating: 42, count: n)
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.mod(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { fmod($0, $1) }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_mod_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = Array(repeating: 42, count: n)
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.mod(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { fmod($0, $1) }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_remainder_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = Array(repeating: -42, count: n)
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.remainder(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { remainder($0, $1) }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_remainder_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let rhs: [Scalar] = Array(repeating: -42, count: n)
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.remainder(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).map { remainder($0, $1) }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_sqrt_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.sqrt(lhs)
+        }
+        
+        let expected = lhs.map { sqrt($0) }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_sqrt_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.sqrt(lhs)
+        }
+        
+        let expected = lhs.map { sqrt($0) }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_dot_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
+        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        
+        var actual: Scalar = 0
+        measure {
+            actual = Surge.dot(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).reduce(0) {
+            $0 + $1.0 * $1.1
+        }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_dot_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
+        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        
+        var actual: Scalar = 0
+        measure {
+            actual = Surge.dot(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).reduce(0) {
+            $0 + $1.0 * $1.1
+        }
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_dist_array_array_float() {
+        typealias Scalar = Float
+        
+        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
+        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        
+        var actual: Scalar = 0
+        measure {
+            actual = Surge.dist(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).reduce(0) {
+            $0 + ($1.0 - $1.1) * ($1.0 - $1.1)
+        }.squareRoot()
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
+    func test_dist_array_array_double() {
+        typealias Scalar = Double
+        
+        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
+        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        
+        var actual: Scalar = 0
+        measure {
+            actual = Surge.dist(lhs, rhs)
+        }
+        
+        let expected = Swift.zip(lhs, rhs).reduce(0) {
+            $0 + ($1.0 - $1.1) * ($1.0 - $1.1)
+        }.squareRoot()
+        
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+    
     func test_sum() {
         let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
         var actual = 0.0
