@@ -100,6 +100,9 @@
 		61E930C92070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
 		61E930CA2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
 		61E930CB2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
+		CAFE5DA522F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */; };
+		CAFE5DA622F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */; };
+		CAFE5DA722F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */; };
 		F8A1E1D519917C25009735E2 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A1E1D219917C0B009735E2 /* Accelerate.framework */; };
 		F8A1E1D719917C2B009735E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A1E1D619917C2B009735E2 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -165,6 +168,7 @@
 		61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUnsafeMemory.swift; sourceTree = "<group>"; };
 		61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeMutableMemory.swift; sourceTree = "<group>"; };
 		61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArraySliceUnsafeMemory.swift; sourceTree = "<group>"; };
+		CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+Surge.swift"; sourceTree = "<group>"; };
 		F84A6AAE19A9A72F007B53E1 /* SurgeTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurgeTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A1E1AA19917A79009735E2 /* Surge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Surge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A1E1D219917C0B009735E2 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -270,6 +274,7 @@
 				61A0AD721F70D22600B99FFB /* MatrixTests.swift */,
 				61A0AD731F70D22600B99FFB /* PowerTests.swift */,
 				61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */,
+				CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */,
 				61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */,
 			);
 			path = SurgeTests;
@@ -712,6 +717,7 @@
 				614AD3451FC0AF77002BFE1C /* ConvolutionTests.swift in Sources */,
 				614AD3491FC0AF77002BFE1C /* PowerTests.swift in Sources */,
 				614AD34A1FC0AF77002BFE1C /* TrigonometricTests.swift in Sources */,
+				CAFE5DA622F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
 				614AD3471FC0AF77002BFE1C /* HyperbolicTests.swift in Sources */,
 				614AD3431FC0AF77002BFE1C /* ArithmeticTests.swift in Sources */,
 				614AD3461FC0AF77002BFE1C /* ExponentialTests.swift in Sources */,
@@ -750,6 +756,7 @@
 				614AD3761FC0B0D2002BFE1C /* ConvolutionTests.swift in Sources */,
 				614AD37A1FC0B0D2002BFE1C /* PowerTests.swift in Sources */,
 				614AD37B1FC0B0D2002BFE1C /* TrigonometricTests.swift in Sources */,
+				CAFE5DA722F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
 				614AD3781FC0B0D2002BFE1C /* HyperbolicTests.swift in Sources */,
 				614AD3741FC0B0D2002BFE1C /* ArithmeticTests.swift in Sources */,
 				614AD3771FC0B0D2002BFE1C /* ExponentialTests.swift in Sources */,
@@ -788,6 +795,7 @@
 				61A0AD781F70D22600B99FFB /* ConvolutionTests.swift in Sources */,
 				61A0AD7C1F70D22600B99FFB /* PowerTests.swift in Sources */,
 				61A0AD7D1F70D22600B99FFB /* TrigonometricTests.swift in Sources */,
+				CAFE5DA522F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
 				61A0AD7A1F70D22600B99FFB /* HyperbolicTests.swift in Sources */,
 				61A0AD761F70D22600B99FFB /* ArithmeticTests.swift in Sources */,
 				61A0AD791F70D22600B99FFB /* ExponentialTests.swift in Sources */,
