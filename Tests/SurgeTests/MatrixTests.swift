@@ -401,7 +401,7 @@ class MatrixTests: XCTestCase {
             }
         )
 
-        XCTAssertEqual(exp(lhs), expected, accuracy: 1e-5)
+        XCTAssertEqual(exp(lhs), expected, accuracy: 1e-3)
     }
 
     func test_exp_matrix_double() {
