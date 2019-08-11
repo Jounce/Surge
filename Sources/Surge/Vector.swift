@@ -206,6 +206,32 @@ public func exp(_ x: Vector<Float>) -> Vector<Float> {
     return Vector(exp(x.scalars))
 }
 
+// MARK: Distance
+
+public func dist(_ x: Vector<Double>, _ y: Vector<Double>) -> Double {
+    precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with distance calculation")
+
+    return dist(x.scalars, y.scalars)
+}
+
+public func dist(_ x: Vector<Float>, _ y: Vector<Float>) -> Float {
+    precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with distance calculation")
+
+    return dist(x.scalars, y.scalars)
+}
+
+public func distSq(_ x: Vector<Double>, _ y: Vector<Double>) -> Double {
+    precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with distance calculation")
+
+    return distSq(x.scalars, y.scalars)
+}
+
+public func distSq(_ x: Vector<Float>, _ y: Vector<Float>) -> Float {
+    precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with distance calculation")
+
+    return distSq(x.scalars, y.scalars)
+}
+
 // MARK: - Operators
 
 public func + (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
