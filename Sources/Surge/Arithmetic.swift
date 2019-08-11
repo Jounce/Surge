@@ -435,23 +435,31 @@ public func dot<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 // MARK: - Distance
 
 public func dist<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Float where X.Element == Float, Y.Element == Float {
+    return sqrt(distSq(x, y))
+}
+
+public func dist<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Double where X.Element == Double, Y.Element == Double {
+    return sqrt(distSq(x, y))
+}
+
+public func distSq<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Float where X.Element == Float, Y.Element == Float {
     precondition(x.count == y.count, "Vectors must have equal count")
     let sub = x .- y
     var squared = [Float](repeating: 0.0, count: numericCast(x.count))
     squared.withUnsafeMutableBufferPointer { bufferPointer in
         vDSP_vsq(sub, 1, bufferPointer.baseAddress!, 1, numericCast(x.count))
     }
-    return sqrt(sum(squared))
+    return sum(squared)
 }
 
-public func dist<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Double where X.Element == Double, Y.Element == Double {
+public func distSq<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Double where X.Element == Double, Y.Element == Double {
     precondition(x.count == y.count, "Vectors must have equal count")
     let sub = x .- y
     var squared = [Double](repeating: 0.0, count: numericCast(x.count))
     squared.withUnsafeMutableBufferPointer { bufferPointer in
         vDSP_vsqD(sub, 1, bufferPointer.baseAddress!, 1, numericCast(x.count))
     }
-    return sqrt(sum(squared))
+    return sum(squared)
 }
 
 // MARK: - Operators
