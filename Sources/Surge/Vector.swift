@@ -116,22 +116,6 @@ public func add(_ x: Vector<Double>, _ y: Vector<Double>) -> Vector<Double> {
     return Vector(add(x.scalars, y.scalars))
 }
 
-//public func add(_ x: Vector<Float>, _ y: Float) -> Vector<Float> {
-//    return Vector(add(x.scalars, y))
-//}
-//
-//public func add(_ x: Vector<Double>, _ y: Double) -> Vector<Double> {
-//    return Vector(add(x.scalars, y))
-//}
-//
-//public func add(_ x: Float, _ y: Vector<Float>) -> Vector<Float> {
-//    return Vector(add(x, y.scalars))
-//}
-//
-//public func add(_ x: Double, _ y: Vector<Double>) -> Vector<Double> {
-//    return Vector(add(x, y.scalars))
-//}
-
 public func sub(_ x: Vector<Float>, _ y: Vector<Float>) -> Vector<Float> {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with subtraction")
 
