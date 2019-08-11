@@ -63,6 +63,14 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         self.grid = grid
     }
 
+    public static func identity(size: Int) -> Matrix<Scalar> {
+        return self.diagonal(rows: size, columns: size, repeatedValue: 1.0)
+    }
+
+    public static func eye(rows: Int, columns: Int) -> Matrix<Scalar> {
+        return self.diagonal(rows: rows, columns: columns, repeatedValue: 1.0)
+    }
+
     public static func diagonal(rows: Int, columns: Int, repeatedValue: Scalar) -> Matrix<Scalar> {
         let count = Swift.min(rows, columns)
         let scalars = Swift.repeatElement(repeatedValue, count: count)
