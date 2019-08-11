@@ -21,11 +21,13 @@
 import Accelerate
 
 public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
-    public var dimensions: Int {
-        return self.scalars.count
-    }
+    public let dimensions: Int
 
-    var scalars: [Scalar]
+    public var scalars: [Scalar] {
+        didSet {
+            precondition(self.scalars.count == self.dimensions)
+        }
+    }
 
     // MARK: - Initialize
 
@@ -40,8 +42,7 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
     }
 
     public init(_ scalars: [Scalar]) {
-        precondition(!scalars.isEmpty)
-
+        self.dimensions = scalars.count
         self.scalars = scalars
     }
 }
