@@ -515,6 +515,23 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    func test_sum_matrix_rows_double() {
+        typealias Scalar = Double
+
+        let lhs: Matrix<Scalar> = [
+            [1, 2, 3],
+            [4, 5, 6],
+        ]
+
+        let actual = sum(lhs, axies: .row)
+        let expected: Matrix<Scalar> = [
+            [6],
+            [15],
+        ]
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+
     func test_sum_matrix_rows_float() {
         typealias Scalar = Float
 
@@ -523,10 +540,26 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
-        let actual = sum(lhs, axies: .column)
+        let actual = sum(lhs, axies: .row)
         let expected: Matrix<Scalar> = [
             [6],
             [15],
+        ]
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+
+    func test_sum_matrix_columns_double() {
+        typealias Scalar = Double
+
+        let lhs: Matrix<Scalar> = [
+            [1, 2, 3],
+            [4, 5, 6],
+        ]
+
+        let actual = sum(lhs, axies: .column)
+        let expected: Matrix<Scalar> = [
+            [5, 7, 9],
         ]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
