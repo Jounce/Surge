@@ -96,11 +96,6 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix, expected)
     }
 
-//    func test_pow() {
-//        let expectedResult = Matrix<Double>([[1, 4, 9, 16], [25, 36, 49, 64], [81, 100, 121, 144]])
-//        XCTAssertEqual(pow(matrix, 2), expectedResult)
-//    }
-
     func test_add_matrix_matrix_float() {
         typealias Scalar = Float
 
