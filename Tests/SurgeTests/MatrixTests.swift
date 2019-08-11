@@ -137,6 +137,91 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
 
+    func test_init_identity() {
+        let actual: Matrix<Double> = Matrix.identity(size: 3)
+        let expected: Matrix<Double> = [
+            [1.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0],
+            [0.0, 0.0, 1.0],
+        ]
+        XCTAssertEqual(actual, expected)
+    }
+
+    func test_init_eye() {
+        let actual_2x3: Matrix<Double> = Matrix.eye(rows: 2, columns: 3)
+        let expected_2x3: Matrix<Double> = [
+            [1.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0],
+        ]
+        XCTAssertEqual(actual_2x3, expected_2x3)
+
+        let actual_3x2: Matrix<Double> = Matrix.eye(rows: 3, columns: 2)
+        let expected_3x2: Matrix<Double> = [
+            [1.0, 0.0],
+            [0.0, 1.0],
+            [0.0, 0.0],
+        ]
+        XCTAssertEqual(actual_3x2, expected_3x2)
+
+        let actual_3x3: Matrix<Double> = Matrix.eye(rows: 3, columns: 3)
+        let expected_3x3: Matrix<Double> = [
+            [1.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0],
+            [0.0, 0.0, 1.0],
+        ]
+        XCTAssertEqual(actual_3x3, expected_3x3)
+    }
+
+    func test_init_diagonal_repeatedValue() {
+        let actual_2x3: Matrix<Double> = Matrix.diagonal(rows: 2, columns: 3, repeatedValue: 42.0)
+        let expected_2x3: Matrix<Double> = [
+            [42.0, 0.0, 0.0],
+            [0.0, 42.0, 0.0],
+        ]
+        XCTAssertEqual(actual_2x3, expected_2x3)
+
+        let actual_3x2: Matrix<Double> = Matrix.diagonal(rows: 3, columns: 2, repeatedValue: 42.0)
+        let expected_3x2: Matrix<Double> = [
+            [42.0, 0.0],
+            [0.0, 42.0],
+            [0.0, 0.0],
+        ]
+        XCTAssertEqual(actual_3x2, expected_3x2)
+
+        let actual_3x3: Matrix<Double> = Matrix.diagonal(rows: 3, columns: 3, repeatedValue: 42.0)
+        let expected_3x3: Matrix<Double> = [
+            [42.0, 0.0, 0.0],
+            [0.0, 42.0, 0.0],
+            [0.0, 0.0, 42.0],
+        ]
+        XCTAssertEqual(actual_3x3, expected_3x3)
+    }
+
+    func test_init_diagonal_scalars() {
+        let actual_2x3: Matrix<Double> = Matrix.diagonal(rows: 2, columns: 3, scalars: [1, 2])
+        let expected_2x3: Matrix<Double> = [
+            [1.0, 0.0, 0.0],
+            [0.0, 2.0, 0.0],
+        ]
+        XCTAssertEqual(actual_2x3, expected_2x3)
+
+        let actual_3x2: Matrix<Double> = Matrix.diagonal(rows: 3, columns: 2, scalars: [1, 2])
+        let expected_3x2: Matrix<Double> = [
+            [1.0, 0.0],
+            [0.0, 2.0],
+            [0.0, 0.0],
+        ]
+        XCTAssertEqual(actual_3x2, expected_3x2)
+
+        let actual_3x3: Matrix<Double> = Matrix.diagonal(rows: 3, columns: 3, scalars: [1, 2, 3])
+        let expected_3x3: Matrix<Double> = [
+            [1.0, 0.0, 0.0],
+            [0.0, 2.0, 0.0],
+            [0.0, 0.0, 3.0],
+        ]
+        XCTAssertEqual(actual_3x3, expected_3x3)
+    }
+
     func test_subscript_row_get() {
         XCTAssertEqual(matrixDouble[row: 0], [1, 2, 3, 4])
         XCTAssertEqual(matrixDouble[row: 1], [5, 6, 7, 8])
