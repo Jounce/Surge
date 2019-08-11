@@ -250,4 +250,53 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-2)
     }
+
+    func test_dist_vector_vector_double() {
+        typealias Scalar = Double
+
+        let lhs: Vector<Scalar> = [1, 2, 3]
+        let rhs: Vector<Scalar> = [9, 8, 7]
+
+        let actual = dist(lhs, rhs)
+        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_dist_vector_vector_float() {
+        typealias Scalar = Float
+
+        let lhs: Vector<Scalar> = [1, 2, 3, 4]
+        let rhs: Vector<Scalar> = [9, 8, 7, 6]
+
+        let actual = dist(lhs, rhs)
+        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_distsq_vector_vector_double() {
+        typealias Scalar = Double
+
+        let lhs: Vector<Scalar> = [1, 2, 3]
+        let rhs: Vector<Scalar> = [9, 8, 7]
+
+        let actual = distSq(lhs, rhs)
+
+        let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_distsq_vector_vector_float() {
+        typealias Scalar = Float
+
+        let lhs: Vector<Scalar> = [1, 2, 3, 4]
+        let rhs: Vector<Scalar> = [9, 8, 7, 6]
+
+        let actual = distSq(lhs, rhs)
+        let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
 }
