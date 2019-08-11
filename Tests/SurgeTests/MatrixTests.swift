@@ -101,13 +101,14 @@ class MatrixTests: XCTestCase {
 
         let matrix: Matrix<Scalar> = getMatrix()
 
+        let actual = matrix + matrix
         let expected: Matrix<Float> = [
             [2, 4, 6, 8],
             [10, 12, 14, 16],
             [18, 20, 22, 24],
         ]
 
-        XCTAssertEqual(matrix + matrix, expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_add_matrix_matrix_double() {
@@ -115,13 +116,14 @@ class MatrixTests: XCTestCase {
 
         let matrix: Matrix<Scalar> = getMatrix()
 
+        let actual = matrix + matrix
         let expected: Matrix<Scalar> = [
             [2, 4, 6, 8],
             [10, 12, 14, 16],
             [18, 20, 22, 24],
         ]
 
-        XCTAssertEqual(matrix + matrix, expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_sub_matrix_matrix_float() {
@@ -129,13 +131,14 @@ class MatrixTests: XCTestCase {
 
         let matrix: Matrix<Scalar> = getMatrix()
 
+        let actual = matrix - matrix
         let expected: Matrix<Float> = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ]
 
-        XCTAssertEqual(matrix - matrix, expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_sub_matrix_matrix_double() {
@@ -143,13 +146,14 @@ class MatrixTests: XCTestCase {
 
         let matrix: Matrix<Scalar> = getMatrix()
 
+        let actual = matrix - matrix
         let expected: Matrix<Scalar> = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ]
 
-        XCTAssertEqual(matrix - matrix, expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_mul_scalar_matrix_float() {
@@ -162,12 +166,13 @@ class MatrixTests: XCTestCase {
             [10, 12, 14],
         ]
 
+        let actual = lhs * rhs
         let expected: Matrix<Scalar> = [
             [4, 8, 12],
             [20, 24, 28],
         ]
 
-        XCTAssertEqual(lhs * rhs, expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_mul_scalar_matrix_double() {
@@ -180,12 +185,13 @@ class MatrixTests: XCTestCase {
             [10, 12, 14],
         ]
 
+        let actual = lhs * rhs
         let expected: Matrix<Scalar> = [
             [4, 8, 12],
             [20, 24, 28],
         ]
 
-        XCTAssertEqual(lhs * rhs, expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_mul_matrix_matrix_float() {
@@ -202,13 +208,14 @@ class MatrixTests: XCTestCase {
             [10, 12, 14],
         ]
 
+        let actual = lhs * rhs
         let expected: Matrix<Scalar> = [
             [44, 56, 68],
             [140, 184, 228],
             [236, 312, 388],
         ]
 
-        XCTAssertEqual(lhs * rhs, expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_mul_matrix_matrix_double() {
@@ -225,13 +232,14 @@ class MatrixTests: XCTestCase {
             [10, 12, 14],
         ]
 
+        let actual = lhs * rhs
         let expected: Matrix<Scalar> = [
             [44, 56, 68],
             [140, 184, 228],
             [236, 312, 388],
         ]
 
-        XCTAssertEqual(lhs * rhs, expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_mul_matrix_vector_float() {
@@ -276,12 +284,13 @@ class MatrixTests: XCTestCase {
 
         let rhs: Scalar = 2
 
+        let actual = lhs / rhs
         let expected: Matrix<Scalar> = [
             [1, 2, 3],
             [5, 6, 7],
         ]
 
-        XCTAssertEqual(lhs / rhs, expected, accuracy: 1e-6)
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
     func test_div_matrix_scalar_double() {
@@ -294,12 +303,13 @@ class MatrixTests: XCTestCase {
 
         let rhs: Scalar = 2
 
+        let actual = lhs / rhs
         let expected: Matrix<Scalar> = [
             [1, 2, 3],
             [5, 6, 7],
         ]
 
-        XCTAssertEqual(lhs / rhs, expected, accuracy: 1e-8)
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
     func test_div_matrix_matrix_float() {
@@ -315,12 +325,13 @@ class MatrixTests: XCTestCase {
             [1, -1],
         ]
 
+        let actual = lhs / rhs
         let expected: Matrix<Scalar> = [
             [10, 12],
             [8, 10],
         ]
 
-        XCTAssertEqual(lhs / rhs, expected, accuracy: 1e-5)
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
     func test_div_matrix_matrix_double() {
@@ -336,12 +347,13 @@ class MatrixTests: XCTestCase {
             [1, -1],
         ]
 
+        let actual = lhs / rhs
         let expected: Matrix<Scalar> = [
             [10, 12],
             [8, 10],
         ]
 
-        XCTAssertEqual(lhs / rhs, expected, accuracy: 1e-8)
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
     func test_pow_matrix_scalar_float() {
@@ -354,13 +366,14 @@ class MatrixTests: XCTestCase {
 
         let rhs: Scalar = 2
 
+        let actual = pow(lhs, rhs)
         let expected: Matrix<Scalar> = .init(
             lhs.map { row in
                 row.map { pow($0, rhs) }
             }
         )
 
-        XCTAssertEqual(pow(lhs, rhs), expected, accuracy: 1e-5)
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
     func test_pow_matrix_scalar_double() {
@@ -373,13 +386,14 @@ class MatrixTests: XCTestCase {
 
         let rhs: Scalar = 2
 
+        let actual = pow(lhs, rhs)
         let expected: Matrix<Scalar> = .init(
             lhs.map { row in
                 row.map { pow($0, rhs) }
             }
         )
 
-        XCTAssertEqual(pow(lhs, rhs), expected, accuracy: 1e-8)
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
     func test_exp_matrix_float() {
@@ -390,13 +404,14 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
+        let actual = exp(lhs)
         let expected: Matrix<Scalar> = .init(
             lhs.map { row in
                 row.map { exp($0) }
             }
         )
 
-        XCTAssertEqual(exp(lhs), expected, accuracy: 1e-3)
+        XCTAssertEqual(actual, expected, accuracy: 1e-3)
     }
 
     func test_exp_matrix_double() {
@@ -407,13 +422,14 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
+        let actual = exp(lhs)
         let expected: Matrix<Scalar> = .init(
             lhs.map { row in
                 row.map { exp($0) }
             }
         )
 
-        XCTAssertEqual(exp(lhs), expected, accuracy: 1e-8)
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
     func test_sum_matrix_rows_float() {
@@ -424,12 +440,13 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
+        let actual = sum(lhs, axies: .column)
         let expected: Matrix<Scalar> = [
             [6],
             [15],
         ]
 
-        XCTAssertEqual(sum(lhs, axies: .row), expected, accuracy: 1e-5)
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
     func test_sum_matrix_columns_float() {
@@ -440,11 +457,12 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
+        let actual = sum(lhs, axies: .column)
         let expected: Matrix<Scalar> = [
             [5, 7, 9],
         ]
 
-        XCTAssertEqual(sum(lhs, axies: .column), expected, accuracy: 1e-5)
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
     func test_inv_matrix_double() {
@@ -455,12 +473,13 @@ class MatrixTests: XCTestCase {
             [2, 2],
         ]
 
+        let actual = inv(lhs)
         let expected: Matrix<Scalar> = [
             [-1, 1.5],
             [1, -1],
         ]
 
-        XCTAssertEqual(inv(lhs), expected, accuracy: 1e-8)
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
     func test_inv_matrix_float() {
@@ -471,12 +490,13 @@ class MatrixTests: XCTestCase {
             [2, 2],
         ]
 
+        let actual = inv(lhs)
         let expected: Matrix<Scalar> = [
             [-1, 1.5],
             [1, -1],
         ]
 
-        XCTAssertEqual(inv(lhs), expected, accuracy: 1e-6)
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
     func test_tranpose_matrix_double() {
@@ -487,13 +507,14 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
+        let actual = transpose(lhs)
         let expected: Matrix<Scalar> = [
             [1, 4],
             [2, 5],
             [3, 6],
         ]
 
-        XCTAssertEqual(transpose(lhs), expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_tranpose_matrix_float() {
@@ -504,13 +525,14 @@ class MatrixTests: XCTestCase {
             [4, 5, 6],
         ]
 
+        let actual = transpose(lhs)
         let expected: Matrix<Scalar> = [
             [1, 4],
             [2, 5],
             [3, 6],
         ]
 
-        XCTAssertEqual(transpose(lhs), expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_det_matrix_double() {
@@ -521,9 +543,10 @@ class MatrixTests: XCTestCase {
             [5, 6],
         ]
 
+        let actual = det(lhs)
         let expected: Scalar = 6 - 10
 
-        XCTAssertEqual(det(lhs), expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_det_matrix_float() {
@@ -534,9 +557,10 @@ class MatrixTests: XCTestCase {
             [5, 6],
         ]
 
+        let actual = det(lhs)
         let expected: Scalar = 6 - 10
 
-        XCTAssertEqual(det(lhs), expected)
+        XCTAssertEqual(actual, expected)
     }
 
     func test_mul_empty_float() {
