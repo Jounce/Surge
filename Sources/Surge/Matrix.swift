@@ -63,6 +63,25 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         self.grid = grid
     }
 
+    public static func diagonal(rows: Int, columns: Int, repeatedValue: Scalar) -> Matrix<Scalar> {
+        let count = Swift.min(rows, columns)
+        let scalars = Swift.repeatElement(repeatedValue, count: count)
+        return self.diagonal(rows: rows, columns: columns, scalars: scalars)
+    }
+
+    public static func diagonal<T: Collection>(rows: Int, columns: Int, scalars: T) -> Matrix<Scalar> where T.Element == Scalar {
+        var matrix = self.init(rows: rows, columns: columns, repeatedValue: 0.0)
+
+        let count = Swift.min(rows, columns)
+        precondition(scalars.count == count)
+
+        for (i, scalar) in scalars.enumerated() {
+            matrix[i, i] = scalar
+        }
+
+        return matrix
+    }
+
     public subscript(row: Int, column: Int) -> Scalar {
         get {
             assert(indexIsValidForRow(row, column: column))
