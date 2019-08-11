@@ -64,4 +64,53 @@ class ArithmeticTests: XCTestCase {
         let values = [Double]()
         XCTAssertEqual(sqrt(values), [])
     }
+
+        func test_dist_array_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = [1, 2, 3]
+        let rhs: [Scalar] = [9, 8, 7]
+
+        let actual = dist(lhs, rhs)
+        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_dist_array_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = [1, 2, 3, 4]
+        let rhs: [Scalar] = [9, 8, 7, 6]
+
+        let actual = dist(lhs, rhs)
+        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_distsq_array_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = [1, 2, 3]
+        let rhs: [Scalar] = [9, 8, 7]
+
+        let actual = distSq(lhs, rhs)
+
+        let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_distsq_array_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = [1, 2, 3, 4]
+        let rhs: [Scalar] = [9, 8, 7, 6]
+
+        let actual = distSq(lhs, rhs)
+        let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
 }
