@@ -46,12 +46,95 @@ class MatrixTests: XCTestCase {
         return self.matrixDouble
     }
 
-    func test_init() {
-        let m1 = Matrix([[1.0, 2.0]])
-        XCTAssertEqual(m1.grid, [1.0, 2.0])
+    func test_init_rows_columns_repeatedValue() {
+        typealias Scalar = Double
 
-        let m2 = Matrix([[1, 1], [1, -1]])
-        XCTAssertEqual(m2.grid, [1, 1, 1, -1])
+        let actual: Matrix<Scalar> = Matrix(rows: 2, columns: 3, repeatedValue: 42.0)
+        let expected: Matrix<Scalar> = [
+            [42.0, 42.0, 42.0],
+            [42.0, 42.0, 42.0],
+        ]
+
+        XCTAssertEqual(actual, expected)
+    }
+
+    func test_init_contents() {
+        typealias Scalar = Double
+
+        let contents: [[Scalar]] = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        let actual: Matrix<Scalar> = Matrix(contents)
+        let expected: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        XCTAssertEqual(actual, expected)
+    }
+
+    func test_init_row() {
+        typealias Scalar = Double
+
+        let row: [Scalar] = [1, 2, 3, 4]
+
+        let actual: Matrix<Scalar> = Matrix(row: row)
+        let expected: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+        ]
+
+        XCTAssertEqual(actual, expected)
+    }
+
+    func test_init_column() {
+        typealias Scalar = Double
+
+        let column: [Scalar] = [1, 2, 3, 4]
+
+        let actual: Matrix<Scalar> = Matrix(column: column)
+        let expected: Matrix<Scalar> = [
+            [1],
+            [2],
+            [3],
+            [4],
+        ]
+
+        XCTAssertEqual(actual, expected)
+    }
+
+    func test_init_rows_columns_grid() {
+        typealias Scalar = Double
+
+        let grid: [Scalar] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+        let actual: Matrix<Scalar> = Matrix(rows: 3, columns: 4, grid: grid)
+        let expected: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        XCTAssertEqual(actual, expected)
+    }
+
+    func test_grid() {
+        typealias Scalar = Double
+
+        let contents: [[Scalar]] = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+        let matrix: Matrix<Scalar> = Matrix(contents)
+
+        let actual = matrix.grid
+        let expected: [Scalar] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+        XCTAssertEqual(actual, expected)
     }
 
     func test_subscript_row_get() {
