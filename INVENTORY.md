@@ -17,6 +17,22 @@
     - [Squared Distance](#squared-distance)
     - [Power)](#power)
     - [Exponential](#exponential)
+  - [Trigonometric Operations](#trigonometric-operations)
+    - [Sine/Cosine](#sinecosine)
+    - [Sine](#sine)
+    - [Cosine](#cosine)
+    - [Tangent](#tangent)
+    - [Arc Sine](#arc-sine)
+    - [Arc Cosine](#arc-cosine)
+    - [Arc Tangent](#arc-tangent)
+    - [Hyperbolic Sine](#hyperbolic-sine)
+    - [Hyperbolic Cosine](#hyperbolic-cosine)
+    - [Hyperbolic Tangent](#hyperbolic-tangent)
+    - [Inverse Hyperbolic Sine](#inverse-hyperbolic-sine)
+    - [Inverse Hyperbolic Cosine](#inverse-hyperbolic-cosine)
+    - [Inverse Hyperbolic Tangent](#inverse-hyperbolic-tangent)
+    - [Radians toDegrees](#radians-todegrees)
+    - [Degrees to Radians](#degrees-to-radians)
 
 ## General Arithmetic Operations
 
@@ -293,5 +309,105 @@ Exponential functions & operators
 | `(Array)`  | `exp`    | n/a               | n/a      | n/a               |
 | `(Matrix)` | `exp`    | n/a               | n/a      | n/a               |
 | `(Vector)` | `exp`    | n/a               | n/a      | n/a               |
+
+</details>
+
+## Trigonometric Operations
+
+<details open>
+
+<summary>
+Trigonometric functions & operators
+</summary>
+
+### [Sine/Cosine](https://en.wikipedia.org/wiki/Trigonometric_functions)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `sincos` | n/a               | n/a      | n/a               |
+
+### [Sine](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `sin`    | n/a               | n/a      | n/a               |
+
+### [Cosine](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `cos`    | n/a               | n/a      | n/a               |
+
+### [Tangent](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `tan`    | n/a               | n/a      | n/a               |
+
+### [Arc Sine](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `asin`   | n/a               | n/a      | n/a               |
+
+### [Arc Cosine](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `acos`   | n/a               | n/a      | n/a               |
+
+### [Arc Tangent](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `atan`   | n/a               | n/a      | n/a               |
+
+### [Hyperbolic Sine](https://en.wikipedia.org/wiki/Hyperbolic_function)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `sinh`   | n/a               | n/a      | n/a               |
+
+### [Hyperbolic Cosine](https://en.wikipedia.org/wiki/Hyperbolic_function)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `cosh`   | n/a               | n/a      | n/a               |
+
+### [Hyperbolic Tangent](https://en.wikipedia.org/wiki/Hyperbolic_function)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `tanh`   | n/a               | n/a      | n/a               |
+
+### [Inverse Hyperbolic Sine](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `asinh`  | n/a               | n/a      | n/a               |
+
+### [Inverse Hyperbolic Cosine](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `acosh`  | n/a               | n/a      | n/a               |
+
+### [Inverse Hyperbolic Tangent](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `atanh`  | n/a               | n/a      | n/a               |
+
+### [Radians toDegrees](https://en.wikipedia.org/wiki/Radian)
+
+| Arguments | Function  | In-Place Function | Operator | In-Place Operator |
+|-----------|-----------|-------------------|----------|-------------------|
+| `(Array)` | `rad2deg` | n/a               | n/a      | n/a               |
+
+### [Degrees to Radians](https://en.wikipedia.org/wiki/Radian)
+
+| Arguments | Function  | In-Place Function | Operator | In-Place Operator |
+|-----------|-----------|-------------------|----------|-------------------|
+| `(Array)` | `deg2rad` | n/a               | n/a      | n/a               |
 
 </details>
