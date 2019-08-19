@@ -60,6 +60,10 @@
     - [Matrix Transposition](#matrix-transposition)
     - [Matrix Determinant](#matrix-determinant)
     - [Eigen Decomposition](#eigen-decomposition)
+  - [DSP-specific Operations](#dsp-specific-operations)
+    - [Fast Fourier Transform](#fast-fourier-transform)
+    - [Convolution](#convolution)
+    - [Cross-Correlation](#cross-correlation)
 
 ## General Arithmetic Operations
 
@@ -614,5 +618,34 @@ Matrix-specific functions & operators
 | Arguments  | Function         | In-Place Function | Operator | In-Place Operator |
 |------------|------------------|-------------------|----------|-------------------|
 | `(Matrix)` | `eigenDecompose` | n/a               | n/a      | n/a               |
+
+</details>
+
+## DSP-specific Operations
+
+<details open>
+
+<summary>
+Fast fourier transform functions & operators
+</summary>
+
+### [Fast Fourier Transform](https://en.wikipedia.org/wiki/Convolution)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `fft`    | n/a               | n/a      | n/a               |
+
+### [Convolution](https://en.wikipedia.org/wiki/Convolution)
+
+| Arguments        | Function | In-Place Function | Operator | In-Place Operator |
+|------------------|----------|-------------------|----------|-------------------|
+| `(Array, Array)` | `conv`   | n/a               | n/a      | n/a               |
+
+### [Cross-Correlation](https://en.wikipedia.org/wiki/Cross-correlation)
+
+| Arguments        | Function | In-Place Function | Operator | In-Place Operator |
+|------------------|----------|-------------------|----------|-------------------|
+| `(Array, Array)` | `xcorr`  | n/a               | n/a      | n/a               |
+| `(Array)`        | `xcorr`  | n/a               | n/a      | n/a               |
 
 </details>
