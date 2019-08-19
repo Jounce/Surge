@@ -55,6 +55,11 @@
     - [Multiplicative inverse](#multiplicative-inverse)
     - [Rounding function](#rounding-function)
     - [Integer truncation](#integer-truncation)
+  - [Matrix-specific Operations](#matrix-specific-operations)
+    - [Matrix Inversion](#matrix-inversion)
+    - [Matrix Transposition](#matrix-transposition)
+    - [Matrix Determinant](#matrix-determinant)
+    - [Eigen Decomposition](#eigen-decomposition)
 
 ## General Arithmetic Operations
 
@@ -575,5 +580,39 @@ Auxiliary functions & operators
 | Arguments | Function | In-Place Function | Operator | In-Place Operator |
 |-----------|----------|-------------------|----------|-------------------|
 | `(Array)` | `trunc`  | n/a               | n/a      | n/a               |
+
+</details>
+
+## Matrix-specific Operations
+
+<details open>
+
+<summary>
+Matrix-specific functions & operators
+</summary>
+
+### [Matrix Inversion](https://en.wikipedia.org/wiki/Invertible_matrix)
+
+| Arguments  | Function | In-Place Function | Operator | In-Place Operator |
+|------------|----------|-------------------|----------|-------------------|
+| `(Matrix)` | `inv`    | n/a               | n/a      | n/a               |
+
+### [Matrix Transposition](https://en.wikipedia.org/wiki/Matrix_transpose)
+
+| Arguments  | Function    | In-Place Function | Operator      | In-Place Operator |
+|------------|-------------|-------------------|---------------|-------------------|
+| `(Matrix)` | `transpose` | n/a               | `′` (postfix) | n/a               |
+
+### [Matrix Determinant](https://en.wikipedia.org/wiki/Matrix_determinant)
+
+| Arguments  | Function | In-Place Function | Operator | In-Place Operator |
+|------------|----------|-------------------|----------|-------------------|
+| `(Matrix)` | `det`    | n/a               | n/a      | n/a               |
+
+### [Eigen Decomposition](https://en.wikipedia.org/wiki/Eigen_decomposition)
+
+| Arguments  | Function         | In-Place Function | Operator | In-Place Operator |
+|------------|------------------|-------------------|----------|-------------------|
+| `(Matrix)` | `eigenDecompose` | n/a               | n/a      | n/a               |
 
 </details>
