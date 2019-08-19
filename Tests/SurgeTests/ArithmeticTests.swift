@@ -22,6 +22,8 @@ import Foundation
 import Surge
 import XCTest
 
+// swiftlint:disable nesting
+
 class ArithmeticTests: XCTestCase {
     let n = 100_000
 

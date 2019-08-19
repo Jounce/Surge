@@ -21,6 +21,8 @@
 @testable import Surge
 import XCTest
 
+// swiftlint:disable nesting
+
 class MatrixTests: XCTestCase {
     let floatAccuracy: Float = 1e-8
     let doubleAccuracy: Double = 1e-11
