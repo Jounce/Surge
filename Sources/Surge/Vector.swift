@@ -131,13 +131,13 @@ public func add(_ x: Vector<Double>, _ y: Double) -> Vector<Double> {
 
 public func addInPlace(_ x: inout Vector<Float>, _ y: Vector<Float>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with addition")
-    
+
     return addInPlace(&x.scalars, y.scalars)
 }
 
 public func addInPlace(_ x: inout Vector<Double>, _ y: Vector<Double>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with addition")
-    
+
     return addInPlace(&x.scalars, y.scalars)
 }
 
@@ -175,13 +175,13 @@ public func sub(_ x: Vector<Double>, _ y: Double) -> Vector<Double> {
 
 public func subInPlace(_ x: inout Vector<Float>, _ y: Vector<Float>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with subtraction")
-    
+
     return subInPlace(&x.scalars, y.scalars)
 }
 
 public func subInPlace(_ x: inout Vector<Double>, _ y: Vector<Double>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with subtraction")
-    
+
     return subInPlace(&x.scalars, y.scalars)
 }
 
@@ -259,13 +259,13 @@ public func elmul(_ x: Vector<Float>, _ y: Vector<Float>) -> Vector<Float> {
 
 public func elmulInPlace(_ x: inout Vector<Double>, _ y: Vector<Double>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with element-wise multiplication")
-    
+
     return mulInPlace(&x.scalars, y.scalars)
 }
 
 public func elmulInPlace(_ x: inout Vector<Float>, _ y: Vector<Float>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with element-wise multiplication")
-    
+
     return mulInPlace(&x.scalars, y.scalars)
 }
 
@@ -287,13 +287,13 @@ public func eldiv(_ x: Vector<Float>, _ y: Vector<Float>) -> Vector<Float> {
 
 public func eldivInPlace(_ x: inout Vector<Double>, _ y: Vector<Double>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with element-wise division")
-    
+
     return divInPlace(&x.scalars, y.scalars)
 }
 
 public func eldivInPlace(_ x: inout Vector<Float>, _ y: Vector<Float>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with element-wise division")
-    
+
     return divInPlace(&x.scalars, y.scalars)
 }
 
