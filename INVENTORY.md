@@ -1,4 +1,297 @@
 # Inventory
 
 - [Inventory](#inventory)
-  
+  - [General Arithmetic Operations](#general-arithmetic-operations)
+    - [Addition](#addition)
+    - [Subtraction](#subtraction)
+    - [Multiplication](#multiplication)
+    - [Element-wise multiplication](#element-wise-multiplication)
+    - [Division)](#division)
+    - [Element-wise Division)](#element-wise-division)
+    - [Modulo](#modulo)
+    - [Remainder](#remainder)
+    - [Square Root](#square-root)
+    - [Summation](#summation)
+    - [Dot Product](#dot-product)
+    - [Distance](#distance)
+    - [Squared Distance](#squared-distance)
+    - [Power)](#power)
+    - [Exponential](#exponential)
+
+## General Arithmetic Operations
+
+### [Addition](https://en.wikipedia.org/wiki/Addition)
+
+<details open>
+
+<summary>
+Addition functions & operators
+</summary>
+
+| Arguments          | Function   | In-Place Function | Operator     | In-Place Operator |
+|--------------------|------------|-------------------|--------------|-------------------|
+| `(Array, Array)`   | `add`      | `addInPlace`      | `.+` (infix) | `.+=` (infix)     |
+| `(Array, Scalar)`  | `add`      | `addInPlace`      | `+` (infix)  | `+=` (infix)      |
+| `(Matrix, Matrix)` | `add`      | n/a               | `+` (infix)  | n/a               |
+| `(Matrix, Scalar)` | n/a        | n/a               | `+` (infix)  | n/a               |
+| `(Vector, Vector)` | `func add` | `addInPlace`      | `+` (infix)  | `+=` (infix)      |
+| `(Vector, Scalar)` | `func add` | `addInPlace`      | `+` (infix)  | `+=` (infix)      |
+
+<!-- FIXME: `add` for `(Array, Array)` should be called `eladd`/`.+`, no? -->
+<!-- FIXME: Missing `add` function for `(Matrix, Scalar)`. -->
+<!-- FIXME: Missing `add` functions/operators for `(Matrix, Vector)`. -->
+<!-- FIXME: Missing `addInPlace` function for `(Matrix, Scalar)` & `(Matrix, Matrix)`. -->
+
+</details>
+
+### [Subtraction](https://en.wikipedia.org/wiki/Subtraction)
+
+<details open>
+
+<summary>
+Subtraction functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
+|--------------------|----------|-------------------|--------------|-------------------|
+| `(Array, Array)`   | `sub`    | `subInPlace`      | `.-` (infix) | `.-=` (infix)     |
+| `(Array, Scalar)`  | `sub`    | `subInPlace`      | `-` (infix)  | `-=` (infix)      |
+| `(Matrix, Matrix)` | `sub`    | n/a               | `-` (infix)  | n/a               |
+| `(Matrix, Scalar)` | n/a      | n/a               | n/a          | n/a               |
+| `(Vector, Vector)` | `sub`    | `subInPlace`      | `-` (infix)  | `-=` (infix)      |
+| `(Vector, Scalar)` | `sub`    | `subInPlace`      | `-` (infix)  | `-=` (infix)      |
+
+<!-- FIXME: `sub` for `(Array, Array)` should be called `elsub`/`.-`, no? -->
+<!-- FIXME: Missing `sub` function/operator for `(Matrix, Scalar)`. -->
+<!-- FIXME: Missing `sub` functions/operators for `(Matrix, Vector)`. -->
+<!-- FIXME: Missing `subInPlace` function for `(Matrix, Scalar)` & `(Matrix, Matrix)`. -->
+
+</details>
+
+### [Multiplication](https://en.wikipedia.org/wiki/Multiplication)
+
+<details open>
+
+<summary>
+Multiplication functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
+|--------------------|----------|-------------------|--------------|-------------------|
+| `(Array, Array)`   | `mul`    | `mulInPlace`      | `.*` (infix) | `.*=` (infix)     |
+| `(Array, Scalar)`  | `mul`    | `mulInPlace`      | `*` (infix)  | `*=` (infix)      |
+| `(Matrix, Matrix)` | `mul`    | n/a               | `*` (infix)  | n/a               |
+| `(Matrix, Vector)` | `mul`    | n/a               | `*` (infix)  | n/a               |
+| `(Matrix, Scalar)` | `mul`    | n/a               | `*` (infix)  | n/a               |
+| `(Vector, Matrix)` | `mul`    | n/a               | `*` (infix)  | n/a               |
+| `(Vector, Scalar)` | `mul`    | `mulInPlace`      | `*` (infix)  | `*=` (infix)      |
+| `(Scalar, Array)`  | `mul`    | n/a               | `*` (infix)  | n/a               |
+| `(Scalar, Matrix)` | `mul`    | n/a               | `*` (infix)  | n/a               |
+| `(Scalar, Vector)` | `mul`    | n/a               | `*` (infix)  | n/a               |
+
+</details>
+
+### [Element-wise multiplication](https://en.wikipedia.org/wiki/Multiplication)
+
+<details open>
+
+<summary>
+Element-wise multiplication functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
+|--------------------|----------|-------------------|--------------|-------------------|
+| `(Matrix, Matrix)` | `elmul`  | n/a               | n/a          | n/a               |
+| `(Vector, Vector)` | `elmul`  | `elmulInPlace`    | `.*` (infix) | `.*=` (infix)     |
+
+<!-- FIXME: The does not seem to be a `.*` implemented for `(Matrix, Matrix)`. -->
+
+</details>
+
+### [Division](https://en.wikipedia.org/wiki/Division_(mathematics))
+
+<details open>
+
+<summary>
+Division functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
+|--------------------|----------|-------------------|--------------|-------------------|
+| `(Array, Array)`   | `div`    | `divInPlace`      | `./` (infix) | `./=` (infix)     |
+| `(Array, Scalar)`  | `div`    | `divInPlace`      | `/` (infix)  | `/=` (infix)      |
+| `(Matrix, Matrix)` | `div`    | n/a               | `/` (infix)  | n/a               |
+| `(Matrix, Scalar)` | n/a      | n/a               | `/` (infix)  | n/a               |
+| `(Vector, Scalar)` | `div`    | `divInPlace`      | `/` (infix)  | `/=` (infix)      |
+
+<!-- FIXME: Func `div` of `(Array, Array)` should be called `eldiv`, no? -->
+<!-- FIXME: Missing `div` function for `(Matrix, Scalar)`. -->
+
+</details>
+
+### [Element-wise Division](https://en.wikipedia.org/wiki/Division_(mathematics))
+
+<details open>
+
+<summary>
+Element-wise multiplication functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
+|--------------------|----------|-------------------|--------------|-------------------|
+| `(Vector, Vector)` | `eldiv`  | `eldivInPlace`    | `./` (infix) | `./=` (infix)     |
+
+</details>
+
+### [Modulo](https://en.wikipedia.org/wiki/Modulo_operation)
+
+<details open>
+
+<summary>
+Modulo functions & operators
+</summary>
+
+| Arguments         | Function | In-Place Function | Operator     | In-Place Operator |
+|-------------------|----------|-------------------|--------------|-------------------|
+| `(Array, Array)`  | `mod`    | n/a               | `.%` (infix) | n/a               |
+| `(Array, Scalar)` | `mod`    | n/a               | `%` (infix)  | n/a               |
+
+<!-- FIXME: Do we need `mod` functions/operators for `Matrix`? -->
+<!-- FIXME: Do we need `mod` functions/operators for `Vector`? -->
+
+</details>
+
+### [Remainder](https://en.wikipedia.org/wiki/Remainder)
+
+<details open>
+
+<summary>
+Remainder functions & operators
+</summary>
+
+| Arguments         | Function    | In-Place Function | Operator | In-Place Operator |
+|-------------------|-------------|-------------------|----------|-------------------|
+| `(Array, Array)`  | `remainder` | n/a               | n/a      | n/a               |
+| `(Array, Scalar)` | `remainder` | n/a               | n/a      | n/a               |
+
+<!-- FIXME: Do we need `remainder` functions /operators for `Matrix`? -->
+<!-- FIXME: Do we need `remainder` functions /operators for `Vector`? -->
+
+</details>
+
+### [Square Root](https://en.wikipedia.org/wiki/Square_root)
+
+<details open>
+
+<summary>
+Square root functions & operators
+</summary>
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `sqrt`   | n/a               | n/a      | n/a               |
+
+<!-- FIXME: The seems to be a variant `func sqrt<MI, MO>(_ x: MI, into results: inout MO)` that could be made into a `sqrtInPlace`-->
+
+<!-- FIXME: Do we need `sqrt` functions/operators for `Matrix`? -->
+<!-- FIXME: Do we need `sqrt` functions/operators for `Vector`? -->
+
+</details>
+
+### [Summation](https://en.wikipedia.org/wiki/Summation)
+
+<details open>
+
+<summary>
+Sum functions & operators
+</summary>
+
+| Arguments  | Function | In-Place Function | Operator | In-Place Operator |
+|------------|----------|-------------------|----------|-------------------|
+| `(Array)`  | `sum`    | n/a               | n/a      | n/a               |
+| `(Matrix)` | `sum`    | n/a               | n/a      | n/a               |
+
+<!-- FIXME: Do we need `sum` functions/operators for `Vector`? -->
+
+</details>
+
+### [Dot Product](https://en.wikipedia.org/wiki/Dot_product)
+
+<details open>
+
+<summary>
+Dot product functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator    | In-Place Operator |
+|--------------------|----------|-------------------|-------------|-------------------|
+| `(Array, Array)`   | `dot`    | n/a               | `•` (infix) | n/a               |
+| `(Vector, Vector)` | `dot`    | n/a               | `•` (infix) | n/a               |
+
+<!-- FIXME: Do we need `dot` functions/operators for `Matrix`? -->
+
+</details>
+
+### [Distance](https://en.wikipedia.org/wiki/Euclidean_distance)
+
+<details open>
+
+<summary>
+Distance functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator | In-Place Operator |
+|--------------------|----------|-------------------|----------|-------------------|
+| `(Array, Array)`   | `dist`   | n/a               | n/a      | n/a               |
+| `(Vector, Vector)` | `dist`   | n/a               | n/a      | n/a               |
+
+### [Squared Distance](https://en.wikipedia.org/wiki/Euclidean_distance#Squared_Euclidean_distance)
+
+<details open>
+
+<summary>
+Squared distance functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator | In-Place Operator |
+|--------------------|----------|-------------------|----------|-------------------|
+| `(Array, Array)`   | `distSq` | n/a               | n/a      | n/a               |
+| `(Vector, Vector)` | `distSq` | n/a               | n/a      | n/a               |
+
+</details>
+
+### [Power](https://en.wikipedia.org/wiki/Power_(mathematics))
+
+<details open>
+
+<summary>
+Power functions & operators
+</summary>
+
+| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
+|--------------------|----------|-------------------|--------------|-------------------|
+| `(Array, Array)`   | `pow`    | n/a               | `**` (infix) | n/a               |
+| `(Array, Scalar)`  | `pow`    | n/a               | `**` (infix) | n/a               |
+| `(Matrix, Scalar)` | `pow`    | n/a               | `**` (infix) | n/a               |
+| `(Vector, Vector)` | `pow`    | n/a               | n/a          | n/a               |
+
+<!-- FIXME: Shouldn't the `pow`/`**` function/operator of `(Array, Array)` be `elpow`/`.**`? -->
+<!-- FIXME: Shouldn't the `pow`/`**` function/operator of `(Vector, Vector)` be `elpow`/`.**`? -->
+<!-- FIXME: The does not seem to be a corresponding `.**` operator implemented. -->
+<!-- FIXME: Do we need `pow` functions/operators for `(Vector, Scalar)`? -->
+
+### [Exponential](https://en.wikipedia.org/wiki/Exponential_function)
+
+<details open>
+
+<summary>
+Exponential functions & operators
+</summary>
+
+| Arguments  | Function | In-Place Function | Operator | In-Place Operator |
+|------------|----------|-------------------|----------|-------------------|
+| `(Array)`  | `exp`    | n/a               | n/a      | n/a               |
+| `(Matrix)` | `exp`    | n/a               | n/a      | n/a               |
+| `(Vector)` | `exp`    | n/a               | n/a      | n/a               |
+
+</details>
