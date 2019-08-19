@@ -47,6 +47,14 @@
     - [Arithmetic mean](#arithmetic-mean)
     - [Mean of magnitudes](#mean-of-magnitudes)
     - [Mean of squares](#mean-of-squares)
+  - [Auxiliary Functions](#auxiliary-functions)
+    - [Absolute value](#absolute-value)
+    - [Ceiling function](#ceiling-function)
+    - [Signum function](#signum-function)
+    - [Floor function](#floor-function)
+    - [Multiplicative inverse](#multiplicative-inverse)
+    - [Rounding function](#rounding-function)
+    - [Integer truncation](#integer-truncation)
 
 ## General Arithmetic Operations
 
@@ -515,5 +523,57 @@ Statistical functions & operators
 | Arguments | Function | In-Place Function | Operator | In-Place Operator |
 |-----------|----------|-------------------|----------|-------------------|
 | `(Array)` | `measq`  | n/a               | n/a      | n/a               |
+
+</details>
+
+## Auxiliary Functions
+
+<details open>
+
+<summary>
+Auxiliary functions & operators
+</summary>
+
+### [Absolute value](https://en.wikipedia.org/wiki/Absolute_value)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `abs`    | n/a               | n/a      | n/a               |
+
+### [Ceiling function](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `ceil`   | n/a               | n/a      | n/a               |
+
+### [Signum function](https://en.wikipedia.org/wiki/Sign_function)
+
+| Arguments | Function   | In-Place Function | Operator | In-Place Operator |
+|-----------|------------|-------------------|----------|-------------------|
+| `(Array)` | `copysign` | n/a               | n/a      | n/a               |
+
+### [Floor function](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `floor`  | n/a               | n/a      | n/a               |
+
+### [Multiplicative inverse](https://en.wikipedia.org/wiki/Multiplicative_inverse)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `rec`    | n/a               | n/a      | n/a               |
+
+### [Rounding function](https://en.wikipedia.org/wiki/Rounding)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `round`  | n/a               | n/a      | n/a               |
+
+### [Integer truncation](https://en.wikipedia.org/wiki/Truncation)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `trunc`  | n/a               | n/a      | n/a               |
 
 </details>
