@@ -62,88 +62,88 @@ class VectorTests: XCTestCase {
         typealias Scalar = Float
 
         let vector: Vector<Scalar> = self.makeVector()
-        
+
         let actual = vector + vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_add_vector_scalar_double() {
         typealias Scalar = Double
-        
+
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 1.0
-        
+
         let actual = vector + scalar
         let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_add_vector_scalar_float() {
         typealias Scalar = Float
-        
+
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 1.0
-        
+
         let actual = vector + scalar
         let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_add_in_place_vector_vector_double() {
         typealias Scalar = Double
-        
+
         var vector: Vector<Scalar> = self.makeVector()
-        
+
         vector += vector
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_add_in_place_vector_vector_float() {
         typealias Scalar = Float
-        
+
         var vector: Vector<Scalar> = self.makeVector()
-        
+
         vector += vector
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_add_in_place_vector_scalar_double() {
         typealias Scalar = Double
-        
+
         var vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 1.0
-        
+
         vector += scalar
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_add_in_place_vector_scalar_float() {
         typealias Scalar = Float
-        
+
         var vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 1.0
-        
+
         vector += scalar
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
@@ -168,82 +168,82 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_sub_vector_scalar_double() {
         typealias Scalar = Double
-        
+
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 1.0
-        
+
         let actual = vector - scalar
         let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_sub_vector_scalar_float() {
         typealias Scalar = Float
-        
+
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 1.0
-        
+
         let actual = vector - scalar
         let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_sub_in_place_vector_vector_double() {
         typealias Scalar = Double
-        
+
         var vector: Vector<Scalar> = self.makeVector()
-        
+
         vector -= vector
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_sub_in_place_vector_vector_float() {
         typealias Scalar = Float
-        
+
         var vector: Vector<Scalar> = self.makeVector()
-        
+
         vector -= vector
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_sub_in_place_vector_scalar_double() {
         typealias Scalar = Double
-        
+
         var vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 1.0
-        
+
         vector -= scalar
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_sub_in_place_vector_scalar_float() {
         typealias Scalar = Float
-        
+
         var vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 1.0
-        
+
         vector -= scalar
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
@@ -263,62 +263,62 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 2.0
-        
+
         let actual = scalar * vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_mul_vector_scalar_double() {
         typealias Scalar = Double
-        
+
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 2.0
-        
+
         let actual = vector * scalar
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_mul_vector_scalar_float() {
         typealias Scalar = Float
-        
+
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 2.0
-        
+
         let actual = vector * scalar
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_mul_in_place_vector_scalar_double() {
         typealias Scalar = Double
-        
+
         var vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 2.0
-        
+
         vector *= scalar
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_mul_in_place_vector_scalar_float() {
         typealias Scalar = Float
-        
+
         var vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 2.0
-        
+
         vector *= scalar
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
@@ -327,7 +327,7 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 0.5
-        
+
         let actual = vector / scalar
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
@@ -339,38 +339,38 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 0.5
-        
+
         let actual = vector / scalar
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
-    
+
     func test_div_in_place_vector_scalar_double() {
         typealias Scalar = Double
-        
+
         var vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 0.5
-        
+
         vector /= scalar
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_div_in_place_vector_scalar_float() {
         typealias Scalar = Float
-        
+
         var vector: Vector<Scalar> = self.makeVector()
         let scalar: Scalar = 0.5
-        
+
         vector /= scalar
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
@@ -395,30 +395,30 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_elmul_in_place_double() {
         typealias Scalar = Double
-        
+
         var vector: Vector<Scalar> = self.makeVector()
-        
+
         vector .*= vector
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_elmul_in_place_float() {
         typealias Scalar = Float
-        
+
         var vector: Vector<Scalar> = self.makeVector()
-        
+
         vector .*= vector
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
@@ -443,30 +443,30 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
-    
+
     func test_eldiv_in_place_double() {
         typealias Scalar = Double
-        
+
         var vector: Vector<Scalar> = self.makeVector()
-        
+
         vector ./= vector
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
-    
+
     func test_eldiv_in_place_float() {
         typealias Scalar = Float
-        
+
         var vector: Vector<Scalar> = self.makeVector()
-        
+
         vector ./= vector
-        
+
         let actual = vector
         let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        
+
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
