@@ -331,9 +331,12 @@ public func mul(_ x: Matrix<Float>, _ y: Vector<Float>) -> Vector<Float> {
         return Vector<Float>(dimensions: x.rows, repeatedValue: 0.0)
     }
 
+    var y = y
     var results = Vector<Float>(dimensions: x.rows, repeatedValue: 0.0)
-    results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_sgemv(CblasRowMajor, CblasNoTrans, Int32(x.rows), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.scalars, 1, 0.0, pointer.baseAddress!, 1)
+    y.scalars.withUnsafeMutableBufferPointer { yPointer in
+        results.scalars.withUnsafeMutableBufferPointer { pointer in
+            cblas_sgemv(CblasRowMajor, CblasNoTrans, Int32(x.rows), Int32(x.columns), 1.0, x.grid, Int32(x.columns), yPointer.baseAddress!, 1, 0.0, pointer.baseAddress!, 1)
+        }
     }
 
     return results
@@ -345,9 +348,12 @@ public func mul(_ x: Matrix<Double>, _ y: Vector<Double>) -> Vector<Double> {
         return Vector<Double>(dimensions: y.dimensions, repeatedValue: 0.0)
     }
 
+    var y = y
     var results = Vector<Double>(dimensions: x.rows, repeatedValue: 0.0)
-    results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_dgemv(CblasRowMajor, CblasNoTrans, Int32(x.rows), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.scalars, 1, 0.0, pointer.baseAddress!, 1)
+    y.scalars.withUnsafeMutableBufferPointer { yPointer in
+        results.scalars.withUnsafeMutableBufferPointer { pointer in
+            cblas_dgemv(CblasRowMajor, CblasNoTrans, Int32(x.rows), Int32(x.columns), 1.0, x.grid, Int32(x.columns), yPointer.baseAddress!, 1, 0.0, pointer.baseAddress!, 1)
+        }
     }
 
     return results
@@ -359,9 +365,12 @@ public func mul(_ x: Vector<Float>, _ y: Matrix<Float>) -> Vector<Float> {
         return Vector<Float>(dimensions: y.rows, repeatedValue: 0.0)
     }
 
+    var x = x
     var results = Vector<Float>(dimensions: y.columns, repeatedValue: 0.0)
-    results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_sgemv(CblasRowMajor, CblasTrans, Int32(y.rows), Int32(y.columns), 1.0, y.grid, Int32(y.columns), x.scalars, 1, 0.0, pointer.baseAddress!, 1)
+    x.scalars.withUnsafeMutableBufferPointer { xPointer in
+        results.scalars.withUnsafeMutableBufferPointer { pointer in
+            cblas_sgemv(CblasRowMajor, CblasTrans, Int32(y.rows), Int32(y.columns), 1.0, y.grid, Int32(y.columns), xPointer.baseAddress!, 1, 0.0, pointer.baseAddress!, 1)
+        }
     }
 
     return results
@@ -373,9 +382,12 @@ public func mul(_ x: Vector<Double>, _ y: Matrix<Double>) -> Vector<Double> {
         return Vector<Double>(dimensions: y.rows, repeatedValue: 0.0)
     }
 
+    var x = x
     var results = Vector<Double>(dimensions: y.columns, repeatedValue: 0.0)
-    results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_dgemv(CblasRowMajor, CblasTrans, Int32(y.rows), Int32(y.columns), 1.0, y.grid, Int32(y.columns), x.scalars, 1, 0.0, pointer.baseAddress!, 1)
+    x.scalars.withUnsafeMutableBufferPointer { xPointer in
+        results.scalars.withUnsafeMutableBufferPointer { pointer in
+            cblas_dgemv(CblasRowMajor, CblasTrans, Int32(y.rows), Int32(y.columns), 1.0, y.grid, Int32(y.columns), xPointer.baseAddress!, 1, 0.0, pointer.baseAddress!, 1)
+        }
     }
 
     return results

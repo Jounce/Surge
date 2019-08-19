@@ -23,7 +23,7 @@ import Accelerate
 public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
     public let dimensions: Int
 
-    public var scalars: [Scalar] {
+    public var scalars: ContiguousArray<Scalar> {
         didSet {
             precondition(self.scalars.count == self.dimensions)
         }
@@ -37,11 +37,11 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
     }
 
     public init<T: Sequence>(_ contents: T) where T.Element == Scalar {
-        let scalars: [Scalar]
-        if let array = contents as? [Scalar] {
+        let scalars: ContiguousArray<Scalar>
+        if let array = contents as? ContiguousArray<Scalar> {
             scalars = array
         } else {
-            scalars = Array(contents)
+            scalars = ContiguousArray(contents)
         }
         self.dimensions = scalars.count
         self.scalars = scalars
