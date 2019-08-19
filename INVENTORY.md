@@ -40,6 +40,13 @@
     - [Base-2 Logarithm](#base-2-logarithm)
     - [Base-10 Logarithm](#base-10-logarithm)
     - [Base-radix Logarithm](#base-radix-logarithm)
+  - [Statistical Operations](#statistical-operations)
+    - [Absolute summation](#absolute-summation)
+    - [Maximum](#maximum)
+    - [Minimum](#minimum)
+    - [Arithmetic mean](#arithmetic-mean)
+    - [Mean of magnitudes](#mean-of-magnitudes)
+    - [Mean of squares](#mean-of-squares)
 
 ## General Arithmetic Operations
 
@@ -462,5 +469,51 @@ Exponential functions & operators
 | Arguments | Function | In-Place Function | Operator | In-Place Operator |
 |-----------|----------|-------------------|----------|-------------------|
 | `(Array)` | `logb`   | n/a               | n/a      | n/a               |
+
+</details>
+
+## Statistical Operations
+
+<details open>
+
+<summary>
+Statistical functions & operators
+</summary>
+
+### [Absolute summation](https://en.wikipedia.org/wiki/Summation)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `asum`   | n/a               | n/a      | n/a               |
+
+### [Maximum](https://en.wikipedia.org/wiki/Maximal_and_minimal_elements)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `max`    | n/a               | n/a      | n/a               |
+
+### [Minimum](https://en.wikipedia.org/wiki/Maximal_and_minimal_elements)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `min`    | n/a               | n/a      | n/a               |
+
+### [Arithmetic mean](https://en.wikipedia.org/wiki/Mean)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `mean`   | n/a               | n/a      | n/a               |
+
+### [Mean of magnitudes](https://en.wikipedia.org/wiki/Mean)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `meamg`  | n/a               | n/a      | n/a               |
+
+### [Mean of squares](https://en.wikipedia.org/wiki/Mean_square)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `measq`  | n/a               | n/a      | n/a               |
 
 </details>
