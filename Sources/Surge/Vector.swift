@@ -47,13 +47,15 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
     }
 }
 
+// MARK: - ExpressibleByArrayLiteral
+
 extension Vector: ExpressibleByArrayLiteral {
     public init(arrayLiteral elements: Scalar...) {
         self.init(elements)
     }
 }
 
-// MARK: - Printable
+// MARK: - CustomStringConvertible
 
 extension Vector: CustomStringConvertible {
     public var description: String {
@@ -61,7 +63,7 @@ extension Vector: CustomStringConvertible {
     }
 }
 
-// MARK: - SequenceType
+// MARK: - Sequence
 
 extension Vector: Sequence {
     public func makeIterator() -> AnyIterator<Scalar> {
