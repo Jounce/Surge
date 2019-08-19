@@ -21,7 +21,7 @@
 @testable import Surge
 import XCTest
 
-// swiftlint:disable nesting
+// swiftlint:disable nesting type_body_length
 
 class VectorTests: XCTestCase {
     func makeVector() -> Vector<Double> {
