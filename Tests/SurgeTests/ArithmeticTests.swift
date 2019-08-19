@@ -65,7 +65,7 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(sqrt(values), [])
     }
 
-        func test_dist_array_array_double() {
+    func test_dist_array_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = [1, 2, 3]
