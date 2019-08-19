@@ -33,6 +33,13 @@
     - [Inverse Hyperbolic Tangent](#inverse-hyperbolic-tangent)
     - [Radians toDegrees](#radians-todegrees)
     - [Degrees to Radians](#degrees-to-radians)
+  - [Exponential Functions](#exponential-functions)
+    - [Exponential Function](#exponential-function)
+    - [Base-2 Exponential Function](#base-2-exponential-function)
+    - [Base-e Logarithm](#base-e-logarithm)
+    - [Base-2 Logarithm](#base-2-logarithm)
+    - [Base-10 Logarithm](#base-10-logarithm)
+    - [Base-radix Logarithm](#base-radix-logarithm)
 
 ## General Arithmetic Operations
 
@@ -409,5 +416,51 @@ Trigonometric functions & operators
 | Arguments | Function  | In-Place Function | Operator | In-Place Operator |
 |-----------|-----------|-------------------|----------|-------------------|
 | `(Array)` | `deg2rad` | n/a               | n/a      | n/a               |
+
+</details>
+
+## Exponential Functions
+
+<details open>
+
+<summary>
+Exponential functions & operators
+</summary>
+
+### [Exponential Function](https://en.wikipedia.org/wiki/Exponential_function)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `exp`    | n/a               | n/a      | n/a               |
+
+### [Base-2 Exponential Function](https://en.wikipedia.org/wiki/Exponential_function)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `exp2`   | n/a               | n/a      | n/a               |
+
+### [Base-e Logarithm](https://en.wikipedia.org/wiki/Logarithm)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `log`    | n/a               | n/a      | n/a               |
+
+### [Base-2 Logarithm](https://en.wikipedia.org/wiki/Logarithm)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `log2`   | n/a               | n/a      | n/a               |
+
+### [Base-10 Logarithm](https://en.wikipedia.org/wiki/Logarithm)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `log10`  | n/a               | n/a      | n/a               |
+
+### [Base-radix Logarithm](https://en.wikipedia.org/wiki/Logarithm)
+
+| Arguments | Function | In-Place Function | Operator | In-Place Operator |
+|-----------|----------|-------------------|----------|-------------------|
+| `(Array)` | `logb`   | n/a               | n/a      | n/a               |
 
 </details>
