@@ -18,43 +18,22 @@
     - [Power)](#power)
     - [Exponential](#exponential)
   - [Trigonometric Operations](#trigonometric-operations)
-    - [Sine/Cosine](#sinecosine)
-    - [Sine](#sine)
-    - [Cosine](#cosine)
-    - [Tangent](#tangent)
-    - [Arc Sine](#arc-sine)
-    - [Arc Cosine](#arc-cosine)
-    - [Arc Tangent](#arc-tangent)
-    - [Hyperbolic Sine](#hyperbolic-sine)
-    - [Hyperbolic Cosine](#hyperbolic-cosine)
-    - [Hyperbolic Tangent](#hyperbolic-tangent)
-    - [Inverse Hyperbolic Sine](#inverse-hyperbolic-sine)
-    - [Inverse Hyperbolic Cosine](#inverse-hyperbolic-cosine)
-    - [Inverse Hyperbolic Tangent](#inverse-hyperbolic-tangent)
-    - [Radians toDegrees](#radians-todegrees)
-    - [Degrees to Radians](#degrees-to-radians)
-  - [Exponential Functions](#exponential-functions)
-    - [Exponential Function](#exponential-function)
-    - [Base-2 Exponential Function](#base-2-exponential-function)
-    - [Base-e Logarithm](#base-e-logarithm)
-    - [Base-2 Logarithm](#base-2-logarithm)
-    - [Base-10 Logarithm](#base-10-logarithm)
-    - [Base-radix Logarithm](#base-radix-logarithm)
+    - [Sine/Cosine/Tangent](#sinecosinetangent)
+    - [Arc Sine/Cosine/Tangent](#arc-sinecosinetangent)
+    - [Hyperbolic Sine/Cosine/Tangent](#hyperbolic-sinecosinetangent)
+    - [Inverse Hyperbolic Sine/Cosine/Tangent](#inverse-hyperbolic-sinecosinetangent)
+    - [Radians ↔︎ Degrees](#radians-%e2%86%94%ef%b8%8e-degrees)
+  - [Exponential Function](#exponential-function)
+  - [Logarithm](#logarithm)
   - [Statistical Operations](#statistical-operations)
-    - [Absolute summation](#absolute-summation)
-    - [Maximum](#maximum)
-    - [Minimum](#minimum)
-    - [Arithmetic mean](#arithmetic-mean)
-    - [Mean of magnitudes](#mean-of-magnitudes)
-    - [Mean of squares](#mean-of-squares)
+    - [Summation](#summation-1)
+    - [Minimum/Maximum](#minimummaximum)
+    - [Mean](#mean)
   - [Auxiliary Functions](#auxiliary-functions)
+    - [Rounding Functions](#rounding-functions)
     - [Absolute value](#absolute-value)
-    - [Ceiling function](#ceiling-function)
     - [Signum function](#signum-function)
-    - [Floor function](#floor-function)
     - [Multiplicative inverse](#multiplicative-inverse)
-    - [Rounding function](#rounding-function)
-    - [Integer truncation](#integer-truncation)
   - [Matrix-specific Operations](#matrix-specific-operations)
     - [Matrix Inversion](#matrix-inversion)
     - [Matrix Transposition](#matrix-transposition)
@@ -351,99 +330,49 @@ Exponential functions & operators
 Trigonometric functions & operators
 </summary>
 
-### [Sine/Cosine](https://en.wikipedia.org/wiki/Trigonometric_functions)
+### [Sine/Cosine/Tangent](https://en.wikipedia.org/wiki/Trigonometric_functions)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `sincos` | n/a               | n/a      | n/a               |
+| Arguments | Function | Operation     |
+|-----------|----------|---------------|
+| `(Array)` | `sin`    | Sine          |
+| `(Array)` | `cos`    | Cosine        |
+| `(Array)` | `tan`    | Tangent       |
+| `(Array)` | `sincos` | Sine & Cosine |
 
-### [Sine](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+### [Arc Sine/Cosine/Tangent](https://en.wikipedia.org/wiki/Trigonometric_functions)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `sin`    | n/a               | n/a      | n/a               |
+| Arguments | Function | Operation   |
+|-----------|----------|-------------|
+| `(Array)` | `asin`   | Arc Sine    |
+| `(Array)` | `acos`   | Arc Cosine  |
+| `(Array)` | `atan`   | Arc Tangent |
 
-### [Cosine](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+### [Hyperbolic Sine/Cosine/Tangent](https://en.wikipedia.org/wiki/Hyperbolic_function)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `cos`    | n/a               | n/a      | n/a               |
+| Arguments | Function | Operation          |
+|-----------|----------|--------------------|
+| `(Array)` | `sinh`   | Hyperbolic Sine    |
+| `(Array)` | `cosh`   | Hyperbolic Cosine  |
+| `(Array)` | `tanh`   | Hyperbolic Tangent |
 
-### [Tangent](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+### [Inverse Hyperbolic Sine/Cosine/Tangent](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `tan`    | n/a               | n/a      | n/a               |
+| Arguments | Function | Operation                  |
+|-----------|----------|----------------------------|
+| `(Array)` | `asinh`  | Inverse Hyperbolic Sine    |
+| `(Array)` | `acosh`  | Inverse Hyperbolic Cosine  |
+| `(Array)` | `atanh`  | Inverse Hyperbolic Tangent |
 
-### [Arc Sine](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
+### [Radians ↔︎ Degrees](https://en.wikipedia.org/wiki/Angle#Types_of_angles)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `asin`   | n/a               | n/a      | n/a               |
-
-### [Arc Cosine](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `acos`   | n/a               | n/a      | n/a               |
-
-### [Arc Tangent](https://en.wikipedia.org/wiki/Trigonometric_functions#cosine)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `atan`   | n/a               | n/a      | n/a               |
-
-### [Hyperbolic Sine](https://en.wikipedia.org/wiki/Hyperbolic_function)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `sinh`   | n/a               | n/a      | n/a               |
-
-### [Hyperbolic Cosine](https://en.wikipedia.org/wiki/Hyperbolic_function)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `cosh`   | n/a               | n/a      | n/a               |
-
-### [Hyperbolic Tangent](https://en.wikipedia.org/wiki/Hyperbolic_function)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `tanh`   | n/a               | n/a      | n/a               |
-
-### [Inverse Hyperbolic Sine](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `asinh`  | n/a               | n/a      | n/a               |
-
-### [Inverse Hyperbolic Cosine](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `acosh`  | n/a               | n/a      | n/a               |
-
-### [Inverse Hyperbolic Tangent](https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `atanh`  | n/a               | n/a      | n/a               |
-
-### [Radians toDegrees](https://en.wikipedia.org/wiki/Radian)
-
-| Arguments | Function  | In-Place Function | Operator | In-Place Operator |
-|-----------|-----------|-------------------|----------|-------------------|
-| `(Array)` | `rad2deg` | n/a               | n/a      | n/a               |
-
-### [Degrees to Radians](https://en.wikipedia.org/wiki/Radian)
-
-| Arguments | Function  | In-Place Function | Operator | In-Place Operator |
-|-----------|-----------|-------------------|----------|-------------------|
-| `(Array)` | `deg2rad` | n/a               | n/a      | n/a               |
+| Arguments | Function  | Operation                                                                                                  |
+|-----------|-----------|------------------------------------------------------------------------------------------------------------|
+| `(Array)` | `rad2deg` | [Radians](https://en.wikipedia.org/wiki/Radian) to [Degrees](https://en.wikipedia.org/wiki/Degree_(angle)) |
+| `(Array)` | `deg2rad` | [Degrees](https://en.wikipedia.org/wiki/Degree_(angle)) to [Radians](https://en.wikipedia.org/wiki/Radian) |
 
 </details>
 
-## Exponential Functions
+## [Exponential Function](https://en.wikipedia.org/wiki/Exponential_function)
 
 <details open>
 
@@ -451,41 +380,27 @@ Trigonometric functions & operators
 Exponential functions & operators
 </summary>
 
-### [Exponential Function](https://en.wikipedia.org/wiki/Exponential_function)
+| Arguments | Function | Operation                   |
+|-----------|----------|-----------------------------|
+| `(Array)` | `exp`    | Base-e Exponential Function |
+| `(Array)` | `exp2`   | Base-2 Exponential Function |
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `exp`    | n/a               | n/a      | n/a               |
+</details>
 
-### [Base-2 Exponential Function](https://en.wikipedia.org/wiki/Exponential_function)
+## [Logarithm](https://en.wikipedia.org/wiki/Logarithm)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `exp2`   | n/a               | n/a      | n/a               |
+<details open>
 
-### [Base-e Logarithm](https://en.wikipedia.org/wiki/Logarithm)
+<summary>
+Exponential functions & operators
+</summary>
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `log`    | n/a               | n/a      | n/a               |
-
-### [Base-2 Logarithm](https://en.wikipedia.org/wiki/Logarithm)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `log2`   | n/a               | n/a      | n/a               |
-
-### [Base-10 Logarithm](https://en.wikipedia.org/wiki/Logarithm)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `log10`  | n/a               | n/a      | n/a               |
-
-### [Base-radix Logarithm](https://en.wikipedia.org/wiki/Logarithm)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `logb`   | n/a               | n/a      | n/a               |
+| Arguments | Function | Operation         |
+|-----------|----------|-------------------|
+| `(Array)` | `log`    | Base-e Logarithm  |
+| `(Array)` | `log2`   | Base-2 Logarithm  |
+| `(Array)` | `log10`  | Base-10 Logarithm |
+| `(Array)` | `logb`   | Base-b Logarithm  |
 
 </details>
 
@@ -497,41 +412,27 @@ Exponential functions & operators
 Statistical functions & operators
 </summary>
 
-### [Absolute summation](https://en.wikipedia.org/wiki/Summation)
+### [Summation](https://en.wikipedia.org/wiki/Summation)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `asum`   | n/a               | n/a      | n/a               |
+| Arguments | Function | Operation          |
+|-----------|----------|--------------------|
+| `(Array)` | `sum`    | Summation          |
+| `(Array)` | `asum`   | Absolute Summation |
 
-### [Maximum](https://en.wikipedia.org/wiki/Maximal_and_minimal_elements)
+### [Minimum/Maximum](https://en.wikipedia.org/wiki/Maximal_and_minimal_elements)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `max`    | n/a               | n/a      | n/a               |
+| Arguments | Function | Operation |
+|-----------|----------|-----------|
+| `(Array)` | `min`    | Minimum   |
+| `(Array)` | `max`    | Maximum   |
 
-### [Minimum](https://en.wikipedia.org/wiki/Maximal_and_minimal_elements)
+### [Mean](https://en.wikipedia.org/wiki/Mean)
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `min`    | n/a               | n/a      | n/a               |
-
-### [Arithmetic mean](https://en.wikipedia.org/wiki/Mean)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `mean`   | n/a               | n/a      | n/a               |
-
-### [Mean of magnitudes](https://en.wikipedia.org/wiki/Mean)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `meamg`  | n/a               | n/a      | n/a               |
-
-### [Mean of squares](https://en.wikipedia.org/wiki/Mean_square)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `measq`  | n/a               | n/a      | n/a               |
+| Arguments | Function | Operation                                                    |
+|-----------|----------|--------------------------------------------------------------|
+| `(Array)` | `mean`   | [Mean](https://en.wikipedia.org/wiki/Mean)                   |
+| `(Array)` | `meamg`  | Mean of Magnitudes                                           |
+| `(Array)` | `measq`  | [Mean of squares](https://en.wikipedia.org/wiki/Mean_square) |
 
 </details>
 
@@ -543,17 +444,20 @@ Statistical functions & operators
 Auxiliary functions & operators
 </summary>
 
+### [Rounding Functions](https://en.wikipedia.org/wiki/Rounding)
+
+| Arguments | Function | Operation                                                             |
+|-----------|----------|-----------------------------------------------------------------------|
+| `(Array)` | `ceil`   | [Ceiling](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)  |
+| `(Array)` | `floor`  | [Flooring](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions) |
+| `(Array)` | `round`  | [Rounding](https://en.wikipedia.org/wiki/Rounding)                    |
+| `(Array)` | `trunc`  | [Integer truncation](https://en.wikipedia.org/wiki/Truncation)        |
+
 ### [Absolute value](https://en.wikipedia.org/wiki/Absolute_value)
 
 | Arguments | Function | In-Place Function | Operator | In-Place Operator |
 |-----------|----------|-------------------|----------|-------------------|
 | `(Array)` | `abs`    | n/a               | n/a      | n/a               |
-
-### [Ceiling function](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `ceil`   | n/a               | n/a      | n/a               |
 
 ### [Signum function](https://en.wikipedia.org/wiki/Sign_function)
 
@@ -561,29 +465,11 @@ Auxiliary functions & operators
 |-----------|------------|-------------------|----------|-------------------|
 | `(Array)` | `copysign` | n/a               | n/a      | n/a               |
 
-### [Floor function](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `floor`  | n/a               | n/a      | n/a               |
-
 ### [Multiplicative inverse](https://en.wikipedia.org/wiki/Multiplicative_inverse)
 
 | Arguments | Function | In-Place Function | Operator | In-Place Operator |
 |-----------|----------|-------------------|----------|-------------------|
 | `(Array)` | `rec`    | n/a               | n/a      | n/a               |
-
-### [Rounding function](https://en.wikipedia.org/wiki/Rounding)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `round`  | n/a               | n/a      | n/a               |
-
-### [Integer truncation](https://en.wikipedia.org/wiki/Truncation)
-
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `trunc`  | n/a               | n/a      | n/a               |
 
 </details>
 
