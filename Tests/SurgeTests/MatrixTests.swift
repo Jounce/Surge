@@ -49,12 +49,14 @@ class MatrixTests: XCTestCase {
 
     func testSetRow() {
         matrix[row: 0] = [13.0, 14.0, 15.0, 16.0]
-        XCTAssertTrue(matrix == Matrix<Double>([[13, 14, 15, 16], [5, 6, 7, 8], [9, 10, 11, 12]]))
+        let expectedResult: Matrix<Double> = Matrix<Double>([[13, 14, 15, 16], [5, 6, 7, 8], [9, 10, 11, 12]])
+        XCTAssertEqual(matrix, expectedResult)
     }
 
     func testSetColumn() {
         matrix[column: 0] = [20, 30, 40]
-        XCTAssertEqual(matrix, Matrix<Double>([[20, 2, 3, 4], [30, 6, 7, 8], [40, 10, 11, 12]]))
+        let expectedResult: Matrix<Double> = Matrix<Double>([[20, 2, 3, 4], [30, 6, 7, 8], [40, 10, 11, 12]])
+        XCTAssertEqual(matrix, expectedResult)
     }
 
     func testMatrixPower() {
@@ -74,7 +76,8 @@ class MatrixTests: XCTestCase {
 
     func testElementWiseMultiplication() {
         let matrix2 = Matrix<Double>([[2, 3, 4, 5], [6, 7, 8, 9], [10, 11, 12, 13]])
-        XCTAssertEqual(elmul(matrix, matrix2), Matrix<Double>([[2, 6, 12, 20], [30, 42, 56, 72], [90, 110, 132, 156]]))
+        let expectedResult: Matrix<Double> = Matrix<Double>([[2, 6, 12, 20], [30, 42, 56, 72], [90, 110, 132, 156]])
+        XCTAssertEqual(elmul(matrix, matrix2), expectedResult)
     }
 
     func testDeterminantFloat() {
