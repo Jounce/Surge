@@ -54,14 +54,27 @@
 Addition functions & operators
 </summary>
 
-| Arguments          | Function   | In-Place Function | Operator     | In-Place Operator |
-|--------------------|------------|-------------------|--------------|-------------------|
-| `(Array, Array)`   | `add`      | `addInPlace`      | `.+` (infix) | `.+=` (infix)     |
-| `(Array, Scalar)`  | `add`      | `addInPlace`      | `+` (infix)  | `+=` (infix)      |
-| `(Matrix, Matrix)` | `add`      | n/a               | `+` (infix)  | n/a               |
-| `(Matrix, Scalar)` | n/a        | n/a               | `+` (infix)  | n/a               |
-| `(Vector, Vector)` | `func add` | `addInPlace`      | `+` (infix)  | `+=` (infix)      |
-| `(Vector, Scalar)` | `func add` | `addInPlace`      | `+` (infix)  | `+=` (infix)      |
+| Arguments          | Function   | Operator     | In-Place Operator |
+|--------------------|------------|--------------|-------------------|
+| `(Array, Array)`   | `add`      | `.+` (infix) | `.+=` (infix)     |
+| `(Array, Scalar)`  | `add`      | `+` (infix)  | `+=` (infix)      |
+| `(Matrix, Matrix)` | `add`      | `+` (infix)  | n/a               |
+| `(Matrix, Scalar)` | n/a        | `+` (infix)  | n/a               |
+| `(Vector, Vector)` | `func add` | `+` (infix)  | `+=` (infix)      |
+| `(Vector, Scalar)` | `func add` | `+` (infix)  | `+=` (infix)      |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| `addInPlace`      |
+| `addInPlace`      |
+| n/a               |
+| n/a               |
+| `addInPlace`      |
+| `addInPlace`      |
+-->
 
 <!-- FIXME: `add` for `(Array, Array)` should be called `eladd`/`.+`, no? -->
 <!-- FIXME: Missing `add` function for `(Matrix, Scalar)`. -->
@@ -78,14 +91,27 @@ Addition functions & operators
 Subtraction functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
-|--------------------|----------|-------------------|--------------|-------------------|
-| `(Array, Array)`   | `sub`    | `subInPlace`      | `.-` (infix) | `.-=` (infix)     |
-| `(Array, Scalar)`  | `sub`    | `subInPlace`      | `-` (infix)  | `-=` (infix)      |
-| `(Matrix, Matrix)` | `sub`    | n/a               | `-` (infix)  | n/a               |
-| `(Matrix, Scalar)` | n/a      | n/a               | n/a          | n/a               |
-| `(Vector, Vector)` | `sub`    | `subInPlace`      | `-` (infix)  | `-=` (infix)      |
-| `(Vector, Scalar)` | `sub`    | `subInPlace`      | `-` (infix)  | `-=` (infix)      |
+| Arguments          | Function | Operator     | In-Place Operator |
+|--------------------|----------|--------------|-------------------|
+| `(Array, Array)`   | `sub`    | `.-` (infix) | `.-=` (infix)     |
+| `(Array, Scalar)`  | `sub`    | `-` (infix)  | `-=` (infix)      |
+| `(Matrix, Matrix)` | `sub`    | `-` (infix)  | n/a               |
+| `(Matrix, Scalar)` | n/a      | n/a          | n/a               |
+| `(Vector, Vector)` | `sub`    | `-` (infix)  | `-=` (infix)      |
+| `(Vector, Scalar)` | `sub`    | `-` (infix)  | `-=` (infix)      |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| `subInPlace`      |
+| `subInPlace`      |
+| n/a               |
+| n/a               |
+| `subInPlace`      |
+| `subInPlace`      |
+-->
 
 <!-- FIXME: `sub` for `(Array, Array)` should be called `elsub`/`.-`, no? -->
 <!-- FIXME: Missing `sub` function/operator for `(Matrix, Scalar)`. -->
@@ -102,18 +128,35 @@ Subtraction functions & operators
 Multiplication functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
-|--------------------|----------|-------------------|--------------|-------------------|
-| `(Array, Array)`   | `mul`    | `mulInPlace`      | `.*` (infix) | `.*=` (infix)     |
-| `(Array, Scalar)`  | `mul`    | `mulInPlace`      | `*` (infix)  | `*=` (infix)      |
-| `(Matrix, Matrix)` | `mul`    | n/a               | `*` (infix)  | n/a               |
-| `(Matrix, Vector)` | `mul`    | n/a               | `*` (infix)  | n/a               |
-| `(Matrix, Scalar)` | `mul`    | n/a               | `*` (infix)  | n/a               |
-| `(Vector, Matrix)` | `mul`    | n/a               | `*` (infix)  | n/a               |
-| `(Vector, Scalar)` | `mul`    | `mulInPlace`      | `*` (infix)  | `*=` (infix)      |
-| `(Scalar, Array)`  | `mul`    | n/a               | `*` (infix)  | n/a               |
-| `(Scalar, Matrix)` | `mul`    | n/a               | `*` (infix)  | n/a               |
-| `(Scalar, Vector)` | `mul`    | n/a               | `*` (infix)  | n/a               |
+| Arguments          | Function | Operator     | In-Place Operator |
+|--------------------|----------|--------------|-------------------|
+| `(Array, Array)`   | `mul`    | `.*` (infix) | `.*=` (infix)     |
+| `(Array, Scalar)`  | `mul`    | `*` (infix)  | `*=` (infix)      |
+| `(Matrix, Matrix)` | `mul`    | `*` (infix)  | n/a               |
+| `(Matrix, Vector)` | `mul`    | `*` (infix)  | n/a               |
+| `(Matrix, Scalar)` | `mul`    | `*` (infix)  | n/a               |
+| `(Vector, Matrix)` | `mul`    | `*` (infix)  | n/a               |
+| `(Vector, Scalar)` | `mul`    | `*` (infix)  | `*=` (infix)      |
+| `(Scalar, Array)`  | `mul`    | `*` (infix)  | n/a               |
+| `(Scalar, Matrix)` | `mul`    | `*` (infix)  | n/a               |
+| `(Scalar, Vector)` | `mul`    | `*` (infix)  | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| `mulInPlace`      |
+| `mulInPlace`      |
+| n/a               |
+| n/a               |
+| n/a               |
+| n/a               |
+| `mulInPlace`      |
+| n/a               |
+| n/a               |
+| n/a               |
+-->
 
 </details>
 
@@ -125,10 +168,19 @@ Multiplication functions & operators
 Element-wise multiplication functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
-|--------------------|----------|-------------------|--------------|-------------------|
-| `(Matrix, Matrix)` | `elmul`  | n/a               | n/a          | n/a               |
-| `(Vector, Vector)` | `elmul`  | `elmulInPlace`    | `.*` (infix) | `.*=` (infix)     |
+| Arguments          | Function | Operator     | In-Place Operator |
+|--------------------|----------|--------------|-------------------|
+| `(Matrix, Matrix)` | `elmul`  | n/a          | n/a               |
+| `(Vector, Vector)` | `elmul`  | `.*` (infix) | `.*=` (infix)     |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| `elmulInPlace`    |
+-->
 
 <!-- FIXME: The does not seem to be a `.*` implemented for `(Matrix, Matrix)`. -->
 
@@ -142,13 +194,25 @@ Element-wise multiplication functions & operators
 Division functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
-|--------------------|----------|-------------------|--------------|-------------------|
-| `(Array, Array)`   | `div`    | `divInPlace`      | `./` (infix) | `./=` (infix)     |
-| `(Array, Scalar)`  | `div`    | `divInPlace`      | `/` (infix)  | `/=` (infix)      |
-| `(Matrix, Matrix)` | `div`    | n/a               | `/` (infix)  | n/a               |
-| `(Matrix, Scalar)` | n/a      | n/a               | `/` (infix)  | n/a               |
-| `(Vector, Scalar)` | `div`    | `divInPlace`      | `/` (infix)  | `/=` (infix)      |
+| Arguments          | Function | Operator     | In-Place Operator |
+|--------------------|----------|--------------|-------------------|
+| `(Array, Array)`   | `div`    | `./` (infix) | `./=` (infix)     |
+| `(Array, Scalar)`  | `div`    | `/` (infix)  | `/=` (infix)      |
+| `(Matrix, Matrix)` | `div`    | `/` (infix)  | n/a               |
+| `(Matrix, Scalar)` | n/a      | `/` (infix)  | n/a               |
+| `(Vector, Scalar)` | `div`    | `/` (infix)  | `/=` (infix)      |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| `divInPlace`      |
+| `divInPlace`      |
+| n/a               |
+| n/a               |
+| `divInPlace`      |
+-->
 
 <!-- FIXME: Func `div` of `(Array, Array)` should be called `eldiv`, no? -->
 <!-- FIXME: Missing `div` function for `(Matrix, Scalar)`. -->
@@ -163,9 +227,17 @@ Division functions & operators
 Element-wise multiplication functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
-|--------------------|----------|-------------------|--------------|-------------------|
-| `(Vector, Vector)` | `eldiv`  | `eldivInPlace`    | `./` (infix) | `./=` (infix)     |
+| Arguments          | Function | Operator     | In-Place Operator |
+|--------------------|----------|--------------|-------------------|
+| `(Vector, Vector)` | `eldiv`  | `./` (infix) | `./=` (infix)     |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| `eldivInPlace`    |
+ -->
 
 </details>
 
@@ -177,10 +249,19 @@ Element-wise multiplication functions & operators
 Modulo functions & operators
 </summary>
 
-| Arguments         | Function | In-Place Function | Operator     | In-Place Operator |
-|-------------------|----------|-------------------|--------------|-------------------|
-| `(Array, Array)`  | `mod`    | n/a               | `.%` (infix) | n/a               |
-| `(Array, Scalar)` | `mod`    | n/a               | `%` (infix)  | n/a               |
+| Arguments         | Function | Operator     | In-Place Operator |
+|-------------------|----------|--------------|-------------------|
+| `(Array, Array)`  | `mod`    | `.%` (infix) | n/a               |
+| `(Array, Scalar)` | `mod`    | `%` (infix)  | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| n/a               |
+-->
 
 <!-- FIXME: Do we need `mod` functions/operators for `Matrix`? -->
 <!-- FIXME: Do we need `mod` functions/operators for `Vector`? -->
@@ -195,10 +276,19 @@ Modulo functions & operators
 Remainder functions & operators
 </summary>
 
-| Arguments         | Function    | In-Place Function | Operator | In-Place Operator |
-|-------------------|-------------|-------------------|----------|-------------------|
-| `(Array, Array)`  | `remainder` | n/a               | n/a      | n/a               |
-| `(Array, Scalar)` | `remainder` | n/a               | n/a      | n/a               |
+| Arguments         | Function    | Operator | In-Place Operator |
+|-------------------|-------------|----------|-------------------|
+| `(Array, Array)`  | `remainder` | n/a      | n/a               |
+| `(Array, Scalar)` | `remainder` | n/a      | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| n/a               |
+ -->
 
 <!-- FIXME: Do we need `remainder` functions /operators for `Matrix`? -->
 <!-- FIXME: Do we need `remainder` functions /operators for `Vector`? -->
@@ -213,9 +303,17 @@ Remainder functions & operators
 Square root functions & operators
 </summary>
 
-| Arguments | Function | In-Place Function | Operator | In-Place Operator |
-|-----------|----------|-------------------|----------|-------------------|
-| `(Array)` | `sqrt`   | n/a               | n/a      | n/a               |
+| Arguments | Function | Operator | In-Place Operator |
+|-----------|----------|----------|-------------------|
+| `(Array)` | `sqrt`   | n/a      | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+ -->
 
 <!-- FIXME: The seems to be a variant `func sqrt<MI, MO>(_ x: MI, into results: inout MO)` that could be made into a `sqrtInPlace`-->
 
@@ -232,10 +330,19 @@ Square root functions & operators
 Sum functions & operators
 </summary>
 
-| Arguments  | Function | In-Place Function | Operator | In-Place Operator |
-|------------|----------|-------------------|----------|-------------------|
-| `(Array)`  | `sum`    | n/a               | n/a      | n/a               |
-| `(Matrix)` | `sum`    | n/a               | n/a      | n/a               |
+| Arguments  | Function | Operator | In-Place Operator |
+|------------|----------|----------|-------------------|
+| `(Array)`  | `sum`    | n/a      | n/a               |
+| `(Matrix)` | `sum`    | n/a      | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| n/a               |
+ -->
 
 <!-- FIXME: Do we need `sum` functions/operators for `Vector`? -->
 
@@ -249,10 +356,19 @@ Sum functions & operators
 Dot product functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator    | In-Place Operator |
-|--------------------|----------|-------------------|-------------|-------------------|
-| `(Array, Array)`   | `dot`    | n/a               | `•` (infix) | n/a               |
-| `(Vector, Vector)` | `dot`    | n/a               | `•` (infix) | n/a               |
+| Arguments          | Function | Operator    | In-Place Operator |
+|--------------------|----------|-------------|-------------------|
+| `(Array, Array)`   | `dot`    | `•` (infix) | n/a               |
+| `(Vector, Vector)` | `dot`    | `•` (infix) | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| n/a               |
+ -->
 
 <!-- FIXME: Do we need `dot` functions/operators for `Matrix`? -->
 
@@ -266,10 +382,19 @@ Dot product functions & operators
 Distance functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator | In-Place Operator |
-|--------------------|----------|-------------------|----------|-------------------|
-| `(Array, Array)`   | `dist`   | n/a               | n/a      | n/a               |
-| `(Vector, Vector)` | `dist`   | n/a               | n/a      | n/a               |
+| Arguments          | Function | Operator | In-Place Operator |
+|--------------------|----------|----------|-------------------|
+| `(Array, Array)`   | `dist`   | n/a      | n/a               |
+| `(Vector, Vector)` | `dist`   | n/a      | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| n/a               |
+ -->
 
 ### [Squared Distance](https://en.wikipedia.org/wiki/Euclidean_distance#Squared_Euclidean_distance)
 
@@ -279,10 +404,19 @@ Distance functions & operators
 Squared distance functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator | In-Place Operator |
-|--------------------|----------|-------------------|----------|-------------------|
-| `(Array, Array)`   | `distSq` | n/a               | n/a      | n/a               |
-| `(Vector, Vector)` | `distSq` | n/a               | n/a      | n/a               |
+| Arguments          | Function | Operator | In-Place Operator |
+|--------------------|----------|----------|-------------------|
+| `(Array, Array)`   | `distSq` | n/a      | n/a               |
+| `(Vector, Vector)` | `distSq` | n/a      | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| n/a               |
+ -->
 
 </details>
 
@@ -294,12 +428,23 @@ Squared distance functions & operators
 Power functions & operators
 </summary>
 
-| Arguments          | Function | In-Place Function | Operator     | In-Place Operator |
-|--------------------|----------|-------------------|--------------|-------------------|
-| `(Array, Array)`   | `pow`    | n/a               | `**` (infix) | n/a               |
-| `(Array, Scalar)`  | `pow`    | n/a               | `**` (infix) | n/a               |
-| `(Matrix, Scalar)` | `pow`    | n/a               | `**` (infix) | n/a               |
-| `(Vector, Vector)` | `pow`    | n/a               | n/a          | n/a               |
+| Arguments          | Function | Operator     | In-Place Operator |
+|--------------------|----------|--------------|-------------------|
+| `(Array, Array)`   | `pow`    | `**` (infix) | n/a               |
+| `(Array, Scalar)`  | `pow`    | `**` (infix) | n/a               |
+| `(Matrix, Scalar)` | `pow`    | `**` (infix) | n/a               |
+| `(Vector, Vector)` | `pow`    | n/a          | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| n/a               |
+| n/a               |
+| n/a               |
+ -->
 
 <!-- FIXME: Shouldn't the `pow`/`**` function/operator of `(Array, Array)` be `elpow`/`.**`? -->
 <!-- FIXME: Shouldn't the `pow`/`**` function/operator of `(Vector, Vector)` be `elpow`/`.**`? -->
@@ -314,11 +459,21 @@ Power functions & operators
 Exponential functions & operators
 </summary>
 
-| Arguments  | Function | In-Place Function | Operator | In-Place Operator |
-|------------|----------|-------------------|----------|-------------------|
-| `(Array)`  | `exp`    | n/a               | n/a      | n/a               |
-| `(Matrix)` | `exp`    | n/a               | n/a      | n/a               |
-| `(Vector)` | `exp`    | n/a               | n/a      | n/a               |
+| Arguments  | Function | Operator | In-Place Operator |
+|------------|----------|----------|-------------------|
+| `(Array)`  | `exp`    | n/a      | n/a               |
+| `(Matrix)` | `exp`    | n/a      | n/a               |
+| `(Vector)` | `exp`    | n/a      | n/a               |
+
+<!--
+Internal use only:
+
+| In-Place Function |
+|-------------------|
+| n/a               |
+| n/a               |
+| n/a               |
+ -->
 
 </details>
 
