@@ -22,7 +22,7 @@ import Foundation
 import Surge
 import XCTest
 
-// swiftlint:disable nesting
+// swiftlint:disable nesting type_body_length
 
 class ArithmeticTests: XCTestCase {
     let n = 100_000
@@ -331,7 +331,11 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = [1, 2, 3]
         let rhs: [Scalar] = [9, 8, 7]
 
-        let actual = dist(lhs, rhs)
+        var actual: Scalar = 0.0
+        measure {
+            actual = dist(lhs, rhs)
+        }
+
         let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
@@ -343,7 +347,11 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = [1, 2, 3, 4]
         let rhs: [Scalar] = [9, 8, 7, 6]
 
-        let actual = dist(lhs, rhs)
+        var actual: Scalar = 0.0
+        measure {
+            actual = dist(lhs, rhs)
+        }
+
         let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
@@ -355,7 +363,10 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = [1, 2, 3]
         let rhs: [Scalar] = [9, 8, 7]
 
-        let actual = distSq(lhs, rhs)
+        var actual: Scalar = 0.0
+        measure {
+            actual = distSq(lhs, rhs)
+        }
 
         let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
 
@@ -368,7 +379,11 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = [1, 2, 3, 4]
         let rhs: [Scalar] = [9, 8, 7, 6]
 
-        let actual = distSq(lhs, rhs)
+        var actual: Scalar = 0.0
+        measure {
+            actual = distSq(lhs, rhs)
+        }
+
         let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
