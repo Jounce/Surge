@@ -142,26 +142,24 @@ private func fail(
     XCTFail(message, file: file, line: line)
 }
 
-/// Allows comparing:
+/// Asserts that two values are equal within a certain accuracy.
 ///
-/// ```
-/// T where
-///     T: Collection,
-///     T.Element == U,
-///     U: FloatingPoint
-/// ```
-///
-/// Useful for comparing:
-/// - `[Float]`
-/// - `[Double]`
-func XCTAssertEqual<T, U>(
+/// - Parameters:
+///   - expression1: An expression of type `T: Collection`, where `T.Element` conforms `FloatingPoint`.
+///   - expression2: An expression of type `T: Collection`, where `T.Element` conforms `FloatingPoint`.
+///   - accuracy: An expression of type `T.Element`, where `T.Element` conforms to `FloatingPoint`.
+///     Describes the maximum difference between `expression1` and `expression2` for these values to be considered equal.
+///   - message: An optional description of the failure.
+///   - file: The file in which failure occurred. Defaults to the file name of the test case in which this function was called.
+///   - line: The line number on which failure occurred. Defaults to the line number on which this function was called.
+func XCTAssertEqual<T>(
     _ expression1: @autoclosure () throws -> T,
     _ expression2: @autoclosure () throws -> T,
-    accuracy: U? = nil,
+    accuracy: T.Element? = nil,
     _ message: @autoclosure () -> String = "",
     file: StaticString = #file,
     line: UInt = #line
-) where T: Collection, T.Element == U, U: FloatingPoint & ExpressibleByFloatLiteral {
+) where T: Collection, T.Element: FloatingPoint & ExpressibleByFloatLiteral {
     XCTAssertEqual1D(
         try expression1(),
         try expression2(),
@@ -172,14 +170,27 @@ func XCTAssertEqual<T, U>(
     )
 }
 
-func XCTAssertEqual1D<T, U>(
+/// Asserts that two values are equal within a certain accuracy.
+///
+///  Semantically the same as its `XCTAssertEqual<T>(_:_:accuracy:_:file:line:)` counterpart
+///  (i.e. without the `…1D` suffix), but with improved error messages.
+///
+/// - Parameters:
+///   - expression1: An expression of type `T: Collection`, where `T.Element` conforms `FloatingPoint`.
+///   - expression2: An expression of type `T: Collection`, where `T.Element` conforms `FloatingPoint`.
+///   - accuracy: An expression of type `T.Element`, where `T.Element` conforms to `FloatingPoint`.
+///     Describes the maximum difference between `expression1` and `expression2` for these values to be considered equal.
+///   - message: An optional description of the failure.
+///   - file: The file in which failure occurred. Defaults to the file name of the test case in which this function was called.
+///   - line: The line number on which failure occurred. Defaults to the line number on which this function was called.
+func XCTAssertEqual1D<T>(
     _ expression1: @autoclosure () throws -> T,
     _ expression2: @autoclosure () throws -> T,
-    accuracy: U? = nil,
+    accuracy: T.Element? = nil,
     _ message: @autoclosure () -> String = "",
     file: StaticString = #file,
     line: UInt = #line
-) where T: Collection, T.Element == U, U: FloatingPoint & ExpressibleByFloatLiteral {
+) where T: Collection, T.Element: FloatingPoint & ExpressibleByFloatLiteral {
     let prefix: Prefix = (accuracy == nil) ? .assertEqual : .assertEqualWithAccuracy
 
     let (actual, expected): (T, T)
@@ -200,30 +211,24 @@ func XCTAssertEqual1D<T, U>(
     return fail(prefix: prefix, failureMessage: error.description, file: file, line: line)
 }
 
-/// Allows comparing:
+/// Asserts that two values are equal within a certain accuracy.
 ///
-/// ```
-/// T where
-///     T: Collection,
-///     U: Collection,
-///     T.Element == U,
-///     U.Element == V,
-///     V: FloatingPoint
-/// ```
-///
-/// Useful for comparing:
-/// - `[[Float]]`
-/// - `[[Double]]`
-/// - `Matrix<Float>`
-/// - `Matrix<Double>`
-func XCTAssertEqual<T, U, V>(
+/// - Parameters:
+///   - expression1: An expression of type `T: Collection`, `T.Element == U`, where `U` is `FloatingPoint`.
+///   - expression2: An expression of type `T: Collection`, `T.Element == U`, where `U` is `FloatingPoint`.
+///   - accuracy: An expression of type `U.Element`, where `U.Element` conforms to `FloatingPoint`.
+///     Describes the maximum difference between `expression1` and `expression2` for these values to be considered equal.
+///   - message: An optional description of the failure.
+///   - file: The file in which failure occurred. Defaults to the file name of the test case in which this function was called.
+///   - line: The line number on which failure occurred. Defaults to the line number on which this function was called.
+func XCTAssertEqual<T, U>(
     _ expression1: @autoclosure () throws -> T,
     _ expression2: @autoclosure () throws -> T,
-    accuracy: V? = nil,
+    accuracy: U.Element? = nil,
     _ message: @autoclosure () -> String = "",
     file: StaticString = #file,
     line: UInt = #line
-) where T: Collection, U: Collection, T.Element == U, U.Element == V, V: FloatingPoint & ExpressibleByFloatLiteral {
+) where T: Collection, U: Collection, T.Element == U, U.Element: FloatingPoint & ExpressibleByFloatLiteral {
     XCTAssertEqual2D(
         try expression1(),
         try expression2(),
@@ -234,14 +239,27 @@ func XCTAssertEqual<T, U, V>(
     )
 }
 
-func XCTAssertEqual2D<T, U, V>(
+/// Asserts that two values are equal within a certain accuracy.
+///
+///  Semantically the same as its `XCTAssertEqual<T>(_:_:accuracy:_:file:line:)` counterpart
+///  (i.e. without the `…2D` suffix), but with improved error messages.
+///
+/// - Parameters:
+///   - expression1: An expression of type `T: Collection`, `T.Element == U`, where `U` is `FloatingPoint`.
+///   - expression2: An expression of type `T: Collection`, `T.Element == U`, where `U` is `FloatingPoint`.
+///   - accuracy: An expression of type `U.Element`, where `U.Element` conforms to `FloatingPoint`.
+///     Describes the maximum difference between `expression1` and `expression2` for these values to be considered equal.
+///   - message: An optional description of the failure.
+///   - file: The file in which failure occurred. Defaults to the file name of the test case in which this function was called.
+///   - line: The line number on which failure occurred. Defaults to the line number on which this function was called.
+func XCTAssertEqual2D<T, U>(
     _ expression1: @autoclosure () throws -> T,
     _ expression2: @autoclosure () throws -> T,
-    accuracy: V? = nil,
+    accuracy: U.Element? = nil,
     _ message: @autoclosure () -> String = "",
     file: StaticString = #file,
     line: UInt = #line
-) where T: Collection, U: Collection, T.Element == U, U.Element == V, V: FloatingPoint & ExpressibleByFloatLiteral {
+) where T: Collection, U: Collection, T.Element == U, U.Element: FloatingPoint & ExpressibleByFloatLiteral {
     let prefix: Prefix = (accuracy == nil) ? .assertEqual : .assertEqualWithAccuracy
 
     let (actual, expected): (T, T)
