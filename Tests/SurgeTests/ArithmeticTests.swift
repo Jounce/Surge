@@ -285,42 +285,6 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    func test_dist_array_array_float() {
-        typealias Scalar = Float
-
-        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
-        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
-
-        var actual: Scalar = 0
-        measure {
-            actual = Surge.dist(lhs, rhs)
-        }
-
-        let expected = Swift.zip(lhs, rhs).reduce(0) {
-            $0 + ($1.0 - $1.1) * ($1.0 - $1.1)
-        }.squareRoot()
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    func test_dist_array_array_double() {
-        typealias Scalar = Double
-
-        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
-        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
-
-        var actual: Scalar = 0
-        measure {
-            actual = Surge.dist(lhs, rhs)
-        }
-
-        let expected = Swift.zip(lhs, rhs).reduce(0) {
-            $0 + ($1.0 - $1.1) * ($1.0 - $1.1)
-        }.squareRoot()
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
     func test_sum() {
         let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
         var actual = 0.0
