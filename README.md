@@ -22,6 +22,10 @@ _The infrastructure and best practices for distributing Swift libraries are curr
 
 Surge uses Swift 5. This means that your code has to be written in Swift 5 due to current binary compatibility limitations.
 
+## License
+
+Surge is available under the MIT license. See the LICENSE file for more info.
+
 ### Swift Package Manager
 
 To use [Swift Package Manager](https://swift.org/package-manager/) add Surge to your `Package.swift` file:
@@ -98,6 +102,4 @@ let product = Surge.mul(a, b) // [2.0, 12.0, 30.0, 56.0]
 
 ---
 
-## License
 
-Surge is available under the MIT license. See the LICENSE file for more info.
