@@ -322,32 +322,6 @@ public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return sub(lhs, rhs)
 }
 
-public func mul(_ alpha: Float, _ x: Matrix<Float>) -> Matrix<Float> {
-    var results = x
-    results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_sscal(Int32(x.grid.count), alpha, pointer.baseAddress!, 1)
-    }
-
-    return results
-}
-
-public func mul(_ alpha: Double, _ x: Matrix<Double>) -> Matrix<Double> {
-    var results = x
-    results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_dscal(Int32(x.grid.count), alpha, pointer.baseAddress!, 1)
-    }
-
-    return results
-}
-
-public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, rhs)
-}
-
 public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
     if x.rows == 0 || x.columns == 0 || y.columns == 0 {
