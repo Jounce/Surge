@@ -22,23 +22,23 @@ import Accelerate
 
 // MARK: - Addition
 
-public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
-    precondition(x.count == y.count, "Collections must have the same size")
-    var results = [Float](y)
-    x.withUnsafeMemory { xm in
-        results.withUnsafeMutableBufferPointer { rbp in
-            cblas_saxpy(numericCast(xm.count), 1.0, xm.pointer, numericCast(xm.stride), rbp.baseAddress, 1)
+public func add<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    var results = [Float](rhs)
+    lhs.withUnsafeMemory { lhsMemory in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            cblas_saxpy(numericCast(lhsMemory.count), 1.0, lhsMemory.pointer, numericCast(lhsMemory.stride), bufferPointer.baseAddress, 1)
         }
     }
     return results
 }
 
-public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
-    precondition(x.count == y.count, "Collections must have the same size")
-    var results = [Double](y)
-    x.withUnsafeMemory { xm in
-        results.withUnsafeMutableBufferPointer { rbp in
-            cblas_daxpy(numericCast(xm.count), 1.0, xm.pointer, numericCast(xm.stride), rbp.baseAddress, 1)
+public func add<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    var results = [Double](rhs)
+    lhs.withUnsafeMemory { lhsMemory in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            cblas_daxpy(numericCast(lhsMemory.count), 1.0, lhsMemory.pointer, numericCast(lhsMemory.stride), bufferPointer.baseAddress, 1)
         }
     }
     return results
@@ -118,23 +118,23 @@ public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 
 // MARK: - Subtraction
 
-public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
-    precondition(x.count == y.count, "Collections must have the same size")
-    var results = [Float](y)
-    x.withUnsafeMemory { xm in
-        results.withUnsafeMutableBufferPointer { rbp in
-            catlas_saxpby(numericCast(xm.count), 1.0, xm.pointer, numericCast(xm.stride), -1, rbp.baseAddress, 1)
+public func sub<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    var results = [Float](rhs)
+    lhs.withUnsafeMemory { lhsMemory in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            catlas_saxpby(numericCast(lhsMemory.count), 1.0, lhsMemory.pointer, numericCast(lhsMemory.stride), -1, bufferPointer.baseAddress, 1)
         }
     }
     return results
 }
 
-public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
-    precondition(x.count == y.count, "Collections must have the same size")
-    var results = [Double](y)
-    x.withUnsafeMemory { xm in
-        results.withUnsafeMutableBufferPointer { rbp in
-            catlas_daxpby(numericCast(xm.count), 1.0, xm.pointer, numericCast(xm.stride), -1, rbp.baseAddress, 1)
+public func sub<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    var results = [Double](rhs)
+    lhs.withUnsafeMemory { lhsMemory in
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            catlas_daxpby(numericCast(lhsMemory.count), 1.0, lhsMemory.pointer, numericCast(lhsMemory.stride), -1, bufferPointer.baseAddress, 1)
         }
     }
     return results
@@ -214,23 +214,23 @@ public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 
 // MARK: - Multiplication
 
-public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
-    precondition(x.count == y.count, "Collections must have the same size")
-    return withUnsafeMemory(x, y) { xm, ym in
-        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vmul(xm.pointer, numericCast(xm.stride), ym.pointer, numericCast(ym.stride), rbp.baseAddress!, 1, numericCast(xm.count))
+public func mul<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        var results = [Float](repeating: 0.0, count: numericCast(lhsMemory.count))
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vDSP_vmul(lhsMemory.pointer, numericCast(lhsMemory.stride), rhsMemory.pointer, numericCast(rhsMemory.stride), bufferPointer.baseAddress!, 1, numericCast(lhsMemory.count))
         }
         return results
     }
 }
 
-public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
-    precondition(x.count == y.count, "Collections must have the same size")
-    return withUnsafeMemory(x, y) { xm, ym in
-        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vmulD(xm.pointer, numericCast(xm.stride), ym.pointer, numericCast(ym.stride), rbp.baseAddress!, 1, numericCast(xm.count))
+public func mul<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        var results = [Double](repeating: 0.0, count: numericCast(lhsMemory.count))
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vDSP_vmulD(lhsMemory.pointer, numericCast(lhsMemory.stride), rhsMemory.pointer, numericCast(rhsMemory.stride), bufferPointer.baseAddress!, 1, numericCast(lhsMemory.count))
         }
         return results
     }
@@ -311,24 +311,24 @@ public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 // MARK: - Division
 
 /// Elemen-wise vector division.
-public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
-    precondition(x.count == y.count, "Collections must have the same size")
-    return withUnsafeMemory(x, y) { xm, ym in
-        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vdiv(ym.pointer, numericCast(ym.stride), xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(xm.count))
+public func div<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        var results = [Float](repeating: 0.0, count: numericCast(lhsMemory.count))
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vDSP_vdiv(rhsMemory.pointer, numericCast(rhsMemory.stride), lhsMemory.pointer, numericCast(lhsMemory.stride), bufferPointer.baseAddress!, 1, numericCast(lhsMemory.count))
         }
         return results
     }
 }
 
 /// Elemen-wise vector division.
-public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
-    precondition(x.count == y.count, "Collections must have the same size")
-    return withUnsafeMemory(x, y) { xm, ym in
-        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vDSP_vdivD(ym.pointer, numericCast(ym.stride), xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(xm.count))
+public func div<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        var results = [Double](repeating: 0.0, count: numericCast(lhsMemory.count))
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vDSP_vdivD(rhsMemory.pointer, numericCast(rhsMemory.stride), lhsMemory.pointer, numericCast(lhsMemory.stride), bufferPointer.baseAddress!, 1, numericCast(lhsMemory.count))
         }
         return results
     }
@@ -411,13 +411,13 @@ public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 /// Elemen-wise modulo.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
-    precondition(x.count == y.count, "Collections must have the same size")
-    return withUnsafeMemory(x, y) { xm, ym in
-        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvfmodf(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
+public func mod<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        precondition(lhsMemory.stride == 1 && rhsMemory.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(lhsMemory.count))
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vvfmodf(bufferPointer.baseAddress!, lhsMemory.pointer, rhsMemory.pointer, [numericCast(lhsMemory.count)])
         }
         return results
     }
@@ -426,13 +426,13 @@ public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ 
 /// Elemen-wise modulo.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func mod<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
-    precondition(x.count == y.count, "Collections must have the same size")
-    return withUnsafeMemory(x, y) { xm, ym in
-        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvfmod(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
+public func mod<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        precondition(lhsMemory.stride == 1 && rhsMemory.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(lhsMemory.count))
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vvfmod(bufferPointer.baseAddress!, lhsMemory.pointer, rhsMemory.pointer, [numericCast(lhsMemory.count)])
         }
         return results
     }
@@ -467,13 +467,13 @@ public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
 /// Elemen-wise remainder.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
-    precondition(x.count == y.count, "Collections must have the same size")
-    return withUnsafeMemory(x, y) { xm, ym in
-        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Float](repeating: 0.0, count: numericCast(xm.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvremainderf(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
+public func remainder<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        precondition(lhsMemory.stride == 1 && rhsMemory.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(lhsMemory.count))
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vvremainderf(bufferPointer.baseAddress!, lhsMemory.pointer, rhsMemory.pointer, [numericCast(lhsMemory.count)])
         }
         return results
     }
@@ -482,13 +482,13 @@ public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x:
 /// Elemen-wise remainder.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Double] where X.Element == Double, Y.Element == Double {
-    precondition(x.count == y.count, "Collections must have the same size")
-    return withUnsafeMemory(x, y) { xm, ym in
-        precondition(xm.stride == 1 && ym.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Double](repeating: 0.0, count: numericCast(xm.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvremainder(rbp.baseAddress!, xm.pointer, ym.pointer, [numericCast(xm.count)])
+public func remainder<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        precondition(lhsMemory.stride == 1 && rhsMemory.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(lhsMemory.count))
+        results.withUnsafeMutableBufferPointer { bufferPointer in
+            vvremainder(bufferPointer.baseAddress!, lhsMemory.pointer, rhsMemory.pointer, [numericCast(lhsMemory.count)])
         }
         return results
     }
@@ -499,21 +499,21 @@ public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x:
 /// Elemen-wise square root.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sqrt<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
-    sqrt(x, into: &results)
+public func sqrt<C: UnsafeMemoryAccessible>(_ lhs: C) -> [Float] where C.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
+    sqrt(lhs, into: &results)
     return results
 }
 
 /// Elemen-wise square root with custom output storage.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sqrt<MI: UnsafeMemoryAccessible, MO: UnsafeMutableMemoryAccessible>(_ x: MI, into results: inout MO) where MI.Element == Float, MO.Element == Float {
-    return x.withUnsafeMemory { xm in
+public func sqrt<MI: UnsafeMemoryAccessible, MO: UnsafeMutableMemoryAccessible>(_ lhs: MI, into results: inout MO) where MI.Element == Float, MO.Element == Float {
+    return lhs.withUnsafeMemory { lhsMemory in
         results.withUnsafeMutableMemory { rm in
-            precondition(xm.stride == 1 && rm.stride == 1, "sqrt doesn't support step values other than 1")
-            precondition(rm.count >= xm.count, "`results` doesnt have enough capacity to store the results")
-            vvsqrtf(rm.pointer, xm.pointer, [numericCast(xm.count)])
+            precondition(lhsMemory.stride == 1 && rm.stride == 1, "sqrt doesn't support step values other than 1")
+            precondition(rm.count >= lhsMemory.count, "`results` doesnt have enough capacity to store the results")
+            vvsqrtf(rm.pointer, lhsMemory.pointer, [numericCast(lhsMemory.count)])
         }
     }
 }
@@ -521,47 +521,47 @@ public func sqrt<MI: UnsafeMemoryAccessible, MO: UnsafeMutableMemoryAccessible>(
 /// Elemen-wise square root.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sqrt<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
-    sqrt(x, into: &results)
+public func sqrt<C: UnsafeMemoryAccessible>(_ lhs: C) -> [Double] where C.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
+    sqrt(lhs, into: &results)
     return results
 }
 
 /// Elemen-wise square root with custom output storage.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sqrt<MI: UnsafeMemoryAccessible, MO: UnsafeMutableMemoryAccessible>(_ x: MI, into results: inout MO) where MI.Element == Double, MO.Element == Double {
-    return x.withUnsafeMemory { xm in
+public func sqrt<MI: UnsafeMemoryAccessible, MO: UnsafeMutableMemoryAccessible>(_ lhs: MI, into results: inout MO) where MI.Element == Double, MO.Element == Double {
+    return lhs.withUnsafeMemory { lhsMemory in
         results.withUnsafeMutableMemory { rm in
-            precondition(xm.stride == 1 && rm.stride == 1, "sqrt doesn't support step values other than 1")
-            precondition(rm.count >= xm.count, "`results` doesnt have enough capacity to store the results")
-            vvsqrt(rm.pointer, xm.pointer, [numericCast(xm.count)])
+            precondition(lhsMemory.stride == 1 && rm.stride == 1, "sqrt doesn't support step values other than 1")
+            precondition(rm.count >= lhsMemory.count, "`results` doesnt have enough capacity to store the results")
+            vvsqrt(rm.pointer, lhsMemory.pointer, [numericCast(lhsMemory.count)])
         }
     }
 }
 
 // MARK: - Dot Product
 
-public func dot<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Float where X.Element == Float, Y.Element == Float {
-    return withUnsafeMemory(x, y) { xm, ym in
-        precondition(xm.count == ym.count, "Vectors must have equal count")
+public func dot<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Float where L.Element == Float, R.Element == Float {
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        precondition(lhsMemory.count == rhsMemory.count, "Vectors must have equal count")
 
         var result: Float = 0.0
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_dotpr(xm.pointer, numericCast(xm.stride), ym.pointer, numericCast(ym.stride), pointer, numericCast(xm.count))
+            vDSP_dotpr(lhsMemory.pointer, numericCast(lhsMemory.stride), rhsMemory.pointer, numericCast(rhsMemory.stride), pointer, numericCast(lhsMemory.count))
         }
 
         return result
     }
 }
 
-public func dot<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Double where X.Element == Double, Y.Element == Double {
-    return withUnsafeMemory(x, y) { xm, ym in
-        precondition(xm.count == ym.count, "Vectors must have equal count")
+public func dot<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Double where L.Element == Double, R.Element == Double {
+    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
+        precondition(lhsMemory.count == rhsMemory.count, "Vectors must have equal count")
 
         var result: Double = 0.0
         withUnsafeMutablePointer(to: &result) { pointer in
-            vDSP_dotprD(xm.pointer, numericCast(xm.stride), ym.pointer, numericCast(ym.stride), pointer, numericCast(xm.count))
+            vDSP_dotprD(lhsMemory.pointer, numericCast(lhsMemory.stride), rhsMemory.pointer, numericCast(rhsMemory.stride), pointer, numericCast(lhsMemory.count))
         }
 
         return result
@@ -580,30 +580,30 @@ public func • <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, r
 
 // MARK: - Distance
 
-public func dist<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Float where X.Element == Float, Y.Element == Float {
-    return sqrt(distSq(x, y))
+public func dist<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Float where L.Element == Float, R.Element == Float {
+    return sqrt(distSq(lhs, rhs))
 }
 
-public func dist<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Double where X.Element == Double, Y.Element == Double {
-    return sqrt(distSq(x, y))
+public func dist<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Double where L.Element == Double, R.Element == Double {
+    return sqrt(distSq(lhs, rhs))
 }
 
-public func distSq<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Float where X.Element == Float, Y.Element == Float {
-    precondition(x.count == y.count, "Vectors must have equal count")
-    let sub = x .- y
-    var squared = [Float](repeating: 0.0, count: numericCast(x.count))
+public func distSq<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Float where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Vectors must have equal count")
+    let sub = lhs .- rhs
+    var squared = [Float](repeating: 0.0, count: numericCast(lhs.count))
     squared.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vsq(sub, 1, bufferPointer.baseAddress!, 1, numericCast(x.count))
+        vDSP_vsq(sub, 1, bufferPointer.baseAddress!, 1, numericCast(lhs.count))
     }
     return sum(squared)
 }
 
-public func distSq<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Double where X.Element == Double, Y.Element == Double {
-    precondition(x.count == y.count, "Vectors must have equal count")
-    let sub = x .- y
-    var squared = [Double](repeating: 0.0, count: numericCast(x.count))
+public func distSq<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Double where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Vectors must have equal count")
+    let sub = lhs .- rhs
+    var squared = [Double](repeating: 0.0, count: numericCast(lhs.count))
     squared.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vsqD(sub, 1, bufferPointer.baseAddress!, 1, numericCast(x.count))
+        vDSP_vsqD(sub, 1, bufferPointer.baseAddress!, 1, numericCast(lhs.count))
     }
     return sum(squared)
 }
