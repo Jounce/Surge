@@ -464,10 +464,7 @@ public func distSq<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X,
 
 // MARK: - Operators
 
-// MARK: Elemen-wise addition
-
-infix operator .+: AdditionPrecedence
-infix operator .+=: AssignmentPrecedence
+// MARK: Element-wise Addition
 
 public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     return addInPlace(&lhs, rhs)
@@ -485,7 +482,7 @@ public func .+ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
     return add(lhs, rhs)
 }
 
-// MARK: Scalar addition
+// MARK: Scalar Addition
 
 public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
     return addInPlace(&lhs, rhs)
@@ -503,10 +500,7 @@ public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
     return add(lhs, rhs)
 }
 
-// MARK: Element-wise subtraction
-
-infix operator .-: AdditionPrecedence
-infix operator .-=: AssignmentPrecedence
+// MARK: Element-wise Subtraction
 
 public func .-= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     return subInPlace(&lhs, rhs)
@@ -524,7 +518,7 @@ public func .- <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
     return sub(lhs, rhs)
 }
 
-// MARK: Scalar subtraction
+// MARK: Scalar Subtraction
 
 public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
     return subInPlace(&lhs, rhs)
@@ -543,9 +537,6 @@ public func - <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
 }
 
 // MARK: Element-wise division
-
-infix operator ./: MultiplicationPrecedence
-infix operator ./=: AssignmentPrecedence
 
 public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     return divInPlace(&lhs, rhs)
@@ -582,9 +573,6 @@ public func / <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
 }
 
 // MARK: Element-wise multiplication
-
-infix operator .*: MultiplicationPrecedence
-infix operator .*=: AssignmentPrecedence
 
 public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
     return mulInPlace(&lhs, rhs)
@@ -630,9 +618,6 @@ public func * <R: UnsafeMemoryAccessible>(lhs: Double, rhs: R) -> [Double] where
 
 // MARK: Modulo
 
-infix operator .%: MultiplicationPrecedence
-infix operator .%=: AssignmentPrecedence
-
 public func .% <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
     return mod(lhs, rhs)
 }
@@ -652,6 +637,7 @@ public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
 // MARK: Dot product
 
 infix operator •: MultiplicationPrecedence
+
 public func • <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> Double where L.Element == Double, R.Element == Double {
     return dot(lhs, rhs)
 }
