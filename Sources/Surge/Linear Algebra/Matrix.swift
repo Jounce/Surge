@@ -262,23 +262,23 @@ public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
 
 // MARK: - Addition
 
-public func add(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
+public func add(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
-    var results = y
+    var results = rhs
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_saxpy(Int32(x.grid.count), 1.0, x.grid, 1, pointer.baseAddress!, 1)
+        cblas_saxpy(Int32(lhs.grid.count), 1.0, lhs.grid, 1, pointer.baseAddress!, 1)
     }
 
     return results
 }
 
-public func add(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with addition")
+public func add(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
-    var results = y
+    var results = rhs
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_daxpy(Int32(x.grid.count), 1.0, x.grid, 1, pointer.baseAddress!, 1)
+        cblas_daxpy(Int32(lhs.grid.count), 1.0, lhs.grid, 1, pointer.baseAddress!, 1)
     }
 
     return results
@@ -294,23 +294,23 @@ public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 
 // MARK: - Subtraction
 
-public func sub(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with subtraction")
+public func sub(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
 
-    var results = y
+    var results = rhs
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        catlas_saxpby(Int32(x.grid.count), 1.0, x.grid, 1, -1, pointer.baseAddress!, 1)
+        catlas_saxpby(Int32(lhs.grid.count), 1.0, lhs.grid, 1, -1, pointer.baseAddress!, 1)
     }
 
     return results
 }
 
-public func sub(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with subtraction")
+public func sub(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
 
-    var results = y
+    var results = rhs
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        catlas_daxpby(Int32(x.grid.count), 1.0, x.grid, 1, -1, pointer.baseAddress!, 1)
+        catlas_daxpby(Int32(lhs.grid.count), 1.0, lhs.grid, 1, -1, pointer.baseAddress!, 1)
     }
 
     return results
@@ -326,29 +326,29 @@ public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 
 // MARK: - Multiplication
 
-public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
-    if x.rows == 0 || x.columns == 0 || y.columns == 0 {
-        return Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
+public func mul(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
+    precondition(lhs.columns == rhs.rows, "Matrix dimensions not compatible with multiplication")
+    if lhs.rows == 0 || lhs.columns == 0 || rhs.columns == 0 {
+        return Matrix<Float>(rows: lhs.rows, columns: rhs.columns, repeatedValue: 0.0)
     }
 
-    var results = Matrix<Float>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
+    var results = Matrix<Float>(rows: lhs.rows, columns: rhs.columns, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, pointer.baseAddress!, Int32(y.columns))
+        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.grid, Int32(lhs.columns), rhs.grid, Int32(rhs.columns), 0.0, pointer.baseAddress!, Int32(rhs.columns))
     }
 
     return results
 }
 
-public func mul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.columns == y.rows, "Matrix dimensions not compatible with multiplication")
-    if x.rows == 0 || x.columns == 0 || y.columns == 0 {
-        return Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
+public func mul(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
+    precondition(lhs.columns == rhs.rows, "Matrix dimensions not compatible with multiplication")
+    if lhs.rows == 0 || lhs.columns == 0 || rhs.columns == 0 {
+        return Matrix<Double>(rows: lhs.rows, columns: rhs.columns, repeatedValue: 0.0)
     }
 
-    var results = Matrix<Double>(rows: x.rows, columns: y.columns, repeatedValue: 0.0)
+    var results = Matrix<Double>(rows: lhs.rows, columns: rhs.columns, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(x.rows), Int32(y.columns), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.grid, Int32(y.columns), 0.0, pointer.baseAddress!, Int32(y.columns))
+        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(lhs.rows), Int32(rhs.columns), Int32(lhs.columns), 1.0, lhs.grid, Int32(lhs.columns), rhs.grid, Int32(rhs.columns), 0.0, pointer.baseAddress!, Int32(rhs.columns))
     }
 
     return results
@@ -362,29 +362,29 @@ public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return mul(lhs, rhs)
 }
 
-public func mul(_ x: Matrix<Float>, _ y: Vector<Float>) -> Vector<Float> {
-    precondition(x.columns == y.dimensions, "Matrix and vector dimensions not compatible with multiplication")
-    if x.rows == 0 || x.columns == 0 || y.dimensions == 0 {
-        return Vector<Float>(dimensions: x.rows, repeatedValue: 0.0)
+public func mul(_ lhs: Matrix<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
+    precondition(lhs.columns == rhs.dimensions, "Matrix and vector dimensions not compatible with multiplication")
+    if lhs.rows == 0 || lhs.columns == 0 || rhs.dimensions == 0 {
+        return Vector<Float>(dimensions: lhs.rows, repeatedValue: 0.0)
     }
 
-    var results = Vector<Float>(dimensions: x.rows, repeatedValue: 0.0)
+    var results = Vector<Float>(dimensions: lhs.rows, repeatedValue: 0.0)
     results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_sgemv(CblasRowMajor, CblasNoTrans, Int32(x.rows), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.scalars, 1, 0.0, pointer.baseAddress!, 1)
+        cblas_sgemv(CblasRowMajor, CblasNoTrans, Int32(lhs.rows), Int32(lhs.columns), 1.0, lhs.grid, Int32(lhs.columns), rhs.scalars, 1, 0.0, pointer.baseAddress!, 1)
     }
 
     return results
 }
 
-public func mul(_ x: Matrix<Double>, _ y: Vector<Double>) -> Vector<Double> {
-    precondition(x.columns == y.dimensions, "Matrix and vector dimensions not compatible with multiplication")
-    if x.rows == 0 || x.columns == 0 || y.dimensions == 0 {
-        return Vector<Double>(dimensions: y.dimensions, repeatedValue: 0.0)
+public func mul(_ lhs: Matrix<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
+    precondition(lhs.columns == rhs.dimensions, "Matrix and vector dimensions not compatible with multiplication")
+    if lhs.rows == 0 || lhs.columns == 0 || rhs.dimensions == 0 {
+        return Vector<Double>(dimensions: rhs.dimensions, repeatedValue: 0.0)
     }
 
-    var results = Vector<Double>(dimensions: x.rows, repeatedValue: 0.0)
+    var results = Vector<Double>(dimensions: lhs.rows, repeatedValue: 0.0)
     results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_dgemv(CblasRowMajor, CblasNoTrans, Int32(x.rows), Int32(x.columns), 1.0, x.grid, Int32(x.columns), y.scalars, 1, 0.0, pointer.baseAddress!, 1)
+        cblas_dgemv(CblasRowMajor, CblasNoTrans, Int32(lhs.rows), Int32(lhs.columns), 1.0, lhs.grid, Int32(lhs.columns), rhs.scalars, 1, 0.0, pointer.baseAddress!, 1)
     }
 
     return results
@@ -400,32 +400,32 @@ public func * (lhs: Matrix<Double>, rhs: Vector<Double>) -> Vector<Double> {
 
 // MARK: - Element-wise Multiplication
 
-public func elmul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
-    var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    result.grid = x.grid .* y.grid
+public func elmul(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix must have the same dimensions")
+    var result = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = lhs.grid .* rhs.grid
     return result
 }
 
-public func elmul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
-    var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    result.grid = x.grid .* y.grid
+public func elmul(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix must have the same dimensions")
+    var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = lhs.grid .* rhs.grid
     return result
 }
 
 // MARK: - Division
 
-public func div(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
-    let yInv = inv(y)
-    precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
-    return mul(x, yInv)
+public func div(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
+    let yInv = inv(rhs)
+    precondition(lhs.columns == yInv.rows, "Matrix dimensions not compatible")
+    return mul(lhs, yInv)
 }
 
-public func div(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
-    let yInv = inv(y)
-    precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
-    return mul(x, yInv)
+public func div(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
+    let yInv = inv(rhs)
+    precondition(lhs.columns == yInv.rows, "Matrix dimensions not compatible")
+    return mul(lhs, yInv)
 }
 
 public func / (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
@@ -458,63 +458,63 @@ public func / (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
 
 // MARK: - Power
 
-public func pow(_ x: Matrix<Double>, _ y: Double) -> Matrix<Double> {
-    var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    result.grid = pow(x.grid, y)
+public func pow(_ lhs: Matrix<Double>, _ rhs: Double) -> Matrix<Double> {
+    var result = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = pow(lhs.grid, rhs)
     return result
 }
 
-public func pow(_ x: Matrix<Float>, _ y: Float) -> Matrix<Float> {
-    var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    result.grid = pow(x.grid, y)
+public func pow(_ lhs: Matrix<Float>, _ rhs: Float) -> Matrix<Float> {
+    var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = pow(lhs.grid, rhs)
     return result
 }
 
 // MARK: - Exponential
 
-public func exp(_ x: Matrix<Double>) -> Matrix<Double> {
-    var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    result.grid = exp(x.grid)
+public func exp(_ lhs: Matrix<Double>) -> Matrix<Double> {
+    var result = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = exp(lhs.grid)
     return result
 }
 
-public func exp(_ x: Matrix<Float>) -> Matrix<Float> {
-    var result = Matrix<Float>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    result.grid = exp(x.grid)
+public func exp(_ lhs: Matrix<Float>) -> Matrix<Float> {
+    var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = exp(lhs.grid)
     return result
 }
 
 // MARK: - Summation
 
-public func sum(_ x: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Double> {
+public func sum(_ lhs: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<Double> {
     switch axies {
     case .column:
-        var result = Matrix<Double>(rows: 1, columns: x.columns, repeatedValue: 0.0)
-        for i in 0..<x.columns {
-            result.grid[i] = sum(x[column: i])
+        var result = Matrix<Double>(rows: 1, columns: lhs.columns, repeatedValue: 0.0)
+        for i in 0..<lhs.columns {
+            result.grid[i] = sum(lhs[column: i])
         }
         return result
     case .row:
-        var result = Matrix<Double>(rows: x.rows, columns: 1, repeatedValue: 0.0)
-        for i in 0..<x.rows {
-            result.grid[i] = sum(x[row: i])
+        var result = Matrix<Double>(rows: lhs.rows, columns: 1, repeatedValue: 0.0)
+        for i in 0..<lhs.rows {
+            result.grid[i] = sum(lhs[row: i])
         }
         return result
     }
 }
 
-public func sum(_ x: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Float> {
+public func sum(_ lhs: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Float> {
     switch axies {
     case .column:
-        var result = Matrix<Float>(rows: 1, columns: x.columns, repeatedValue: 0.0)
-        for i in 0..<x.columns {
-            result.grid[i] = sum(x[column: i])
+        var result = Matrix<Float>(rows: 1, columns: lhs.columns, repeatedValue: 0.0)
+        for i in 0..<lhs.columns {
+            result.grid[i] = sum(lhs[column: i])
         }
         return result
     case .row:
-        var result = Matrix<Float>(rows: x.rows, columns: 1, repeatedValue: 0.0)
-        for i in 0..<x.rows {
-            result.grid[i] = sum(x[row: i])
+        var result = Matrix<Float>(rows: lhs.rows, columns: 1, repeatedValue: 0.0)
+        for i in 0..<lhs.rows {
+            result.grid[i] = sum(lhs[row: i])
         }
         return result
     }
@@ -522,16 +522,16 @@ public func sum(_ x: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Floa
 
 // MARK: - Inverse
 
-public func inv(_ x: Matrix<Float>) -> Matrix<Float> {
-    precondition(x.rows == x.columns, "Matrix must be square")
+public func inv(_ lhs: Matrix<Float>) -> Matrix<Float> {
+    precondition(lhs.rows == lhs.columns, "Matrix must be square")
 
-    var results = x
+    var results = lhs
 
-    var ipiv = [__CLPK_integer](repeating: 0, count: x.rows * x.rows)
-    var lwork = __CLPK_integer(x.columns * x.columns)
+    var ipiv = [__CLPK_integer](repeating: 0, count: lhs.rows * lhs.rows)
+    var lwork = __CLPK_integer(lhs.columns * lhs.columns)
     var work = [CFloat](repeating: 0.0, count: Int(lwork))
     var error: __CLPK_integer = 0
-    var nc = __CLPK_integer(x.columns)
+    var nc = __CLPK_integer(lhs.columns)
 
     withUnsafeMutablePointers(&nc, &lwork, &error) { nc, lwork, error in
         withUnsafeMutableMemory(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
@@ -545,16 +545,16 @@ public func inv(_ x: Matrix<Float>) -> Matrix<Float> {
     return results
 }
 
-public func inv(_ x: Matrix<Double>) -> Matrix<Double> {
-    precondition(x.rows == x.columns, "Matrix must be square")
+public func inv(_ lhs: Matrix<Double>) -> Matrix<Double> {
+    precondition(lhs.rows == lhs.columns, "Matrix must be square")
 
-    var results = x
+    var results = lhs
 
-    var ipiv = [__CLPK_integer](repeating: 0, count: x.rows * x.rows)
-    var lwork = __CLPK_integer(x.columns * x.columns)
+    var ipiv = [__CLPK_integer](repeating: 0, count: lhs.rows * lhs.rows)
+    var lwork = __CLPK_integer(lhs.columns * lhs.columns)
     var work = [CDouble](repeating: 0.0, count: Int(lwork))
     var error: __CLPK_integer = 0
-    var nc = __CLPK_integer(x.columns)
+    var nc = __CLPK_integer(lhs.columns)
 
     withUnsafeMutablePointers(&nc, &lwork, &error) { nc, lwork, error in
         withUnsafeMutableMemory(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
@@ -570,19 +570,19 @@ public func inv(_ x: Matrix<Double>) -> Matrix<Double> {
 
 // MARK: - Transpose
 
-public func transpose(_ x: Matrix<Float>) -> Matrix<Float> {
-    var results = Matrix<Float>(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
+public func transpose(_ lhs: Matrix<Float>) -> Matrix<Float> {
+    var results = Matrix<Float>(rows: lhs.columns, columns: lhs.rows, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        vDSP_mtrans(x.grid, 1, pointer.baseAddress!, 1, vDSP_Length(x.columns), vDSP_Length(x.rows))
+        vDSP_mtrans(lhs.grid, 1, pointer.baseAddress!, 1, vDSP_Length(lhs.columns), vDSP_Length(lhs.rows))
     }
 
     return results
 }
 
-public func transpose(_ x: Matrix<Double>) -> Matrix<Double> {
-    var results = Matrix<Double>(rows: x.columns, columns: x.rows, repeatedValue: 0.0)
+public func transpose(_ lhs: Matrix<Double>) -> Matrix<Double> {
+    var results = Matrix<Double>(rows: lhs.columns, columns: lhs.rows, repeatedValue: 0.0)
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        vDSP_mtransD(x.grid, 1, pointer.baseAddress!, 1, vDSP_Length(x.columns), vDSP_Length(x.rows))
+        vDSP_mtransD(lhs.grid, 1, pointer.baseAddress!, 1, vDSP_Length(lhs.columns), vDSP_Length(lhs.rows))
     }
 
     return results
@@ -599,12 +599,12 @@ public postfix func ′ (value: Matrix<Double>) -> Matrix<Double> {
 // MARK: - Determinant
 
 /// Computes the matrix determinant.
-public func det(_ x: Matrix<Float>) -> Float? {
-    var decomposed = x
-    var pivots = [__CLPK_integer](repeating: 0, count: min(x.rows, x.columns))
+public func det(_ lhs: Matrix<Float>) -> Float? {
+    var decomposed = lhs
+    var pivots = [__CLPK_integer](repeating: 0, count: min(lhs.rows, lhs.columns))
     var info = __CLPK_integer()
-    var m = __CLPK_integer(x.rows)
-    var n = __CLPK_integer(x.columns)
+    var m = __CLPK_integer(lhs.rows)
+    var n = __CLPK_integer(lhs.columns)
     _ = withUnsafeMutableMemory(&pivots, &(decomposed.grid)) { ipiv, grid in
         withUnsafeMutablePointers(&m, &n, &info) { m, n, info in
             sgetrf_(m, n, grid.pointer, m, ipiv.pointer, info)
@@ -627,12 +627,12 @@ public func det(_ x: Matrix<Float>) -> Float? {
 }
 
 /// Computes the matrix determinant.
-public func det(_ x: Matrix<Double>) -> Double? {
-    var decomposed = x
-    var pivots = [__CLPK_integer](repeating: 0, count: min(x.rows, x.columns))
+public func det(_ lhs: Matrix<Double>) -> Double? {
+    var decomposed = lhs
+    var pivots = [__CLPK_integer](repeating: 0, count: min(lhs.rows, lhs.columns))
     var info = __CLPK_integer()
-    var m = __CLPK_integer(x.rows)
-    var n = __CLPK_integer(x.columns)
+    var m = __CLPK_integer(lhs.rows)
+    var n = __CLPK_integer(lhs.columns)
     _ = withUnsafeMutableMemory(&pivots, &(decomposed.grid)) { ipiv, grid in
         withUnsafeMutablePointers(&m, &n, &info) { m, n, info in
             dgetrf_(m, n, grid.pointer, m, ipiv.pointer, info)
@@ -685,12 +685,12 @@ private func buildEigenVector<Scalar: FloatingPoint & ExpressibleByFloatLiteral>
 /// The decomposition may result in complex numbers, represented by (Float, Float), which
 ///   are the (real, imaginary) parts of the complex number.
 /// - Parameters:
-///   - x: a square matrix
+///   - lhs: a square matrix
 /// - Returns: a struct with the eigen values and left and right eigen vectors using (Float, Float)
 ///   to represent a complex number.
-public func eigenDecompose(_ x: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> {
-    var input = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
-    input.grid = x.grid.map { Double($0) }
+public func eigenDecompose(_ lhs: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> {
+    var input = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    input.grid = lhs.grid.map { Double($0) }
     let decomposition = try eigenDecompose(input)
 
     return MatrixEigenDecompositionResult<Float>(
@@ -704,17 +704,17 @@ public func eigenDecompose(_ x: Matrix<Float>) throws -> MatrixEigenDecompositio
 /// The decomposition may result in complex numbers, represented by (Double, Double), which
 ///   are the (real, imaginary) parts of the complex number.
 /// - Parameters:
-///   - x: a square matrix
+///   - lhs: a square matrix
 /// - Returns: a struct with the eigen values and left and right eigen vectors using (Double, Double)
 ///   to represent a complex number.
-public func eigenDecompose(_ x: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> {
-    guard x.rows == x.columns else {
+public func eigenDecompose(_ lhs: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> {
+    guard lhs.rows == lhs.columns else {
         throw EigenDecompositionError.matrixNotSquare
     }
 
-    // dgeev_ needs column-major matrices, so transpose x.
-    var matrixGrid: [__CLPK_doublereal] = transpose(x).grid
-    var matrixRowCount = __CLPK_integer(x.rows)
+    // dgeev_ needs column-major matrices, so transpose lhs.
+    var matrixGrid: [__CLPK_doublereal] = transpose(lhs).grid
+    var matrixRowCount = __CLPK_integer(lhs.rows)
     let matrixColCount = matrixRowCount
     var eigenValueCount = matrixRowCount
     var leftEigenVectorCount = matrixRowCount
@@ -744,5 +744,5 @@ public func eigenDecompose(_ x: Matrix<Double>) throws -> MatrixEigenDecompositi
         throw EigenDecompositionError.matrixNotDecomposable
     }
 
-    return MatrixEigenDecompositionResult<Double>(rowCount: x.rows, eigenValueRealParts: eigenValueRealParts, eigenValueImaginaryParts: eigenValueImaginaryParts, leftEigenVectorWork: leftEigenVectorWork, rightEigenVectorWork: rightEigenVectorWork)
+    return MatrixEigenDecompositionResult<Double>(rowCount: lhs.rows, eigenValueRealParts: eigenValueRealParts, eigenValueImaginaryParts: eigenValueImaginaryParts, leftEigenVectorWork: leftEigenVectorWork, rightEigenVectorWork: rightEigenVectorWork)
 }

@@ -72,23 +72,23 @@ public protocol UnsafeMutableMemoryAccessible: UnsafeMemoryAccessible {
     mutating func withUnsafeMutableMemory<Result>(_ body: (UnsafeMutableMemory<Element>) throws -> Result) rethrows -> Result
 }
 
-public func withUnsafeMutableMemory<X: UnsafeMutableMemoryAccessible, Result>(_ x: inout X, _ body: (UnsafeMutableMemory<X.Element>) throws -> Result) rethrows -> Result {
-    return try x.withUnsafeMutableMemory(body)
+public func withUnsafeMutableMemory<L: UnsafeMutableMemoryAccessible, Result>(_ lhs: inout L, _ body: (UnsafeMutableMemory<L.Element>) throws -> Result) rethrows -> Result {
+    return try lhs.withUnsafeMutableMemory(body)
 }
 
-public func withUnsafeMutableMemory<X: UnsafeMutableMemoryAccessible, Y: UnsafeMutableMemoryAccessible, Result>(_ x: inout X, _ y: inout Y, _ body: (UnsafeMutableMemory<X.Element>, UnsafeMutableMemory<Y.Element>) throws -> Result) rethrows -> Result {
-    return try x.withUnsafeMutableMemory { xm in
-        try y.withUnsafeMutableMemory { ym in
-            try body(xm, ym)
+public func withUnsafeMutableMemory<L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible, Result>(_ lhs: inout L, _ rhs: inout R, _ body: (UnsafeMutableMemory<L.Element>, UnsafeMutableMemory<R.Element>) throws -> Result) rethrows -> Result {
+    return try lhs.withUnsafeMutableMemory { lhsMemory in
+        try rhs.withUnsafeMutableMemory { rhsMemory in
+            try body(lhsMemory, rhsMemory)
         }
     }
 }
 
-public func withUnsafeMutableMemory<X: UnsafeMutableMemoryAccessible, Y: UnsafeMutableMemoryAccessible, Z: UnsafeMutableMemoryAccessible, Result>(_ x: inout X, _ y: inout Y, _ z: inout Z, _ body: (UnsafeMutableMemory<X.Element>, UnsafeMutableMemory<Y.Element>, UnsafeMutableMemory<Z.Element>) throws -> Result) rethrows -> Result {
-    return try x.withUnsafeMutableMemory { xm in
-        try y.withUnsafeMutableMemory { ym in
+public func withUnsafeMutableMemory<L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible, Z: UnsafeMutableMemoryAccessible, Result>(_ lhs: inout L, _ rhs: inout R, _ z: inout Z, _ body: (UnsafeMutableMemory<L.Element>, UnsafeMutableMemory<R.Element>, UnsafeMutableMemory<Z.Element>) throws -> Result) rethrows -> Result {
+    return try lhs.withUnsafeMutableMemory { lhsMemory in
+        try rhs.withUnsafeMutableMemory { rhsMemory in
             try z.withUnsafeMutableMemory { zm in
-                try body(xm, ym, zm)
+                try body(lhsMemory, rhsMemory, zm)
             }
         }
     }

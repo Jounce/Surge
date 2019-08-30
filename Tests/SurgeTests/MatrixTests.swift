@@ -767,14 +767,14 @@ class MatrixTests: XCTestCase {
     func test_mul_empty_float() {
         typealias Scalar = Float
 
-        let x: Matrix<Scalar> = [
+        let lhs: Matrix<Scalar> = [
             [1]
         ]
-        let y: Matrix<Scalar> = [
+        let rhs: Matrix<Scalar> = [
             []
         ]
 
-        let result = x * y
+        let result = lhs * rhs
 
         XCTAssertEqual(result.rows, 1)
         XCTAssertEqual(result.columns, 0)

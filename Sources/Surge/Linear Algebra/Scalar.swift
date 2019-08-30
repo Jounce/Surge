@@ -38,12 +38,12 @@ public func * <R: UnsafeMemoryAccessible>(lhs: Double, rhs: R) -> [Double] where
     return mul(lhs, rhs)
 }
 
-public func mul(_ x: Float, _ y: Vector<Float>) -> Vector<Float> {
-    return Vector(mul(x, y.scalars))
+public func mul(_ lhs: Float, _ rhs: Vector<Float>) -> Vector<Float> {
+    return Vector(mul(lhs, rhs.scalars))
 }
 
-public func mul(_ x: Double, _ y: Vector<Double>) -> Vector<Double> {
-    return Vector(mul(x, y.scalars))
+public func mul(_ lhs: Double, _ rhs: Vector<Double>) -> Vector<Double> {
+    return Vector(mul(lhs, rhs.scalars))
 }
 
 public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
@@ -54,19 +54,19 @@ public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
     return mul(lhs, rhs)
 }
 
-public func mul(_ alpha: Float, _ x: Matrix<Float>) -> Matrix<Float> {
-    var results = x
+public func mul(_ lhs: Float, _ rhs: Matrix<Float>) -> Matrix<Float> {
+    var results = rhs
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_sscal(Int32(x.grid.count), alpha, pointer.baseAddress!, 1)
+        cblas_sscal(Int32(rhs.grid.count), lhs, pointer.baseAddress!, 1)
     }
 
     return results
 }
 
-public func mul(_ alpha: Double, _ x: Matrix<Double>) -> Matrix<Double> {
-    var results = x
+public func mul(_ lhs: Double, _ rhs: Matrix<Double>) -> Matrix<Double> {
+    var results = rhs
     results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_dscal(Int32(x.grid.count), alpha, pointer.baseAddress!, 1)
+        cblas_dscal(Int32(rhs.grid.count), lhs, pointer.baseAddress!, 1)
     }
 
     return results
