@@ -14,7 +14,6 @@
 		614AD33A1FC0AF72002BFE1C /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944D1F762B58002A4AD2 /* Convolution.swift */; };
 		614AD33B1FC0AF72002BFE1C /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944E1F762B58002A4AD2 /* Exponential.swift */; };
 		614AD33C1FC0AF72002BFE1C /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944F1F762B58002A4AD2 /* FFT.swift */; };
-		614AD33D1FC0AF72002BFE1C /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394501F762B58002A4AD2 /* Hyperbolic.swift */; };
 		614AD33E1FC0AF72002BFE1C /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394511F762B58002A4AD2 /* Matrix.swift */; };
 		614AD33F1FC0AF72002BFE1C /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394521F762B58002A4AD2 /* Pointers.swift */; };
 		614AD3401FC0AF72002BFE1C /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
@@ -35,7 +34,6 @@
 		614AD36B1FC0B0CC002BFE1C /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944D1F762B58002A4AD2 /* Convolution.swift */; };
 		614AD36C1FC0B0CC002BFE1C /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944E1F762B58002A4AD2 /* Exponential.swift */; };
 		614AD36D1FC0B0CC002BFE1C /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944F1F762B58002A4AD2 /* FFT.swift */; };
-		614AD36E1FC0B0CC002BFE1C /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394501F762B58002A4AD2 /* Hyperbolic.swift */; };
 		614AD36F1FC0B0CC002BFE1C /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394511F762B58002A4AD2 /* Matrix.swift */; };
 		614AD3701FC0B0CC002BFE1C /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394521F762B58002A4AD2 /* Pointers.swift */; };
 		614AD3711FC0B0CC002BFE1C /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
@@ -55,7 +53,6 @@
 		614AD38D1FC0B134002BFE1C /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944D1F762B58002A4AD2 /* Convolution.swift */; };
 		614AD38E1FC0B134002BFE1C /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944E1F762B58002A4AD2 /* Exponential.swift */; };
 		614AD38F1FC0B134002BFE1C /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944F1F762B58002A4AD2 /* FFT.swift */; };
-		614AD3901FC0B134002BFE1C /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394501F762B58002A4AD2 /* Hyperbolic.swift */; };
 		614AD3911FC0B134002BFE1C /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394511F762B58002A4AD2 /* Matrix.swift */; };
 		614AD3921FC0B134002BFE1C /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394521F762B58002A4AD2 /* Pointers.swift */; };
 		614AD3931FC0B134002BFE1C /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
@@ -69,7 +66,6 @@
 		615394581F762B59002A4AD2 /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944D1F762B58002A4AD2 /* Convolution.swift */; };
 		615394591F762B59002A4AD2 /* Exponential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944E1F762B58002A4AD2 /* Exponential.swift */; };
 		6153945A1F762B59002A4AD2 /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944F1F762B58002A4AD2 /* FFT.swift */; };
-		6153945B1F762B59002A4AD2 /* Hyperbolic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394501F762B58002A4AD2 /* Hyperbolic.swift */; };
 		6153945C1F762B59002A4AD2 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394511F762B58002A4AD2 /* Matrix.swift */; };
 		6153945D1F762B59002A4AD2 /* Pointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394521F762B58002A4AD2 /* Pointers.swift */; };
 		6153945E1F762B59002A4AD2 /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615394531F762B58002A4AD2 /* Power.swift */; };
@@ -88,18 +84,18 @@
 		61E930B9207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
 		61E930BA207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
 		61E930BB207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
-		61E930BD2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */; };
-		61E930BE2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */; };
-		61E930BF2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */; };
-		61E930C02070104600694FCB /* ArrayUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */; };
+		61E930BD2070104600694FCB /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* Array+Extensions.swift */; };
+		61E930BE2070104600694FCB /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* Array+Extensions.swift */; };
+		61E930BF2070104600694FCB /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* Array+Extensions.swift */; };
+		61E930C02070104600694FCB /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930BC2070104600694FCB /* Array+Extensions.swift */; };
 		61E930C22070B69300694FCB /* UnsafeMutableMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */; };
 		61E930C32070B69300694FCB /* UnsafeMutableMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */; };
 		61E930C42070B69300694FCB /* UnsafeMutableMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */; };
 		61E930C52070B69300694FCB /* UnsafeMutableMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */; };
-		61E930C82070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
-		61E930C92070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
-		61E930CA2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
-		61E930CB2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */; };
+		61E930C82070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */; };
+		61E930C92070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */; };
+		61E930CA2070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */; };
+		61E930CB2070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */; };
 		CAEC79BF2319274F00516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
 		CAEC79C02319275000516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
 		CAEC79C12319275000516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
@@ -108,6 +104,10 @@
 		CAEC79C5231930EC00516E10 /* Scalar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79C323192FE300516E10 /* Scalar.swift */; };
 		CAEC79C6231930ED00516E10 /* Scalar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79C323192FE300516E10 /* Scalar.swift */; };
 		CAEC79C7231930ED00516E10 /* Scalar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79C323192FE300516E10 /* Scalar.swift */; };
+		CAEC79D22319343100516E10 /* Logarithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79D12319343100516E10 /* Logarithm.swift */; };
+		CAEC79D32319343100516E10 /* Logarithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79D12319343100516E10 /* Logarithm.swift */; };
+		CAEC79D42319343100516E10 /* Logarithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79D12319343100516E10 /* Logarithm.swift */; };
+		CAEC79D52319343100516E10 /* Logarithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79D12319343100516E10 /* Logarithm.swift */; };
 		CAFE5DA522F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */; };
 		CAFE5DA622F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */; };
 		CAFE5DA722F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */; };
@@ -161,7 +161,6 @@
 		6153944D1F762B58002A4AD2 /* Convolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convolution.swift; sourceTree = "<group>"; };
 		6153944E1F762B58002A4AD2 /* Exponential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exponential.swift; sourceTree = "<group>"; };
 		6153944F1F762B58002A4AD2 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
-		615394501F762B58002A4AD2 /* Hyperbolic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hyperbolic.swift; sourceTree = "<group>"; };
 		615394511F762B58002A4AD2 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		615394521F762B58002A4AD2 /* Pointers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pointers.swift; sourceTree = "<group>"; };
 		615394531F762B58002A4AD2 /* Power.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
@@ -180,11 +179,12 @@
 		61A0AD801F70D99B00B99FFB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		61A0AD811F70D99B00B99FFB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		61E930B7207002EA00694FCB /* UnsafeMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsafeMemory.swift; sourceTree = "<group>"; };
-		61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayUnsafeMemory.swift; sourceTree = "<group>"; };
+		61E930BC2070104600694FCB /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsafeMutableMemory.swift; sourceTree = "<group>"; };
-		61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArraySliceUnsafeMemory.swift; sourceTree = "<group>"; };
+		61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArraySlice+Extensions.swift"; sourceTree = "<group>"; };
 		CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorPrecedences.swift; sourceTree = "<group>"; };
 		CAEC79C323192FE300516E10 /* Scalar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scalar.swift; sourceTree = "<group>"; };
+		CAEC79D12319343100516E10 /* Logarithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logarithm.swift; sourceTree = "<group>"; };
 		CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+Surge.swift"; sourceTree = "<group>"; };
 		CAFE5DA822F9ED3A00A34887 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
 		CAFE5DAD22F9ED4900A34887 /* VectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorTests.swift; sourceTree = "<group>"; };
@@ -263,24 +263,15 @@
 			isa = PBXGroup;
 			children = (
 				615394541F762B58002A4AD2 /* Surge.h */,
-				6153944B1F762B58002A4AD2 /* Arithmetic.swift */,
-				61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */,
-				61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */,
-				6153944C1F762B58002A4AD2 /* Auxiliary.swift */,
-				6153944D1F762B58002A4AD2 /* Convolution.swift */,
-				6153944E1F762B58002A4AD2 /* Exponential.swift */,
-				6153944F1F762B58002A4AD2 /* FFT.swift */,
-				615394501F762B58002A4AD2 /* Hyperbolic.swift */,
-				615394511F762B58002A4AD2 /* Matrix.swift */,
-				615394521F762B58002A4AD2 /* Pointers.swift */,
-				615394531F762B58002A4AD2 /* Power.swift */,
-				6152A42020719E9200043627 /* Statistics.swift */,
-				615394551F762B58002A4AD2 /* Trigonometric.swift */,
-				61E930B7207002EA00694FCB /* UnsafeMemory.swift */,
-				61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */,
-				CAFE5DA822F9ED3A00A34887 /* Vector.swift */,
-				CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */,
-				CAEC79C323192FE300516E10 /* Scalar.swift */,
+				CAEC79CB2319336500516E10 /* Auxiliary Functions */,
+				CAEC79C92319333E00516E10 /* Digital Signal Processing */,
+				CAEC79CF2319340300516E10 /* Exponential */,
+				CAEC79CA2319335100516E10 /* General Arithmetic */,
+				CAEC79CD2319338F00516E10 /* Linear Algebra */,
+				CAEC79D02319343100516E10 /* Logarithm */,
+				CAEC79CC2319337700516E10 /* Statistics */,
+				CAEC79CE231933D700516E10 /* Trigonometry */,
+				CAEC79C8231932E900516E10 /* Utilities */,
 			);
 			path = Surge;
 			sourceTree = "<group>";
@@ -301,6 +292,87 @@
 				61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */,
 			);
 			path = SurgeTests;
+			sourceTree = "<group>";
+		};
+		CAEC79C8231932E900516E10 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				61E930BC2070104600694FCB /* Array+Extensions.swift */,
+				61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */,
+				CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */,
+				615394521F762B58002A4AD2 /* Pointers.swift */,
+				61E930B7207002EA00694FCB /* UnsafeMemory.swift */,
+				61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		CAEC79C92319333E00516E10 /* Digital Signal Processing */ = {
+			isa = PBXGroup;
+			children = (
+				6153944D1F762B58002A4AD2 /* Convolution.swift */,
+				6153944F1F762B58002A4AD2 /* FFT.swift */,
+			);
+			path = "Digital Signal Processing";
+			sourceTree = "<group>";
+		};
+		CAEC79CA2319335100516E10 /* General Arithmetic */ = {
+			isa = PBXGroup;
+			children = (
+				6153944B1F762B58002A4AD2 /* Arithmetic.swift */,
+				615394531F762B58002A4AD2 /* Power.swift */,
+			);
+			path = "General Arithmetic";
+			sourceTree = "<group>";
+		};
+		CAEC79CB2319336500516E10 /* Auxiliary Functions */ = {
+			isa = PBXGroup;
+			children = (
+				6153944C1F762B58002A4AD2 /* Auxiliary.swift */,
+			);
+			path = "Auxiliary Functions";
+			sourceTree = "<group>";
+		};
+		CAEC79CC2319337700516E10 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				6152A42020719E9200043627 /* Statistics.swift */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		CAEC79CD2319338F00516E10 /* Linear Algebra */ = {
+			isa = PBXGroup;
+			children = (
+				CAEC79C323192FE300516E10 /* Scalar.swift */,
+				CAFE5DA822F9ED3A00A34887 /* Vector.swift */,
+				615394511F762B58002A4AD2 /* Matrix.swift */,
+			);
+			path = "Linear Algebra";
+			sourceTree = "<group>";
+		};
+		CAEC79CE231933D700516E10 /* Trigonometry */ = {
+			isa = PBXGroup;
+			children = (
+				615394551F762B58002A4AD2 /* Trigonometric.swift */,
+			);
+			path = Trigonometry;
+			sourceTree = "<group>";
+		};
+		CAEC79CF2319340300516E10 /* Exponential */ = {
+			isa = PBXGroup;
+			children = (
+				6153944E1F762B58002A4AD2 /* Exponential.swift */,
+			);
+			path = Exponential;
+			sourceTree = "<group>";
+		};
+		CAEC79D02319343100516E10 /* Logarithm */ = {
+			isa = PBXGroup;
+			children = (
+				CAEC79D12319343100516E10 /* Logarithm.swift */,
+			);
+			path = Logarithm;
 			sourceTree = "<group>";
 		};
 		F84A6AAF19A9A72F007B53E1 /* Tests */ = {
@@ -714,16 +786,16 @@
 			files = (
 				614AD33E1FC0AF72002BFE1C /* Matrix.swift in Sources */,
 				61E930C32070B69300694FCB /* UnsafeMutableMemory.swift in Sources */,
-				61E930C92070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */,
+				61E930C92070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */,
+				CAEC79D32319343100516E10 /* Logarithm.swift in Sources */,
 				614AD3391FC0AF72002BFE1C /* Auxiliary.swift in Sources */,
 				614AD3411FC0AF72002BFE1C /* Trigonometric.swift in Sources */,
 				614AD3381FC0AF72002BFE1C /* Arithmetic.swift in Sources */,
-				614AD33D1FC0AF72002BFE1C /* Hyperbolic.swift in Sources */,
 				614AD33A1FC0AF72002BFE1C /* Convolution.swift in Sources */,
 				614AD33F1FC0AF72002BFE1C /* Pointers.swift in Sources */,
 				614AD33C1FC0AF72002BFE1C /* FFT.swift in Sources */,
 				CAFE5DAA22F9ED3A00A34887 /* Vector.swift in Sources */,
-				61E930BE2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
+				61E930BE2070104600694FCB /* Array+Extensions.swift in Sources */,
 				61E930B9207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				CAEC79C5231930EC00516E10 /* Scalar.swift in Sources */,
 				614AD3401FC0AF72002BFE1C /* Power.swift in Sources */,
@@ -757,16 +829,16 @@
 			files = (
 				614AD36F1FC0B0CC002BFE1C /* Matrix.swift in Sources */,
 				61E930C42070B69300694FCB /* UnsafeMutableMemory.swift in Sources */,
-				61E930CA2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */,
+				61E930CA2070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */,
+				CAEC79D42319343100516E10 /* Logarithm.swift in Sources */,
 				614AD36A1FC0B0CC002BFE1C /* Auxiliary.swift in Sources */,
 				614AD3721FC0B0CC002BFE1C /* Trigonometric.swift in Sources */,
 				614AD3691FC0B0CC002BFE1C /* Arithmetic.swift in Sources */,
-				614AD36E1FC0B0CC002BFE1C /* Hyperbolic.swift in Sources */,
 				614AD36B1FC0B0CC002BFE1C /* Convolution.swift in Sources */,
 				614AD3701FC0B0CC002BFE1C /* Pointers.swift in Sources */,
 				614AD36D1FC0B0CC002BFE1C /* FFT.swift in Sources */,
 				CAFE5DAB22F9ED3A00A34887 /* Vector.swift in Sources */,
-				61E930BF2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
+				61E930BF2070104600694FCB /* Array+Extensions.swift in Sources */,
 				61E930BA207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				CAEC79C6231930ED00516E10 /* Scalar.swift in Sources */,
 				614AD3711FC0B0CC002BFE1C /* Power.swift in Sources */,
@@ -800,16 +872,16 @@
 			files = (
 				614AD3911FC0B134002BFE1C /* Matrix.swift in Sources */,
 				61E930C52070B69300694FCB /* UnsafeMutableMemory.swift in Sources */,
-				61E930CB2070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */,
+				61E930CB2070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */,
+				CAEC79D52319343100516E10 /* Logarithm.swift in Sources */,
 				614AD38C1FC0B134002BFE1C /* Auxiliary.swift in Sources */,
 				614AD3941FC0B134002BFE1C /* Trigonometric.swift in Sources */,
 				614AD38B1FC0B134002BFE1C /* Arithmetic.swift in Sources */,
-				614AD3901FC0B134002BFE1C /* Hyperbolic.swift in Sources */,
 				614AD38D1FC0B134002BFE1C /* Convolution.swift in Sources */,
 				614AD3921FC0B134002BFE1C /* Pointers.swift in Sources */,
 				614AD38F1FC0B134002BFE1C /* FFT.swift in Sources */,
 				CAFE5DAC22F9ED3A00A34887 /* Vector.swift in Sources */,
-				61E930C02070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
+				61E930C02070104600694FCB /* Array+Extensions.swift in Sources */,
 				61E930BB207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				CAEC79C7231930ED00516E10 /* Scalar.swift in Sources */,
 				614AD3931FC0B134002BFE1C /* Power.swift in Sources */,
@@ -843,16 +915,16 @@
 			files = (
 				6153945C1F762B59002A4AD2 /* Matrix.swift in Sources */,
 				61E930C22070B69300694FCB /* UnsafeMutableMemory.swift in Sources */,
-				61E930C82070BCCD00694FCB /* ArraySliceUnsafeMemory.swift in Sources */,
+				61E930C82070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */,
+				CAEC79D22319343100516E10 /* Logarithm.swift in Sources */,
 				615394571F762B59002A4AD2 /* Auxiliary.swift in Sources */,
 				615394601F762B59002A4AD2 /* Trigonometric.swift in Sources */,
 				615394561F762B59002A4AD2 /* Arithmetic.swift in Sources */,
-				6153945B1F762B59002A4AD2 /* Hyperbolic.swift in Sources */,
 				615394581F762B59002A4AD2 /* Convolution.swift in Sources */,
 				6153945D1F762B59002A4AD2 /* Pointers.swift in Sources */,
 				6153945A1F762B59002A4AD2 /* FFT.swift in Sources */,
 				CAFE5DA922F9ED3A00A34887 /* Vector.swift in Sources */,
-				61E930BD2070104600694FCB /* ArrayUnsafeMemory.swift in Sources */,
+				61E930BD2070104600694FCB /* Array+Extensions.swift in Sources */,
 				61E930B8207002EA00694FCB /* UnsafeMemory.swift in Sources */,
 				CAEC79C423192FE300516E10 /* Scalar.swift in Sources */,
 				6153945E1F762B59002A4AD2 /* Power.swift in Sources */,
