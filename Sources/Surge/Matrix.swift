@@ -394,42 +394,6 @@ public func * (lhs: Matrix<Double>, rhs: Vector<Double>) -> Vector<Double> {
     return mul(lhs, rhs)
 }
 
-public func mul(_ x: Vector<Float>, _ y: Matrix<Float>) -> Vector<Float> {
-    precondition(y.rows == x.dimensions, "Matrix and vector dimensions not compatible with multiplication")
-    if y.rows == 0 || y.columns == 0 || x.dimensions == 0 {
-        return Vector<Float>(dimensions: y.rows, repeatedValue: 0.0)
-    }
-
-    var results = Vector<Float>(dimensions: y.columns, repeatedValue: 0.0)
-    results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_sgemv(CblasRowMajor, CblasTrans, Int32(y.rows), Int32(y.columns), 1.0, y.grid, Int32(y.columns), x.scalars, 1, 0.0, pointer.baseAddress!, 1)
-    }
-
-    return results
-}
-
-public func mul(_ x: Vector<Double>, _ y: Matrix<Double>) -> Vector<Double> {
-    precondition(y.rows == x.dimensions, "Matrix and vector dimensions not compatible with multiplication")
-    if y.rows == 0 || y.columns == 0 || x.dimensions == 0 {
-        return Vector<Double>(dimensions: y.rows, repeatedValue: 0.0)
-    }
-
-    var results = Vector<Double>(dimensions: y.columns, repeatedValue: 0.0)
-    results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_dgemv(CblasRowMajor, CblasTrans, Int32(y.rows), Int32(y.columns), 1.0, y.grid, Int32(y.columns), x.scalars, 1, 0.0, pointer.baseAddress!, 1)
-    }
-
-    return results
-}
-
-public func * (lhs: Vector<Float>, rhs: Matrix<Float>) -> Vector<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Vector<Double>, rhs: Matrix<Double>) -> Vector<Double> {
-    return mul(lhs, rhs)
-}
-
 public func elmul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
     var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
