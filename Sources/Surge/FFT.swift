@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Fast Fourier Transform
+// MARK: - Fast Fourier Transform
 
 public func fft(_ input: [Float]) -> [Float] {
     var real = [Float](input)

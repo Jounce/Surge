@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Multiplication
+// MARK: - Multiplication
 
 public func mul<R: UnsafeMemoryAccessible>(_ lhs: Float, _ rhs: R) -> [Float] where R.Element == Float {
     return mul([Float](repeating: lhs, count: numericCast(rhs.count)), rhs)
