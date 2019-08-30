@@ -151,7 +151,7 @@
 		614AD3541FC0B001002BFE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		614AD3591FC0B001002BFE1C /* SurgeTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurgeTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		614AD3821FC0B125002BFE1C /* Surge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Surge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6152A42020719E9200043627 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
+		6152A42020719E9200043627 /* Statistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		6153944B1F762B58002A4AD2 /* Arithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arithmetic.swift; sourceTree = "<group>"; };
 		6153944C1F762B58002A4AD2 /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		6153944D1F762B58002A4AD2 /* Convolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convolution.swift; sourceTree = "<group>"; };
@@ -175,11 +175,11 @@
 		61A0AD7F1F70D99B00B99FFB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		61A0AD801F70D99B00B99FFB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		61A0AD811F70D99B00B99FFB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		61E930B7207002EA00694FCB /* UnsafeMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeMemory.swift; sourceTree = "<group>"; };
-		61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUnsafeMemory.swift; sourceTree = "<group>"; };
-		61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeMutableMemory.swift; sourceTree = "<group>"; };
-		61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArraySliceUnsafeMemory.swift; sourceTree = "<group>"; };
-		CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorPrecedences.swift; sourceTree = "<group>"; };
+		61E930B7207002EA00694FCB /* UnsafeMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsafeMemory.swift; sourceTree = "<group>"; };
+		61E930BC2070104600694FCB /* ArrayUnsafeMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayUnsafeMemory.swift; sourceTree = "<group>"; };
+		61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsafeMutableMemory.swift; sourceTree = "<group>"; };
+		61E930C72070BCCD00694FCB /* ArraySliceUnsafeMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArraySliceUnsafeMemory.swift; sourceTree = "<group>"; };
+		CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorPrecedences.swift; sourceTree = "<group>"; };
 		CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+Surge.swift"; sourceTree = "<group>"; };
 		CAFE5DA822F9ED3A00A34887 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
 		CAFE5DAD22F9ED4900A34887 /* VectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorTests.swift; sourceTree = "<group>"; };
