@@ -20,58 +20,6 @@
 
 import Accelerate
 
-// MARK: - Exponentiation
-
-/// - Warning: does not support memory stride (assumes stride is 1).
-public func exp<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
-    return x.withUnsafeMemory { xm in
-        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Float](repeating: 0.0, count: numericCast(x.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvexpf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
-        }
-        return results
-    }
-}
-
-/// - Warning: does not support memory stride (assumes stride is 1).
-public func exp<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
-    return x.withUnsafeMemory { xm in
-        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Double](repeating: 0.0, count: numericCast(x.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvexp(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
-        }
-        return results
-    }
-}
-
-// MARK: - Square Exponentiation
-
-/// - Warning: does not support memory stride (assumes stride is 1).
-public func exp2<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
-    return x.withUnsafeMemory { xm in
-        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Float](repeating: 0.0, count: numericCast(x.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvexp2f(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
-        }
-        return results
-    }
-}
-
-/// - Warning: does not support memory stride (assumes stride is 1).
-public func exp2<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
-    return x.withUnsafeMemory { xm in
-        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Double](repeating: 0.0, count: numericCast(x.count))
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvexp2(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
-        }
-        return results
-    }
-}
-
 // MARK: - Natural Logarithm
 
 /// - Warning: does not support memory stride (assumes stride is 1).

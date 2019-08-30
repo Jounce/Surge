@@ -261,3 +261,159 @@ func deg2rad<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == D
         return results
     }
 }
+
+// MARK: - Hyperbolic Sine
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func sinh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvsinhf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func sinh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvsinh(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+// MARK: - Hyperbolic Cosine
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func cosh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvcoshf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func cosh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvcosh(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+// MARK: - Hyperbolic Tangent
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func tanh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvtanhf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func tanh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvtanh(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+// MARK: - Inverse Hyperbolic Sine
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func asinh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvasinhf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func asinh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvasinh(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+// MARK: - Inverse Hyperbolic Cosine
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func acosh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvacoshf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func acosh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvacosh(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+// MARK: - Inverse Hyperbolic Tangent
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func atanh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Float](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvatanhf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func atanh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator.Element == Double {
+    return x.withUnsafeMemory { xm in
+        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
+        var results = [Double](repeating: 0.0, count: numericCast(x.count))
+        results.withUnsafeMutableBufferPointer { rbp in
+            vvatanh(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        }
+        return results
+    }
+}
