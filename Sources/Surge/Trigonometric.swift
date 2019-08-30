@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Sine-Cosine
+// MARK: - Sine-Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func sincos<X: UnsafeMemoryAccessible>(_ x: X) -> (sin: [Float], cos: [Float]) where X.Element == Float {
@@ -48,7 +48,7 @@ public func sincos<X: UnsafeMemoryAccessible>(_ x: X) -> (sin: [Double], cos: [D
     }
 }
 
-// MARK: Sine
+// MARK: - Sine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func sin<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -74,7 +74,7 @@ public func sin<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element =
     }
 }
 
-// MARK: Cosine
+// MARK: - Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func cos<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -100,7 +100,7 @@ public func cos<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element =
     }
 }
 
-// MARK: Tangent
+// MARK: - Tangent
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func tan<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -126,7 +126,7 @@ public func tan<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element =
     }
 }
 
-// MARK: Arcsine
+// MARK: - Arcsine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func asin<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -152,7 +152,7 @@ public func asin<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element 
     }
 }
 
-// MARK: Arccosine
+// MARK: - Arccosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func acos<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -178,7 +178,7 @@ public func acos<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element 
     }
 }
 
-// MARK: Arctangent
+// MARK: - Arctangent
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func atan<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -206,7 +206,7 @@ public func atan<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element 
 
 // MARK: -
 
-// MARK: Radians to Degrees
+// MARK: - Radians to Degrees
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 func rad2deg<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -234,7 +234,7 @@ func rad2deg<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == D
     }
 }
 
-// MARK: Degrees to Radians
+// MARK: - Degrees to Radians
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 func deg2rad<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {

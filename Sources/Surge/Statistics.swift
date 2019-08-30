@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Sum
+// MARK: - Sum
 
 public func sum<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -42,7 +42,7 @@ public func sum<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == 
     return result
 }
 
-// MARK: Sum of Absolute Values
+// MARK: - Sum of Absolute Values
 
 public func asum<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     return x.withUnsafeMemory { xm in
@@ -56,7 +56,7 @@ public func asum<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element ==
     }
 }
 
-// MARK: Sum of Square Values
+// MARK: - Sum of Square Values
 
 public func sumsq<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0
@@ -78,7 +78,7 @@ public func sumsq<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element =
     return result
 }
 
-// MARK: Maximum
+// MARK: - Maximum
 
 public func max<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -100,7 +100,7 @@ public func max<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == 
     return result
 }
 
-// MARK: Minimum
+// MARK: - Minimum
 
 public func min<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -122,7 +122,7 @@ public func min<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element == 
     return result
 }
 
-// MARK: Mean
+// MARK: - Mean
 
 public func mean<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -144,7 +144,7 @@ public func mean<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element ==
     return result
 }
 
-// MARK: Mean Magnitude
+// MARK: - Mean Magnitude
 
 public func meamg<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -166,7 +166,7 @@ public func meamg<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element =
     return result
 }
 
-// MARK: Mean Square Value
+// MARK: - Mean Square Value
 
 public func measq<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -188,7 +188,7 @@ public func measq<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element =
     return result
 }
 
-// MARK: Root Mean Square Value
+// MARK: - Root Mean Square Value
 
 public func rmsq<C: UnsafeMemoryAccessible>(_ x: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -210,7 +210,7 @@ public func rmsq<C: UnsafeMemoryAccessible>(_ x: C) -> Double where C.Element ==
     return result
 }
 
-// MARK: Standard deviation
+// MARK: - Standard deviation
 
 /// Computes the standard deviation, a measure of the spread of deviation.
 public func std<X: UnsafeMemoryAccessible>(_ x: X) -> Float where X.Element == Float {
@@ -226,7 +226,7 @@ public func std<X: UnsafeMemoryAccessible>(_ x: X) -> Double where X.Element == 
     return sqrt(variance)
 }
 
-// MARK: Linear regression
+// MARK: - Linear regression
 
 /// Performs linear regression
 ///

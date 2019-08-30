@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Convolution
+// MARK: - Convolution
 
 /// Convolution of a signal [x], with a kernel [k]. The signal must be at least as long as the kernel.
 public func conv<X: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible>(_ x: X, _ k: K) -> [Float] where X.Element == Float, K.Element == Float {
@@ -68,7 +68,7 @@ public func conv<X: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible>(_ x: X, _
     return result
 }
 
-// MARK: Cross-Correlation
+// MARK: - Cross-Correlation
 
 /// Cross-correlation of a signal [x], with another signal [y]. The signal [y]
 /// is padded so that it is the same length as [x].
@@ -124,7 +124,7 @@ public func xcorr<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, 
     return result
 }
 
-// MARK: Auto-correlation
+// MARK: - Auto-correlation
 
 /// Auto-correlation of a signal [x]
 public func xcorr<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {

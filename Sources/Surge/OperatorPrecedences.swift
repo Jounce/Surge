@@ -20,35 +20,35 @@
 
 import Foundation
 
-// MARK: Element-wise Addition
+// MARK: - Element-wise Addition
 
 infix operator .+: AdditionPrecedence
 infix operator .+=: AssignmentPrecedence
 
-// MARK: Element-wise Subtraction
+// MARK: - Element-wise Subtraction
 
 infix operator .-: AdditionPrecedence
 infix operator .-=: AssignmentPrecedence
 
-// MARK: Element-wise Multiplication
+// MARK: - Element-wise Multiplication
 
 infix operator .*: MultiplicationPrecedence
 infix operator .*=: AssignmentPrecedence
 
-// MARK: Element-wise Division
+// MARK: - Element-wise Division
 
 infix operator ./: MultiplicationPrecedence
 infix operator ./=: AssignmentPrecedence
 
-// MARK: Element-wise Modulo
+// MARK: - Element-wise Modulo
 
 infix operator .%: MultiplicationPrecedence
 infix operator .%=: AssignmentPrecedence
 
-// MARK: Dot product
+// MARK: - Dot product
 
 infix operator •: MultiplicationPrecedence
 
-// MARK: Matrix Transpose
+// MARK: - Matrix Transpose
 
 postfix operator ′

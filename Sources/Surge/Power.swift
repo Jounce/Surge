@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Power
+// MARK: - Power
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func pow<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {

@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Absolute Value
+// MARK: - Absolute Value
 
 /// Elemen-wise absolute value.
 ///
@@ -50,7 +50,7 @@ public func abs<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element ==
     return results
 }
 
-// MARK: Ceiling
+// MARK: - Ceiling
 
 /// Elemen-wise ceiling.
 ///
@@ -80,7 +80,7 @@ public func ceil<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element 
     return results
 }
 
-// MARK: Clip
+// MARK: - Clip
 
 public func clip<C: UnsafeMemoryAccessible>(_ x: C, low: Float, high: Float) -> [Float] where C.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(x.count))
@@ -110,7 +110,7 @@ public func clip<C: UnsafeMemoryAccessible>(_ x: C, low: Double, high: Double) -
     return results
 }
 
-// MARK: Copy Sign
+// MARK: - Copy Sign
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func copysign<S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible>(sign: S, magnitude: M) -> [Float] where S.Element == Float, M.Element == Float {
@@ -136,7 +136,7 @@ public func copysign<S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible>(sign:
     return results
 }
 
-// MARK: Floor
+// MARK: - Floor
 
 /// Elemen-wise floor.
 ///
@@ -166,7 +166,7 @@ public func floor<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element
     return results
 }
 
-// MARK: Negate
+// MARK: - Negate
 
 public func neg<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(x.count))
@@ -188,7 +188,7 @@ public func neg<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element =
     return results
 }
 
-// MARK: Reciprocal
+// MARK: - Reciprocal
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func rec<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
@@ -214,7 +214,7 @@ public func rec<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element =
     return results
 }
 
-// MARK: Round
+// MARK: - Round
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func round<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
@@ -240,7 +240,7 @@ public func round<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element
     return results
 }
 
-// MARK: Threshold
+// MARK: - Threshold
 
 public func threshold<C: UnsafeMemoryAccessible>(_ x: C, low: Float) -> [Float] where C.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(x.count))
@@ -268,7 +268,7 @@ public func threshold<C: UnsafeMemoryAccessible>(_ x: C, low: Double) -> [Double
     return results
 }
 
-// MARK: Truncate
+// MARK: - Truncate
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func trunc<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {

@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Exponentiation
+// MARK: - Exponentiation
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func exp<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -46,7 +46,7 @@ public func exp<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element =
     }
 }
 
-// MARK: Square Exponentiation
+// MARK: - Square Exponentiation
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func exp2<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -72,7 +72,7 @@ public func exp2<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element 
     }
 }
 
-// MARK: Natural Logarithm
+// MARK: - Natural Logarithm
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func log<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -98,7 +98,7 @@ public func log<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element =
     }
 }
 
-// MARK: Base-2 Logarithm
+// MARK: - Base-2 Logarithm
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func log2<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -124,7 +124,7 @@ public func log2<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element 
     }
 }
 
-// MARK: Base-10 Logarithm
+// MARK: - Base-10 Logarithm
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func log10<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -150,7 +150,7 @@ public func log10<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element
     }
 }
 
-// MARK: Logarithmic Exponentiation
+// MARK: - Logarithmic Exponentiation
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func logb<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {

@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Addition
+// MARK: - Addition
 
 public func add<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
     precondition(x.count == y.count, "Collections must have the same size")
@@ -68,7 +68,7 @@ public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
     return add(lhs, rhs)
 }
 
-// MARK: Addition: In Place
+// MARK: - Addition: In Place
 
 func addInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
@@ -116,7 +116,7 @@ public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
     return addInPlace(&lhs, rhs)
 }
 
-// MARK: Subtraction
+// MARK: - Subtraction
 
 public func sub<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
     precondition(x.count == y.count, "Collections must have the same size")
@@ -164,7 +164,7 @@ public func - <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
     return sub(lhs, rhs)
 }
 
-// MARK: Subtraction: In Place
+// MARK: - Subtraction: In Place
 
 func subInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
@@ -212,7 +212,7 @@ public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
     return subInPlace(&lhs, rhs)
 }
 
-// MARK: Multiplication
+// MARK: - Multiplication
 
 public func mul<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
     precondition(x.count == y.count, "Collections must have the same size")
@@ -260,7 +260,7 @@ public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
     return mul(lhs, rhs)
 }
 
-// MARK: Multiplication: In Place
+// MARK: - Multiplication: In Place
 
 func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
@@ -308,7 +308,7 @@ public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
     return mulInPlace(&lhs, rhs)
 }
 
-// MARK: Division
+// MARK: - Division
 
 /// Elemen-wise vector division.
 public func div<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> [Float] where X.Element == Float, Y.Element == Float {
@@ -358,7 +358,7 @@ public func / <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
     return div(lhs, rhs)
 }
 
-// MARK: Division: In Place
+// MARK: - Division: In Place
 
 func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
     lhs.withUnsafeMutableMemory { lm in
@@ -406,7 +406,7 @@ public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
     return divInPlace(&lhs, rhs)
 }
 
-// MARK: Modulo
+// MARK: - Modulo
 
 /// Elemen-wise modulo.
 ///
@@ -462,7 +462,7 @@ public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
     return mod(lhs, rhs)
 }
 
-// MARK: Remainder
+// MARK: - Remainder
 
 /// Elemen-wise remainder.
 ///
@@ -494,7 +494,7 @@ public func remainder<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x:
     }
 }
 
-// MARK: Square Root
+// MARK: - Square Root
 
 /// Elemen-wise square root.
 ///
@@ -540,7 +540,7 @@ public func sqrt<MI: UnsafeMemoryAccessible, MO: UnsafeMutableMemoryAccessible>(
     }
 }
 
-// MARK: Dot Product
+// MARK: - Dot Product
 
 public func dot<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ x: X, _ y: Y) -> Float where X.Element == Float, Y.Element == Float {
     return withUnsafeMemory(x, y) { xm, ym in

@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: Hyperbolic Sine
+// MARK: - Hyperbolic Sine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func sinh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
@@ -46,7 +46,7 @@ public func sinh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator
     }
 }
 
-// MARK: Hyperbolic Cosine
+// MARK: - Hyperbolic Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func cosh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
@@ -72,7 +72,7 @@ public func cosh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator
     }
 }
 
-// MARK: Hyperbolic Tangent
+// MARK: - Hyperbolic Tangent
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func tanh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
@@ -98,7 +98,7 @@ public func tanh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterator
     }
 }
 
-// MARK: Inverse Hyperbolic Sine
+// MARK: - Inverse Hyperbolic Sine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func asinh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
@@ -124,7 +124,7 @@ public func asinh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterato
     }
 }
 
-// MARK: Inverse Hyperbolic Cosine
+// MARK: - Inverse Hyperbolic Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func acosh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {
@@ -150,7 +150,7 @@ public func acosh<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Iterato
     }
 }
 
-// MARK: Inverse Hyperbolic Tangent
+// MARK: - Inverse Hyperbolic Tangent
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func atanh<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Iterator.Element == Float {

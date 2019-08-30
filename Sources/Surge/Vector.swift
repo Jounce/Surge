@@ -143,7 +143,7 @@ public func + (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
     return add(lhs, rhs)
 }
 
-// MARK: Addition: In Place
+// MARK: - Addition: In Place
 
 public func addInPlace(_ x: inout Vector<Float>, _ y: Vector<Float>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with addition")
@@ -181,7 +181,7 @@ public func += (lhs: inout Vector<Double>, rhs: Double) {
     return addInPlace(&lhs, rhs)
 }
 
-// MARK: Subtraction
+// MARK: - Subtraction
 
 public func sub(_ x: Vector<Float>, _ y: Vector<Float>) -> Vector<Float> {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with subtraction")
@@ -219,7 +219,7 @@ public func - (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
     return sub(lhs, rhs)
 }
 
-// MARK: Subtraction: In Place
+// MARK: - Subtraction: In Place
 
 public func subInPlace(_ x: inout Vector<Float>, _ y: Vector<Float>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with subtraction")
@@ -257,7 +257,7 @@ public func -= (lhs: inout Vector<Double>, rhs: Double) {
     return subInPlace(&lhs, rhs)
 }
 
-// MARK: Multiplication
+// MARK: - Multiplication
 
 public func mul(_ x: Vector<Float>, _ y: Float) -> Vector<Float> {
     return Vector(mul(x.scalars, y))
@@ -311,7 +311,7 @@ public func * (lhs: Vector<Double>, rhs: Matrix<Double>) -> Vector<Double> {
     return mul(lhs, rhs)
 }
 
-// MARK: Multiplication: In Place
+// MARK: - Multiplication: In Place
 
 public func mulInPlace(_ x: inout Vector<Float>, _ y: Float) {
     return mulInPlace(&x.scalars, y)
@@ -329,7 +329,7 @@ public func *= (lhs: inout Vector<Double>, rhs: Double) {
     return mulInPlace(&lhs, rhs)
 }
 
-// MARK: Division
+// MARK: - Division
 
 public func div(_ x: Vector<Float>, _ y: Float) -> Vector<Float> {
     return Vector(div(x.scalars, y))
@@ -347,7 +347,7 @@ public func / (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
     return div(lhs, rhs)
 }
 
-// MARK: Division: In Place
+// MARK: - Division: In Place
 
 public func divInPlace(_ x: inout Vector<Float>, _ y: Float) {
     return divInPlace(&x.scalars, y)
@@ -365,7 +365,7 @@ public func /= (lhs: inout Vector<Double>, rhs: Double) {
     return divInPlace(&lhs, rhs)
 }
 
-// MARK: Element-wise Multiplication
+// MARK: - Element-wise Multiplication
 
 public func elmul(_ x: Vector<Double>, _ y: Vector<Double>) -> Vector<Double> {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with element-wise multiplication")
@@ -387,7 +387,7 @@ public func .* (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
     return elmul(lhs, rhs)
 }
 
-// MARK: Element-wise Multiplication: In Place
+// MARK: - Element-wise Multiplication: In Place
 
 public func elmulInPlace(_ x: inout Vector<Double>, _ y: Vector<Double>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with element-wise multiplication")
@@ -409,7 +409,7 @@ public func .*= (lhs: inout Vector<Double>, rhs: Vector<Double>) {
     return elmulInPlace(&lhs, rhs)
 }
 
-// MARK: Element-wise Division
+// MARK: - Element-wise Division
 
 public func eldiv(_ x: Vector<Double>, _ y: Vector<Double>) -> Vector<Double> {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with element-wise division")
@@ -431,7 +431,7 @@ public func ./ (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
     return eldiv(lhs, rhs)
 }
 
-// MARK: Element-wise Division: In Place
+// MARK: - Element-wise Division: In Place
 
 public func eldivInPlace(_ x: inout Vector<Double>, _ y: Vector<Double>) {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with element-wise division")
@@ -453,7 +453,7 @@ public func ./= (lhs: inout Vector<Float>, rhs: Vector<Float>) {
     return eldivInPlace(&lhs, rhs)
 }
 
-// MARK: Dot Product
+// MARK: - Dot Product
 
 public func dot(_ x: Vector<Double>, _ y: Vector<Double>) -> Double {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with dot product")
@@ -476,7 +476,7 @@ public func • (lhs: Vector<Float>, rhs: Vector<Float>) -> Float {
     return dot(lhs, rhs)
 }
 
-// MARK: Power
+// MARK: - Power
 
 public func pow(_ x: Vector<Double>, _ y: Double) -> Vector<Double> {
     return Vector(pow(x.scalars, y))
@@ -486,7 +486,7 @@ public func pow(_ x: Vector<Float>, _ y: Float) -> Vector<Float> {
     return Vector(pow(x.scalars, y))
 }
 
-// MARK: Exponential
+// MARK: - Exponential
 
 public func exp(_ x: Vector<Double>) -> Vector<Double> {
     return Vector(exp(x.scalars))
@@ -496,7 +496,7 @@ public func exp(_ x: Vector<Float>) -> Vector<Float> {
     return Vector(exp(x.scalars))
 }
 
-// MARK: Distance
+// MARK: - Distance
 
 public func dist(_ x: Vector<Double>, _ y: Vector<Double>) -> Double {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with distance calculation")
@@ -510,7 +510,7 @@ public func dist(_ x: Vector<Float>, _ y: Vector<Float>) -> Float {
     return dist(x.scalars, y.scalars)
 }
 
-// MARK: Distance Squared
+// MARK: - Distance Squared
 
 public func distSq(_ x: Vector<Double>, _ y: Vector<Double>) -> Double {
     precondition(x.dimensions == y.dimensions, "Vector dimensions not compatible with distance calculation")
