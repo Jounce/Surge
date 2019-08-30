@@ -151,14 +151,14 @@ let product = Surge.mul(a, b) // [2.0, 12.0, 30.0, 56.0]
 Addition functions & operators
 </summary>
 
-| Arguments          | Function   | Operator     | In-Place Operator |
-|--------------------|------------|--------------|-------------------|
-| `(Array, Array)`   | `add`      | `.+` (infix) | `.+=` (infix)     |
-| `(Array, Scalar)`  | `add`      | `+` (infix)  | `+=` (infix)      |
-| `(Matrix, Matrix)` | `add`      | `+` (infix)  | n/a               |
-| `(Matrix, Scalar)` | n/a        | `+` (infix)  | n/a               |
-| `(Vector, Vector)` | `func add` | `+` (infix)  | `+=` (infix)      |
-| `(Vector, Scalar)` | `func add` | `+` (infix)  | `+=` (infix)      |
+| Arguments          | Function | Operator     | In-Place Operator |
+|--------------------|----------|--------------|-------------------|
+| `(Array, Array)`   | `add`    | `.+` (infix) | `.+=` (infix)     |
+| `(Array, Scalar)`  | `add`    | `+` (infix)  | `+=` (infix)      |
+| `(Matrix, Matrix)` | `add`    | `+` (infix)  | n/a               |
+| `(Matrix, Scalar)` | n/a      | `+` (infix)  | n/a               |
+| `(Vector, Vector)` | `add`    | `+` (infix)  | `+=` (infix)      |
+| `(Vector, Scalar)` | `add`    | `+` (infix)  | `+=` (infix)      |
 
 <!--
 Internal use only:
