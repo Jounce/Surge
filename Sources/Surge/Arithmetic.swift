@@ -260,22 +260,6 @@ public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
     return mul(lhs, rhs)
 }
 
-public func mul<R: UnsafeMemoryAccessible>(_ lhs: Float, _ rhs: R) -> [Float] where R.Element == Float {
-    return mul([Float](repeating: lhs, count: numericCast(rhs.count)), rhs)
-}
-
-public func mul<R: UnsafeMemoryAccessible>(_ lhs: Double, _ rhs: R) -> [Double] where R.Element == Double {
-    return mul([Double](repeating: lhs, count: numericCast(rhs.count)), rhs)
-}
-
-public func * <R: UnsafeMemoryAccessible>(lhs: Float, rhs: R) -> [Float] where R.Element == Float {
-    return mul(lhs, rhs)
-}
-
-public func * <R: UnsafeMemoryAccessible>(lhs: Double, rhs: R) -> [Double] where R.Element == Double {
-    return mul(lhs, rhs)
-}
-
 // MARK: Multiplication: In Place
 
 func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {

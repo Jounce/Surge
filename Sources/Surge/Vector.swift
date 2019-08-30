@@ -255,25 +255,10 @@ public func -= (lhs: inout Vector<Float>, rhs: Float) {
 
 public func -= (lhs: inout Vector<Double>, rhs: Double) {
     return subInPlace(&lhs, rhs)
+
 }
 
 // MARK: Multiplication
-
-public func mul(_ x: Float, _ y: Vector<Float>) -> Vector<Float> {
-    return Vector(mul(x, y.scalars))
-}
-
-public func mul(_ x: Double, _ y: Vector<Double>) -> Vector<Double> {
-    return Vector(mul(x, y.scalars))
-}
-
-public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
-    return mul(lhs, rhs)
-}
 
 public func mul(_ x: Vector<Float>, _ y: Float) -> Vector<Float> {
     return Vector(mul(x.scalars, y))
