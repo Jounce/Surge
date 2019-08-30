@@ -35,7 +35,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.add(lhs, rhs)
+            actual = lhs .+ rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
@@ -51,7 +51,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.add(lhs, rhs)
+            actual = lhs .+ rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
@@ -67,7 +67,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.sub(lhs, rhs)
+            actual = lhs .- rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
@@ -83,7 +83,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.sub(lhs, rhs)
+            actual = lhs .- rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
@@ -99,7 +99,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.mul(lhs, rhs)
+            actual = lhs .* rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
@@ -115,7 +115,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.mul(lhs, rhs)
+            actual = lhs .* rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
@@ -131,7 +131,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.div(lhs, rhs)
+            actual = lhs ./ rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
@@ -147,7 +147,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.div(lhs, rhs)
+            actual = lhs ./ rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
@@ -163,7 +163,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.mod(lhs, rhs)
+            actual = lhs .% rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { fmod($0, $1) }
@@ -179,7 +179,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: [Scalar] = []
         measure {
-            actual = Surge.mod(lhs, rhs)
+            actual = lhs .% rhs
         }
 
         let expected = Swift.zip(lhs, rhs).map { fmod($0, $1) }
@@ -257,7 +257,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: Scalar = 0
         measure {
-            actual = Surge.dot(lhs, rhs)
+            actual = lhs • rhs
         }
 
         let expected = Swift.zip(lhs, rhs).reduce(0) {
@@ -275,7 +275,7 @@ class ArithmeticTests: XCTestCase {
 
         var actual: Scalar = 0
         measure {
-            actual = Surge.dot(lhs, rhs)
+            actual = lhs • rhs
         }
 
         let expected = Swift.zip(lhs, rhs).reduce(0) {
@@ -304,11 +304,11 @@ class ArithmeticTests: XCTestCase {
         let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
         var actual = 0.0
         measure {
-            actual = sum(values[0..<n/2])
+            actual = sum(values[0..<n / 2])
         }
 
         var expected = 0.0
-        for value in values[0..<n/2] {
+        for value in values[0..<n / 2] {
             expected += value
         }
 
