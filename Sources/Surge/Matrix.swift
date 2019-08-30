@@ -284,6 +284,14 @@ public func add(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    return add(lhs, rhs)
+}
+
+public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    return add(lhs, rhs)
+}
+
 public func sub(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix dimensions not compatible with subtraction")
 
@@ -306,6 +314,14 @@ public func sub(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    return sub(lhs, rhs)
+}
+
+public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    return sub(lhs, rhs)
+}
+
 public func mul(_ alpha: Float, _ x: Matrix<Float>) -> Matrix<Float> {
     var results = x
     results.grid.withUnsafeMutableBufferPointer { pointer in
@@ -322,6 +338,14 @@ public func mul(_ alpha: Double, _ x: Matrix<Double>) -> Matrix<Double> {
     }
 
     return results
+}
+
+public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
+    return mul(lhs, rhs)
+}
+
+public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
+    return mul(lhs, rhs)
 }
 
 public func mul(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
@@ -352,6 +376,14 @@ public func mul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     return results
 }
 
+public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    return mul(lhs, rhs)
+}
+
+public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    return mul(lhs, rhs)
+}
+
 public func mul(_ x: Matrix<Float>, _ y: Vector<Float>) -> Vector<Float> {
     precondition(x.columns == y.dimensions, "Matrix and vector dimensions not compatible with multiplication")
     if x.rows == 0 || x.columns == 0 || y.dimensions == 0 {
@@ -378,6 +410,14 @@ public func mul(_ x: Matrix<Double>, _ y: Vector<Double>) -> Vector<Double> {
     }
 
     return results
+}
+
+public func * (lhs: Matrix<Float>, rhs: Vector<Float>) -> Vector<Float> {
+    return mul(lhs, rhs)
+}
+
+public func * (lhs: Matrix<Double>, rhs: Vector<Double>) -> Vector<Double> {
+    return mul(lhs, rhs)
 }
 
 public func mul(_ x: Vector<Float>, _ y: Matrix<Float>) -> Vector<Float> {
@@ -408,6 +448,14 @@ public func mul(_ x: Vector<Double>, _ y: Matrix<Double>) -> Vector<Double> {
     return results
 }
 
+public func * (lhs: Vector<Float>, rhs: Matrix<Float>) -> Vector<Float> {
+    return mul(lhs, rhs)
+}
+
+public func * (lhs: Vector<Double>, rhs: Matrix<Double>) -> Vector<Double> {
+    return mul(lhs, rhs)
+}
+
 public func elmul(_ x: Matrix<Double>, _ y: Matrix<Double>) -> Matrix<Double> {
     precondition(x.rows == y.rows && x.columns == y.columns, "Matrix must have the same dimensions")
     var result = Matrix<Double>(rows: x.rows, columns: x.columns, repeatedValue: 0.0)
@@ -432,6 +480,34 @@ public func div(_ x: Matrix<Float>, _ y: Matrix<Float>) -> Matrix<Float> {
     let yInv = inv(y)
     precondition(x.columns == yInv.rows, "Matrix dimensions not compatible")
     return mul(x, yInv)
+}
+
+public func / (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
+    return div(lhs, rhs)
+}
+
+public func / (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
+    return div(lhs, rhs)
+}
+
+public func div(_ lhs: Matrix<Double>, _ rhs: Double) -> Matrix<Double> {
+    var result = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = lhs.grid / rhs
+    return result
+}
+
+public func div(_ lhs: Matrix<Float>, _ rhs: Float) -> Matrix<Float> {
+    var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
+    result.grid = lhs.grid / rhs
+    return result
+}
+
+public func / (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
+    return div(lhs, rhs)
+}
+
+public func / (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
+    return div(lhs, rhs)
 }
 
 public func pow(_ x: Matrix<Double>, _ y: Double) -> Matrix<Double> {
@@ -558,6 +634,14 @@ public func transpose(_ x: Matrix<Double>) -> Matrix<Double> {
     }
 
     return results
+}
+
+public postfix func ′ (value: Matrix<Float>) -> Matrix<Float> {
+    return transpose(value)
+}
+
+public postfix func ′ (value: Matrix<Double>) -> Matrix<Double> {
+    return transpose(value)
 }
 
 /// Computes the matrix determinant.
@@ -705,91 +789,4 @@ public func eigenDecompose(_ x: Matrix<Double>) throws -> MatrixEigenDecompositi
     }
 
     return MatrixEigenDecompositionResult<Double>(rowCount: x.rows, eigenValueRealParts: eigenValueRealParts, eigenValueImaginaryParts: eigenValueImaginaryParts, leftEigenVectorWork: leftEigenVectorWork, rightEigenVectorWork: rightEigenVectorWork)
-}
-
-// MARK: - Operators
-
-public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return add(lhs, rhs)
-}
-
-public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return add(lhs, rhs)
-}
-
-public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return sub(lhs, rhs)
-}
-
-public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return sub(lhs, rhs)
-}
-
-public func + (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
-    return Matrix(rows: lhs.rows, columns: lhs.columns, grid: lhs.grid + rhs)
-}
-
-public func + (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
-    return Matrix(rows: lhs.rows, columns: lhs.columns, grid: lhs.grid + rhs)
-}
-
-public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Matrix<Float>, rhs: Vector<Float>) -> Vector<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Matrix<Double>, rhs: Vector<Double>) -> Vector<Double> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Vector<Float>, rhs: Matrix<Float>) -> Vector<Float> {
-    return mul(lhs, rhs)
-}
-
-public func * (lhs: Vector<Double>, rhs: Matrix<Double>) -> Vector<Double> {
-    return mul(lhs, rhs)
-}
-
-public func / (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    return div(lhs, rhs)
-}
-
-public func / (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    return div(lhs, rhs)
-}
-
-public func / (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
-    var result = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
-    result.grid = lhs.grid / rhs
-    return result
-}
-
-public func / (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
-    var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
-    result.grid = lhs.grid / rhs
-    return result
-}
-
-postfix operator ′
-public postfix func ′ (value: Matrix<Float>) -> Matrix<Float> {
-    return transpose(value)
-}
-
-public postfix func ′ (value: Matrix<Double>) -> Matrix<Double> {
-    return transpose(value)
 }
