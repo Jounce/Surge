@@ -588,6 +588,8 @@ public func dist<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L,
     return sqrt(distSq(lhs, rhs))
 }
 
+// MARK: - Distance Squared
+
 public func distSq<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Float where L.Element == Float, R.Element == Float {
     precondition(lhs.count == rhs.count, "Vectors must have equal count")
     let sub = lhs .- rhs
