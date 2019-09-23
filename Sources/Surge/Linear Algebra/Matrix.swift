@@ -30,6 +30,8 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
     public let columns: Int
     var grid: [Scalar]
 
+    // MARK: - Initialization
+
     public init(rows: Int, columns: Int, repeatedValue: Scalar) {
         self.rows = rows
         self.columns = columns
@@ -89,6 +91,8 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
 
         return matrix
     }
+
+    // MARK: - Subscript
 
     public subscript(row: Int, column: Int) -> Scalar {
         get {

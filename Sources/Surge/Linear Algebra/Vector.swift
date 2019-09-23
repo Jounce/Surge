@@ -29,7 +29,7 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         }
     }
 
-    // MARK: - Initialize
+    // MARK: - Initialization
 
     public init(dimensions: Int, repeatedValue: Scalar) {
         let scalars = Array(repeating: repeatedValue, count: dimensions)
