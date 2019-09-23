@@ -200,6 +200,8 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual_3x3, expected_3x3)
     }
 
+    // MARK: - Subscript
+
     func test_subscript_row_get() {
         typealias Scalar = Double
 
@@ -266,6 +268,8 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix, expected)
     }
 
+    // MARK: - Addition
+
     func test_add_matrix_matrix_float() {
         typealias Scalar = Float
 
@@ -303,6 +307,8 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(actual, expected)
     }
+
+    // MARK: - Subtraction
 
     func test_sub_matrix_matrix_float() {
         typealias Scalar = Float
@@ -379,6 +385,7 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(actual, expected)
     }
+    // MARK: - Multiplication
 
     func test_mul_matrix_matrix_float() {
         typealias Scalar = Float
@@ -459,6 +466,8 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(actual, expected)
     }
+
+    // MARK: - Division
 
     func test_div_matrix_scalar_float() {
         typealias Scalar = Float
@@ -542,6 +551,8 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Power
+
     func test_pow_matrix_scalar_float() {
         typealias Scalar = Float
 
@@ -582,6 +593,8 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Exponential
+
     func test_exp_matrix_float() {
         typealias Scalar = Float
 
@@ -617,6 +630,8 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Summation
 
     func test_sum_matrix_rows_double() {
         typealias Scalar = Double
@@ -684,6 +699,8 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
+    // MARK: - Inverse
+
     func test_inv_matrix_double() {
         typealias Scalar = Double
 
@@ -717,6 +734,8 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
+
+    // MARK: - Transpose
 
     func test_tranpose_matrix_double() {
         typealias Scalar = Double
@@ -753,6 +772,8 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(actual, expected)
     }
+
+    // MARK: - Determinant
 
     func test_det_matrix_double() {
         typealias Scalar = Double
@@ -797,6 +818,8 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(result.rows, 1)
         XCTAssertEqual(result.columns, 0)
     }
+
+    // MARK: - Eigen-Decomposition
 
     func complexVectorMatches<T: FloatingPoint>(_ a: [(T, T)], _ b: [(T, T)], accuracy: T) -> Bool {
         guard a.count == b.count else {

@@ -24,10 +24,14 @@ import XCTest
 // swiftlint:disable nesting type_body_length
 
 class VectorTests: XCTestCase {
+    // MARK: - Initialization
+
     func test_init() {
         let v = Vector([1.0, 2.0])
         XCTAssertEqual(v.scalars, [1.0, 2.0])
     }
+
+    // MARK: - Subscript
 
     func test_subscript() {
         typealias Scalar = Double
@@ -38,6 +42,8 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(vector[2], 3)
         XCTAssertEqual(vector[9], 10)
     }
+
+    // MARK: - Addition
 
     func test_add_vector_vector_double() {
         typealias Scalar = Double
@@ -96,6 +102,8 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Addition: In Place
 
     func test_add_in_place_vector_vector_double() {
         typealias Scalar = Double
@@ -175,6 +183,8 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Subtraction
+
     func test_sub_vector_vector_double() {
         typealias Scalar = Double
 
@@ -232,6 +242,8 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Subtraction: In Place
 
     func test_sub_in_place_vector_vector_double() {
         typealias Scalar = Double
@@ -340,6 +352,8 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Multiplication
+
     func test_mul_vector_scalar_double() {
         typealias Scalar = Double
 
@@ -410,6 +424,8 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
 
+    // MARK: - Multiplication: In Place
+
     func test_mul_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
@@ -450,6 +466,8 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Division
+
     func test_div_vector_scalar_double() {
         typealias Scalar = Double
 
@@ -479,6 +497,8 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
+
+    // MARK: - Division: In Place
 
     func test_div_in_place_vector_scalar_double() {
         typealias Scalar = Double
@@ -520,6 +540,8 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
+    // MARK: - Element-wise Multiplication
+
     func test_elmul_double() {
         typealias Scalar = Double
 
@@ -547,6 +569,8 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Element-wise Multiplication: In Place
 
     func test_elmul_in_place_double() {
         typealias Scalar = Double
@@ -586,6 +610,8 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Element-wise Division
+
     func test_eldiv_double() {
         typealias Scalar = Double
 
@@ -613,6 +639,8 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
+
+    // MARK: - Element-wise Division: In Place
 
     func test_eldiv_in_place_double() {
         typealias Scalar = Double
@@ -652,6 +680,12 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
+    // MARK: - Dot Product
+
+    // FIXME: missing tests
+
+    // MARK: - Power
+
     func test_pow_vector_scalar_double() {
         typealias Scalar = Double
 
@@ -679,6 +713,8 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
+
+    // MARK: - Exponential
 
     func test_exp_vector_double() {
         typealias Scalar = Double
@@ -714,6 +750,8 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-2)
     }
 
+    // MARK: - Distance
+
     func test_dist_vector_vector_double() {
         typealias Scalar = Double
 
@@ -743,6 +781,8 @@ class VectorTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
+
+    // MARK: - Distance Squared
 
     func test_distsq_vector_vector_double() {
         typealias Scalar = Double
