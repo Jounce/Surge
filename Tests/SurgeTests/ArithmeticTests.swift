@@ -27,6 +27,8 @@ import XCTest
 class ArithmeticTests: XCTestCase {
     let n = 100_000
 
+    // MARK: - Addition
+
     func test_add_array_array_float() {
         typealias Scalar = Float
 
@@ -58,6 +60,12 @@ class ArithmeticTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Addition: In Place
+
+    // FIXME: missing tests
+
+    // MARK: - Subtraction
 
     func test_sub_array_array_float() {
         typealias Scalar = Float
@@ -91,6 +99,12 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Subtraction: In Place
+
+    // FIXME: missing tests
+
+    // MARK: - Multiplication
+
     func test_mul_array_array_float() {
         typealias Scalar = Float
 
@@ -122,6 +136,12 @@ class ArithmeticTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Multiplication: In Place
+
+    // FIXME: missing tests
+
+    // MARK: - Division
 
     func test_div_array_array_float() {
         typealias Scalar = Float
@@ -155,6 +175,12 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Division: In Place
+
+    // FIXME: missing tests
+
+    // MARK: - Modulo
+
     func test_mod_array_array_float() {
         typealias Scalar = Float
 
@@ -186,6 +212,8 @@ class ArithmeticTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Remainder
 
     func test_remainder_array_array_float() {
         typealias Scalar = Float
@@ -219,6 +247,8 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Square Root
+
     func test_sqrt_array_array_float() {
         typealias Scalar = Float
 
@@ -248,6 +278,8 @@ class ArithmeticTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Dot Product
 
     func test_dot_array_array_float() {
         typealias Scalar = Float
@@ -285,6 +317,8 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Summation
+
     func test_sum() {
         let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
         var actual = 0.0
@@ -315,6 +349,8 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Square Root
+
     func test_sqrt() {
         let values = (0...n).map { _ in Double(arc4random()) }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: sqrt, mapped: sqrt, accuracy: 1e-4)
@@ -324,6 +360,8 @@ class ArithmeticTests: XCTestCase {
         let values = [Double]()
         XCTAssertEqual(sqrt(values), [])
     }
+
+    // MARK: - Distance
 
     func test_dist_array_array_double() {
         typealias Scalar = Double
@@ -356,6 +394,8 @@ class ArithmeticTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
+
+    // MARK: - Distance Squared
 
     func test_distsq_array_array_double() {
         typealias Scalar = Double
