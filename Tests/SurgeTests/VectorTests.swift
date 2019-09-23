@@ -323,35 +323,6 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    func test_mul_scalar_vector_double() {
-        typealias Scalar = Double
-
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-        var actual: Vector<Scalar> = []
-        measure {
-            actual = 2 * vector
-        }
-        let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    func test_mul_scalar_vector_float() {
-        typealias Scalar = Float
-
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 2.0
-
-        var actual: Vector<Scalar> = []
-        measure {
-            actual = scalar * vector
-        }
-        let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
     // MARK: - Multiplication
 
     func test_mul_vector_scalar_double() {
