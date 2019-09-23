@@ -247,6 +247,72 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Power
+
+    func test_pow_array_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = Array(repeating: 2.0, count: n)
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.pow(lhs, rhs)
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { pow($0, $1) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+
+    func test_pow_array_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = Array(repeating: 2.0, count: n)
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.pow(lhs, rhs)
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { pow($0, $1) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_pow_array_scalar_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: Scalar = 2.0
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.pow(lhs, rhs)
+        }
+
+        let expected = lhs.map { pow($0, rhs) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+
+    func test_pow_array_scalar_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: Scalar = 2.0
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.pow(lhs, rhs)
+        }
+
+        let expected = lhs.map { pow($0, rhs) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
     // MARK: - Square Root
 
     func test_sqrt_array_array_float() {
