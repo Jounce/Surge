@@ -348,43 +348,6 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
 
-    func test_mul_scalar_matrix_float() {
-        typealias Scalar = Float
-
-        let lhs: Scalar = 2
-
-        let rhs: Matrix<Scalar> = [
-            [2, 4, 6],
-            [10, 12, 14],
-        ]
-
-        let actual = lhs * rhs
-        let expected: Matrix<Scalar> = [
-            [4, 8, 12],
-            [20, 24, 28],
-        ]
-
-        XCTAssertEqual(actual, expected)
-    }
-
-    func test_mul_scalar_matrix_double() {
-        typealias Scalar = Double
-
-        let lhs: Scalar = 2
-
-        let rhs: Matrix<Scalar> = [
-            [2, 4, 6],
-            [10, 12, 14],
-        ]
-
-        let actual = lhs * rhs
-        let expected: Matrix<Scalar> = [
-            [4, 8, 12],
-            [20, 24, 28],
-        ]
-
-        XCTAssertEqual(actual, expected)
-    }
     // MARK: - Multiplication
 
     func test_mul_matrix_matrix_float() {
