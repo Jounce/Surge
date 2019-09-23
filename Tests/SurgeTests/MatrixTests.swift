@@ -430,6 +430,38 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
 
+    func test_mul_empty_float() {
+        typealias Scalar = Float
+
+        let lhs: Matrix<Scalar> = [
+            [1]
+        ]
+        let rhs: Matrix<Scalar> = [
+            []
+        ]
+
+        let result = lhs * rhs
+
+        XCTAssertEqual(result.rows, 1)
+        XCTAssertEqual(result.columns, 0)
+    }
+
+    func test_mul_empty_double() {
+        typealias Scalar = Double
+
+        let lhs: Matrix<Scalar> = [
+            [1]
+        ]
+        let rhs: Matrix<Scalar> = [
+            []
+        ]
+
+        let result = lhs * rhs
+
+        XCTAssertEqual(result.rows, 1)
+        XCTAssertEqual(result.columns, 0)
+    }
+
     // MARK: - Division
 
     func test_div_matrix_scalar_float() {
@@ -764,22 +796,6 @@ class MatrixTests: XCTestCase {
         let expected: Scalar = 6 - 10
 
         XCTAssertEqual(actual, expected)
-    }
-
-    func test_mul_empty_float() {
-        typealias Scalar = Float
-
-        let lhs: Matrix<Scalar> = [
-            [1]
-        ]
-        let rhs: Matrix<Scalar> = [
-            []
-        ]
-
-        let result = lhs * rhs
-
-        XCTAssertEqual(result.rows, 1)
-        XCTAssertEqual(result.columns, 0)
     }
 
     // MARK: - Eigen-Decomposition
