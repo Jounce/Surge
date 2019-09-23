@@ -24,23 +24,15 @@ import XCTest
 // swiftlint:disable nesting type_body_length
 
 class VectorTests: XCTestCase {
-    func makeVector() -> Vector<Double> {
-        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    }
-
-    func makeVector() -> Vector<Float> {
-        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    }
-
-    func testInit() {
+    func test_init() {
         let v = Vector([1.0, 2.0])
         XCTAssertEqual(v.scalars, [1.0, 2.0])
     }
 
-    func testSubscript() {
+    func test_subscript() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         XCTAssertEqual(vector[0], 1)
         XCTAssertEqual(vector[2], 3)
@@ -50,7 +42,7 @@ class VectorTests: XCTestCase {
     func test_add_vector_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = vector + vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
@@ -61,7 +53,7 @@ class VectorTests: XCTestCase {
     func test_add_vector_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = vector + vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
@@ -72,7 +64,7 @@ class VectorTests: XCTestCase {
     func test_add_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
         let actual = vector + scalar
@@ -84,7 +76,7 @@ class VectorTests: XCTestCase {
     func test_add_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
         let actual = vector + scalar
@@ -96,7 +88,7 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_vector_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         vector += vector
 
@@ -109,7 +101,7 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_vector_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         vector += vector
 
@@ -122,7 +114,7 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
         vector += scalar
@@ -136,7 +128,7 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
         vector += scalar
@@ -150,7 +142,7 @@ class VectorTests: XCTestCase {
     func test_sub_vector_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = vector - vector
         let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -161,7 +153,7 @@ class VectorTests: XCTestCase {
     func test_sub_vector_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = vector - vector
         let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -172,7 +164,7 @@ class VectorTests: XCTestCase {
     func test_sub_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
         let actual = vector - scalar
@@ -184,7 +176,7 @@ class VectorTests: XCTestCase {
     func test_sub_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
         let actual = vector - scalar
@@ -196,7 +188,7 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_vector_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         vector -= vector
 
@@ -209,7 +201,7 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_vector_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         vector -= vector
 
@@ -222,7 +214,7 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
         vector -= scalar
@@ -236,7 +228,7 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
         vector -= scalar
@@ -250,7 +242,7 @@ class VectorTests: XCTestCase {
     func test_mul_scalar_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = 2 * vector
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
@@ -261,7 +253,7 @@ class VectorTests: XCTestCase {
     func test_mul_scalar_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
         let actual = scalar * vector
@@ -273,7 +265,7 @@ class VectorTests: XCTestCase {
     func test_mul_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
         let actual = vector * scalar
@@ -285,7 +277,7 @@ class VectorTests: XCTestCase {
     func test_mul_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
         let actual = vector * scalar
@@ -331,7 +323,7 @@ class VectorTests: XCTestCase {
     func test_mul_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
         vector *= scalar
@@ -345,7 +337,7 @@ class VectorTests: XCTestCase {
     func test_mul_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
         vector *= scalar
@@ -359,7 +351,7 @@ class VectorTests: XCTestCase {
     func test_div_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 0.5
 
         let actual = vector / scalar
@@ -371,7 +363,7 @@ class VectorTests: XCTestCase {
     func test_div_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 0.5
 
         let actual = vector / scalar
@@ -383,7 +375,7 @@ class VectorTests: XCTestCase {
     func test_div_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 0.5
 
         vector /= scalar
@@ -397,7 +389,7 @@ class VectorTests: XCTestCase {
     func test_div_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 0.5
 
         vector /= scalar
@@ -411,7 +403,7 @@ class VectorTests: XCTestCase {
     func test_elmul_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = vector .* vector
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
@@ -422,7 +414,7 @@ class VectorTests: XCTestCase {
     func test_elmul_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = vector .* vector
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
@@ -433,7 +425,7 @@ class VectorTests: XCTestCase {
     func test_elmul_in_place_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         vector .*= vector
 
@@ -446,7 +438,7 @@ class VectorTests: XCTestCase {
     func test_elmul_in_place_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         vector .*= vector
 
@@ -459,7 +451,7 @@ class VectorTests: XCTestCase {
     func test_eldiv_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = vector ./ vector
         let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
@@ -470,7 +462,7 @@ class VectorTests: XCTestCase {
     func test_eldiv_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = vector ./ vector
         let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
@@ -481,7 +473,7 @@ class VectorTests: XCTestCase {
     func test_eldiv_in_place_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         vector ./= vector
 
@@ -494,7 +486,7 @@ class VectorTests: XCTestCase {
     func test_eldiv_in_place_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = self.makeVector()
+        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         vector ./= vector
 
@@ -507,7 +499,7 @@ class VectorTests: XCTestCase {
     func test_pow_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = pow(vector, 2)
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
@@ -518,7 +510,7 @@ class VectorTests: XCTestCase {
     func test_pow_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = pow(vector, 2)
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
@@ -529,7 +521,7 @@ class VectorTests: XCTestCase {
     func test_exp_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = exp(vector)
         let expected: Vector<Scalar> = [
@@ -543,7 +535,7 @@ class VectorTests: XCTestCase {
     func test_exp_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = self.makeVector()
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let actual = exp(vector)
         let expected: Vector<Scalar> = [
