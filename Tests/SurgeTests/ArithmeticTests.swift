@@ -32,8 +32,8 @@ class ArithmeticTests: XCTestCase {
     func test_add_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
-        let rhs: [Scalar] = (0..<n).map { Scalar($0 * 3) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: [Scalar] = []
         measure {
@@ -48,8 +48,8 @@ class ArithmeticTests: XCTestCase {
     func test_add_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
-        let rhs: [Scalar] = (0..<n).map { Scalar($0 * 3) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: [Scalar] = []
         measure {
@@ -70,8 +70,8 @@ class ArithmeticTests: XCTestCase {
     func test_sub_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
-        let rhs: [Scalar] = (0..<n).map { Scalar($0 * 3) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: [Scalar] = []
         measure {
@@ -86,8 +86,8 @@ class ArithmeticTests: XCTestCase {
     func test_sub_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
-        let rhs: [Scalar] = (0..<n).map { Scalar($0 * 3) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: [Scalar] = []
         measure {
@@ -108,8 +108,8 @@ class ArithmeticTests: XCTestCase {
     func test_mul_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
-        let rhs: [Scalar] = (0..<n).map { Scalar($0 / 1_000) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: [Scalar] = []
         measure {
@@ -124,8 +124,8 @@ class ArithmeticTests: XCTestCase {
     func test_mul_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
-        let rhs: [Scalar] = (0..<n).map { Scalar($0 / 1_000) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: [Scalar] = []
         measure {
@@ -146,8 +146,8 @@ class ArithmeticTests: XCTestCase {
     func test_div_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
-        let rhs: [Scalar] = (0..<n).map { Scalar($0 + 1) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: [Scalar] = []
         measure {
@@ -162,8 +162,8 @@ class ArithmeticTests: XCTestCase {
     func test_div_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
-        let rhs: [Scalar] = (0..<n).map { Scalar($0 + 1) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: [Scalar] = []
         measure {
@@ -184,7 +184,7 @@ class ArithmeticTests: XCTestCase {
     func test_mod_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) }
         let rhs: [Scalar] = Array(repeating: 42, count: n)
 
         var actual: [Scalar] = []
@@ -200,7 +200,7 @@ class ArithmeticTests: XCTestCase {
     func test_mod_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) }
         let rhs: [Scalar] = Array(repeating: 42, count: n)
 
         var actual: [Scalar] = []
@@ -218,7 +218,7 @@ class ArithmeticTests: XCTestCase {
     func test_remainder_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) }
         let rhs: [Scalar] = Array(repeating: -42, count: n)
 
         var actual: [Scalar] = []
@@ -234,7 +234,7 @@ class ArithmeticTests: XCTestCase {
     func test_remainder_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) }
         let rhs: [Scalar] = Array(repeating: -42, count: n)
 
         var actual: [Scalar] = []
@@ -252,7 +252,7 @@ class ArithmeticTests: XCTestCase {
     func test_sqrt_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) }
 
         var actual: [Scalar] = []
         measure {
@@ -267,7 +267,7 @@ class ArithmeticTests: XCTestCase {
     func test_sqrt_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (0..<n).map { Scalar($0) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) }
 
         var actual: [Scalar] = []
         measure {
@@ -284,8 +284,8 @@ class ArithmeticTests: XCTestCase {
     func test_dot_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
-        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: Scalar = 0
         measure {
@@ -296,14 +296,14 @@ class ArithmeticTests: XCTestCase {
             $0 + $1.0 * $1.1
         }
 
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+        XCTAssertEqual(actual, expected, accuracy: 1e-1)
     }
 
     func test_dot_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
-        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: Scalar = 0
         measure {
@@ -319,46 +319,34 @@ class ArithmeticTests: XCTestCase {
 
     // MARK: - Summation
 
-    func test_sum() {
-        let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
-        var actual = 0.0
+    func test_sum_array_double() {
+        typealias Scalar = Double
+
+        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: Scalar = 0.0
         measure {
             actual = sum(values)
         }
 
-        var expected = 0.0
-        for value in values {
-            expected += value
-        }
+        let expected: Scalar = values.reduce(0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    func test_sum_slice() {
-        let values = (0...n).map { _ in Double(arc4random()) / Double(UInt32.max) }
-        var actual = 0.0
+    func test_sum_array_float() {
+        typealias Scalar = Float
+
+        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: Scalar = 0.0
         measure {
-            actual = sum(values[0..<n / 2])
+            actual = sum(values)
         }
 
-        var expected = 0.0
-        for value in values[0..<n / 2] {
-            expected += value
-        }
+        let expected: Scalar = values.reduce(0, +)
 
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    // MARK: - Square Root
-
-    func test_sqrt() {
-        let values = (0...n).map { _ in Double(arc4random()) }
-        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sqrt, mapped: sqrt, accuracy: 1e-4)
-    }
-
-    func test_sqrt_empty() {
-        let values = [Double]()
-        XCTAssertEqual(sqrt(values), [])
+        XCTAssertEqual(actual, expected, accuracy: 1e-1)
     }
 
     // MARK: - Distance
@@ -366,8 +354,8 @@ class ArithmeticTests: XCTestCase {
     func test_dist_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
-        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: Scalar = 0.0
         measure {
@@ -382,8 +370,8 @@ class ArithmeticTests: XCTestCase {
     func test_dist_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
-        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: Scalar = 0.0
         measure {
@@ -400,8 +388,8 @@ class ArithmeticTests: XCTestCase {
     func test_distsq_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
-        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: Scalar = 0.0
         measure {
@@ -416,8 +404,8 @@ class ArithmeticTests: XCTestCase {
     func test_distsq_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
-        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
         var actual: Scalar = 0.0
         measure {
