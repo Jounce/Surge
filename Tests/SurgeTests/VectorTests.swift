@@ -653,8 +653,6 @@ class VectorTests: XCTestCase {
 
     // MARK: - Dot Product
 
-    // FIXME: missing tests
-
     func test_dot_vector_vector_double() {
         typealias Scalar = Double
 
