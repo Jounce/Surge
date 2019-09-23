@@ -684,6 +684,28 @@ class VectorTests: XCTestCase {
 
     // FIXME: missing tests
 
+    func test_dot_vector_vector_double() {
+        typealias Scalar = Double
+
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+        let actual = dot(vector, vector)
+        let expected: Scalar = 385
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_dot_vector_vector_float() {
+        typealias Scalar = Float
+
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+        let actual = dot(vector, vector)
+        let expected: Scalar = 385
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+
     // MARK: - Power
 
     func test_pow_vector_scalar_double() {
