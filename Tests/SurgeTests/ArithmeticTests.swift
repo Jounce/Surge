@@ -328,8 +328,8 @@ class ArithmeticTests: XCTestCase {
     func test_dist_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = [1, 2, 3]
-        let rhs: [Scalar] = [9, 8, 7]
+        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
+        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
 
         var actual: Scalar = 0.0
         measure {
@@ -344,8 +344,8 @@ class ArithmeticTests: XCTestCase {
     func test_dist_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = [1, 2, 3, 4]
-        let rhs: [Scalar] = [9, 8, 7, 6]
+        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
+        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
 
         var actual: Scalar = 0.0
         measure {
@@ -360,8 +360,8 @@ class ArithmeticTests: XCTestCase {
     func test_distsq_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = [1, 2, 3]
-        let rhs: [Scalar] = [9, 8, 7]
+        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
+        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
 
         var actual: Scalar = 0.0
         measure {
@@ -376,8 +376,8 @@ class ArithmeticTests: XCTestCase {
     func test_distsq_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = [1, 2, 3, 4]
-        let rhs: [Scalar] = [9, 8, 7, 6]
+        let lhs: [Scalar] = Array(repeating: 0.25, count: n)
+        let rhs: [Scalar] = Array(repeating: 0.75, count: n)
 
         var actual: Scalar = 0.0
         measure {
