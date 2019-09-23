@@ -44,7 +44,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = vector + vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector + vector
+        }
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -55,7 +58,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = vector + vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector + vector
+        }
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -67,7 +73,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
-        let actual = vector + scalar
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector + scalar
+        }
         let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -79,7 +88,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
-        let actual = vector + scalar
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector + scalar
+        }
         let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -88,11 +100,17 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_vector_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        vector += vector
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual += vector
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -101,11 +119,17 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_vector_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        vector += vector
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual += vector
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -114,12 +138,18 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
-        vector += scalar
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual += scalar
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -128,12 +158,18 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
-        vector += scalar
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual += scalar
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -144,7 +180,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = vector - vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector - vector
+        }
         let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -155,7 +194,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = vector - vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector - vector
+        }
         let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -167,7 +209,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
-        let actual = vector - scalar
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector - scalar
+        }
         let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -179,7 +224,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
-        let actual = vector - scalar
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector - scalar
+        }
         let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -188,11 +236,17 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_vector_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        vector -= vector
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual -= vector
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -201,11 +255,17 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_vector_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        vector -= vector
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual -= vector
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -214,12 +274,18 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
-        vector -= scalar
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual -= scalar
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -228,12 +294,18 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 1.0
 
-        vector -= scalar
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual -= scalar
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -244,7 +316,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = 2 * vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = 2 * vector
+        }
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -256,7 +331,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
-        let actual = scalar * vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = scalar * vector
+        }
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -268,7 +346,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
-        let actual = vector * scalar
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector * scalar
+        }
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -280,7 +361,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
-        let actual = vector * scalar
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector * scalar
+        }
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -297,7 +381,10 @@ class VectorTests: XCTestCase {
             [3, 6],
         ]
 
-        let actual = lhs * rhs
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = lhs * rhs
+        }
         let expected: Vector<Scalar> = [17, 38]
 
         XCTAssertEqual(actual, expected)
@@ -314,7 +401,10 @@ class VectorTests: XCTestCase {
             [3, 6],
         ]
 
-        let actual = lhs * rhs
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = lhs * rhs
+        }
         let expected: Vector<Scalar> = [17, 38]
 
         XCTAssertEqual(actual, expected)
@@ -323,12 +413,18 @@ class VectorTests: XCTestCase {
     func test_mul_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
-        vector *= scalar
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual *= scalar
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -337,12 +433,18 @@ class VectorTests: XCTestCase {
     func test_mul_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 2.0
 
-        vector *= scalar
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual *= scalar
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -354,7 +456,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 0.5
 
-        let actual = vector / scalar
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector / scalar
+        }
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -366,7 +471,10 @@ class VectorTests: XCTestCase {
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 0.5
 
-        let actual = vector / scalar
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector / scalar
+        }
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
@@ -375,12 +483,18 @@ class VectorTests: XCTestCase {
     func test_div_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 0.5
 
-        vector /= scalar
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual /= scalar
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -389,12 +503,18 @@ class VectorTests: XCTestCase {
     func test_div_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         let scalar: Scalar = 0.5
 
-        vector /= scalar
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual /= scalar
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
@@ -405,7 +525,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = vector .* vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector .* vector
+        }
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -416,7 +539,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = vector .* vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector .* vector
+        }
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -425,11 +551,17 @@ class VectorTests: XCTestCase {
     func test_elmul_in_place_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        vector .*= vector
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual .*= vector
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -438,11 +570,17 @@ class VectorTests: XCTestCase {
     func test_elmul_in_place_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        vector .*= vector
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual .*= vector
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -453,7 +591,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = vector ./ vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector ./ vector
+        }
         let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -464,7 +605,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = vector ./ vector
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = vector ./ vector
+        }
         let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
@@ -473,11 +617,17 @@ class VectorTests: XCTestCase {
     func test_eldiv_in_place_double() {
         typealias Scalar = Double
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        vector ./= vector
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual ./= vector
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -486,11 +636,17 @@ class VectorTests: XCTestCase {
     func test_eldiv_in_place_float() {
         typealias Scalar = Float
 
-        var vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        vector ./= vector
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
 
-        let actual = vector
+            startMeasuring()
+            actual ./= vector
+            stopMeasuring()
+        }
+
         let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
@@ -501,7 +657,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = pow(vector, 2)
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = pow(vector, 2)
+        }
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -512,7 +671,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = pow(vector, 2)
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = pow(vector, 2)
+        }
         let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
@@ -523,7 +685,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = exp(vector)
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = exp(vector)
+        }
         let expected: Vector<Scalar> = [
             2.718_282, 7.389_056, 20.085_537, 54.598_150, 148.413_159,
             403.428_793, 1_096.633_158, 2_980.957_987, 8_103.083_928, 22_026.465_795
@@ -537,7 +702,10 @@ class VectorTests: XCTestCase {
 
         let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        let actual = exp(vector)
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = exp(vector)
+        }
         let expected: Vector<Scalar> = [
             2.718_282, 7.389_056, 20.085_537, 54.598_150, 148.413_159,
             403.428_793, 1_096.633_158, 2_980.957_987, 8_103.083_928, 22_026.465_795
@@ -552,7 +720,10 @@ class VectorTests: XCTestCase {
         let lhs: Vector<Scalar> = [1, 2, 3]
         let rhs: Vector<Scalar> = [9, 8, 7]
 
-        let actual = dist(lhs, rhs)
+        var actual: Scalar = 0
+        measure {
+            actual = dist(lhs, rhs)
+        }
         let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
@@ -564,7 +735,10 @@ class VectorTests: XCTestCase {
         let lhs: Vector<Scalar> = [1, 2, 3, 4]
         let rhs: Vector<Scalar> = [9, 8, 7, 6]
 
-        let actual = dist(lhs, rhs)
+        var actual: Scalar = 0
+        measure {
+            actual = dist(lhs, rhs)
+        }
         let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
@@ -576,7 +750,10 @@ class VectorTests: XCTestCase {
         let lhs: Vector<Scalar> = [1, 2, 3]
         let rhs: Vector<Scalar> = [9, 8, 7]
 
-        let actual = distSq(lhs, rhs)
+        var actual: Scalar = 0
+        measure {
+            actual = distSq(lhs, rhs)
+        }
 
         let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
 
@@ -589,7 +766,10 @@ class VectorTests: XCTestCase {
         let lhs: Vector<Scalar> = [1, 2, 3, 4]
         let rhs: Vector<Scalar> = [9, 8, 7, 6]
 
-        let actual = distSq(lhs, rhs)
+        var actual: Scalar = 0
+        measure {
+            actual = distSq(lhs, rhs)
+        }
         let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
