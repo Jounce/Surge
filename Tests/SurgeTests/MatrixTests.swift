@@ -24,28 +24,6 @@ import XCTest
 // swiftlint:disable nesting type_body_length
 
 class MatrixTests: XCTestCase {
-    let floatAccuracy: Float = 1e-8
-    let doubleAccuracy: Double = 1e-11
-
-    let matrixFloat: Matrix<Float> = [
-        [Float(1.0), 2, 3, 4],
-        [5, 6, 7, 8],
-        [9, 10, 11, 12],
-    ]
-    let matrixDouble: Matrix<Double> = [
-        [1, 2, 3, 4],
-        [5, 6, 7, 8],
-        [9, 10, 11, 12],
-    ]
-
-    func getMatrix() -> Matrix<Float> {
-        return self.matrixFloat
-    }
-
-    func getMatrix() -> Matrix<Double> {
-        return self.matrixDouble
-    }
-
     func test_init_rows_columns_repeatedValue() {
         typealias Scalar = Double
 
@@ -223,19 +201,39 @@ class MatrixTests: XCTestCase {
     }
 
     func test_subscript_row_get() {
-        XCTAssertEqual(matrixDouble[row: 0], [1, 2, 3, 4])
-        XCTAssertEqual(matrixDouble[row: 1], [5, 6, 7, 8])
+        typealias Scalar = Double
+
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        XCTAssertEqual(matrix[row: 0], [1, 2, 3, 4])
+        XCTAssertEqual(matrix[row: 1], [5, 6, 7, 8])
     }
 
     func test_subscript_column_get() {
-        XCTAssertEqual(matrixDouble[column: 0], [1, 5, 9])
-        XCTAssertEqual(matrixDouble[column: 1], [2, 6, 10])
+        typealias Scalar = Double
+
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        XCTAssertEqual(matrix[column: 0], [1, 5, 9])
+        XCTAssertEqual(matrix[column: 1], [2, 6, 10])
     }
 
     func test_subscript_row_set() {
         typealias Scalar = Double
 
-        var matrix: Matrix<Scalar> = getMatrix()
+        var matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
 
         matrix[row: 0] = [13.0, 14.0, 15.0, 16.0]
 
@@ -251,7 +249,11 @@ class MatrixTests: XCTestCase {
     func test_subscript_column_set() {
         typealias Scalar = Double
 
-        var matrix: Matrix<Scalar> = getMatrix()
+        var matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
 
         matrix[column: 0] = [20, 30, 40]
 
@@ -267,7 +269,11 @@ class MatrixTests: XCTestCase {
     func test_add_matrix_matrix_float() {
         typealias Scalar = Float
 
-        let matrix: Matrix<Scalar> = getMatrix()
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
 
         let actual = matrix + matrix
         let expected: Matrix<Float> = [
@@ -282,7 +288,11 @@ class MatrixTests: XCTestCase {
     func test_add_matrix_matrix_double() {
         typealias Scalar = Double
 
-        let matrix: Matrix<Scalar> = getMatrix()
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
 
         let actual = matrix + matrix
         let expected: Matrix<Scalar> = [
@@ -297,7 +307,11 @@ class MatrixTests: XCTestCase {
     func test_sub_matrix_matrix_float() {
         typealias Scalar = Float
 
-        let matrix: Matrix<Scalar> = getMatrix()
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
 
         let actual = matrix - matrix
         let expected: Matrix<Float> = [
@@ -312,7 +326,11 @@ class MatrixTests: XCTestCase {
     func test_sub_matrix_matrix_double() {
         typealias Scalar = Double
 
-        let matrix: Matrix<Scalar> = getMatrix()
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
 
         let actual = matrix - matrix
         let expected: Matrix<Scalar> = [
@@ -809,10 +827,10 @@ class MatrixTests: XCTestCase {
     }
 
     func test_eigen_decomposition_trivial() throws {
-        try eigen_decomposition_trivial_generic(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
+        try eigen_decomposition_trivial_generic(defaultAccuracy: 1e-11) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
             try eigenDecompose(m)
         }
-        try eigen_decomposition_trivial_generic(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
+        try eigen_decomposition_trivial_generic(defaultAccuracy: 1e-8) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
             try eigenDecompose(m)
         }
     }
@@ -836,10 +854,10 @@ class MatrixTests: XCTestCase {
     }
 
     func test_eigen_decomposition_complex_results_numpy_example() throws {
-        try eigen_decomposition_complex_results_numpy_example_generic(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
+        try eigen_decomposition_complex_results_numpy_example_generic(defaultAccuracy: 1e-11) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
             try eigenDecompose(m)
         }
-        try eigen_decomposition_complex_results_numpy_example_generic(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
+        try eigen_decomposition_complex_results_numpy_example_generic(defaultAccuracy: 1e-8) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
             try eigenDecompose(m)
         }
     }
@@ -885,10 +903,10 @@ class MatrixTests: XCTestCase {
     }
 
     func test_eigen_decomposition_complex_results_dgeev_example() throws {
-        try eigen_decomposition_complex_results_dgeev_example_generic(defaultAccuracy: doubleAccuracy) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
+        try eigen_decomposition_complex_results_dgeev_example_generic(defaultAccuracy: 1e-11) { (m: Matrix<Double>) throws -> MatrixEigenDecompositionResult<Double> in
             try eigenDecompose(m)
         }
-        try eigen_decomposition_complex_results_dgeev_example_generic(defaultAccuracy: floatAccuracy) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
+        try eigen_decomposition_complex_results_dgeev_example_generic(defaultAccuracy: 1e-8) { (m: Matrix<Float>) throws -> MatrixEigenDecompositionResult<Float> in
             try eigenDecompose(m)
         }
     }
