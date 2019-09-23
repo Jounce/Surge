@@ -99,7 +99,7 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
 
-    func test_grid() {
+    func test_init_arrayLiteral() {
         typealias Scalar = Double
 
         let contents: [[Scalar]] = [
