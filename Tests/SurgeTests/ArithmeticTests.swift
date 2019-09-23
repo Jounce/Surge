@@ -63,7 +63,45 @@ class ArithmeticTests: XCTestCase {
 
     // MARK: - Addition: In Place
 
-    // FIXME: missing tests
+    func test_add_in_place_array_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = lhs
+
+            startMeasuring()
+            actual .+= rhs
+            stopMeasuring()
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_add_in_place_array_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = lhs
+
+            startMeasuring()
+            actual .+= rhs
+            stopMeasuring()
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
 
     // MARK: - Subtraction
 
@@ -101,7 +139,45 @@ class ArithmeticTests: XCTestCase {
 
     // MARK: - Subtraction: In Place
 
-    // FIXME: missing tests
+    func test_sub_in_place_array_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = lhs
+
+            startMeasuring()
+            actual .-= rhs
+            stopMeasuring()
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_sub_in_place_array_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = lhs
+
+            startMeasuring()
+            actual .-= rhs
+            stopMeasuring()
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
 
     // MARK: - Multiplication
 
@@ -139,7 +215,45 @@ class ArithmeticTests: XCTestCase {
 
     // MARK: - Multiplication: In Place
 
-    // FIXME: missing tests
+    func test_mul_in_place_array_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = lhs
+
+            startMeasuring()
+            actual .*= rhs
+            stopMeasuring()
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_mul_in_place_array_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = lhs
+
+            startMeasuring()
+            actual .*= rhs
+            stopMeasuring()
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
 
     // MARK: - Division
 
@@ -177,7 +291,45 @@ class ArithmeticTests: XCTestCase {
 
     // MARK: - Division: In Place
 
-    // FIXME: missing tests
+    func test_div_in_place_array_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = lhs
+
+            startMeasuring()
+            actual ./= rhs
+            stopMeasuring()
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_div_in_place_array_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = lhs
+
+            startMeasuring()
+            actual ./= rhs
+            stopMeasuring()
+        }
+
+        let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
 
     // MARK: - Modulo
 
