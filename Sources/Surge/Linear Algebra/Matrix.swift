@@ -267,23 +267,19 @@ public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
 // MARK: - Addition
 
 public func add(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
-
     var result = lhs
+
     result += rhs
 
     return result
 }
 
 public func add(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+    var result = lhs
 
-    var results = rhs
-    results.grid.withUnsafeMutableBufferPointer { pointer in
-        cblas_daxpy(Int32(lhs.grid.count), 1.0, lhs.grid, 1, pointer.baseAddress!, 1)
-    }
+    result += rhs
 
-    return results
+    return result
 }
 
 public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
@@ -297,31 +293,11 @@ public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 // MARK: - Addition: In Place
 
 func addInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>) {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
-
-    let gridSize = Int32(lhs.grid.count)
-    let alpha: Float = 1.0
-    let stride: Int32 = 1
-
-    lhs.grid.withUnsafeMutableBufferPointer { lhsPointer in
-        rhs.grid.withUnsafeBufferPointer { rhsPointer in
-            cblas_saxpy(gridSize, alpha, rhsPointer.baseAddress!, stride, lhsPointer.baseAddress!, stride)
-        }
-    }
+    mulAddInPlace(&lhs, rhs, 1.0)
 }
 
 func addInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>) {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
-
-    let gridSize = Int32(lhs.grid.count)
-    let alpha: Double = 1.0
-    let stride: Int32 = 1
-
-    lhs.grid.withUnsafeMutableBufferPointer { lhsPointer in
-        rhs.grid.withUnsafeBufferPointer { rhsPointer in
-            cblas_daxpy(gridSize, alpha, rhsPointer.baseAddress!, stride, lhsPointer.baseAddress!, stride)
-        }
-    }
+    mulAddInPlace(&lhs, rhs, 1.0)
 }
 
 public func += (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
@@ -335,25 +311,17 @@ public func += (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
 // MARK: - Subtraction
 
 public func sub(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
+    var result = lhs
+    result -= rhs
 
-    var results = rhs
-    results.grid.withUnsafeMutableBufferPointer { pointer in
-        catlas_saxpby(Int32(lhs.grid.count), 1.0, lhs.grid, 1, -1, pointer.baseAddress!, 1)
-    }
-
-    return results
+    return result
 }
 
 public func sub(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
-    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with subtraction")
+    var result = lhs
+    result -= rhs
 
-    var results = rhs
-    results.grid.withUnsafeMutableBufferPointer { pointer in
-        catlas_daxpby(Int32(lhs.grid.count), 1.0, lhs.grid, 1, -1, pointer.baseAddress!, 1)
-    }
-
-    return results
+    return result
 }
 
 public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
@@ -362,6 +330,70 @@ public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 
 public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return sub(lhs, rhs)
+}
+
+// MARK: - Subtraction: In Place
+
+func subInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>) {
+    mulAddInPlace(&lhs, rhs, -1.0)
+}
+
+func subInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>) {
+    mulAddInPlace(&lhs, rhs, -1.0)
+}
+
+public func -= (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
+    return subInPlace(&lhs, rhs)
+}
+
+public func -= (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
+    return subInPlace(&lhs, rhs)
+}
+
+// MARK: - Multiply Addition
+
+func mulAdd(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Float) -> Matrix<Float> {
+    var result = lhs
+
+    mulAddInPlace(&result, rhs, alpha)
+
+    return result
+}
+
+func mulAdd(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: Double) -> Matrix<Double> {
+    var result = lhs
+
+    mulAddInPlace(&result, rhs, alpha)
+
+    return result
+}
+
+// MARK: - Multiply Addition: In Place
+
+func mulAddInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Float) {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+
+    let gridSize = Int32(lhs.grid.count)
+    let stride: Int32 = 1
+
+    lhs.grid.withUnsafeMutableBufferPointer { lhsPointer in
+        rhs.grid.withUnsafeBufferPointer { rhsPointer in
+            cblas_saxpy(gridSize, alpha, rhsPointer.baseAddress!, stride, lhsPointer.baseAddress!, stride)
+        }
+    }
+}
+
+func mulAddInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: Double) {
+    precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
+
+    let gridSize = Int32(lhs.grid.count)
+    let stride: Int32 = 1
+
+    lhs.grid.withUnsafeMutableBufferPointer { lhsPointer in
+        rhs.grid.withUnsafeBufferPointer { rhsPointer in
+            cblas_daxpy(gridSize, alpha, rhsPointer.baseAddress!, stride, lhsPointer.baseAddress!, stride)
+        }
+    }
 }
 
 // MARK: - Multiplication
