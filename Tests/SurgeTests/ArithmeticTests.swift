@@ -247,6 +247,70 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Exponential
+
+    func test_exp_array_float() {
+        typealias Scalar = Float
+
+        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.exp(values)
+        }
+
+        let expected = values.map { exp($0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_exp_array_double() {
+        typealias Scalar = Double
+
+        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.exp(values)
+        }
+
+        let expected = values.map { exp($0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    // MARK: - Square Exponentiation
+
+    func test_exp2_array_float() {
+        typealias Scalar = Float
+
+        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.exp2(values)
+        }
+
+        let expected = values.map { exp2($0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_exp2_array_double() {
+        typealias Scalar = Double
+
+        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.exp2(values)
+        }
+
+        let expected = values.map { exp2($0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
     // MARK: - Power
 
     func test_pow_array_array_float() {
