@@ -702,6 +702,30 @@ public func sqrt<MI: UnsafeMemoryAccessible, MO: UnsafeMutableMemoryAccessible>(
     }
 }
 
+// MARK: - Square Root: In Place
+
+/// Elemen-wise square root.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+func sqrtInPlace<C: UnsafeMutableMemoryAccessible>(_ lhs: inout C) where C.Element == Float {
+    var elementCount: Int32 = numericCast(lhs.count)
+    lhs.withUnsafeMutableMemory { lm in
+        precondition(lm.stride == 1, "\(#function) doesn't support step values other than 1")
+        vvsqrtf(lm.pointer, lm.pointer, &elementCount)
+    }
+}
+
+/// Elemen-wise square root.
+///
+/// - Warning: does not support memory stride (assumes stride is 1).
+func sqrtInPlace<C: UnsafeMutableMemoryAccessible>(_ lhs: inout C) where C.Element == Double {
+    var elementCount: Int32 = numericCast(lhs.count)
+    lhs.withUnsafeMutableMemory { lm in
+        precondition(lm.stride == 1, "\(#function) doesn't support step values other than 1")
+        vvsqrt(lm.pointer, lm.pointer, &elementCount)
+    }
+}
+
 // MARK: - Dot Product
 
 public func dot<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Float where L.Element == Float, R.Element == Float {
