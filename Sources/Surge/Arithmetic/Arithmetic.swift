@@ -620,14 +620,56 @@ public func pow<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: X, 
     }
 }
 
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 public func pow<X: UnsafeMemoryAccessible>(_ lhs: X, _ rhs: Float) -> [Float] where X.Element == Float {
     let rhs = [Float](repeating: rhs, count: lhs.count)
     return pow(lhs, rhs)
 }
 
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 public func pow<X: UnsafeMemoryAccessible>(_ lhs: X, _ rhs: Double) -> [Double] where X.Element == Double {
     let rhs = [Double](repeating: rhs, count: lhs.count)
     return pow(lhs, rhs)
+}
+
+// MARK: - Power: In Place
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func powInPlace<X: UnsafeMutableMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: inout X, _ rhs: Y) where X.Element == Float, Y.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    var elementCount: Int32 = numericCast(lhs.count)
+    withUnsafeMutableMemory(&lhs) { lm in
+        precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+        withUnsafeMemory(rhs) { rm in
+            precondition(rm.stride == 1, "\(#function) does not support strided memory access")
+            vvpowf(lm.pointer, rm.pointer, lm.pointer, &elementCount)
+        }
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func powInPlace<X: UnsafeMutableMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: inout X, _ rhs: Y) where X.Element == Double, Y.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    var elementCount: Int32 = numericCast(lhs.count)
+    withUnsafeMutableMemory(&lhs) { lm in
+        precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+        withUnsafeMemory(rhs) { rm in
+            precondition(rm.stride == 1, "\(#function) does not support strided memory access")
+            vvpow(lm.pointer, rm.pointer, lm.pointer, &elementCount)
+        }
+    }
+}
+
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
+func powInPlace<X: UnsafeMutableMemoryAccessible>(_ lhs: inout X, _ rhs: Float) where X.Element == Float {
+    let rhs = Array(repeating: rhs, count: lhs.count)
+    return powInPlace(&lhs, rhs)
+}
+
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
+func powInPlace<X: UnsafeMutableMemoryAccessible>(_ lhs: inout X, _ rhs: Double) where X.Element == Double {
+    let rhs = Array(repeating: rhs, count: lhs.count)
+    return powInPlace(&lhs, rhs)
 }
 
 // MARK: - Square Root
