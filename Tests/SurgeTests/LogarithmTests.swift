@@ -24,7 +24,7 @@ import XCTest
 
 // swiftlint:disable nesting
 
-class LofarithmTests: XCTestCase {
+class LogarithmTests: XCTestCase {
     let n = 100_000
 
     // MARK: - Base-e Logarithm
