@@ -307,11 +307,15 @@ public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lh
 // MARK: - Division
 
 public func div<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
-    return div(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    divInPlace(&results, rhs)
+    return results
 }
 
 public func div<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
-    return div(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    divInPlace(&results, rhs)
+    return results
 }
 
 public func / <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
@@ -349,25 +353,15 @@ public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 // MARK: - Element-wise Division
 
 public func div<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
-    precondition(lhs.count == rhs.count, "Collections must have the same size")
-    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
-        var results = [Float](repeating: 0.0, count: numericCast(lhsMemory.count))
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vDSP_vdiv(rhsMemory.pointer, numericCast(rhsMemory.stride), lhsMemory.pointer, numericCast(lhsMemory.stride), bufferPointer.baseAddress!, 1, numericCast(lhsMemory.count))
-        }
-        return results
-    }
+    var results = Array(lhs)
+    divInPlace(&results, rhs)
+    return results
 }
 
 public func div<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
-    precondition(lhs.count == rhs.count, "Collections must have the same size")
-    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
-        var results = [Double](repeating: 0.0, count: numericCast(lhsMemory.count))
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vDSP_vdivD(rhsMemory.pointer, numericCast(rhsMemory.stride), lhsMemory.pointer, numericCast(lhsMemory.stride), bufferPointer.baseAddress!, 1, numericCast(lhsMemory.count))
-        }
-        return results
-    }
+    var results = Array(lhs)
+    divInPlace(&results, rhs)
+    return results
 }
 
 public func ./ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
@@ -381,6 +375,7 @@ public func ./ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 // MARK: - Element-wise Division: In Place
 
 func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
             vDSP_vdiv(rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
@@ -389,6 +384,7 @@ func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ l
 }
 
 func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
             vDSP_vdivD(rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
