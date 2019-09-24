@@ -548,6 +548,26 @@ public func exp<X: UnsafeMemoryAccessible>(_ lhs: X) -> [Double] where X.Element
     }
 }
 
+// MARK: - Exponential: In Place
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func expInPlace<X: UnsafeMutableMemoryAccessible>(_ lhs: inout X) where X.Element == Float {
+    var elementCount: Int32 = numericCast(lhs.count)
+    withUnsafeMutableMemory(&lhs) { lm in
+        precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+        vvexpf(lm.pointer, lm.pointer, &elementCount)
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func expInPlace<X: UnsafeMutableMemoryAccessible>(_ lhs: inout X) where X.Element == Double {
+    var elementCount: Int32 = numericCast(lhs.count)
+    withUnsafeMutableMemory(&lhs) { lm in
+        precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+        vvexp(lm.pointer, lm.pointer, &elementCount)
+    }
+}
+
 // MARK: - Square Exponentiation
 
 /// - Warning: does not support memory stride (assumes stride is 1).
