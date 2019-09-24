@@ -518,34 +518,16 @@ func remainderInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessibl
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func exp<X: UnsafeMemoryAccessible>(_ lhs: X) -> [Float] where X.Element == Float {
-    return lhs.withUnsafeMemory { lhsMemory in
-        precondition(lhsMemory.stride == 1, "\(#function) does not support strided memory access")
-
-        var lhsCount = Int32(lhs.count)
-
-        var results = [Float](repeating: 0.0, count: lhs.count)
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vvexpf(bufferPointer.baseAddress!, lhsMemory.pointer, &lhsCount)
-        }
-
-        return results
-    }
+    var results = Array(lhs)
+    expInPlace(&results)
+    return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func exp<X: UnsafeMemoryAccessible>(_ lhs: X) -> [Double] where X.Element == Double {
-    return lhs.withUnsafeMemory { lhsMemory in
-        precondition(lhsMemory.stride == 1, "\(#function) does not support strided memory access")
-
-        var lhsCount = Int32(lhs.count)
-
-        var results = [Double](repeating: 0.0, count: lhs.count)
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vvexp(bufferPointer.baseAddress!, lhsMemory.pointer, &lhsCount)
-        }
-
-        return results
-    }
+    var results = Array(lhs)
+    expInPlace(&results)
+    return results
 }
 
 // MARK: - Exponential: In Place
