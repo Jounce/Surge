@@ -255,7 +255,7 @@
 				615394541F762B58002A4AD2 /* Surge.h */,
 				CAEC79CB2319336500516E10 /* Auxiliary Functions */,
 				CAEC79C92319333E00516E10 /* Digital Signal Processing */,
-				CAEC79CA2319335100516E10 /* General Arithmetic */,
+				CAEC79CA2319335100516E10 /* Arithmetic */,
 				CAEC79CD2319338F00516E10 /* Linear Algebra */,
 				CAEC79D02319343100516E10 /* Logarithm */,
 				CAEC79CC2319337700516E10 /* Statistics */,
@@ -305,12 +305,12 @@
 			path = "Digital Signal Processing";
 			sourceTree = "<group>";
 		};
-		CAEC79CA2319335100516E10 /* General Arithmetic */ = {
+		CAEC79CA2319335100516E10 /* Arithmetic */ = {
 			isa = PBXGroup;
 			children = (
 				6153944B1F762B58002A4AD2 /* Arithmetic.swift */,
 			);
-			path = "General Arithmetic";
+			path = Arithmetic;
 			sourceTree = "<group>";
 		};
 		CAEC79CB2319336500516E10 /* Auxiliary Functions */ = {
