@@ -71,11 +71,11 @@ public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 // MARK: - Element-wise Addition
 
 public func add<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
-    return muladd(lhs, rhs, 1.0)
+    return elmuladd(lhs, rhs, 1.0)
 }
 
 public func add<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
-    return muladd(lhs, rhs, 1.0)
+    return elmuladd(lhs, rhs, 1.0)
 }
 
 public func .+ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
@@ -88,20 +88,20 @@ public func .+ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 
 // MARK: - Element-wise Addition: In Place
 
-func addInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
-    muladdInPlace(&lhs, rhs, 1.0)
+func eladdInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    elmuladdInPlace(&lhs, rhs, 1.0)
 }
 
-func addInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
-    muladdInPlace(&lhs, rhs, 1.0)
+func eladdInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    elmuladdInPlace(&lhs, rhs, 1.0)
 }
 
 public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
-    return addInPlace(&lhs, rhs)
+    return eladdInPlace(&lhs, rhs)
 }
 
 public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
-    return addInPlace(&lhs, rhs)
+    return eladdInPlace(&lhs, rhs)
 }
 
 // MARK: - Subtraction
@@ -147,11 +147,11 @@ public func -=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 // MARK: - Element-wise Subtraction
 
 public func sub<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
-    return muladd(lhs, rhs, -1.0)
+    return elmuladd(lhs, rhs, -1.0)
 }
 
 public func sub<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
-    return muladd(lhs, rhs, -1.0)
+    return elmuladd(lhs, rhs, -1.0)
 }
 
 public func .- <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
@@ -164,39 +164,39 @@ public func .- <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 
 // MARK: - Element-wise Subtraction: In Place
 
-func subInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
-    muladdInPlace(&lhs, rhs, -1.0)
+func elsubInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    elmuladdInPlace(&lhs, rhs, -1.0)
 }
 
-func subInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
-    muladdInPlace(&lhs, rhs, -1.0)
+func elsubInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    elmuladdInPlace(&lhs, rhs, -1.0)
 }
 
 public func .-= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
-    return subInPlace(&lhs, rhs)
+    return elsubInPlace(&lhs, rhs)
 }
 
 public func .-= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
-    return subInPlace(&lhs, rhs)
+    return elsubInPlace(&lhs, rhs)
 }
 
-// MARK: - Multiply Addition
+// MARK: - Element-wise Multiply Addition
 
-func muladd<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R, _ alpha: Float) -> [Float] where L.Element == Float, R.Element == Float {
+func elmuladd<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R, _ alpha: Float) -> [Float] where L.Element == Float, R.Element == Float {
     var results = Array(lhs)
-    muladdInPlace(&results, rhs, alpha)
+    elmuladdInPlace(&results, rhs, alpha)
     return results
 }
 
-func muladd<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R, _ alpha: Double) -> [Double] where L.Element == Double, R.Element == Double {
+func elmuladd<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R, _ alpha: Double) -> [Double] where L.Element == Double, R.Element == Double {
     var results = Array(lhs)
-    muladdInPlace(&results, rhs, alpha)
+    elmuladdInPlace(&results, rhs, alpha)
     return results
 }
 
-// MARK: - Multiply Addition: In Place
+// MARK: - Element-wise Multiply Addition: In Place
 
-func muladdInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R, _ alpha: Float) where L.Element == Float, R.Element == Float {
+func elmuladdInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R, _ alpha: Float) where L.Element == Float, R.Element == Float {
     precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
@@ -205,7 +205,7 @@ func muladdInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(
     }
 }
 
-func muladdInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R, _ alpha: Double) where L.Element == Double, R.Element == Double {
+func elmuladdInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R, _ alpha: Double) where L.Element == Double, R.Element == Double {
     precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
@@ -262,29 +262,29 @@ public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 
 // MARK: - Element-wise Multiplication
 
-public func mul<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
+public func elmul<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
     var results = Array(lhs)
-    mulInPlace(&results, rhs)
+    elmulInPlace(&results, rhs)
     return results
 }
 
-public func mul<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
+public func elmul<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
     var results = Array(lhs)
-    mulInPlace(&results, rhs)
+    elmulInPlace(&results, rhs)
     return results
 }
 
 public func .* <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
-    return mul(lhs, rhs)
+    return elmul(lhs, rhs)
 }
 
 public func .* <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
-    return mul(lhs, rhs)
+    return elmul(lhs, rhs)
 }
 
 // MARK: - Element-wise Multiplication: In Place
 
-func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+func elmulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
     precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
@@ -293,7 +293,7 @@ func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ l
     }
 }
 
-func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+func elmulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
     precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
@@ -303,11 +303,11 @@ func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ l
 }
 
 public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
-    return mulInPlace(&lhs, rhs)
+    return elmulInPlace(&lhs, rhs)
 }
 
 public func .*= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
-    return mulInPlace(&lhs, rhs)
+    return elmulInPlace(&lhs, rhs)
 }
 
 // MARK: - Division
@@ -360,13 +360,13 @@ public func /=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 
 public func div<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
     var results = Array(lhs)
-    divInPlace(&results, rhs)
+    eldivInPlace(&results, rhs)
     return results
 }
 
 public func div<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
     var results = Array(lhs)
-    divInPlace(&results, rhs)
+    eldivInPlace(&results, rhs)
     return results
 }
 
@@ -380,7 +380,7 @@ public func ./ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 
 // MARK: - Element-wise Division: In Place
 
-func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+func eldivInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
     precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
@@ -389,7 +389,7 @@ func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ l
     }
 }
 
-func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+func eldivInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
     precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
@@ -399,11 +399,11 @@ func divInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ l
 }
 
 public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Float, R.Element == Float {
-    return divInPlace(&lhs, rhs)
+    return eldivInPlace(&lhs, rhs)
 }
 
 public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: inout L, rhs: R) where L.Element == Double, R.Element == Double {
-    return divInPlace(&lhs, rhs)
+    return eldivInPlace(&lhs, rhs)
 }
 
 // MARK: - Modulo

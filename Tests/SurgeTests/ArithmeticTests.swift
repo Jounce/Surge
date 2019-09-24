@@ -35,7 +35,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
-        Surge.addInPlace(&actual, rhs)
+        Surge.eladdInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
 
@@ -49,7 +49,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
-        Surge.addInPlace(&actual, rhs)
+        Surge.eladdInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
 
@@ -65,7 +65,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
-        Surge.subInPlace(&actual, rhs)
+        Surge.elsubInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
 
@@ -79,7 +79,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
-        Surge.subInPlace(&actual, rhs)
+        Surge.elsubInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
 
@@ -95,7 +95,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
-        Surge.mulInPlace(&actual, rhs)
+        Surge.elmulInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
 
@@ -109,7 +109,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
-        Surge.mulInPlace(&actual, rhs)
+        Surge.elmulInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
 
@@ -125,7 +125,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
-        Surge.divInPlace(&actual, rhs)
+        Surge.eldivInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
 
@@ -139,7 +139,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
-        Surge.divInPlace(&actual, rhs)
+        Surge.eldivInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
 
