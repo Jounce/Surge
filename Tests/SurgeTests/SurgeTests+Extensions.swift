@@ -35,3 +35,44 @@ extension XCTestCase {
         }
     }
 }
+
+extension ExpressibleByFloatLiteral {
+    static func constant() -> Self {
+        return 1.0
+    }
+}
+
+extension Array {
+    static var defaultCount: Int {
+        return 1_000
+    }
+
+    static func monotonic<Scalar>() -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+        return monotonic(count: Array.defaultCount)
+    }
+
+    static func monotonic<Scalar>(count: Int) -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+        return (1...count).map { Scalar($0) }
+    }
+
+    static func monotonicNormalized<Scalar>() -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+        return monotonicNormalized(count: Array.defaultCount)
+    }
+
+    static func monotonicNormalized<Scalar>(count: Int) -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+        let scalarCount = Scalar(count)
+        return (1...count).map { Scalar($0) / scalarCount }
+    }
+
+    static func constant<Scalar>() -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+        return constant(1.0)
+    }
+
+    static func constant<Scalar>(_ scalar: Scalar) -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+        return constant(scalar, count: Array.defaultCount)
+    }
+
+    static func constant<Scalar>(_ scalar: Scalar, count: Int) -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+        return [Scalar](repeating: scalar, count: count)
+    }
+}
