@@ -211,11 +211,15 @@ func muladdInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(
 // MARK: - Multiplication
 
 public func mul<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
-    return mul(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    mulInPlace(&results, rhs)
+    return results
 }
 
 public func mul<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
-    return mul(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    mulInPlace(&results, rhs)
+    return results
 }
 
 public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
@@ -229,15 +233,15 @@ public func * <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
 // MARK: - Multiplication: In Place
 
 func mulInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Float) where L.Element == Float {
+    var scalar = rhs
     lhs.withUnsafeMutableMemory { lm in
-        var scalar = rhs
         vDSP_vsmul(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
 
 func mulInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Double) where L.Element == Double {
+    var scalar = rhs
     lhs.withUnsafeMutableMemory { lm in
-        var scalar = rhs
         vDSP_vsmulD(lm.pointer, numericCast(lm.stride), &scalar, lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
 }
@@ -253,25 +257,15 @@ public func *=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 // MARK: - Element-wise Multiplication
 
 public func mul<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
-    precondition(lhs.count == rhs.count, "Collections must have the same size")
-    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
-        var results = [Float](repeating: 0.0, count: numericCast(lhsMemory.count))
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vDSP_vmul(lhsMemory.pointer, numericCast(lhsMemory.stride), rhsMemory.pointer, numericCast(rhsMemory.stride), bufferPointer.baseAddress!, 1, numericCast(lhsMemory.count))
-        }
-        return results
-    }
+    var results = Array(lhs)
+    mulInPlace(&results, rhs)
+    return results
 }
 
 public func mul<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
-    precondition(lhs.count == rhs.count, "Collections must have the same size")
-    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
-        var results = [Double](repeating: 0.0, count: numericCast(lhsMemory.count))
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vDSP_vmulD(lhsMemory.pointer, numericCast(lhsMemory.stride), rhsMemory.pointer, numericCast(rhsMemory.stride), bufferPointer.baseAddress!, 1, numericCast(lhsMemory.count))
-        }
-        return results
-    }
+    var results = Array(lhs)
+    mulInPlace(&results, rhs)
+    return results
 }
 
 public func .* <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
@@ -285,6 +279,7 @@ public func .* <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 // MARK: - Element-wise Multiplication: In Place
 
 func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
             vDSP_vmul(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
@@ -293,6 +288,7 @@ func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ l
 }
 
 func mulInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
     lhs.withUnsafeMutableMemory { lm in
         rhs.withUnsafeMemory { rm in
             vDSP_vmulD(lm.pointer, numericCast(lm.stride), rm.pointer, numericCast(rm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
