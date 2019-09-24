@@ -554,34 +554,16 @@ func expInPlace<X: UnsafeMutableMemoryAccessible>(_ lhs: inout X) where X.Elemen
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func exp2<X: UnsafeMemoryAccessible>(_ lhs: X) -> [Float] where X.Element == Float {
-    return lhs.withUnsafeMemory { lhsMemory in
-        precondition(lhsMemory.stride == 1, "\(#function) does not support strided memory access")
-
-        var lhsCount = Int32(lhs.count)
-
-        var results = [Float](repeating: 0.0, count: lhs.count)
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vvexp2f(bufferPointer.baseAddress!, lhsMemory.pointer, &lhsCount)
-        }
-
-        return results
-    }
+    var results = Array(lhs)
+    exp2InPlace(&results)
+    return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func exp2<X: UnsafeMemoryAccessible>(_ lhs: X) -> [Double] where X.Element == Double {
-    return lhs.withUnsafeMemory { lhsMemory in
-        precondition(lhsMemory.stride == 1, "\(#function) does not support strided memory access")
-
-        var lhsCount = Int32(lhs.count)
-
-        var results = [Double](repeating: 0.0, count: lhs.count)
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vvexp2(bufferPointer.baseAddress!, lhsMemory.pointer, &lhsCount)
-        }
-
-        return results
-    }
+    var results = Array(lhs)
+    exp2InPlace(&results)
+    return results
 }
 
 // MARK: - Square Exponentiation: In Place
