@@ -71,11 +71,11 @@ public func +=<L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) wher
 // MARK: - Element-wise Addition
 
 public func add<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
-    muladd(lhs, rhs, 1.0)
+    return muladd(lhs, rhs, 1.0)
 }
 
 public func add<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
-    muladd(lhs, rhs, 1.0)
+    return muladd(lhs, rhs, 1.0)
 }
 
 public func .+ <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
