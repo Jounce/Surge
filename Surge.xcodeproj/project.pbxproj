@@ -88,6 +88,9 @@
 		CAAF4FFC2339651600CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
 		CAAF4FFD2339651700CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
 		CAAF4FFE2339651800CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
+		CAAF5000233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
+		CAAF5001233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
+		CAAF5002233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
 		CAEC79BF2319274F00516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
 		CAEC79C02319275000516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
 		CAEC79C12319275000516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
@@ -172,6 +175,7 @@
 		61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsafeMutableMemory.swift; sourceTree = "<group>"; };
 		61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArraySlice+Extensions.swift"; sourceTree = "<group>"; };
 		CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalarTests.swift; sourceTree = "<group>"; };
+		CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogarithmTests.swift; sourceTree = "<group>"; };
 		CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorPrecedences.swift; sourceTree = "<group>"; };
 		CAEC79C323192FE300516E10 /* Scalar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scalar.swift; sourceTree = "<group>"; };
 		CAEC79D12319343100516E10 /* Logarithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logarithm.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 				61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */,
 				61A0AD701F70D22600B99FFB /* ExponentialTests.swift */,
 				61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */,
+				CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */,
 				61A0AD721F70D22600B99FFB /* MatrixTests.swift */,
 				61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */,
 				CAFE5DAD22F9ED4900A34887 /* VectorTests.swift */,
@@ -788,6 +793,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				614AD34B1FC0AF77002BFE1C /* XCTestCase+Surge.swift in Sources */,
+				CAAF5001233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				614AD3481FC0AF77002BFE1C /* MatrixTests.swift in Sources */,
 				CAAF4FFD2339651700CC0AA7 /* ScalarTests.swift in Sources */,
 				614AD3441FC0AF77002BFE1C /* AuxiliaryTests.swift in Sources */,
@@ -829,6 +835,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				614AD37C1FC0B0D2002BFE1C /* XCTestCase+Surge.swift in Sources */,
+				CAAF5002233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				614AD3791FC0B0D2002BFE1C /* MatrixTests.swift in Sources */,
 				CAAF4FFE2339651800CC0AA7 /* ScalarTests.swift in Sources */,
 				614AD3751FC0B0D2002BFE1C /* AuxiliaryTests.swift in Sources */,
@@ -870,6 +877,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61A0AD7E1F70D22600B99FFB /* XCTestCase+Surge.swift in Sources */,
+				CAAF5000233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				61A0AD7B1F70D22600B99FFB /* MatrixTests.swift in Sources */,
 				CAAF4FFC2339651600CC0AA7 /* ScalarTests.swift in Sources */,
 				61A0AD771F70D22600B99FFB /* AuxiliaryTests.swift in Sources */,
