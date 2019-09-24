@@ -105,18 +105,21 @@ public func ==<T> (lhs: Vector<T>, rhs: Vector<T>) -> Bool {
     return lhs.scalars == rhs.scalars
 }
 
+@inline(__always)
+func withVector<Scalar>(from vector: Vector<Scalar>, _ closure: (inout Vector<Scalar>) -> ()) -> Vector<Scalar> {
+    var copy = vector
+    closure(&copy)
+    return copy
+}
+
 // MARK: - Addition
 
 public func add(_ lhs: Vector<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
-    var result = lhs
-    addInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { addInPlace(&$0, rhs) }
 }
 
 public func add(_ lhs: Vector<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
-    var result = lhs
-    addInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { addInPlace(&$0, rhs) }
 }
 
 public func + (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
@@ -128,15 +131,11 @@ public func + (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 }
 
 public func add(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    var result = lhs
-    addInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { addInPlace(&$0, rhs) }
 }
 
 public func add(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    var result = lhs
-    addInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { addInPlace(&$0, rhs) }
 }
 
 public func + (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
@@ -188,15 +187,11 @@ public func += (lhs: inout Vector<Double>, rhs: Double) {
 // MARK: - Subtraction
 
 public func sub(_ lhs: Vector<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
-    var result = lhs
-    subInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { subInPlace(&$0, rhs) }
 }
 
 public func sub(_ lhs: Vector<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
-    var result = lhs
-    subInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { subInPlace(&$0, rhs) }
 }
 
 public func - (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
@@ -208,15 +203,11 @@ public func - (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 }
 
 public func sub(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    var result = lhs
-    subInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { subInPlace(&$0, rhs) }
 }
 
 public func sub(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    var result = lhs
-    subInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { subInPlace(&$0, rhs) }
 }
 
 public func - (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
@@ -268,15 +259,11 @@ public func -= (lhs: inout Vector<Double>, rhs: Double) {
 // MARK: - Multiply Addition
 
 public func muladd(_ lhs: Vector<Float>, _ rhs: Vector<Float>, _ alpha: Float) -> Vector<Float> {
-    var result = lhs
-    muladdInPlace(&result, rhs, alpha)
-    return result
+    return withVector(from: lhs) { muladdInPlace(&$0, rhs, alpha) }
 }
 
 public func muladd(_ lhs: Vector<Double>, _ rhs: Vector<Double>, _ alpha: Double) -> Vector<Double> {
-    var result = lhs
-    muladdInPlace(&result, rhs, alpha)
-    return result
+    return withVector(from: lhs) { muladdInPlace(&$0, rhs, alpha) }
 }
 
 // MARK: - Multiply Addition: In Place
@@ -296,15 +283,11 @@ func muladdInPlace(_ lhs: inout Vector<Double>, _ rhs: Vector<Double>, _ alpha: 
 // MARK: - Multiplication
 
 public func mul(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    var result = lhs
-    mulInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { mulInPlace(&$0, rhs) }
 }
 
 public func mul(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    var result = lhs
-    mulInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { mulInPlace(&$0, rhs) }
 }
 
 public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
@@ -388,15 +371,11 @@ public func *= (lhs: inout Vector<Double>, rhs: Double) {
 // MARK: - Division
 
 public func div(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    var result = lhs
-    divInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { divInPlace(&$0, rhs) }
 }
 
 public func div(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    var result = lhs
-    divInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { divInPlace(&$0, rhs) }
 }
 
 public func / (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
@@ -428,19 +407,11 @@ public func /= (lhs: inout Vector<Double>, rhs: Double) {
 // MARK: - Element-wise Multiplication
 
 public func elmul(_ lhs: Vector<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
-    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise multiplication")
-
-    var result = lhs
-    elmulInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { elmulInPlace(&$0, rhs) }
 }
 
 public func elmul(_ lhs: Vector<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
-    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise multiplication")
-
-    var result = lhs
-    elmulInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { elmulInPlace(&$0, rhs) }
 }
 
 public func .* (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
@@ -476,19 +447,11 @@ public func .*= (lhs: inout Vector<Double>, rhs: Vector<Double>) {
 // MARK: - Element-wise Division
 
 public func eldiv(_ lhs: Vector<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
-    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise division")
-
-    var result = lhs
-    eldivInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { eldivInPlace(&$0, rhs) }
 }
 
 public func eldiv(_ lhs: Vector<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
-    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise division")
-
-    var result = lhs
-    eldivInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { eldivInPlace(&$0, rhs) }
 }
 
 public func ./ (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
@@ -547,15 +510,11 @@ public func • (lhs: Vector<Float>, rhs: Vector<Float>) -> Float {
 // MARK: - Power
 
 public func pow(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    var result = lhs
-    powInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { powInPlace(&$0, rhs) }
 }
 
 public func pow(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    var result = lhs
-    powInPlace(&result, rhs)
-    return result
+    return withVector(from: lhs) { powInPlace(&$0, rhs) }
 }
 
 // MARK: - Power: In Place
@@ -571,15 +530,11 @@ func powInPlace(_ lhs: inout Vector<Float>, _ rhs: Float) {
 // MARK: - Exponential
 
 public func exp(_ lhs: Vector<Double>) -> Vector<Double> {
-    var result = lhs
-    expInPlace(&result)
-    return result
+    return withVector(from: lhs) { expInPlace(&$0) }
 }
 
 public func exp(_ lhs: Vector<Float>) -> Vector<Float> {
-    var result = lhs
-    expInPlace(&result)
-    return result
+    return withVector(from: lhs) { expInPlace(&$0) }
 }
 
 // MARK: - Exponential: In Place

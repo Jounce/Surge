@@ -264,22 +264,21 @@ public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
     return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.grid == rhs.grid
 }
 
+@inline(__always)
+func withMatrix<Scalar>(from matrix: Matrix<Scalar>, _ closure: (inout Matrix<Scalar>) -> ()) -> Matrix<Scalar> {
+    var copy = matrix
+    closure(&copy)
+    return copy
+}
+
 // MARK: - Addition
 
 public func add(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
-    var result = lhs
-
-    result += rhs
-
-    return result
+    return withMatrix(from: lhs) { addInPlace(&$0, rhs) }
 }
 
 public func add(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
-    var result = lhs
-
-    result += rhs
-
-    return result
+    return withMatrix(from: lhs) { addInPlace(&$0, rhs) }
 }
 
 public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
@@ -311,17 +310,11 @@ public func += (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
 // MARK: - Subtraction
 
 public func sub(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
-    var result = lhs
-    result -= rhs
-
-    return result
+    return withMatrix(from: lhs) { subInPlace(&$0, rhs) }
 }
 
 public func sub(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
-    var result = lhs
-    result -= rhs
-
-    return result
+    return withMatrix(from: lhs) { subInPlace(&$0, rhs) }
 }
 
 public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
@@ -353,19 +346,11 @@ public func -= (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
 // MARK: - Multiply Addition
 
 func muladd(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Float) -> Matrix<Float> {
-    var result = lhs
-
-    muladdInPlace(&result, rhs, alpha)
-
-    return result
+    return withMatrix(from: lhs) { muladdInPlace(&$0, rhs, alpha) }
 }
 
 func muladd(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: Double) -> Matrix<Double> {
-    var result = lhs
-
-    muladdInPlace(&result, rhs, alpha)
-
-    return result
+    return withMatrix(from: lhs) { muladdInPlace(&$0, rhs, alpha) }
 }
 
 // MARK: - Multiply Addition: In Place
