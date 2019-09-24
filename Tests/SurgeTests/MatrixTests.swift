@@ -446,7 +446,7 @@ class MatrixTests: XCTestCase {
 
     // MARK: - Multiply Addition
 
-    func test_mul_add_matrix_matrix_scalar_float() {
+    func test_muladd_matrix_matrix_scalar_float() {
         typealias Scalar = Float
 
         let matrix: Matrix<Scalar> = [
@@ -465,7 +465,7 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
 
-    func test_mul_add_matrix_matrix_scalar_double() {
+    func test_muladd_matrix_matrix_scalar_double() {
         typealias Scalar = Double
 
         let matrix: Matrix<Scalar> = [
@@ -474,7 +474,7 @@ class MatrixTests: XCTestCase {
             [9, 10, 11, 12],
         ]
 
-        let actual = mulAdd(matrix, matrix, 2.0)
+        let actual = muladd(matrix, matrix, 2.0)
         let expected: Matrix<Scalar> = [
             [3, 6, 9, 12],
             [15, 18, 21, 24],
@@ -486,7 +486,7 @@ class MatrixTests: XCTestCase {
 
     // MARK: - Multiply Addition: In Place
 
-    func test_mul_add_in_place_matrix_matrix_scalar_float() {
+    func test_muladd_in_place_matrix_matrix_scalar_float() {
         typealias Scalar = Float
 
         let matrix: Matrix<Scalar> = [
@@ -495,7 +495,7 @@ class MatrixTests: XCTestCase {
             [9, 10, 11, 12],
         ]
 
-        let actual = mulAdd(matrix, matrix, 2.0)
+        let actual = muladd(matrix, matrix, 2.0)
         let expected: Matrix<Scalar> = [
             [3, 6, 9, 12],
             [15, 18, 21, 24],
@@ -505,7 +505,7 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
 
-    func test_mul_add_in_place_matrix_matrix_scalar_double() {
+    func test_muladd_in_place_matrix_matrix_scalar_double() {
         typealias Scalar = Double
 
         let matrix: Matrix<Scalar> = [
