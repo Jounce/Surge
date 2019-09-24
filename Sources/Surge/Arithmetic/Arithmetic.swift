@@ -410,18 +410,26 @@ public func ./= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lh
 
 // MARK: - Modulo
 
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 public func mod<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
-    return mod(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    modInPlace(&results, rhs)
+    return results
 }
 
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 public func mod<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
-    return mod(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    modInPlace(&results, rhs)
+    return results
 }
 
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
     return mod(lhs, rhs)
 }
 
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where L.Element == Double {
     return mod(lhs, rhs)
 }
