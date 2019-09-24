@@ -852,20 +852,14 @@ public func dist<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L,
 
 public func distSq<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Float where L.Element == Float, R.Element == Float {
     precondition(lhs.count == rhs.count, "Vectors must have equal count")
-    let sub = lhs .- rhs
-    var squared = [Float](repeating: 0.0, count: numericCast(lhs.count))
-    squared.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vsq(sub, 1, bufferPointer.baseAddress!, 1, numericCast(lhs.count))
-    }
-    return sum(squared)
+    var partialDistancesSquared = lhs .- rhs
+    sqInPlace(&partialDistancesSquared)
+    return sum(partialDistancesSquared)
 }
 
 public func distSq<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> Double where L.Element == Double, R.Element == Double {
     precondition(lhs.count == rhs.count, "Vectors must have equal count")
-    let sub = lhs .- rhs
-    var squared = [Double](repeating: 0.0, count: numericCast(lhs.count))
-    squared.withUnsafeMutableBufferPointer { bufferPointer in
-        vDSP_vsqD(sub, 1, bufferPointer.baseAddress!, 1, numericCast(lhs.count))
-    }
-    return sum(squared)
+    var partialDistancesSquared = lhs .- rhs
+    sqInPlace(&partialDistancesSquared)
+    return sum(partialDistancesSquared)
 }
