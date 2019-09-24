@@ -292,11 +292,11 @@ extension XCTestCase {
         })
     }
 
-    func measure_inout_vector_matrix<T, U>(
+    func measure_vector_matrix<T, U>(
         of: T.Type,
         lhs produceLhs: Producer<Vector<T>> = Vector<T>.monotonicNormalized,
         rhs produceRhs: Producer<Matrix<T>> = Matrix<T>.monotonicNormalized,
-        _ closure: (InOutLhsRhsFunctionWrapper<Vector<T>, Matrix<T>, U>) -> ()
+        _ closure: (LhsRhsFunctionWrapper<Vector<T>, Matrix<T>, U>) -> ()
     ) where T: FloatingPoint & ExpressibleByFloatLiteral {
         typealias Scalar = T
 
@@ -304,10 +304,8 @@ extension XCTestCase {
         let rhs = produceRhs()
 
         closure({ innerClosure in
-            var lhs = lhs
-
             startMeasuring()
-            let _ = innerClosure(&lhs, rhs)
+            let _ = innerClosure(lhs, rhs)
             stopMeasuring()
         })
     }
