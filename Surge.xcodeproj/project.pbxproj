@@ -91,6 +91,7 @@
 		CAAF5000233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
 		CAAF500C233A7B6700CC0AA7 /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614AD31F1FC0AD99002BFE1C /* Surge.framework */; };
 		CAAF5001233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
+		CAAF501A233A9E6300CC0AA7 /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF5019233A9E6300CC0AA7 /* XCTestCase+Surge.swift */; };
 		CAAF5002233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
 		CAEC79BF2319274F00516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
 		CAEC79C02319275000516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
@@ -186,6 +187,7 @@
 		CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogarithmTests.swift; sourceTree = "<group>"; };
 		CAAF5007233A7B6700CC0AA7 /* SurgeBenchmarkTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurgeBenchmarkTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAAF500B233A7B6700CC0AA7 /* Info-BenchmarkTests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-BenchmarkTests.plist"; sourceTree = "<group>"; };
+		CAAF5019233A9E6300CC0AA7 /* XCTestCase+Surge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Surge.swift"; sourceTree = "<group>"; };
 		CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorPrecedences.swift; sourceTree = "<group>"; };
 		CAEC79C323192FE300516E10 /* Scalar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scalar.swift; sourceTree = "<group>"; };
 		CAEC79D12319343100516E10 /* Logarithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logarithm.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 		CAAF5008233A7B6700CC0AA7 /* SurgeBenchmarkTests */ = {
 			isa = PBXGroup;
 			children = (
+				CAAF5019233A9E6300CC0AA7 /* XCTestCase+Surge.swift */,
 			);
 			path = SurgeBenchmarkTests;
 			sourceTree = "<group>";
@@ -934,6 +937,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAAF501A233A9E6300CC0AA7 /* XCTestCase+Surge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
