@@ -23,11 +23,15 @@ import Accelerate
 // MARK: - Multiplication
 
 public func mul<R: UnsafeMemoryAccessible>(_ lhs: Float, _ rhs: R) -> [Float] where R.Element == Float {
-    return mul([Float](repeating: lhs, count: numericCast(rhs.count)), rhs)
+    var results = [Float](repeating: lhs, count: numericCast(rhs.count))
+    elmulInPlace(&results, rhs)
+    return results
 }
 
 public func mul<R: UnsafeMemoryAccessible>(_ lhs: Double, _ rhs: R) -> [Double] where R.Element == Double {
-    return mul([Double](repeating: lhs, count: numericCast(rhs.count)), rhs)
+    var results = [Double](repeating: lhs, count: numericCast(rhs.count))
+    elmulInPlace(&results, rhs)
+    return results
 }
 
 public func * <R: UnsafeMemoryAccessible>(lhs: Float, rhs: R) -> [Float] where R.Element == Float {

@@ -108,15 +108,15 @@ public func ==<T> (lhs: Vector<T>, rhs: Vector<T>) -> Bool {
 // MARK: - Addition
 
 public func add(_ lhs: Vector<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
-    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with addition")
-
-    return Vector(add(lhs.scalars, rhs.scalars))
+    var result = lhs
+    addInPlace(&result, rhs)
+    return result
 }
 
 public func add(_ lhs: Vector<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
-    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with addition")
-
-    return Vector(add(lhs.scalars, rhs.scalars))
+    var result = lhs
+    addInPlace(&result, rhs)
+    return result
 }
 
 public func + (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
@@ -128,11 +128,15 @@ public func + (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 }
 
 public func add(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    return Vector(add(lhs.scalars, rhs))
+    var result = lhs
+    addInPlace(&result, rhs)
+    return result
 }
 
 public func add(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    return Vector(add(lhs.scalars, rhs))
+    var result = lhs
+    addInPlace(&result, rhs)
+    return result
 }
 
 public func + (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
@@ -148,13 +152,13 @@ public func + (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
 func addInPlace(_ lhs: inout Vector<Float>, _ rhs: Vector<Float>) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with addition")
 
-    return addInPlace(&lhs.scalars, rhs.scalars)
+    return eladdInPlace(&lhs.scalars, rhs.scalars)
 }
 
 func addInPlace(_ lhs: inout Vector<Double>, _ rhs: Vector<Double>) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with addition")
 
-    return addInPlace(&lhs.scalars, rhs.scalars)
+    return eladdInPlace(&lhs.scalars, rhs.scalars)
 }
 
 public func += (lhs: inout Vector<Float>, rhs: Vector<Float>) {
@@ -184,15 +188,15 @@ public func += (lhs: inout Vector<Double>, rhs: Double) {
 // MARK: - Subtraction
 
 public func sub(_ lhs: Vector<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
-    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with subtraction")
-
-    return Vector(sub(lhs.scalars, rhs.scalars))
+    var result = lhs
+    subInPlace(&result, rhs)
+    return result
 }
 
 public func sub(_ lhs: Vector<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
-    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with subtraction")
-
-    return Vector(sub(lhs.scalars, rhs.scalars))
+    var result = lhs
+    subInPlace(&result, rhs)
+    return result
 }
 
 public func - (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
@@ -204,11 +208,15 @@ public func - (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 }
 
 public func sub(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    return Vector(sub(lhs.scalars, rhs))
+    var result = lhs
+    subInPlace(&result, rhs)
+    return result
 }
 
 public func sub(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    return Vector(sub(lhs.scalars, rhs))
+    var result = lhs
+    subInPlace(&result, rhs)
+    return result
 }
 
 public func - (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
@@ -224,13 +232,13 @@ public func - (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
 func subInPlace(_ lhs: inout Vector<Float>, _ rhs: Vector<Float>) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with subtraction")
 
-    return subInPlace(&lhs.scalars, rhs.scalars)
+    return elsubInPlace(&lhs.scalars, rhs.scalars)
 }
 
 func subInPlace(_ lhs: inout Vector<Double>, _ rhs: Vector<Double>) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with subtraction")
 
-    return subInPlace(&lhs.scalars, rhs.scalars)
+    return elsubInPlace(&lhs.scalars, rhs.scalars)
 }
 
 public func -= (lhs: inout Vector<Float>, rhs: Vector<Float>) {
@@ -276,23 +284,27 @@ public func muladd(_ lhs: Vector<Double>, _ rhs: Vector<Double>, _ alpha: Double
 func muladdInPlace(_ lhs: inout Vector<Float>, _ rhs: Vector<Float>, _ alpha: Float) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with addition")
 
-    return muladdInPlace(&lhs.scalars, rhs.scalars, alpha)
+    return elmuladdInPlace(&lhs.scalars, rhs.scalars, alpha)
 }
 
 func muladdInPlace(_ lhs: inout Vector<Double>, _ rhs: Vector<Double>, _ alpha: Double) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with addition")
 
-    return muladdInPlace(&lhs.scalars, rhs.scalars, alpha)
+    return elmuladdInPlace(&lhs.scalars, rhs.scalars, alpha)
 }
 
 // MARK: - Multiplication
 
 public func mul(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    return Vector(mul(lhs.scalars, rhs))
+    var result = lhs
+    mulInPlace(&result, rhs)
+    return result
 }
 
 public func mul(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    return Vector(mul(lhs.scalars, rhs))
+    var result = lhs
+    mulInPlace(&result, rhs)
+    return result
 }
 
 public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
@@ -304,28 +316,44 @@ public func * (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
 }
 
 public func mul(_ lhs: Vector<Float>, _ rhs: Matrix<Float>) -> Vector<Float> {
+    // Note: `cblas_dgemv` does not seem to allow aliasing of vector `X` and `Y`.
+    // As such we do not provide a `mulInPlace` variant for `vector × matrix`.
+
     precondition(rhs.rows == lhs.dimensions, "Matrix and vector dimensions not compatible with multiplication")
     if rhs.rows == 0 || rhs.columns == 0 || lhs.dimensions == 0 {
         return Vector<Float>(dimensions: rhs.rows, repeatedValue: 0.0)
     }
 
     var results = Vector<Float>(dimensions: rhs.columns, repeatedValue: 0.0)
-    results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_sgemv(CblasRowMajor, CblasTrans, Int32(rhs.rows), Int32(rhs.columns), 1.0, rhs.grid, Int32(rhs.columns), lhs.scalars, 1, 0.0, pointer.baseAddress!, 1)
+
+    let rows: Int32 = numericCast(rhs.rows)
+    let columns: Int32 = numericCast(rhs.columns)
+    withUnsafeMutableMemory(&results.scalars) { m in
+        withUnsafeMemory(lhs.scalars, rhs.grid) { lm, rm in
+            cblas_sgemv(CblasRowMajor, CblasTrans, rows, columns, 1.0, rm.pointer, columns, lm.pointer, numericCast(lm.stride), 0.0, m.pointer, numericCast(m.stride))
+        }
     }
 
     return results
 }
 
 public func mul(_ lhs: Vector<Double>, _ rhs: Matrix<Double>) -> Vector<Double> {
+    // Note: `cblas_dgemv` does not seem to allow aliasing of vector `X` and `Y`.
+    // As such we do not provide a `mulInPlace` variant for `vector × matrix`.
+
     precondition(rhs.rows == lhs.dimensions, "Matrix and vector dimensions not compatible with multiplication")
     if rhs.rows == 0 || rhs.columns == 0 || lhs.dimensions == 0 {
         return Vector<Double>(dimensions: rhs.rows, repeatedValue: 0.0)
     }
 
     var results = Vector<Double>(dimensions: rhs.columns, repeatedValue: 0.0)
-    results.scalars.withUnsafeMutableBufferPointer { pointer in
-        cblas_dgemv(CblasRowMajor, CblasTrans, Int32(rhs.rows), Int32(rhs.columns), 1.0, rhs.grid, Int32(rhs.columns), lhs.scalars, 1, 0.0, pointer.baseAddress!, 1)
+
+    let rows: Int32 = numericCast(rhs.rows)
+    let columns: Int32 = numericCast(rhs.columns)
+    withUnsafeMutableMemory(&results.scalars) { m in
+        withUnsafeMemory(lhs.scalars, rhs.grid) { lm, rm in
+            cblas_dgemv(CblasRowMajor, CblasTrans, rows, columns, 1.0, rm.pointer, columns, lm.pointer, numericCast(lm.stride), 0.0, m.pointer, numericCast(m.stride))
+        }
     }
 
     return results
@@ -360,11 +388,15 @@ public func *= (lhs: inout Vector<Double>, rhs: Double) {
 // MARK: - Division
 
 public func div(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    return Vector(div(lhs.scalars, rhs))
+    var result = lhs
+    divInPlace(&result, rhs)
+    return result
 }
 
 public func div(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    return Vector(div(lhs.scalars, rhs))
+    var result = lhs
+    divInPlace(&result, rhs)
+    return result
 }
 
 public func / (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
@@ -398,13 +430,17 @@ public func /= (lhs: inout Vector<Double>, rhs: Double) {
 public func elmul(_ lhs: Vector<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise multiplication")
 
-    return Vector(mul(lhs.scalars, rhs.scalars))
+    var result = lhs
+    elmulInPlace(&result, rhs)
+    return result
 }
 
 public func elmul(_ lhs: Vector<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise multiplication")
 
-    return Vector(mul(lhs.scalars, rhs.scalars))
+    var result = lhs
+    elmulInPlace(&result, rhs)
+    return result
 }
 
 public func .* (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
@@ -420,13 +456,13 @@ public func .* (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 func elmulInPlace(_ lhs: inout Vector<Double>, _ rhs: Vector<Double>) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise multiplication")
 
-    return mulInPlace(&lhs.scalars, rhs.scalars)
+    return elmulInPlace(&lhs.scalars, rhs.scalars)
 }
 
 func elmulInPlace(_ lhs: inout Vector<Float>, _ rhs: Vector<Float>) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise multiplication")
 
-    return mulInPlace(&lhs.scalars, rhs.scalars)
+    return elmulInPlace(&lhs.scalars, rhs.scalars)
 }
 
 public func .*= (lhs: inout Vector<Float>, rhs: Vector<Float>) {
@@ -442,13 +478,17 @@ public func .*= (lhs: inout Vector<Double>, rhs: Vector<Double>) {
 public func eldiv(_ lhs: Vector<Double>, _ rhs: Vector<Double>) -> Vector<Double> {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise division")
 
-    return Vector(div(lhs.scalars, rhs.scalars))
+    var result = lhs
+    eldivInPlace(&result, rhs)
+    return result
 }
 
 public func eldiv(_ lhs: Vector<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise division")
 
-    return Vector(div(lhs.scalars, rhs.scalars))
+    var result = lhs
+    eldivInPlace(&result, rhs)
+    return result
 }
 
 public func ./ (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
@@ -464,13 +504,13 @@ public func ./ (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
 func eldivInPlace(_ lhs: inout Vector<Double>, _ rhs: Vector<Double>) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise division")
 
-    return divInPlace(&lhs.scalars, rhs.scalars)
+    return eldivInPlace(&lhs.scalars, rhs.scalars)
 }
 
 func eldivInPlace(_ lhs: inout Vector<Float>, _ rhs: Vector<Float>) {
     precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with element-wise division")
 
-    return divInPlace(&lhs.scalars, rhs.scalars)
+    return eldivInPlace(&lhs.scalars, rhs.scalars)
 }
 
 public func ./= (lhs: inout Vector<Double>, rhs: Vector<Double>) {
@@ -507,21 +547,49 @@ public func • (lhs: Vector<Float>, rhs: Vector<Float>) -> Float {
 // MARK: - Power
 
 public func pow(_ lhs: Vector<Double>, _ rhs: Double) -> Vector<Double> {
-    return Vector(pow(lhs.scalars, rhs))
+    var result = lhs
+    powInPlace(&result, rhs)
+    return result
 }
 
 public func pow(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
-    return Vector(pow(lhs.scalars, rhs))
+    var result = lhs
+    powInPlace(&result, rhs)
+    return result
+}
+
+// MARK: - Power: In Place
+
+func powInPlace(_ lhs: inout Vector<Double>, _ rhs: Double) {
+    return powInPlace(&lhs.scalars, rhs)
+}
+
+func powInPlace(_ lhs: inout Vector<Float>, _ rhs: Float) {
+    return powInPlace(&lhs.scalars, rhs)
 }
 
 // MARK: - Exponential
 
 public func exp(_ lhs: Vector<Double>) -> Vector<Double> {
-    return Vector(exp(lhs.scalars))
+    var result = lhs
+    expInPlace(&result)
+    return result
 }
 
 public func exp(_ lhs: Vector<Float>) -> Vector<Float> {
-    return Vector(exp(lhs.scalars))
+    var result = lhs
+    expInPlace(&result)
+    return result
+}
+
+// MARK: - Exponential: In Place
+
+func expInPlace(_ lhs: inout Vector<Double>) {
+    return expInPlace(&lhs.scalars)
+}
+
+func expInPlace(_ lhs: inout Vector<Float>) {
+    return expInPlace(&lhs.scalars)
 }
 
 // MARK: - Distance
