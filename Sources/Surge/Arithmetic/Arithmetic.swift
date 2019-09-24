@@ -590,46 +590,30 @@ func exp2InPlace<X: UnsafeMutableMemoryAccessible>(_ lhs: inout X) where X.Eleme
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func pow<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: X, _ rhs: Y) -> [Float] where X.Element == Float, Y.Element == Float {
-    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
-        precondition(lhsMemory.stride == 1 && rhsMemory.stride == 1, "\(#function) does not support strided memory access")
-
-        var lhsCount = Int32(lhs.count)
-
-        var results = [Float](repeating: 0.0, count: lhs.count)
-        results.withUnsafeMutableBufferPointer { pointer in
-            vvpowf(pointer.baseAddress!, rhsMemory.pointer, lhsMemory.pointer, &lhsCount)
-        }
-
-        return results
-    }
+    var results = Array(lhs)
+    powInPlace(&results, rhs)
+    return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func pow<X: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: X, _ rhs: Y) -> [Double] where X.Element == Double, Y.Element == Double {
-    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
-        precondition(lhsMemory.stride == 1 && rhsMemory.stride == 1, "\(#function) does not support strided memory access")
-
-        var lhsCount = Int32(lhs.count)
-
-        var results = [Double](repeating: 0.0, count: lhs.count)
-        results.withUnsafeMutableBufferPointer { pointer in
-            vvpow(pointer.baseAddress!, rhsMemory.pointer, lhsMemory.pointer, &lhsCount)
-        }
-
-        return results
-    }
+    var results = Array(lhs)
+    powInPlace(&results, rhs)
+    return results
 }
 
 /// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 public func pow<X: UnsafeMemoryAccessible>(_ lhs: X, _ rhs: Float) -> [Float] where X.Element == Float {
-    let rhs = [Float](repeating: rhs, count: lhs.count)
-    return pow(lhs, rhs)
+    var results = Array(lhs)
+    powInPlace(&results, rhs)
+    return results
 }
 
 /// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 public func pow<X: UnsafeMemoryAccessible>(_ lhs: X, _ rhs: Double) -> [Double] where X.Element == Double {
-    let rhs = [Double](repeating: rhs, count: lhs.count)
-    return pow(lhs, rhs)
+    var results = Array(lhs)
+    powInPlace(&results, rhs)
+    return results
 }
 
 // MARK: - Power: In Place
