@@ -24,8 +24,6 @@ import XCTest
 @testable import Surge
 
 class LogarithmTests: XCTestCase {
-    let n = 100_000
-
     // MARK: - Base-e Logarithm: In Place
 
     func test_log_in_place_array_float() {
