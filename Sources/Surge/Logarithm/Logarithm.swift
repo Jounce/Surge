@@ -131,25 +131,35 @@ func log10InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 // MARK: - Logarithmic Exponentiation
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func logb<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
-    return x.withUnsafeMemory { xm in
-        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Float](x)
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvlogbf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
-        }
-        return results
+public func logb<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = Array(lhs)
+    logbInPlace(&results)
+    return results
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func logb<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = Array(lhs)
+    logbInPlace(&results)
+    return results
+}
+
+// MARK: - Base-B Logarithm: In Place
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func logbInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+    withUnsafeMutableMemory(&lhs) { lm in
+        precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+        var elementCount: Int32 = numericCast(lm.count)
+        vvlogbf(lm.pointer, lm.pointer, &elementCount)
     }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func logb<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element == Double {
-    return x.withUnsafeMemory { xm in
-        precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Double](x)
-        results.withUnsafeMutableBufferPointer { rbp in
-            vvlogb(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
-        }
-        return results
+func logbInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+    withUnsafeMutableMemory(&lhs) { lm in
+        precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+        var elementCount: Int32 = numericCast(lm.count)
+        vvlogb(lm.pointer, lm.pointer, &elementCount)
     }
 }
