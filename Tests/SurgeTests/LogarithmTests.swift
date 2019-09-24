@@ -19,40 +19,37 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
 import XCTest
+
+@testable import Surge
 
 // swiftlint:disable nesting
 
 class LogarithmTests: XCTestCase {
-    let n = 100_000
+    let n = 1_000
 
     // MARK: - Base-e Logarithm
 
-    func test_log_array_float() {
+    func test_log_in_place_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.log(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.logInPlace(&actual)
 
         let expected = lhs.map { log($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-4)
     }
 
-    func test_log_array_double() {
+    func test_log_in_place_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.log(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.logInPlace(&actual)
 
         let expected = lhs.map { log($0) }
 
@@ -61,30 +58,26 @@ class LogarithmTests: XCTestCase {
 
     // MARK: - Base-2 Logarithm
 
-    func test_log2_array_float() {
+    func test_log2_in_place_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.log2(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.log2InPlace(&actual)
 
         let expected = lhs.map { log2($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-4)
     }
 
-    func test_log2_array_double() {
+    func test_log2_in_place_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.log2(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.log2InPlace(&actual)
 
         let expected = lhs.map { log2($0) }
 
@@ -93,30 +86,26 @@ class LogarithmTests: XCTestCase {
 
     // MARK: - Base-10 Logarithm
 
-    func test_log10_array_float() {
+    func test_log10_in_place_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.log10(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.log10InPlace(&actual)
 
         let expected = lhs.map { log10($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-4)
     }
 
-    func test_log10_array_double() {
+    func test_log10_in_place_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.log10(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.log10InPlace(&actual)
 
         let expected = lhs.map { log10($0) }
 
@@ -125,30 +114,26 @@ class LogarithmTests: XCTestCase {
 
     // MARK: - Base-b Logarithm
 
-    func test_logb_array_float() {
+    func test_logb_in_place_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.logb(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.logbInPlace(&actual)
 
         let expected = lhs.map { logb($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-4)
     }
 
-    func test_logb_array_double() {
+    func test_logb_in_place_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.logb(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.logbInPlace(&actual)
 
         let expected = lhs.map { logb($0) }
 
