@@ -3,7 +3,9 @@ disabled_rules:
   - identifier_name
   - line_length
   - trailing_comma
-
+  - redundant_discardable_let
+  - void_return
+  
 opt_in_rules:
   - array_init
   - attributes
