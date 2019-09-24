@@ -257,6 +257,34 @@ public func -= (lhs: inout Vector<Double>, rhs: Double) {
     return subInPlace(&lhs, rhs)
 }
 
+// MARK: - Multiply Addition
+
+public func muladd(_ lhs: Vector<Float>, _ rhs: Vector<Float>, _ alpha: Float) -> Vector<Float> {
+    var result = lhs
+    muladdInPlace(&result, rhs, alpha)
+    return result
+}
+
+public func muladd(_ lhs: Vector<Double>, _ rhs: Vector<Double>, _ alpha: Double) -> Vector<Double> {
+    var result = lhs
+    muladdInPlace(&result, rhs, alpha)
+    return result
+}
+
+// MARK: - Multiply Addition: In Place
+
+func muladdInPlace(_ lhs: inout Vector<Float>, _ rhs: Vector<Float>, _ alpha: Float) {
+    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with addition")
+
+    return muladdInPlace(&lhs.scalars, rhs.scalars, alpha)
+}
+
+func muladdInPlace(_ lhs: inout Vector<Double>, _ rhs: Vector<Double>, _ alpha: Double) {
+    precondition(lhs.dimensions == rhs.dimensions, "Vector dimensions not compatible with addition")
+
+    return muladdInPlace(&lhs.scalars, rhs.scalars, alpha)
+}
+
 // MARK: - Multiplication
 
 public func mul(_ lhs: Vector<Float>, _ rhs: Float) -> Vector<Float> {
