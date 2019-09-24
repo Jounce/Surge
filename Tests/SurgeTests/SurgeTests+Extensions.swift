@@ -85,7 +85,7 @@ extension Array where Element: FloatingPoint & ExpressibleByFloatLiteral {
 
 extension Vector where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
     static var defaultDimensions: Int {
-        return 1_000
+        return 100
     }
 
     static func monotonic() -> Vector {
@@ -119,11 +119,11 @@ extension Vector where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
 
 extension Matrix where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
     static var defaultRows: Int {
-        return 1_000
+        return 100
     }
 
     static var defaultColumns: Int {
-        return 1_000
+        return 100
     }
 
     static func monotonic() -> Matrix {
