@@ -21,6 +21,8 @@
 import Foundation
 import XCTest
 
+@testable import Surge
+
 extension XCTestCase {
     func measureAndValidateMappedFunctionWithAccuracy<C: Collection>(source: C, member: (C.Iterator.Element) -> (C.Iterator.Element), mapped: @escaping (C) -> ([C.Iterator.Element]), accuracy: C.Iterator.Element) where C.Iterator.Element: ExpressibleByFloatLiteral & FloatingPoint {
         let expected = source.map(member)
@@ -37,42 +39,124 @@ extension XCTestCase {
 }
 
 extension ExpressibleByFloatLiteral {
-    static func constant() -> Self {
+    static func identity() -> Self {
         return 1.0
+    }
+
+    static func constant() -> Self {
+        return 0.42
     }
 }
 
-extension Array {
+extension Array where Element: FloatingPoint & ExpressibleByFloatLiteral {
     static var defaultCount: Int {
         return 1_000
     }
 
-    static func monotonic<Scalar>() -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+    static func monotonic() -> Array {
         return monotonic(count: Array.defaultCount)
     }
 
-    static func monotonic<Scalar>(count: Int) -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
-        return (1...count).map { Scalar($0) }
+    static func monotonic(count: Int) -> Array {
+        return (1...count).map { Element($0) }
     }
 
-    static func monotonicNormalized<Scalar>() -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+    static func monotonicNormalized() -> Array {
         return monotonicNormalized(count: Array.defaultCount)
     }
 
-    static func monotonicNormalized<Scalar>(count: Int) -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
-        let scalarCount = Scalar(count)
-        return (1...count).map { Scalar($0) / scalarCount }
+    static func monotonicNormalized(count: Int) -> Array {
+        let scalarCount = Element(count)
+        return (1...count).map { Element($0) / scalarCount }
     }
 
-    static func constant<Scalar>() -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+    static func constant() -> Array {
         return constant(1.0)
     }
 
-    static func constant<Scalar>(_ scalar: Scalar) -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+    static func constant(_ scalar: Element) -> Array {
         return constant(scalar, count: Array.defaultCount)
     }
 
-    static func constant<Scalar>(_ scalar: Scalar, count: Int) -> [Scalar] where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
-        return [Scalar](repeating: scalar, count: count)
+    static func constant(_ scalar: Element, count: Int) -> Array {
+        return Array(repeating: scalar, count: count)
+    }
+}
+
+extension Vector where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+    static var defaultDimensions: Int {
+        return 1_000
+    }
+
+    static func monotonic() -> Vector {
+        return monotonic(dimensions: Vector.defaultDimensions)
+    }
+
+    static func monotonic(dimensions: Int) -> Vector {
+        return Vector([Scalar].monotonic(count: dimensions))
+    }
+
+    static func monotonicNormalized() -> Vector {
+        return monotonicNormalized(dimensions: Vector.defaultDimensions)
+    }
+
+    static func monotonicNormalized(dimensions: Int) -> Vector {
+        return Vector([Scalar].monotonicNormalized(count: dimensions))
+    }
+
+    static func constant() -> Vector {
+        return constant(2.0)
+    }
+
+    static func constant(_ scalar: Scalar) -> Vector {
+        return constant(scalar, dimensions: Vector.defaultDimensions)
+    }
+
+    static func constant(_ scalar: Scalar, dimensions: Int) -> Vector {
+        return Vector([Scalar].constant(scalar, count: dimensions))
+    }
+}
+
+extension Matrix where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
+    static var defaultRows: Int {
+        return 1_000
+    }
+
+    static var defaultColumns: Int {
+        return 1_000
+    }
+
+    static func monotonic() -> Matrix {
+        return monotonic(rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
+    }
+
+    static func monotonic(rows: Int, columns: Int) -> Matrix {
+        let count = rows * columns
+        let grid = [Scalar].monotonic(count: count)
+        return Matrix(rows: rows, columns: columns, grid: grid)
+    }
+
+    static func monotonicNormalized() -> Matrix {
+        return monotonicNormalized(rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
+    }
+
+    static func monotonicNormalized(rows: Int, columns: Int) -> Matrix {
+        let count = rows * columns
+        let grid = [Scalar].monotonicNormalized(count: count)
+        return Matrix(rows: rows, columns: columns, grid: grid)
+    }
+
+    static func constant() -> Matrix {
+        return constant(2.0)
+    }
+
+    static func constant(_ scalar: Scalar) -> Matrix {
+        return constant(scalar, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
+    }
+
+    static func constant(_ scalar: Scalar, rows: Int, columns: Int) -> Matrix {
+        let count = rows * columns
+        let grid = [Scalar].constant(scalar, count: count)
+        return Matrix(rows: rows, columns: columns, grid: grid)
     }
 }
