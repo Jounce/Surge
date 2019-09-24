@@ -89,6 +89,7 @@
 		CAAF4FFD2339651700CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
 		CAAF4FFE2339651800CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
 		CAAF5000233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
+		CAAF500C233A7B6700CC0AA7 /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614AD31F1FC0AD99002BFE1C /* Surge.framework */; };
 		CAAF5001233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
 		CAAF5002233A701A00CC0AA7 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */; };
 		CAEC79BF2319274F00516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
@@ -131,6 +132,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 614AD3501FC0B001002BFE1C;
 			remoteInfo = "Surge-tvOS";
+		};
+		CAAF500D233A7B6700CC0AA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8A1E1A119917A79009735E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 614AD31E1FC0AD99002BFE1C;
+			remoteInfo = "Surge-macOS";
 		};
 		F84A6AB719A9A771007B53E1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -176,6 +184,8 @@
 		61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArraySlice+Extensions.swift"; sourceTree = "<group>"; };
 		CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalarTests.swift; sourceTree = "<group>"; };
 		CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogarithmTests.swift; sourceTree = "<group>"; };
+		CAAF5007233A7B6700CC0AA7 /* SurgeBenchmarkTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurgeBenchmarkTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAAF500B233A7B6700CC0AA7 /* Info-BenchmarkTests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-BenchmarkTests.plist"; sourceTree = "<group>"; };
 		CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorPrecedences.swift; sourceTree = "<group>"; };
 		CAEC79C323192FE300516E10 /* Scalar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scalar.swift; sourceTree = "<group>"; };
 		CAEC79D12319343100516E10 /* Logarithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logarithm.swift; sourceTree = "<group>"; };
@@ -223,6 +233,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAAF5004233A7B6700CC0AA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAAF500C233A7B6700CC0AA7 /* Surge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +304,13 @@
 				61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */,
 			);
 			path = SurgeTests;
+			sourceTree = "<group>";
+		};
+		CAAF5008233A7B6700CC0AA7 /* SurgeBenchmarkTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SurgeBenchmarkTests;
 			sourceTree = "<group>";
 		};
 		CAEC79C8231932E900516E10 /* Utilities */ = {
@@ -364,6 +389,7 @@
 			isa = PBXGroup;
 			children = (
 				61A0AD6C1F70D22600B99FFB /* SurgeTests */,
+				CAAF5008233A7B6700CC0AA7 /* SurgeBenchmarkTests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -392,6 +418,7 @@
 				614AD3511FC0B001002BFE1C /* Surge.framework */,
 				614AD3591FC0B001002BFE1C /* SurgeTests-tvOS.xctest */,
 				614AD3821FC0B125002BFE1C /* Surge.framework */,
+				CAAF5007233A7B6700CC0AA7 /* SurgeBenchmarkTests-macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -401,6 +428,7 @@
 			children = (
 				614AD3221FC0AD99002BFE1C /* Info-macOS.plist */,
 				614AD3361FC0AEBD002BFE1C /* Info-Tests.plist */,
+				CAAF500B233A7B6700CC0AA7 /* Info-BenchmarkTests.plist */,
 				614AD3541FC0B001002BFE1C /* Info.plist */,
 			);
 			path = Metadata;
@@ -546,6 +574,24 @@
 			productReference = 614AD3821FC0B125002BFE1C /* Surge.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		CAAF5006233A7B6700CC0AA7 /* SurgeBenchmarkTests-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAAF5011233A7B6700CC0AA7 /* Build configuration list for PBXNativeTarget "SurgeBenchmarkTests-macOS" */;
+			buildPhases = (
+				CAAF5003233A7B6700CC0AA7 /* Sources */,
+				CAAF5004233A7B6700CC0AA7 /* Frameworks */,
+				CAAF5005233A7B6700CC0AA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAAF500E233A7B6700CC0AA7 /* PBXTargetDependency */,
+			);
+			name = "SurgeBenchmarkTests-macOS";
+			productName = SurgeBenchmarkTests;
+			productReference = CAAF5007233A7B6700CC0AA7 /* SurgeBenchmarkTests-macOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F84A6AAD19A9A72F007B53E1 /* SurgeTests-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F84A6AB419A9A72F007B53E1 /* Build configuration list for PBXNativeTarget "SurgeTests-iOS" */;
@@ -590,7 +636,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0710;
-				LastSwiftUpdateCheck = 0910;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Mattt Thompson";
 				TargetAttributes = {
@@ -612,6 +658,10 @@
 					};
 					614AD3811FC0B125002BFE1C = {
 						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					CAAF5006233A7B6700CC0AA7 = {
+						CreatedOnToolsVersion = 11.0;
 						ProvisioningStyle = Automatic;
 					};
 					F84A6AAD19A9A72F007B53E1 = {
@@ -645,6 +695,7 @@
 				614AD3501FC0B001002BFE1C /* Surge-tvOS */,
 				614AD3581FC0B001002BFE1C /* SurgeTests-tvOS */,
 				614AD3811FC0B125002BFE1C /* Surge-watchOS */,
+				CAAF5006233A7B6700CC0AA7 /* SurgeBenchmarkTests-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -679,6 +730,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		614AD3801FC0B125002BFE1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAAF5005233A7B6700CC0AA7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -872,6 +930,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CAAF5003233A7B6700CC0AA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F84A6AAA19A9A72F007B53E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -926,6 +991,11 @@
 			isa = PBXTargetDependency;
 			target = 614AD3501FC0B001002BFE1C /* Surge-tvOS */;
 			targetProxy = 614AD35B1FC0B001002BFE1C /* PBXContainerItemProxy */;
+		};
+		CAAF500E233A7B6700CC0AA7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 614AD31E1FC0AD99002BFE1C /* Surge-macOS */;
+			targetProxy = CAAF500D233A7B6700CC0AA7 /* PBXContainerItemProxy */;
 		};
 		F84A6AB819A9A771007B53E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1207,6 +1277,57 @@
 			};
 			name = Release;
 		};
+		CAAF500F233A7B6700CC0AA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Metadata/Info-BenchmarkTests.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattt.SurgeBenchmarkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CAAF5010233A7B6700CC0AA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Metadata/Info-BenchmarkTests.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattt.SurgeBenchmarkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		F84A6AB519A9A72F007B53E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1439,6 +1560,15 @@
 			buildConfigurations = (
 				614AD3881FC0B125002BFE1C /* Debug */,
 				614AD3891FC0B125002BFE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAAF5011233A7B6700CC0AA7 /* Build configuration list for PBXNativeTarget "SurgeBenchmarkTests-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAAF500F233A7B6700CC0AA7 /* Debug */,
+				CAAF5010233A7B6700CC0AA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

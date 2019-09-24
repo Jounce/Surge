@@ -39,5 +39,9 @@ let package = Package(
             name: "SurgeTests",
             dependencies: ["Surge"]
         ),
+        .testTarget(
+            name: "SurgeBenchmarkTests",
+            dependencies: ["Surge"]
+        ),
     ]
 )
