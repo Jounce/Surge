@@ -27,4 +27,35 @@ import XCTest
 class LofarithmTests: XCTestCase {
     let n = 100_000
 
+    // MARK: - Base-e Logarithm
+
+    func test_log_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.log(lhs)
+        }
+
+        let expected = lhs.map { log($0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-4)
+    }
+
+    func test_log_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.log(lhs)
+        }
+
+        let expected = lhs.map { log($0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
 }
