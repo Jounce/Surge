@@ -710,7 +710,9 @@ class ArithmeticTests: XCTestCase {
             actual = distSq(lhs, rhs)
         }
 
-        let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
+        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
+        let expected: Scalar = partialDistancesSquared.reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -726,7 +728,9 @@ class ArithmeticTests: XCTestCase {
             actual = distSq(lhs, rhs)
         }
 
-        let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
+        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
+        let expected: Scalar = partialDistancesSquared.reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
