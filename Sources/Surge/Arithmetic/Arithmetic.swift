@@ -23,11 +23,15 @@ import Accelerate
 // MARK: - Addition
 
 public func add<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
-    return add(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    addInPlace(&results, rhs)
+    return results
 }
 
 public func add<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
-    return add(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    addInPlace(&results, rhs)
+    return results
 }
 
 public func + <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
@@ -103,11 +107,15 @@ public func .+= <L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(lh
 // MARK: - Subtraction
 
 public func sub<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Float) -> [Float] where L.Element == Float {
-    return sub(lhs, [Float](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    subInPlace(&results, rhs)
+    return results
 }
 
 public func sub<L: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Double) -> [Double] where L.Element == Double {
-    return sub(lhs, [Double](repeating: rhs, count: numericCast(lhs.count)))
+    var results = Array(lhs)
+    subInPlace(&results, rhs)
+    return results
 }
 
 public func - <L: UnsafeMemoryAccessible>(lhs: L, rhs: Float) -> [Float] where L.Element == Float {
