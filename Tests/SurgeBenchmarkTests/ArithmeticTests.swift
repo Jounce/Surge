@@ -24,8 +24,6 @@ import XCTest
 @testable import Surge
 
 class ArithmeticTests: XCTestCase {
-    static let n = 100_000
-
     // MARK: - Addition: In Place
 
     func test_add_in_place_array_array_float() {
