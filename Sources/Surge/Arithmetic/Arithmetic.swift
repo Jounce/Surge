@@ -426,6 +426,34 @@ public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
     return mod(lhs, rhs)
 }
 
+// MARK: - Modulo: In Place
+
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
+/// - Warning: does not support memory stride (assumes stride is 1).
+func modInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Float) where L.Element == Float {
+    let rhs = Array(repeating: rhs, count: lhs.count)
+    modInPlace(&lhs, rhs)
+}
+
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
+/// - Warning: does not support memory stride (assumes stride is 1).
+func modInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L, _ rhs: Double) where L.Element == Double {
+    let rhs = Array(repeating: rhs, count: lhs.count)
+    modInPlace(&lhs, rhs)
+}
+
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func .%= <L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Float) where L.Element == Float {
+    return modInPlace(&lhs, rhs)
+}
+
+/// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
+/// - Warning: does not support memory stride (assumes stride is 1).
+public func .%= <L: UnsafeMutableMemoryAccessible>(lhs: inout L, rhs: Double) where L.Element == Double {
+    return modInPlace(&lhs, rhs)
+}
+
 // MARK: - Element-wise Modulo
 
 /// - Warning: does not support memory stride (assumes stride is 1).
