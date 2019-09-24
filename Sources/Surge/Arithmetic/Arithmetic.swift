@@ -700,6 +700,36 @@ func powInPlace<X: UnsafeMutableMemoryAccessible>(_ lhs: inout X, _ rhs: Double)
     return powInPlace(&lhs, rhs)
 }
 
+//// MARK: - Square
+
+public func sq<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = Array(lhs)
+    sqInPlace(&results)
+    return results
+}
+
+public func sq<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = Array(lhs)
+    sqInPlace(&results)
+    return results
+}
+
+// MARK: - Square: In Place
+
+func sqInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+    let elementCount: vDSP_Length = numericCast(lhs.count)
+    withUnsafeMutableMemory(&lhs) { lm in
+        vDSP_vsq(lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), elementCount)
+    }
+}
+
+public func sqInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+    let elementCount: vDSP_Length = numericCast(lhs.count)
+    withUnsafeMutableMemory(&lhs) { lm in
+        vDSP_vsqD(lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), elementCount)
+    }
+}
+
 // MARK: - Square Root
 
 /// Elemen-wise square root.

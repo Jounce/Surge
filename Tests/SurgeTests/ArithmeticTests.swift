@@ -529,6 +529,38 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Square
+
+    func test_sq_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.sq(lhs)
+        }
+
+        let expected = lhs.map { pow($0, 2.0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+
+    func test_sq_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.sq(lhs)
+        }
+
+        let expected = lhs.map { pow($0, 2.0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
     // MARK: - Square Root
 
     func test_sqrt_array_array_float() {
