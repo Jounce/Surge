@@ -58,4 +58,36 @@ class LofarithmTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Base-2 Logarithm
+
+    func test_log2_array_float() {
+        typealias Scalar = Float
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.log2(lhs)
+        }
+
+        let expected = lhs.map { log2($0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-4)
+    }
+
+    func test_log2_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        var actual: [Scalar] = []
+        measure {
+            actual = Surge.log2(lhs)
+        }
+
+        let expected = lhs.map { log2($0) }
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
 }
