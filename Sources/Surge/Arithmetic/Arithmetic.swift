@@ -662,8 +662,8 @@ func powInPlace<X: UnsafeMutableMemoryAccessible>(_ lhs: inout X, _ rhs: Double)
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func sqrt<C: UnsafeMemoryAccessible>(_ lhs: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
-    sqrt(lhs, into: &results)
+    var results = Array(lhs)
+    sqrtInPlace(&results)
     return results
 }
 
@@ -684,8 +684,8 @@ public func sqrt<MI: UnsafeMemoryAccessible, MO: UnsafeMutableMemoryAccessible>(
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func sqrt<C: UnsafeMemoryAccessible>(_ lhs: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
-    sqrt(lhs, into: &results)
+    var results = Array(lhs)
+    sqrtInPlace(&results)
     return results
 }
 
