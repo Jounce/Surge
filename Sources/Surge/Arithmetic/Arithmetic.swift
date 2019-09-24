@@ -506,6 +506,30 @@ public func remainder<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lh
     }
 }
 
+// MARK: - Remainder: In Place
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func remainderInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    var elementCount: Int32 = numericCast(lhs.count)
+    withUnsafeMutableMemory(&lhs) { lm in
+        withUnsafeMemory(rhs) { rm in
+            vvremainderf(lm.pointer, lm.pointer, rm.pointer, &elementCount)
+        }
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func remainderInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+    precondition(lhs.count == rhs.count, "Collections must have the same size")
+    var elementCount: Int32 = numericCast(lhs.count)
+    withUnsafeMutableMemory(&lhs) { lm in
+        withUnsafeMemory(rhs) { rm in
+            vvremainder(lm.pointer, lm.pointer, rm.pointer, &elementCount)
+        }
+    }
+}
+
 // MARK: - Exponential
 
 /// - Warning: does not support memory stride (assumes stride is 1).
