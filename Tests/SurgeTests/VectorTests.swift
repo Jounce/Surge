@@ -323,6 +323,80 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
+    // MARK: - Multiply Addition
+
+    func test_muladd_vector_vector_double() {
+        typealias Scalar = Double
+
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let scalar: Scalar = 2.0
+
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = Surge.muladd(vector, vector, scalar)
+        }
+        let expected: Vector<Scalar> = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_muladd_vector_vector_float() {
+        typealias Scalar = Float
+
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let scalar: Scalar = 2.0
+
+        var actual: Vector<Scalar> = []
+        measure {
+            actual = Surge.muladd(vector, vector, scalar)
+        }
+        let expected: Vector<Scalar> = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    // MARK: - Multiply Addition: In Place
+
+    func test_muladd_in_place_vector_vector_double() {
+        typealias Scalar = Double
+
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let scalar: Scalar = 2.0
+
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
+
+            startMeasuring()
+            Surge.muladdInPlace(&actual, vector, scalar)
+            stopMeasuring()
+        }
+
+        let expected: Vector<Scalar> = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_muladd_in_place_vector_vector_float() {
+        typealias Scalar = Float
+
+        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let scalar: Scalar = 2.0
+
+        var actual: Vector<Scalar> = []
+        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
+            actual = vector
+
+            startMeasuring()
+            Surge.muladdInPlace(&actual, vector, scalar)
+            stopMeasuring()
+        }
+
+        let expected: Vector<Scalar> = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
     // MARK: - Multiplication
 
     func test_mul_vector_scalar_double() {
