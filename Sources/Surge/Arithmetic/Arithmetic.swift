@@ -422,28 +422,16 @@ public func % <L: UnsafeMemoryAccessible>(lhs: L, rhs: Double) -> [Double] where
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func mod<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
-    precondition(lhs.count == rhs.count, "Collections must have the same size")
-    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
-        precondition(lhsMemory.stride == 1 && rhsMemory.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Float](repeating: 0.0, count: numericCast(lhsMemory.count))
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vvfmodf(bufferPointer.baseAddress!, lhsMemory.pointer, rhsMemory.pointer, [numericCast(lhsMemory.count)])
-        }
-        return results
-    }
+    var results = Array(lhs)
+    modInPlace(&results, rhs)
+    return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func mod<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> [Double] where L.Element == Double, R.Element == Double {
-    precondition(lhs.count == rhs.count, "Collections must have the same size")
-    return withUnsafeMemory(lhs, rhs) { lhsMemory, rhsMemory in
-        precondition(lhsMemory.stride == 1 && rhsMemory.stride == 1, "\(#function) does not support strided memory access")
-        var results = [Double](repeating: 0.0, count: numericCast(lhsMemory.count))
-        results.withUnsafeMutableBufferPointer { bufferPointer in
-            vvfmod(bufferPointer.baseAddress!, lhsMemory.pointer, rhsMemory.pointer, [numericCast(lhsMemory.count)])
-        }
-        return results
-    }
+    var results = Array(lhs)
+    modInPlace(&results, rhs)
+    return results
 }
 
 public func .% <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rhs: R) -> [Float] where L.Element == Float, R.Element == Float {
