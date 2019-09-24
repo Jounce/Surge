@@ -26,14 +26,12 @@ import XCTest
 // swiftlint:disable nesting
 
 class LogarithmTests: XCTestCase {
-    let n = 1_000
-
     // MARK: - Base-e Logarithm
 
     func test_log_in_place_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.logInPlace(&actual)
@@ -46,7 +44,7 @@ class LogarithmTests: XCTestCase {
     func test_log_in_place_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.logInPlace(&actual)
@@ -61,7 +59,7 @@ class LogarithmTests: XCTestCase {
     func test_log2_in_place_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.log2InPlace(&actual)
@@ -74,7 +72,7 @@ class LogarithmTests: XCTestCase {
     func test_log2_in_place_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.log2InPlace(&actual)
@@ -89,7 +87,7 @@ class LogarithmTests: XCTestCase {
     func test_log10_in_place_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.log10InPlace(&actual)
@@ -102,7 +100,7 @@ class LogarithmTests: XCTestCase {
     func test_log10_in_place_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.log10InPlace(&actual)
@@ -117,7 +115,7 @@ class LogarithmTests: XCTestCase {
     func test_logb_in_place_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.logbInPlace(&actual)
@@ -130,7 +128,7 @@ class LogarithmTests: XCTestCase {
     func test_logb_in_place_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.logbInPlace(&actual)

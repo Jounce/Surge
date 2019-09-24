@@ -22,7 +22,6 @@
 		614AD3471FC0AF77002BFE1C /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */; };
 		614AD3481FC0AF77002BFE1C /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD721F70D22600B99FFB /* MatrixTests.swift */; };
 		614AD34A1FC0AF77002BFE1C /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */; };
-		614AD34B1FC0AF77002BFE1C /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */; };
 		614AD35A1FC0B001002BFE1C /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614AD3511FC0B001002BFE1C /* Surge.framework */; };
 		614AD3681FC0B0C6002BFE1C /* Surge.h in Headers */ = {isa = PBXBuildFile; fileRef = 615394541F762B58002A4AD2 /* Surge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		614AD3691FC0B0CC002BFE1C /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944B1F762B58002A4AD2 /* Arithmetic.swift */; };
@@ -38,7 +37,6 @@
 		614AD3781FC0B0D2002BFE1C /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */; };
 		614AD3791FC0B0D2002BFE1C /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD721F70D22600B99FFB /* MatrixTests.swift */; };
 		614AD37B1FC0B0D2002BFE1C /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */; };
-		614AD37C1FC0B0D2002BFE1C /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */; };
 		614AD38A1FC0B12F002BFE1C /* Surge.h in Headers */ = {isa = PBXBuildFile; fileRef = 615394541F762B58002A4AD2 /* Surge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		614AD38B1FC0B134002BFE1C /* Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944B1F762B58002A4AD2 /* Arithmetic.swift */; };
 		614AD38C1FC0B134002BFE1C /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153944C1F762B58002A4AD2 /* Auxiliary.swift */; };
@@ -65,7 +63,6 @@
 		61A0AD7A1F70D22600B99FFB /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */; };
 		61A0AD7B1F70D22600B99FFB /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD721F70D22600B99FFB /* MatrixTests.swift */; };
 		61A0AD7D1F70D22600B99FFB /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */; };
-		61A0AD7E1F70D22600B99FFB /* XCTestCase+Surge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */; };
 		61E930B8207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
 		61E930B9207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
 		61E930BA207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
@@ -83,6 +80,9 @@
 		61E930CA2070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */; };
 		61E930CB2070BCCD00694FCB /* ArraySlice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */; };
 		CA945C24233AA36D00D95127 /* LogarithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA945C23233AA36D00D95127 /* LogarithmTests.swift */; };
+		CA945C2D233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */; };
+		CA945C2E233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */; };
+		CA945C2F233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */; };
 		CAAF4FFC2339651600CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
 		CAAF4FFD2339651700CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
 		CAAF4FFE2339651800CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
@@ -173,7 +173,6 @@
 		61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperbolicTests.swift; sourceTree = "<group>"; };
 		61A0AD721F70D22600B99FFB /* MatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 		61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrigonometricTests.swift; sourceTree = "<group>"; };
-		61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Surge.swift"; sourceTree = "<group>"; };
 		61A0AD7F1F70D99B00B99FFB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		61A0AD801F70D99B00B99FFB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		61A0AD811F70D99B00B99FFB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -182,6 +181,7 @@
 		61E930C12070B69300694FCB /* UnsafeMutableMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsafeMutableMemory.swift; sourceTree = "<group>"; };
 		61E930C72070BCCD00694FCB /* ArraySlice+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArraySlice+Extensions.swift"; sourceTree = "<group>"; };
 		CA945C23233AA36D00D95127 /* LogarithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogarithmTests.swift; sourceTree = "<group>"; };
+		CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SurgeTests+Extensions.swift"; sourceTree = "<group>"; };
 		CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalarTests.swift; sourceTree = "<group>"; };
 		CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogarithmTests.swift; sourceTree = "<group>"; };
 		CAAF5007233A7B6700CC0AA7 /* SurgeBenchmarkTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurgeBenchmarkTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,7 +302,7 @@
 				CAFE5DAD22F9ED4900A34887 /* VectorTests.swift */,
 				CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */,
 				CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */,
-				61A0AD751F70D22600B99FFB /* XCTestCase+Surge.swift */,
+				CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */,
 			);
 			path = SurgeTests;
 			sourceTree = "<group>";
@@ -854,7 +854,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				614AD34B1FC0AF77002BFE1C /* XCTestCase+Surge.swift in Sources */,
 				CAAF5001233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				614AD3481FC0AF77002BFE1C /* MatrixTests.swift in Sources */,
 				CAAF4FFD2339651700CC0AA7 /* ScalarTests.swift in Sources */,
@@ -864,6 +863,7 @@
 				614AD34A1FC0AF77002BFE1C /* TrigonometricTests.swift in Sources */,
 				CAFE5DA622F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
 				614AD3471FC0AF77002BFE1C /* HyperbolicTests.swift in Sources */,
+				CA945C2E233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */,
 				614AD3431FC0AF77002BFE1C /* ArithmeticTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -895,7 +895,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				614AD37C1FC0B0D2002BFE1C /* XCTestCase+Surge.swift in Sources */,
 				CAAF5002233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				614AD3791FC0B0D2002BFE1C /* MatrixTests.swift in Sources */,
 				CAAF4FFE2339651800CC0AA7 /* ScalarTests.swift in Sources */,
@@ -905,6 +904,7 @@
 				614AD37B1FC0B0D2002BFE1C /* TrigonometricTests.swift in Sources */,
 				CAFE5DA722F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
 				614AD3781FC0B0D2002BFE1C /* HyperbolicTests.swift in Sources */,
+				CA945C2F233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */,
 				614AD3741FC0B0D2002BFE1C /* ArithmeticTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -946,7 +946,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61A0AD7E1F70D22600B99FFB /* XCTestCase+Surge.swift in Sources */,
 				CAAF5000233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				61A0AD7B1F70D22600B99FFB /* MatrixTests.swift in Sources */,
 				CAAF4FFC2339651600CC0AA7 /* ScalarTests.swift in Sources */,
@@ -956,6 +955,7 @@
 				61A0AD7D1F70D22600B99FFB /* TrigonometricTests.swift in Sources */,
 				CAFE5DA522F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
 				61A0AD7A1F70D22600B99FFB /* HyperbolicTests.swift in Sources */,
+				CA945C2D233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */,
 				61A0AD761F70D22600B99FFB /* ArithmeticTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

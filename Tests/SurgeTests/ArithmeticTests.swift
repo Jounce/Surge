@@ -26,28 +26,13 @@ import XCTest
 // swiftlint:disable nesting type_body_length
 
 class ArithmeticTests: XCTestCase {
-    static let n = 1_000
-
-    func monotonic<Scalar>(count: Int = ArithmeticTests.n) -> [Scalar] where Scalar: FloatingPoint {
-        return (1...count).map { Scalar($0) }
-    }
-
-    func monotonicNormalized<Scalar>(count: Int = ArithmeticTests.n) -> [Scalar] where Scalar: FloatingPoint {
-        let scalarCount = Scalar(count)
-        return (1...count).map { Scalar($0) / scalarCount }
-    }
-
-    func constant<Scalar>(_ value: Scalar, count: Int = ArithmeticTests.n) -> [Scalar] where Scalar: FloatingPoint {
-        return Array(repeating: value, count: count)
-    }
-
     // MARK: - Addition: In Place
 
     func test_add_in_place_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.addInPlace(&actual, rhs)
@@ -60,8 +45,8 @@ class ArithmeticTests: XCTestCase {
     func test_add_in_place_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.addInPlace(&actual, rhs)
@@ -76,8 +61,8 @@ class ArithmeticTests: XCTestCase {
     func test_sub_in_place_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.subInPlace(&actual, rhs)
@@ -90,8 +75,8 @@ class ArithmeticTests: XCTestCase {
     func test_sub_in_place_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.subInPlace(&actual, rhs)
@@ -106,8 +91,8 @@ class ArithmeticTests: XCTestCase {
     func test_mul_in_place_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.mulInPlace(&actual, rhs)
@@ -120,8 +105,8 @@ class ArithmeticTests: XCTestCase {
     func test_mul_in_place_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.mulInPlace(&actual, rhs)
@@ -136,8 +121,8 @@ class ArithmeticTests: XCTestCase {
     func test_div_in_place_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.divInPlace(&actual, rhs)
@@ -150,8 +135,8 @@ class ArithmeticTests: XCTestCase {
     func test_div_in_place_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.divInPlace(&actual, rhs)
@@ -166,8 +151,8 @@ class ArithmeticTests: XCTestCase {
     func test_mod_in_place_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = constant(2.0)
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = [Scalar].constant(2.0)
 
         var actual: [Scalar] = lhs
         Surge.modInPlace(&actual, rhs)
@@ -180,8 +165,8 @@ class ArithmeticTests: XCTestCase {
     func test_mod_in_place_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = constant(2.0)
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = [Scalar].constant(2.0)
 
         var actual: [Scalar] = lhs
         Surge.modInPlace(&actual, rhs)
@@ -196,8 +181,8 @@ class ArithmeticTests: XCTestCase {
     func test_remainder_in_place_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = constant(-2.0)
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = [Scalar].constant(-2.0)
 
         var actual: [Scalar] = lhs
         Surge.remainderInPlace(&actual, rhs)
@@ -210,8 +195,8 @@ class ArithmeticTests: XCTestCase {
     func test_remainder_in_place_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = constant(-2.0)
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = [Scalar].constant(-2.0)
 
         var actual: [Scalar] = lhs
         Surge.remainderInPlace(&actual, rhs)
@@ -226,7 +211,7 @@ class ArithmeticTests: XCTestCase {
     func test_exp_in_place_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.expInPlace(&actual)
@@ -239,7 +224,7 @@ class ArithmeticTests: XCTestCase {
     func test_exp_in_place_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.expInPlace(&actual)
@@ -254,7 +239,7 @@ class ArithmeticTests: XCTestCase {
     func test_exp2_in_place_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.exp2InPlace(&actual)
@@ -267,7 +252,7 @@ class ArithmeticTests: XCTestCase {
     func test_exp2_in_place_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.exp2InPlace(&actual)
@@ -282,8 +267,8 @@ class ArithmeticTests: XCTestCase {
     func test_pow_in_place_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = constant(2.0)
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = [Scalar].constant(2.0)
 
         var actual: [Scalar] = lhs
         Surge.powInPlace(&actual, rhs)
@@ -296,8 +281,8 @@ class ArithmeticTests: XCTestCase {
     func test_pow_in_place_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = constant(2.0)
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = [Scalar].constant(2.0)
 
         var actual: [Scalar] = lhs
         Surge.powInPlace(&actual, rhs)
@@ -310,7 +295,7 @@ class ArithmeticTests: XCTestCase {
     func test_pow_in_place_array_scalar_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
         let rhs: Scalar = 2.0
 
         var actual: [Scalar] = lhs
@@ -324,7 +309,7 @@ class ArithmeticTests: XCTestCase {
     func test_pow_in_place_array_scalar_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
         let rhs: Scalar = 2.0
 
         var actual: [Scalar] = lhs
@@ -340,7 +325,7 @@ class ArithmeticTests: XCTestCase {
     func test_sq_in_place_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.sqInPlace(&actual)
@@ -353,7 +338,7 @@ class ArithmeticTests: XCTestCase {
     func test_sq_in_place_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.sqInPlace(&actual)
@@ -368,7 +353,7 @@ class ArithmeticTests: XCTestCase {
     func test_sqrt_in_place_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.sqrtInPlace(&actual)
@@ -381,7 +366,7 @@ class ArithmeticTests: XCTestCase {
     func test_sqrt_in_place_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         var actual: [Scalar] = lhs
         Surge.sqrtInPlace(&actual)
@@ -396,8 +381,8 @@ class ArithmeticTests: XCTestCase {
     func test_dot_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         let actual: Scalar = Surge.dot(lhs, rhs)
 
@@ -409,8 +394,8 @@ class ArithmeticTests: XCTestCase {
     func test_dot_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         let actual: Scalar = Surge.dot(lhs, rhs)
 
@@ -424,7 +409,7 @@ class ArithmeticTests: XCTestCase {
     func test_sum_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         let actual: Scalar = Surge.sum(lhs)
 
@@ -436,7 +421,7 @@ class ArithmeticTests: XCTestCase {
     func test_sum_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
 
         let actual: Scalar = Surge.sum(lhs)
 
@@ -450,8 +435,8 @@ class ArithmeticTests: XCTestCase {
     func test_dist_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
@@ -463,8 +448,8 @@ class ArithmeticTests: XCTestCase {
     func test_dist_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
@@ -478,8 +463,8 @@ class ArithmeticTests: XCTestCase {
     func test_distsq_array_array_float() {
         typealias Scalar = Float
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         let actual: Scalar = Surge.distSq(lhs, rhs)
 
@@ -493,8 +478,8 @@ class ArithmeticTests: XCTestCase {
     func test_distsq_array_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = monotonicNormalized()
-        let rhs: [Scalar] = monotonicNormalized()
+        let lhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized()
 
         let actual: Scalar = Surge.distSq(lhs, rhs)
 
