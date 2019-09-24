@@ -20,7 +20,7 @@
 
 import Accelerate
 
-// MARK: - Natural Logarithm
+// MARK: - Base-e Logarithm
 
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func log<X: UnsafeMemoryAccessible>(_ x: X) -> [Float] where X.Element == Float {
@@ -43,6 +43,26 @@ public func log<X: UnsafeMemoryAccessible>(_ x: X) -> [Double] where X.Element =
             vvlog(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
         }
         return results
+    }
+}
+
+// MARK: - Base-e Logarithm: In Place
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func logInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+    withUnsafeMutableMemory(&lhs) { lm in
+        precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+        var elementCount: Int32 = numericCast(lm.count)
+        vvlogf(lm.pointer, lm.pointer, &elementCount)
+    }
+}
+
+/// - Warning: does not support memory stride (assumes stride is 1).
+func logInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+    withUnsafeMutableMemory(&lhs) { lm in
+        precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+        var elementCount: Int32 = numericCast(lm.count)
+        vvlog(lm.pointer, lm.pointer, &elementCount)
     }
 }
 
