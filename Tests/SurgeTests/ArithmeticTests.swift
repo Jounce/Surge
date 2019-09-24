@@ -19,47 +19,14 @@
 // THE SOFTWARE.
 
 import Foundation
-import Surge
 import XCTest
+
+@testable import Surge
 
 // swiftlint:disable nesting type_body_length
 
 class ArithmeticTests: XCTestCase {
-    let n = 100_000
-
-    // MARK: - Addition
-
-    func test_add_array_array_float() {
-        typealias Scalar = Float
-
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs .+ rhs
-        }
-
-        let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    func test_add_array_array_double() {
-        typealias Scalar = Double
-
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs .+ rhs
-        }
-
-        let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
+    let n = 1_000
 
     // MARK: - Addition: In Place
 
@@ -69,14 +36,8 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = lhs
-
-            startMeasuring()
-            actual .+= rhs
-            stopMeasuring()
-        }
+        var actual: [Scalar] = lhs
+        Surge.addInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
 
@@ -89,50 +50,10 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = lhs
-
-            startMeasuring()
-            actual .+= rhs
-            stopMeasuring()
-        }
+        var actual: [Scalar] = lhs
+        Surge.addInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    // MARK: - Subtraction
-
-    func test_sub_array_array_float() {
-        typealias Scalar = Float
-
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs .- rhs
-        }
-
-        let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    func test_sub_array_array_double() {
-        typealias Scalar = Double
-
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs .- rhs
-        }
-
-        let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -145,14 +66,8 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = lhs
-
-            startMeasuring()
-            actual .-= rhs
-            stopMeasuring()
-        }
+        var actual: [Scalar] = lhs
+        Surge.subInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
 
@@ -165,50 +80,10 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = lhs
-
-            startMeasuring()
-            actual .-= rhs
-            stopMeasuring()
-        }
+        var actual: [Scalar] = lhs
+        Surge.subInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    // MARK: - Multiplication
-
-    func test_mul_array_array_float() {
-        typealias Scalar = Float
-
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs .* rhs
-        }
-
-        let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    func test_mul_array_array_double() {
-        typealias Scalar = Double
-
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs .* rhs
-        }
-
-        let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -221,14 +96,8 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = lhs
-
-            startMeasuring()
-            actual .*= rhs
-            stopMeasuring()
-        }
+        var actual: [Scalar] = lhs
+        Surge.mulInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
 
@@ -241,50 +110,10 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = lhs
-
-            startMeasuring()
-            actual .*= rhs
-            stopMeasuring()
-        }
+        var actual: [Scalar] = lhs
+        Surge.mulInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
-    // MARK: - Division
-
-    func test_div_array_array_float() {
-        typealias Scalar = Float
-
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs ./ rhs
-        }
-
-        let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-6)
-    }
-
-    func test_div_array_array_double() {
-        typealias Scalar = Double
-
-        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs ./ rhs
-        }
-
-        let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -297,14 +126,8 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = lhs
-
-            startMeasuring()
-            actual ./= rhs
-            stopMeasuring()
-        }
+        var actual: [Scalar] = lhs
+        Surge.divInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
 
@@ -317,276 +140,238 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = lhs
-
-            startMeasuring()
-            actual ./= rhs
-            stopMeasuring()
-        }
+        var actual: [Scalar] = lhs
+        Surge.divInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    // MARK: - Modulo
+    // MARK: - Modulo: In Place
 
-    func test_mod_array_array_float() {
+    func test_mod_in_place_array_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) }
         let rhs: [Scalar] = Array(repeating: 42, count: n)
 
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs .% rhs
-        }
+        var actual: [Scalar] = lhs
+        Surge.modInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { fmod($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    func test_mod_array_array_double() {
+    func test_mod_in_place_array_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) }
         let rhs: [Scalar] = Array(repeating: 42, count: n)
 
-        var actual: [Scalar] = []
-        measure {
-            actual = lhs .% rhs
-        }
+        var actual: [Scalar] = lhs
+        Surge.modInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { fmod($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    // MARK: - Remainder
+    // MARK: - Remainder: In Place
 
-    func test_remainder_array_array_float() {
+    func test_remainder_in_place_array_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) }
         let rhs: [Scalar] = Array(repeating: -42, count: n)
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.remainder(lhs, rhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.remainderInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { remainder($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    func test_remainder_array_array_double() {
+    func test_remainder_in_place_array_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) }
         let rhs: [Scalar] = Array(repeating: -42, count: n)
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.remainder(lhs, rhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.remainderInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { remainder($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    // MARK: - Exponential
+    // MARK: - Exponential: In Place
 
-    func test_exp_array_float() {
+    func test_exp_in_place_array_float() {
         typealias Scalar = Float
 
-        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.exp(values)
-        }
+        var actual: [Scalar] = lhs
+        Surge.expInPlace(&actual)
 
-        let expected = values.map { exp($0) }
+        let expected = lhs.map { exp($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
-    func test_exp_array_double() {
+    func test_exp_in_place_array_double() {
         typealias Scalar = Double
 
-        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.exp(values)
-        }
+        var actual: [Scalar] = lhs
+        Surge.expInPlace(&actual)
 
-        let expected = values.map { exp($0) }
+        let expected = lhs.map { exp($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    // MARK: - Square Exponentiation
+    // MARK: - Square Exponential: In Place
 
-    func test_exp2_array_float() {
+    func test_exp2_in_place_array_float() {
         typealias Scalar = Float
 
-        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.exp2(values)
-        }
+        var actual: [Scalar] = lhs
+        Surge.exp2InPlace(&actual)
 
-        let expected = values.map { exp2($0) }
+        let expected = lhs.map { exp2($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
-    func test_exp2_array_double() {
+    func test_exp2_in_place_array_double() {
         typealias Scalar = Double
 
-        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.exp2(values)
-        }
+        var actual: [Scalar] = lhs
+        Surge.exp2InPlace(&actual)
 
-        let expected = values.map { exp2($0) }
+        let expected = lhs.map { exp2($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    // MARK: - Power
+    // MARK: - Power: In Place
 
-    func test_pow_array_array_float() {
+    func test_pow_in_place_array_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = Array(repeating: 2.0, count: n)
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.pow(lhs, rhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.powInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { pow($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
-    func test_pow_array_array_double() {
+    func test_pow_in_place_array_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = Array(repeating: 2.0, count: n)
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.pow(lhs, rhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.powInPlace(&actual, rhs)
 
         let expected = Swift.zip(lhs, rhs).map { pow($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    func test_pow_array_scalar_float() {
+    func test_pow_in_place_array_scalar_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: Scalar = 2.0
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.pow(lhs, rhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.powInPlace(&actual, rhs)
 
         let expected = lhs.map { pow($0, rhs) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
-    func test_pow_array_scalar_double() {
+    func test_pow_in_place_array_scalar_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: Scalar = 2.0
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.pow(lhs, rhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.powInPlace(&actual, rhs)
 
         let expected = lhs.map { pow($0, rhs) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    // MARK: - Square
+    // MARK: - Square: In Place
 
-    func test_sq_array_float() {
+    func test_sq_in_place_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.sq(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.sqInPlace(&actual)
 
         let expected = lhs.map { pow($0, 2.0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
 
-    func test_sq_array_double() {
+    func test_sq_in_place_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.sq(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.sqInPlace(&actual)
 
         let expected = lhs.map { pow($0, 2.0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    // MARK: - Square Root
+    // MARK: - Square Root: In Place
 
-    func test_sqrt_array_array_float() {
+    func test_sqrt_in_place_array_array_float() {
         typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.sqrt(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.sqrtInPlace(&actual)
 
         let expected = lhs.map { sqrt($0) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    func test_sqrt_array_array_double() {
+    func test_sqrt_in_place_array_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) }
 
-        var actual: [Scalar] = []
-        measure {
-            actual = Surge.sqrt(lhs)
-        }
+        var actual: [Scalar] = lhs
+        Surge.sqrtInPlace(&actual)
 
         let expected = lhs.map { sqrt($0) }
 
@@ -601,14 +386,9 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: Scalar = 0
-        measure {
-            actual = lhs • rhs
-        }
+        let actual: Scalar = Surge.dot(lhs, rhs)
 
-        let expected = Swift.zip(lhs, rhs).reduce(0) {
-            $0 + $1.0 * $1.1
-        }
+        let expected = Swift.zip(lhs, rhs).reduce(0) { $0 + ($1.0 * $1.1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-1)
     }
@@ -619,67 +399,40 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: Scalar = 0
-        measure {
-            actual = lhs • rhs
-        }
+        let actual: Scalar = Surge.dot(lhs, rhs)
 
-        let expected = Swift.zip(lhs, rhs).reduce(0) {
-            $0 + $1.0 * $1.1
-        }
+        let expected = Swift.zip(lhs, rhs).reduce(0) { $0 + ($1.0 * $1.1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
     // MARK: - Summation
 
-    func test_sum_array_double() {
-        typealias Scalar = Double
-
-        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-
-        var actual: Scalar = 0.0
-        measure {
-            actual = sum(values)
-        }
-
-        let expected: Scalar = values.reduce(0, +)
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
     func test_sum_array_float() {
         typealias Scalar = Float
 
-        let values: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: Scalar = 0.0
-        measure {
-            actual = sum(values)
-        }
+        let actual: Scalar = Surge.sum(lhs)
 
-        let expected: Scalar = values.reduce(0, +)
+        let expected: Scalar = lhs.reduce(0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-1)
     }
 
-    // MARK: - Distance
-
-    func test_dist_array_array_double() {
+    func test_sum_array_double() {
         typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
-        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: Scalar = 0.0
-        measure {
-            actual = dist(lhs, rhs)
-        }
+        let actual: Scalar = Surge.sum(lhs)
 
-        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+        let expected: Scalar = lhs.reduce(0, +)
 
-        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
+
+    // MARK: - Distance
 
     func test_dist_array_array_float() {
         typealias Scalar = Float
@@ -687,10 +440,20 @@ class ArithmeticTests: XCTestCase {
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: Scalar = 0.0
-        measure {
-            actual = dist(lhs, rhs)
-        }
+        let actual: Scalar = Surge.dist(lhs, rhs)
+
+        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
+    }
+
+    func test_dist_array_array_double() {
+        typealias Scalar = Double
+
+        let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+        let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
+
+        let actual: Scalar = Surge.dist(lhs, rhs)
 
         let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
 
@@ -699,16 +462,13 @@ class ArithmeticTests: XCTestCase {
 
     // MARK: - Distance Squared
 
-    func test_distsq_array_array_double() {
-        typealias Scalar = Double
+    func test_distsq_array_array_float() {
+        typealias Scalar = Float
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: Scalar = 0.0
-        measure {
-            actual = distSq(lhs, rhs)
-        }
+        let actual: Scalar = Surge.distSq(lhs, rhs)
 
         let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
         let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
@@ -717,16 +477,13 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
-    func test_distsq_array_array_float() {
-        typealias Scalar = Float
+    func test_distsq_array_array_double() {
+        typealias Scalar = Double
 
         let lhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
         let rhs: [Scalar] = (1...n).map { Scalar($0) / Scalar(n) }
 
-        var actual: Scalar = 0.0
-        measure {
-            actual = distSq(lhs, rhs)
-        }
+        let actual: Scalar = Surge.distSq(lhs, rhs)
 
         let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
         let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
