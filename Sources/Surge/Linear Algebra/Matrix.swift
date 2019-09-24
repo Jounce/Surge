@@ -293,11 +293,11 @@ public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 // MARK: - Addition: In Place
 
 func addInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>) {
-    mulAddInPlace(&lhs, rhs, 1.0)
+    muladdInPlace(&lhs, rhs, 1.0)
 }
 
 func addInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>) {
-    mulAddInPlace(&lhs, rhs, 1.0)
+    muladdInPlace(&lhs, rhs, 1.0)
 }
 
 public func += (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
@@ -335,11 +335,11 @@ public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 // MARK: - Subtraction: In Place
 
 func subInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>) {
-    mulAddInPlace(&lhs, rhs, -1.0)
+    muladdInPlace(&lhs, rhs, -1.0)
 }
 
 func subInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>) {
-    mulAddInPlace(&lhs, rhs, -1.0)
+    muladdInPlace(&lhs, rhs, -1.0)
 }
 
 public func -= (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
@@ -352,25 +352,25 @@ public func -= (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
 
 // MARK: - Multiply Addition
 
-func mulAdd(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Float) -> Matrix<Float> {
+func muladd(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Float) -> Matrix<Float> {
     var result = lhs
 
-    mulAddInPlace(&result, rhs, alpha)
+    muladdInPlace(&result, rhs, alpha)
 
     return result
 }
 
-func mulAdd(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: Double) -> Matrix<Double> {
+func muladd(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: Double) -> Matrix<Double> {
     var result = lhs
 
-    mulAddInPlace(&result, rhs, alpha)
+    muladdInPlace(&result, rhs, alpha)
 
     return result
 }
 
 // MARK: - Multiply Addition: In Place
 
-func mulAddInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Float) {
+func muladdInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Float) {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
     let gridSize = Int32(lhs.grid.count)
@@ -383,7 +383,7 @@ func mulAddInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Fl
     }
 }
 
-func mulAddInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: Double) {
+func muladdInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: Double) {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
     let gridSize = Int32(lhs.grid.count)
