@@ -81,6 +81,7 @@
 		CA945C2E233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */; };
 		CA945C2F233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */; };
 		CA945C31233AC89C00D95127 /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA945C30233AC89C00D95127 /* VectorTests.swift */; };
+		CA991FD9233C205800A6B16A /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA991FD8233C205800A6B16A /* TrigonometricTests.swift */; };
 		CAAF4FFC2339651600CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
 		CAAF4FFD2339651700CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
 		CAAF4FFE2339651800CC0AA7 /* ScalarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */; };
@@ -180,6 +181,7 @@
 		CA945C23233AA36D00D95127 /* LogarithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogarithmTests.swift; sourceTree = "<group>"; };
 		CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SurgeTests+Extensions.swift"; sourceTree = "<group>"; };
 		CA945C30233AC89C00D95127 /* VectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorTests.swift; sourceTree = "<group>"; };
+		CA991FD8233C205800A6B16A /* TrigonometricTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrigonometricTests.swift; sourceTree = "<group>"; };
 		CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalarTests.swift; sourceTree = "<group>"; };
 		CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogarithmTests.swift; sourceTree = "<group>"; };
 		CAAF5007233A7B6700CC0AA7 /* SurgeBenchmarkTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SurgeBenchmarkTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -309,6 +311,7 @@
 			children = (
 				CAAF5014233A7C7900CC0AA7 /* ArithmeticTests.swift */,
 				CA945C23233AA36D00D95127 /* LogarithmTests.swift */,
+				CA991FD8233C205800A6B16A /* TrigonometricTests.swift */,
 				CA945C30233AC89C00D95127 /* VectorTests.swift */,
 				CAAF5019233A9E6300CC0AA7 /* SurgeBenchmarkTests+Extensions.swift */,
 			);
@@ -934,6 +937,7 @@
 			files = (
 				CAAF501A233A9E6300CC0AA7 /* SurgeBenchmarkTests+Extensions.swift in Sources */,
 				CA945C24233AA36D00D95127 /* LogarithmTests.swift in Sources */,
+				CA991FD9233C205800A6B16A /* TrigonometricTests.swift in Sources */,
 				CA945C31233AC89C00D95127 /* VectorTests.swift in Sources */,
 				CAAF5015233A7D4100CC0AA7 /* ArithmeticTests.swift in Sources */,
 			);
