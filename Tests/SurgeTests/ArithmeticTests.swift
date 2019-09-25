@@ -152,7 +152,7 @@ class ArithmeticTests: XCTestCase {
         typealias Scalar = Float
 
         let lhs: [Scalar] = .monotonicNormalized()
-        let rhs: [Scalar] = [Scalar].constant(2.0)
+        let rhs: [Scalar] = [Scalar].constant(of: 2.0)
 
         var actual: [Scalar] = lhs
         Surge.modInPlace(&actual, rhs)
@@ -166,7 +166,7 @@ class ArithmeticTests: XCTestCase {
         typealias Scalar = Double
 
         let lhs: [Scalar] = .monotonicNormalized()
-        let rhs: [Scalar] = [Scalar].constant(2.0)
+        let rhs: [Scalar] = [Scalar].constant(of: 2.0)
 
         var actual: [Scalar] = lhs
         Surge.modInPlace(&actual, rhs)
@@ -182,7 +182,7 @@ class ArithmeticTests: XCTestCase {
         typealias Scalar = Float
 
         let lhs: [Scalar] = .monotonicNormalized()
-        let rhs: [Scalar] = [Scalar].constant(-2.0)
+        let rhs: [Scalar] = [Scalar].constant(of: -2.0)
 
         var actual: [Scalar] = lhs
         Surge.remainderInPlace(&actual, rhs)
@@ -196,7 +196,7 @@ class ArithmeticTests: XCTestCase {
         typealias Scalar = Double
 
         let lhs: [Scalar] = .monotonicNormalized()
-        let rhs: [Scalar] = [Scalar].constant(-2.0)
+        let rhs: [Scalar] = [Scalar].constant(of: -2.0)
 
         var actual: [Scalar] = lhs
         Surge.remainderInPlace(&actual, rhs)
@@ -268,7 +268,7 @@ class ArithmeticTests: XCTestCase {
         typealias Scalar = Float
 
         let lhs: [Scalar] = .monotonicNormalized()
-        let rhs: [Scalar] = [Scalar].constant(2.0)
+        let rhs: [Scalar] = [Scalar].constant(of: 2.0)
 
         var actual: [Scalar] = lhs
         Surge.powInPlace(&actual, rhs)
@@ -282,7 +282,7 @@ class ArithmeticTests: XCTestCase {
         typealias Scalar = Double
 
         let lhs: [Scalar] = .monotonicNormalized()
-        let rhs: [Scalar] = [Scalar].constant(2.0)
+        let rhs: [Scalar] = [Scalar].constant(of: 2.0)
 
         var actual: [Scalar] = lhs
         Surge.powInPlace(&actual, rhs)
