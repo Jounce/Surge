@@ -28,8 +28,25 @@ class VectorTests: XCTestCase {
     // MARK: - Initialization
 
     func test_init() {
-        let v = Vector([1.0, 2.0])
-        XCTAssertEqual(v.scalars, [1.0, 2.0])
+        typealias Scalar = Double
+
+        let values: [Scalar] = .monotonicNormalized()
+        let lhs: Vector<Scalar> = Vector(values)
+
+        XCTAssertEqual(lhs.scalars, values)
+    }
+
+    // MARK: - Subscript
+
+    func test_subscript() {
+        typealias Scalar = Double
+
+        let values: [Scalar] = .monotonicNormalized()
+        let lhs: Vector<Scalar> = Vector(values)
+
+        for (index, expected) in values.enumerated() {
+            XCTAssertEqual(lhs[index], expected)
+        }
     }
 
     // MARK: - Addition: In Place
@@ -37,18 +54,13 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.addInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual += vector
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 + $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -56,18 +68,13 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.addInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual += vector
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 + $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -75,19 +82,13 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 1.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.addInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual += scalar
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        let expected: Vector<Scalar> = Vector(lhs.map { $0 + rhs })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -95,19 +96,13 @@ class VectorTests: XCTestCase {
     func test_add_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 1.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.addInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual += scalar
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        let expected: Vector<Scalar> = Vector(lhs.map { $0 + rhs })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -117,18 +112,13 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.subInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual -= vector
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 - $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -136,18 +126,13 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.subInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual -= vector
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 - $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -155,19 +140,13 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 1.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.subInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual -= scalar
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let expected: Vector<Scalar> = Vector(lhs.map { $0 - rhs })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -175,19 +154,13 @@ class VectorTests: XCTestCase {
     func test_sub_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 1.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.subInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual -= scalar
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let expected: Vector<Scalar> = Vector(lhs.map { $0 - rhs })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -197,19 +170,14 @@ class VectorTests: XCTestCase {
     func test_muladd_in_place_vector_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 2.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
+        let alpha: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.muladdInPlace(&actual, rhs, alpha)
 
-            startMeasuring()
-            Surge.muladdInPlace(&actual, vector, scalar)
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs.scalars, rhs.scalars).map { $0 + ($1 * alpha) })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -217,21 +185,16 @@ class VectorTests: XCTestCase {
     func test_muladd_in_place_vector_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 2.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
+        let alpha: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.muladdInPlace(&actual, rhs, alpha)
 
-            startMeasuring()
-            Surge.muladdInPlace(&actual, vector, scalar)
-            stopMeasuring()
-        }
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs.scalars, rhs.scalars).map { $0 + ($1 * alpha) })
 
-        let expected: Vector<Scalar> = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+        XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
     // MARK: - Multiplication: In Place
@@ -239,19 +202,13 @@ class VectorTests: XCTestCase {
     func test_mul_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 2.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.mulInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual *= scalar
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        let expected: Vector<Scalar> = Vector(lhs.map { $0 * rhs })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -259,21 +216,51 @@ class VectorTests: XCTestCase {
     func test_mul_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 2.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.mulInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual *= scalar
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        let expected: Vector<Scalar> = Vector(lhs.map { $0 * rhs })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_mul_vector_matrix_double() {
+        typealias Scalar = Double
+
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Matrix<Scalar> = .monotonicNormalized()
+
+        let actual: Vector<Scalar> = Surge.mul(lhs, rhs)
+
+        let transposed: Matrix<Scalar> = Surge.transpose(rhs)
+        let columns: [Vector<Scalar>] = transposed.map { Vector($0) }
+        let expected: Vector<Scalar> = Vector(columns.map { rhs in
+            let squares: [Scalar] = Swift.zip(lhs, rhs).map { $0 * $1 }
+            return squares.reduce(0.0, +)
+        })
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-8)
+    }
+
+    func test_mul_vector_matrix_float() {
+        typealias Scalar = Float
+
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Matrix<Scalar> = .monotonicNormalized()
+
+        let actual: Vector<Scalar> = Surge.mul(lhs, rhs)
+
+        let transposed: Matrix<Scalar> = Surge.transpose(rhs)
+        let columns: [Vector<Scalar>] = transposed.map { Vector($0) }
+        let expected: Vector<Scalar> = Vector(columns.map { rhs in
+            let squares: [Scalar] = Swift.zip(lhs, rhs).map { $0 * $1 }
+            return squares.reduce(0.0, +)
+        })
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-3)
     }
 
     // MARK: - Division: In Place
@@ -281,19 +268,13 @@ class VectorTests: XCTestCase {
     func test_div_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 0.5
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.divInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual /= scalar
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        let expected: Vector<Scalar> = Vector(lhs.map { $0 / rhs })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -301,19 +282,13 @@ class VectorTests: XCTestCase {
     func test_div_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 0.5
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.divInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual /= scalar
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        let expected: Vector<Scalar> = Vector(lhs.map { $0 / rhs })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
@@ -323,18 +298,13 @@ class VectorTests: XCTestCase {
     func test_elmul_in_place_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.elmulInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual .*= vector
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 * $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -342,18 +312,13 @@ class VectorTests: XCTestCase {
     func test_elmul_in_place_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.elmulInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual .*= vector
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 * $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -363,18 +328,13 @@ class VectorTests: XCTestCase {
     func test_eldiv_in_place_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.eldivInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual ./= vector
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 / $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -382,31 +342,29 @@ class VectorTests: XCTestCase {
     func test_eldiv_in_place_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.eldivInPlace(&actual, rhs)
 
-            startMeasuring()
-            actual ./= vector
-            stopMeasuring()
-        }
-
-        let expected: Vector<Scalar> = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 / $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
 
-    // MARK: - Dot Product
+    // MARK: - Dot Product: In Place
 
     func test_dot_vector_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        let actual = dot(vector, vector)
-        let expected: Scalar = 385
+        let actual: Scalar = Surge.dot(lhs, rhs)
+
+        let squares: [Scalar] = Swift.zip(lhs, rhs).map { $0 * $1 }
+        let expected: Scalar = squares.reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -414,12 +372,15 @@ class VectorTests: XCTestCase {
     func test_dot_vector_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        let actual = dot(vector, vector)
-        let expected: Scalar = 385
+        let actual: Scalar = Surge.dot(lhs, rhs)
 
-        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+        let squares: [Scalar] = Swift.zip(lhs, rhs).map { $0 * $1 }
+        let expected: Scalar = squares.reduce(0.0, +)
+
+        XCTAssertEqual(actual, expected, accuracy: 1e-3)
     }
 
     // MARK: - Power
@@ -427,18 +388,13 @@ class VectorTests: XCTestCase {
     func test_pow_in_place_vector_scalar_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 2.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.powInPlace(&actual, rhs)
 
-            startMeasuring()
-            powInPlace(&actual, scalar)
-            stopMeasuring()
-        }
-        let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+        let expected: Vector<Scalar> = Vector(lhs.map { pow($0, rhs) })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -446,18 +402,13 @@ class VectorTests: XCTestCase {
     func test_pow_in_place_vector_scalar_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        let scalar: Scalar = 2.0
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Scalar = .constant()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.powInPlace(&actual, rhs)
 
-            startMeasuring()
-            powInPlace(&actual, scalar)
-            stopMeasuring()
-        }
-        let expected: Vector<Scalar> = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+        let expected: Vector<Scalar> = Vector(lhs.map { pow($0, rhs) })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
@@ -467,20 +418,12 @@ class VectorTests: XCTestCase {
     func test_exp_in_place_vector_double() {
         typealias Scalar = Double
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.expInPlace(&actual)
 
-            startMeasuring()
-            expInPlace(&actual)
-            stopMeasuring()
-        }
-        let expected: Vector<Scalar> = [
-            2.718_282, 7.389_056, 20.085_537, 54.598_150, 148.413_159,
-            403.428_793, 1_096.633_158, 2_980.957_987, 8_103.083_928, 22_026.465_795
-        ]
+        let expected: Vector<Scalar> = Vector(lhs.map { exp($0) })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -488,20 +431,12 @@ class VectorTests: XCTestCase {
     func test_exp_in_place_vector_float() {
         typealias Scalar = Float
 
-        let vector: Vector<Scalar> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Vector<Scalar> = []
-        measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-            actual = vector
+        var actual: Vector<Scalar> = lhs
+        Surge.expInPlace(&actual)
 
-            startMeasuring()
-            expInPlace(&actual)
-            stopMeasuring()
-        }
-        let expected: Vector<Scalar> = [
-            2.718_282, 7.389_056, 20.085_537, 54.598_150, 148.413_159,
-            403.428_793, 1_096.633_158, 2_980.957_987, 8_103.083_928, 22_026.465_795
-        ]
+        let expected: Vector<Scalar> = Vector(lhs.map { exp($0) })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-2)
     }
@@ -511,14 +446,15 @@ class VectorTests: XCTestCase {
     func test_dist_vector_vector_double() {
         typealias Scalar = Double
 
-        let lhs: Vector<Scalar> = [1, 2, 3]
-        let rhs: Vector<Scalar> = [9, 8, 7]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Scalar = 0
-        measure {
-            actual = dist(lhs, rhs)
-        }
-        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+        let actual: Scalar = Surge.dist(lhs, rhs)
+
+        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
+        let sumOfPartialDistancesSquared: Scalar = partialDistancesSquared.reduce(0.0, +)
+        let expected: Scalar = sqrt(sumOfPartialDistancesSquared)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -526,14 +462,15 @@ class VectorTests: XCTestCase {
     func test_dist_vector_vector_float() {
         typealias Scalar = Float
 
-        let lhs: Vector<Scalar> = [1, 2, 3, 4]
-        let rhs: Vector<Scalar> = [9, 8, 7, 6]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Scalar = 0
-        measure {
-            actual = dist(lhs, rhs)
-        }
-        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+        let actual: Scalar = Surge.dist(lhs, rhs)
+
+        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
+        let sumOfPartialDistancesSquared: Scalar = partialDistancesSquared.reduce(0.0, +)
+        let expected: Scalar = sqrt(sumOfPartialDistancesSquared)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -543,15 +480,14 @@ class VectorTests: XCTestCase {
     func test_distsq_vector_vector_double() {
         typealias Scalar = Double
 
-        let lhs: Vector<Scalar> = [1, 2, 3]
-        let rhs: Vector<Scalar> = [9, 8, 7]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Scalar = 0
-        measure {
-            actual = distSq(lhs, rhs)
-        }
+        let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
+        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
+        let expected: Scalar = partialDistancesSquared.reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -559,14 +495,14 @@ class VectorTests: XCTestCase {
     func test_distsq_vector_vector_float() {
         typealias Scalar = Float
 
-        let lhs: Vector<Scalar> = [1, 2, 3, 4]
-        let rhs: Vector<Scalar> = [9, 8, 7, 6]
+        let lhs: Vector<Scalar> = .monotonicNormalized()
+        let rhs: Vector<Scalar> = .monotonicNormalized()
 
-        var actual: Scalar = 0
-        measure {
-            actual = distSq(lhs, rhs)
-        }
-        let expected: Scalar = Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +)
+        let actual: Scalar = Surge.dist(lhs, rhs)
+
+        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
+        let expected: Scalar = partialDistancesSquared.reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
