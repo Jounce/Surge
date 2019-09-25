@@ -38,10 +38,7 @@ class AuxiliaryTests: XCTestCase {
             expected.append(sign * abs(magnitude))
         }
 
-        var actual: [Double] = []
-        self.measure {
-            actual = copysign(sign: signs, magnitude: magnitudes)
-        }
+        let actual: [Double] = copysign(sign: signs, magnitude: magnitudes)
 
         XCTAssertEqual(actual, expected)
     }
