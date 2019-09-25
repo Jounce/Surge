@@ -25,6 +25,8 @@ import XCTest
 class TrigonometricTests: XCTestCase {
     let n = 10_000
 
+    // MARK: - Sine/Cosine/Tangent
+
     func test_sin() {
         let values = (0...n).map { _ in drand48() * Double.pi }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: sin, mapped: sin, accuracy: 1e-4)
@@ -40,6 +42,8 @@ class TrigonometricTests: XCTestCase {
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: tan, mapped: tan, accuracy: 1e-4)
     }
 
+    // MARK: - Arc Sine/Cosine/Tangent
+
     func test_asin() {
         let values = (0...n).map { _ in drand48() }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: asin, mapped: asin, accuracy: 1e-4)
@@ -53,5 +57,39 @@ class TrigonometricTests: XCTestCase {
     func test_atan() {
         let values = (0...n).map { _ in drand48() }
         measureAndValidateMappedFunctionWithAccuracy(source: values, member: atan, mapped: atan, accuracy: 1e-4)
+    }
+
+    // MARK: - Hyperbolic Sine/Cosine/Tangent
+
+    func test_sinh() {
+        let values = (0...n).map { _ in drand48() * Double.pi }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: sinh, mapped: sinh, accuracy: 1e-4)
+    }
+
+    func test_cosh() {
+        let values = (0...n).map { _ in drand48() * Double.pi }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: cosh, mapped: cosh, accuracy: 1e-4)
+    }
+
+    func test_tanh() {
+        let values = (0...n).map { _ in drand48() * Double.pi }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: tanh, mapped: tanh, accuracy: 1e-4)
+    }
+
+    // MARK: - Inverse Hyperbolic Sine/Cosine/Tangent
+
+    func test_asinh() {
+        let values = (0...n).map { _ in drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: asinh, mapped: asinh, accuracy: 1e-4)
+    }
+
+    func test_acosh() {
+        let values = (0...n).map { _ in 1 + drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: acosh, mapped: acosh, accuracy: 1e-4)
+    }
+
+    func test_atanh() {
+        let values = (0...n).map { _ in drand48() }
+        measureAndValidateMappedFunctionWithAccuracy(source: values, member: atanh, mapped: atanh, accuracy: 1e-4)
     }
 }
