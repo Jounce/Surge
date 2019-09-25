@@ -11,3 +11,5 @@ script:
   - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge-macOS -destination 'platform=OS X,arch=x86_64'
   - xcodebuild clean build test -workspace Surge.xcworkspace -scheme Surge-tvOS -destination 'platform=tvOS Simulator,name=Apple TV 4K,OS=11.1'
   - xcodebuild clean build -workspace Surge.xcworkspace -scheme Surge-watchOS -destination 'platform=watchOS Simulator,name=Apple Watch Series 3 - 42mm,OS=4.1'
+  - xcodebuild clean build -workspace Surge.xcworkspace -scheme SurgeBenchmarkTests-macOS -destination 'platform=OS X,arch=x86_64'
+  
