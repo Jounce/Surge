@@ -29,7 +29,7 @@ class ArithmeticTests: XCTestCase {
     func test_add_in_place_array_array_float() {
         measure_inout_array_array(of: Float.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.addInPlace)
+                measure(Surge.eladdInPlace)
             }
         }
     }
@@ -37,7 +37,7 @@ class ArithmeticTests: XCTestCase {
     func test_add_in_place_array_array_double() {
         measure_inout_array_array(of: Double.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.addInPlace)
+                measure(Surge.eladdInPlace)
             }
         }
     }
@@ -47,7 +47,7 @@ class ArithmeticTests: XCTestCase {
     func test_sub_in_place_array_array_float() {
         measure_inout_array_array(of: Float.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.subInPlace)
+                measure(Surge.elsubInPlace)
             }
         }
     }
@@ -55,7 +55,7 @@ class ArithmeticTests: XCTestCase {
     func test_sub_in_place_array_array_double() {
         measure_inout_array_array(of: Double.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.subInPlace)
+                measure(Surge.elsubInPlace)
             }
         }
     }
@@ -65,7 +65,7 @@ class ArithmeticTests: XCTestCase {
     func test_mul_in_place_array_array_float() {
         measure_inout_array_array(of: Float.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.mulInPlace)
+                measure(Surge.elmulInPlace)
             }
         }
     }
@@ -73,7 +73,7 @@ class ArithmeticTests: XCTestCase {
     func test_mul_in_place_array_array_double() {
         measure_inout_array_array(of: Double.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.mulInPlace)
+                measure(Surge.elmulInPlace)
             }
         }
     }
@@ -83,7 +83,7 @@ class ArithmeticTests: XCTestCase {
     func test_div_in_place_array_array_float() {
         measure_inout_array_array(of: Float.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.divInPlace)
+                measure(Surge.eldivInPlace)
             }
         }
     }
@@ -91,7 +91,7 @@ class ArithmeticTests: XCTestCase {
     func test_div_in_place_array_array_double() {
         measure_inout_array_array(of: Double.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.divInPlace)
+                measure(Surge.eldivInPlace)
             }
         }
     }
