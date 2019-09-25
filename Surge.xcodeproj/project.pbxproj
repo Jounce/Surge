@@ -19,7 +19,6 @@
 		614AD3431FC0AF77002BFE1C /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */; };
 		614AD3441FC0AF77002BFE1C /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */; };
 		614AD3451FC0AF77002BFE1C /* ConvolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */; };
-		614AD3471FC0AF77002BFE1C /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */; };
 		614AD3481FC0AF77002BFE1C /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD721F70D22600B99FFB /* MatrixTests.swift */; };
 		614AD34A1FC0AF77002BFE1C /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */; };
 		614AD35A1FC0B001002BFE1C /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614AD3511FC0B001002BFE1C /* Surge.framework */; };
@@ -34,7 +33,6 @@
 		614AD3741FC0B0D2002BFE1C /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */; };
 		614AD3751FC0B0D2002BFE1C /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */; };
 		614AD3761FC0B0D2002BFE1C /* ConvolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */; };
-		614AD3781FC0B0D2002BFE1C /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */; };
 		614AD3791FC0B0D2002BFE1C /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD721F70D22600B99FFB /* MatrixTests.swift */; };
 		614AD37B1FC0B0D2002BFE1C /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */; };
 		614AD38A1FC0B12F002BFE1C /* Surge.h in Headers */ = {isa = PBXBuildFile; fileRef = 615394541F762B58002A4AD2 /* Surge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -60,7 +58,6 @@
 		61A0AD761F70D22600B99FFB /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */; };
 		61A0AD771F70D22600B99FFB /* AuxiliaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */; };
 		61A0AD781F70D22600B99FFB /* ConvolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */; };
-		61A0AD7A1F70D22600B99FFB /* HyperbolicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */; };
 		61A0AD7B1F70D22600B99FFB /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD721F70D22600B99FFB /* MatrixTests.swift */; };
 		61A0AD7D1F70D22600B99FFB /* TrigonometricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */; };
 		61E930B8207002EA00694FCB /* UnsafeMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E930B7207002EA00694FCB /* UnsafeMemory.swift */; };
@@ -171,7 +168,6 @@
 		61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArithmeticTests.swift; sourceTree = "<group>"; };
 		61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuxiliaryTests.swift; sourceTree = "<group>"; };
 		61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvolutionTests.swift; sourceTree = "<group>"; };
-		61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperbolicTests.swift; sourceTree = "<group>"; };
 		61A0AD721F70D22600B99FFB /* MatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 		61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrigonometricTests.swift; sourceTree = "<group>"; };
 		61A0AD7F1F70D99B00B99FFB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -297,7 +293,6 @@
 				61A0AD6D1F70D22600B99FFB /* ArithmeticTests.swift */,
 				61A0AD6E1F70D22600B99FFB /* AuxiliaryTests.swift */,
 				61A0AD6F1F70D22600B99FFB /* ConvolutionTests.swift */,
-				61A0AD711F70D22600B99FFB /* HyperbolicTests.swift */,
 				CAAF4FFF233A701A00CC0AA7 /* LogarithmTests.swift */,
 				61A0AD721F70D22600B99FFB /* MatrixTests.swift */,
 				61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */,
@@ -865,7 +860,6 @@
 				CAFE5DAF22F9ED4900A34887 /* VectorTests.swift in Sources */,
 				614AD34A1FC0AF77002BFE1C /* TrigonometricTests.swift in Sources */,
 				CAFE5DA622F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
-				614AD3471FC0AF77002BFE1C /* HyperbolicTests.swift in Sources */,
 				CA945C2E233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */,
 				614AD3431FC0AF77002BFE1C /* ArithmeticTests.swift in Sources */,
 			);
@@ -906,7 +900,6 @@
 				CAFE5DB022F9ED4900A34887 /* VectorTests.swift in Sources */,
 				614AD37B1FC0B0D2002BFE1C /* TrigonometricTests.swift in Sources */,
 				CAFE5DA722F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
-				614AD3781FC0B0D2002BFE1C /* HyperbolicTests.swift in Sources */,
 				CA945C2F233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */,
 				614AD3741FC0B0D2002BFE1C /* ArithmeticTests.swift in Sources */,
 			);
@@ -958,7 +951,6 @@
 				CAFE5DAE22F9ED4900A34887 /* VectorTests.swift in Sources */,
 				61A0AD7D1F70D22600B99FFB /* TrigonometricTests.swift in Sources */,
 				CAFE5DA522F9EC1D00A34887 /* XCTAssert+Surge.swift in Sources */,
-				61A0AD7A1F70D22600B99FFB /* HyperbolicTests.swift in Sources */,
 				CA945C2D233ABC0D00D95127 /* SurgeTests+Extensions.swift in Sources */,
 				61A0AD761F70D22600B99FFB /* ArithmeticTests.swift in Sources */,
 			);
