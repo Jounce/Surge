@@ -458,7 +458,7 @@ public func .% <L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(lhs: L, rh
 // MARK: - Element-wise Modulo: In Place
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func modInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
+func modInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Float, R.Element == Float {
     precondition(lhs.count == rhs.count, "Collections must have the same size")
     var elementCount: Int32 = numericCast(lhs.count)
     withUnsafeMutableMemory(&lhs) { lm in
@@ -469,7 +469,7 @@ public func modInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessib
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func modInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
+func modInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: inout L, _ rhs: R) where L.Element == Double, R.Element == Double {
     precondition(lhs.count == rhs.count, "Collections must have the same size")
     var elementCount: Int32 = numericCast(lhs.count)
     withUnsafeMutableMemory(&lhs) { lm in
@@ -667,7 +667,7 @@ func sqInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element
     }
 }
 
-public func sqInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func sqInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
     withUnsafeMutableMemory(&lhs) { lm in
         vDSP_vsqD(lm.pointer, numericCast(lm.stride), lm.pointer, numericCast(lm.stride), numericCast(lm.count))
     }
