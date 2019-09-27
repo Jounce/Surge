@@ -75,7 +75,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
 
     public static func diagonal(rows: Int, columns: Int, repeatedValue: Scalar) -> Matrix<Scalar> {
         let count = Swift.min(rows, columns)
-        let scalars = Swift.repeatElement(repeatedValue, count: count)
+        let scalars = repeatElement(repeatedValue, count: count)
         return self.diagonal(rows: rows, columns: columns, scalars: scalars)
     }
 

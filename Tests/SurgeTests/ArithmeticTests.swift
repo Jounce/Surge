@@ -37,7 +37,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.eladdInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
+        let expected = zip(lhs, rhs).map { $0 + $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -51,7 +51,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.eladdInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { $0 + $1 }
+        let expected = zip(lhs, rhs).map { $0 + $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -67,7 +67,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.elsubInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let expected = zip(lhs, rhs).map { $0 - $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -81,7 +81,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.elsubInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let expected = zip(lhs, rhs).map { $0 - $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -97,7 +97,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.elmulInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
+        let expected = zip(lhs, rhs).map { $0 * $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -111,7 +111,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.elmulInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { $0 * $1 }
+        let expected = zip(lhs, rhs).map { $0 * $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -127,7 +127,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.eldivInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
+        let expected = zip(lhs, rhs).map { $0 / $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -141,7 +141,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.eldivInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { $0 / $1 }
+        let expected = zip(lhs, rhs).map { $0 / $1 }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -157,7 +157,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.modInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { fmod($0, $1) }
+        let expected = zip(lhs, rhs).map { fmod($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -171,7 +171,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.modInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { fmod($0, $1) }
+        let expected = zip(lhs, rhs).map { fmod($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -187,7 +187,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.remainderInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { remainder($0, $1) }
+        let expected = zip(lhs, rhs).map { remainder($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -201,7 +201,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.remainderInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { remainder($0, $1) }
+        let expected = zip(lhs, rhs).map { remainder($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -273,7 +273,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.powInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { pow($0, $1) }
+        let expected = zip(lhs, rhs).map { pow($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
@@ -287,7 +287,7 @@ class ArithmeticTests: XCTestCase {
         var actual: [Scalar] = lhs
         Surge.powInPlace(&actual, rhs)
 
-        let expected = Swift.zip(lhs, rhs).map { pow($0, $1) }
+        let expected = zip(lhs, rhs).map { pow($0, $1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -386,7 +386,7 @@ class ArithmeticTests: XCTestCase {
 
         let actual: Scalar = Surge.dot(lhs, rhs)
 
-        let expected = Swift.zip(lhs, rhs).reduce(0) { $0 + ($1.0 * $1.1) }
+        let expected = zip(lhs, rhs).reduce(0) { $0 + ($1.0 * $1.1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-1)
     }
@@ -399,7 +399,7 @@ class ArithmeticTests: XCTestCase {
 
         let actual: Scalar = Surge.dot(lhs, rhs)
 
-        let expected = Swift.zip(lhs, rhs).reduce(0) { $0 + ($1.0 * $1.1) }
+        let expected = zip(lhs, rhs).reduce(0) { $0 + ($1.0 * $1.1) }
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -440,7 +440,7 @@ class ArithmeticTests: XCTestCase {
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+        let expected: Scalar = sqrt(zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -453,7 +453,7 @@ class ArithmeticTests: XCTestCase {
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let expected: Scalar = sqrt(Swift.zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+        let expected: Scalar = sqrt(zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -468,7 +468,7 @@ class ArithmeticTests: XCTestCase {
 
         let actual: Scalar = Surge.distSq(lhs, rhs)
 
-        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistances: [Scalar] = zip(lhs, rhs).map { $0 - $1 }
         let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
         let expected: Scalar = partialDistancesSquared.reduce(0.0, +)
 
@@ -483,7 +483,7 @@ class ArithmeticTests: XCTestCase {
 
         let actual: Scalar = Surge.distSq(lhs, rhs)
 
-        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistances: [Scalar] = zip(lhs, rhs).map { $0 - $1 }
         let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
         let expected: Scalar = partialDistancesSquared.reduce(0.0, +)
 

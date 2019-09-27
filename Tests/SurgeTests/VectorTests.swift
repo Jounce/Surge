@@ -60,7 +60,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.addInPlace(&actual, rhs)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 + $1 })
+        let expected: Vector<Scalar> = Vector(zip(lhs, rhs).map { $0 + $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -74,7 +74,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.addInPlace(&actual, rhs)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 + $1 })
+        let expected: Vector<Scalar> = Vector(zip(lhs, rhs).map { $0 + $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -118,7 +118,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.subInPlace(&actual, rhs)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 - $1 })
+        let expected: Vector<Scalar> = Vector(zip(lhs, rhs).map { $0 - $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -132,7 +132,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.subInPlace(&actual, rhs)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 - $1 })
+        let expected: Vector<Scalar> = Vector(zip(lhs, rhs).map { $0 - $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -177,7 +177,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.muladdInPlace(&actual, rhs, alpha)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs.scalars, rhs.scalars).map { $0 + ($1 * alpha) })
+        let expected: Vector<Scalar> = Vector(zip(lhs.scalars, rhs.scalars).map { $0 + ($1 * alpha) })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -192,7 +192,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.muladdInPlace(&actual, rhs, alpha)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs.scalars, rhs.scalars).map { $0 + ($1 * alpha) })
+        let expected: Vector<Scalar> = Vector(zip(lhs.scalars, rhs.scalars).map { $0 + ($1 * alpha) })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -238,7 +238,7 @@ class VectorTests: XCTestCase {
         let transposed: Matrix<Scalar> = Surge.transpose(rhs)
         let columns: [Vector<Scalar>] = transposed.map { Vector($0) }
         let expected: Vector<Scalar> = Vector(columns.map { rhs in
-            let squares: [Scalar] = Swift.zip(lhs, rhs).map { $0 * $1 }
+            let squares: [Scalar] = zip(lhs, rhs).map { $0 * $1 }
             return squares.reduce(0.0, +)
         })
 
@@ -256,7 +256,7 @@ class VectorTests: XCTestCase {
         let transposed: Matrix<Scalar> = Surge.transpose(rhs)
         let columns: [Vector<Scalar>] = transposed.map { Vector($0) }
         let expected: Vector<Scalar> = Vector(columns.map { rhs in
-            let squares: [Scalar] = Swift.zip(lhs, rhs).map { $0 * $1 }
+            let squares: [Scalar] = zip(lhs, rhs).map { $0 * $1 }
             return squares.reduce(0.0, +)
         })
 
@@ -304,7 +304,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.elmulInPlace(&actual, rhs)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 * $1 })
+        let expected: Vector<Scalar> = Vector(zip(lhs, rhs).map { $0 * $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -318,7 +318,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.elmulInPlace(&actual, rhs)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 * $1 })
+        let expected: Vector<Scalar> = Vector(zip(lhs, rhs).map { $0 * $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -334,7 +334,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.eldivInPlace(&actual, rhs)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 / $1 })
+        let expected: Vector<Scalar> = Vector(zip(lhs, rhs).map { $0 / $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
@@ -348,7 +348,7 @@ class VectorTests: XCTestCase {
         var actual: Vector<Scalar> = lhs
         Surge.eldivInPlace(&actual, rhs)
 
-        let expected: Vector<Scalar> = Vector(Swift.zip(lhs, rhs).map { $0 / $1 })
+        let expected: Vector<Scalar> = Vector(zip(lhs, rhs).map { $0 / $1 })
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -363,7 +363,7 @@ class VectorTests: XCTestCase {
 
         let actual: Scalar = Surge.dot(lhs, rhs)
 
-        let squares: [Scalar] = Swift.zip(lhs, rhs).map { $0 * $1 }
+        let squares: [Scalar] = zip(lhs, rhs).map { $0 * $1 }
         let expected: Scalar = squares.reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
@@ -377,7 +377,7 @@ class VectorTests: XCTestCase {
 
         let actual: Scalar = Surge.dot(lhs, rhs)
 
-        let squares: [Scalar] = Swift.zip(lhs, rhs).map { $0 * $1 }
+        let squares: [Scalar] = zip(lhs, rhs).map { $0 * $1 }
         let expected: Scalar = squares.reduce(0.0, +)
 
         XCTAssertEqual(actual, expected, accuracy: 1e-3)
@@ -451,7 +451,7 @@ class VectorTests: XCTestCase {
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistances: [Scalar] = zip(lhs, rhs).map { $0 - $1 }
         let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
         let sumOfPartialDistancesSquared: Scalar = partialDistancesSquared.reduce(0.0, +)
         let expected: Scalar = sqrt(sumOfPartialDistancesSquared)
@@ -467,7 +467,7 @@ class VectorTests: XCTestCase {
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistances: [Scalar] = zip(lhs, rhs).map { $0 - $1 }
         let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
         let sumOfPartialDistancesSquared: Scalar = partialDistancesSquared.reduce(0.0, +)
         let expected: Scalar = sqrt(sumOfPartialDistancesSquared)
@@ -485,7 +485,7 @@ class VectorTests: XCTestCase {
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistances: [Scalar] = zip(lhs, rhs).map { $0 - $1 }
         let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
         let expected: Scalar = partialDistancesSquared.reduce(0.0, +)
 
@@ -500,7 +500,7 @@ class VectorTests: XCTestCase {
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let partialDistances: [Scalar] = Swift.zip(lhs, rhs).map { $0 - $1 }
+        let partialDistances: [Scalar] = zip(lhs, rhs).map { $0 - $1 }
         let partialDistancesSquared: [Scalar] = partialDistances.map { $0 * $0 }
         let expected: Scalar = partialDistancesSquared.reduce(0.0, +)
 

@@ -89,7 +89,7 @@ private func checkArray<T, U>(
         return .failure(.size(message: message))
     }
 
-    for (index, (actualValue, expectedValue)) in Swift.zip(actualArray, expectedArray).enumerated() {
+    for (index, (actualValue, expectedValue)) in zip(actualArray, expectedArray).enumerated() {
         switch checkValue(actualValue, expectedValue, accuracy: accuracy) {
         case .success:
             continue
@@ -112,7 +112,7 @@ private func checkGrid<T, U, V>(
         return .failure(.size(message: message))
     }
 
-    for (index, (actualArray, expectedArray)) in Swift.zip(actualGrid, expectedGrid).enumerated() {
+    for (index, (actualArray, expectedArray)) in zip(actualGrid, expectedGrid).enumerated() {
         switch checkArray(actualArray, expectedArray, accuracy: accuracy) {
         case .success:
             continue
