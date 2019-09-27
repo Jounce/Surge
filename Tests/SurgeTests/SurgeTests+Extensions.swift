@@ -213,3 +213,102 @@ extension Matrix where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
         return Matrix(rows: rows, columns: columns, grid: grid)
     }
 }
+
+extension XCTestCase {
+    func validate_array<T>(
+        of: T.Type,
+        lhs: [T] = [T].monotonicNormalized(),
+        actual actualFunc: ([T]) -> [T],
+        expected expectedDFunc: ([T]) -> [T],
+        accuracy: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T: ExpressibleByFloatLiteral & FloatingPoint {
+        let actual = actualFunc(lhs)
+        let expected = expectedDFunc(lhs)
+
+        XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
+    }
+
+    func validate_inout_array<T>(
+        of: T.Type,
+        lhs: [T] = [T].monotonicNormalized(),
+        actual actualFunc: (inout [T]) -> (),
+        expected expectedDFunc: ([T]) -> [T],
+        accuracy: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T: ExpressibleByFloatLiteral & FloatingPoint {
+        var actual = lhs
+        actualFunc(&actual)
+
+        let expected = expectedDFunc(lhs)
+
+        XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
+    }
+
+    func validate_array_array<T>(
+        of: T.Type,
+        lhs: [T] = [T].monotonicNormalized(),
+        rhs: [T] = [T].monotonicNormalized(),
+        actual actualFunc: ([T], [T]) -> [T],
+        expected expectedDFunc: ([T], [T]) -> [T],
+        accuracy: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T: ExpressibleByFloatLiteral & FloatingPoint {
+        let actual = actualFunc(lhs, rhs)
+        let expected = expectedDFunc(lhs, rhs)
+
+        XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
+    }
+
+    func validate_inout_array_array<T>(
+        of: T.Type,
+        lhs: [T] = [T].monotonicNormalized(),
+        rhs: [T] = [T].monotonicNormalized(),
+        actual actualFunc: (inout [T], [T]) -> (),
+        expected expectedDFunc: ([T], [T]) -> [T],
+        accuracy: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T: ExpressibleByFloatLiteral & FloatingPoint {
+        var actual = lhs
+        actualFunc(&actual, rhs)
+
+        let expected = expectedDFunc(lhs, rhs)
+
+        XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
+    }
+
+    func validate_array<T>(
+        of: T.Type,
+        lhs: [T] = [T].monotonicNormalized(),
+        actual actualFunc: ([T]) -> T,
+        expected expectedDFunc: ([T]) -> T,
+        accuracy: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T: ExpressibleByFloatLiteral & FloatingPoint {
+        let actual = actualFunc(lhs)
+        let expected = expectedDFunc(lhs)
+
+        XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
+    }
+
+    func validate_array_array<T>(
+        of: T.Type,
+        lhs: [T] = [T].monotonicNormalized(),
+        rhs: [T] = [T].monotonicNormalized(),
+        actual actualFunc: ([T], [T]) -> T,
+        expected expectedDFunc: ([T], [T]) -> T,
+        accuracy: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T: ExpressibleByFloatLiteral & FloatingPoint {
+        let actual = actualFunc(lhs, rhs)
+        let expected = expectedDFunc(lhs, rhs)
+
+        XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
+    }
+}
