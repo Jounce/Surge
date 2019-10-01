@@ -238,16 +238,22 @@ public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Doubl
 
 /// Computes the standard deviation, a measure of the spread of deviation.
 public func std<L: UnsafeMemoryAccessible>(_ lhs: L) -> Float where L.Element == Float {
-    let diff = lhs - mean(lhs)
-    let variance = measq(diff)
-    return sqrt(variance)
+    return sqrt(variance(lhs))
 }
 
 /// Computes the standard deviation, a measure of the spread of deviation.
 public func std<L: UnsafeMemoryAccessible>(_ lhs: L) -> Double where L.Element == Double {
-    let diff = lhs - mean(lhs)
-    let variance = measq(diff)
-    return sqrt(variance)
+    return sqrt(variance(lhs))
+}
+
+/// Computes the standard deviation, a measure of the spread of deviation.
+public func std<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Float) -> Float where L.Element == Float {
+    return sqrt(variance(lhs, mean: mean))
+}
+
+/// Computes the standard deviation, a measure of the spread of deviation.
+public func std<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Double where L.Element == Double {
+    return sqrt(variance(lhs, mean: mean))
 }
 
 // MARK: - Linear regression
