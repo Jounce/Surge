@@ -91,7 +91,135 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
 
         return matrix
     }
+}
 
+// MARK: - Initialization: Randomized
+
+extension Matrix where Scalar == Float {
+    public static func randUniform(
+        rows: Int,
+        columns: Int,
+        within range: ClosedRange<Float> = 0.0...1.0
+    ) -> Matrix {
+        var generator = SystemRandomNumberGenerator()
+        return self.randUniform(
+            rows: rows,
+            columns: columns,
+            within: range,
+            using: &generator
+        )
+    }
+
+    public static func randUniform<T>(
+        rows: Int,
+        columns: Int,
+        within range: ClosedRange<Float> = 0.0...1.0,
+        using generator: inout T
+    ) -> Matrix where T: RandomNumberGenerator {
+        let grid = Surge.randUniform(
+            count: rows * columns,
+            within: range,
+            using: &generator
+        )
+        return Matrix(rows: rows, columns: columns, grid: grid)
+    }
+
+    public static func randNormal(
+        rows: Int,
+        columns: Int,
+        mu: Float = 0.0,
+        sigma: Float = 1.0
+    ) -> Matrix {
+        var generator = SystemRandomNumberGenerator()
+        return self.randNormal(
+            rows: rows,
+            columns: columns,
+            mu: mu,
+            sigma: sigma,
+            using: &generator
+        )
+    }
+
+    public static func randNormal<T>(
+        rows: Int,
+        columns: Int,
+        mu: Float = 0.0,
+        sigma: Float = 1.0,
+        using generator: inout T
+    ) -> Matrix where T: RandomNumberGenerator {
+        let grid = Surge.randNormal(
+            count: rows * columns,
+            mu: mu,
+            sigma: sigma,
+            using: &generator
+        )
+        return Matrix(rows: rows, columns: columns, grid: grid)
+    }
+}
+
+extension Matrix where Scalar == Double {
+    public static func randUniform(
+        rows: Int,
+        columns: Int,
+        within range: ClosedRange<Double> = 0.0...1.0
+    ) -> Matrix {
+        var generator = SystemRandomNumberGenerator()
+        return self.randUniform(
+            rows: rows,
+            columns: columns,
+            within: range,
+            using: &generator
+        )
+    }
+
+    public static func randUniform<T>(
+        rows: Int,
+        columns: Int,
+        within range: ClosedRange<Double> = 0.0...1.0,
+        using generator: inout T
+    ) -> Matrix where T: RandomNumberGenerator {
+        let grid = Surge.randUniform(
+            count: rows * columns,
+            within: range,
+            using: &generator
+        )
+        return Matrix(rows: rows, columns: columns, grid: grid)
+    }
+
+    public static func randNormal(
+        rows: Int,
+        columns: Int,
+        mu: Double = 0.0,
+        sigma: Double = 1.0
+    ) -> Matrix {
+        var generator = SystemRandomNumberGenerator()
+        return self.randNormal(
+            rows: rows,
+            columns: columns,
+            mu: mu,
+            sigma: sigma,
+            using: &generator
+        )
+    }
+
+    public static func randNormal<T>(
+        rows: Int,
+        columns: Int,
+        mu: Double = 0.0,
+        sigma: Double = 1.0,
+        using generator: inout T
+    ) -> Matrix where T: RandomNumberGenerator {
+        let grid = Surge.randNormal(
+            count: rows * columns,
+            mu: mu,
+            sigma: sigma,
+            using: &generator
+        )
+        return Matrix(rows: rows, columns: columns, grid: grid)
+    }
+}
+
+extension Matrix {
     // MARK: - Subscript
 
     public subscript(row: Int, column: Int) -> Scalar {
