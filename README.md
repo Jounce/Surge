@@ -125,7 +125,7 @@ let product = Surge.mul(a, b) // [2.0, 12.0, 30.0, 56.0]
 - [Statistical Operations](#statistical-operations)
   - [Summation](#summation-1)
   - [Minimum/Maximum](#minimummaximum)
-  - [Mean](#mean)
+  - [Mean/Variance](#meanvariance)
 - [Auxiliary Functions](#auxiliary-functions)
   - [Rounding Functions](#rounding-functions)
   - [Absolute value](#absolute-value)
@@ -678,13 +678,15 @@ Statistical functions & operators
 | `(Array)` | `min`    | Minimum   |
 | `(Array)` | `max`    | Maximum   |
 
-### [Mean](https://en.wikipedia.org/wiki/Mean)
+### [Mean/Variance](https://en.wikipedia.org/wiki/Mean)
 
-| Arguments | Function | Operation                                                    |
-|-----------|----------|--------------------------------------------------------------|
-| `(Array)` | `mean`   | [Mean](https://en.wikipedia.org/wiki/Mean)                   |
-| `(Array)` | `meamg`  | Mean of Magnitudes                                           |
-| `(Array)` | `measq`  | [Mean of squares](https://en.wikipedia.org/wiki/Mean_square) |
+| Arguments | Function   | Operation                                                              |
+|-----------|------------|------------------------------------------------------------------------|
+| `(Array)` | `mean`     | [Mean](https://en.wikipedia.org/wiki/Mean)                             |
+| `(Array)` | `meamg`    | Mean of Magnitudes                                                     |
+| `(Array)` | `measq`    | [Mean of Squares](https://en.wikipedia.org/wiki/Mean_square)           |
+| `(Array)` | `variance` | [Variance](https://en.wikipedia.org/wiki/Variance)                     |
+| `(Array)` | `std`      | [Standard Deviation](https://en.wikipedia.org/wiki/Standard_deviation) |
 
 </details>
 
