@@ -27,6 +27,19 @@ import XCTest
 class VectorTests: XCTestCase {
     // MARK: - Initialization
 
+    func test_init_dimensions_repeatedValue() {
+        typealias Scalar = Double
+
+        let dimensions = 5
+        let repeatedValue: Scalar = 42
+
+        let actual: Vector<Scalar> = Vector(dimensions: dimensions, repeatedValue: repeatedValue)
+
+        let expected: Vector<Scalar> = [42, 42, 42, 42, 42]
+
+        XCTAssertEqual(actual, expected)
+    }
+
     func test_init() {
         typealias Scalar = Double
 
@@ -34,6 +47,16 @@ class VectorTests: XCTestCase {
         let lhs: Vector<Scalar> = Vector(values)
 
         XCTAssertEqual(lhs.scalars, values)
+    }
+
+    func test_init_dimensions_closure() {
+        typealias Scalar = Double
+
+        let dimensions = 5
+        let actual: Vector<Scalar> = Vector(dimensions: dimensions) { Scalar($0) }
+        let expected: Vector<Scalar> = [0, 1, 2, 3, 4]
+
+        XCTAssertEqual(actual, expected)
     }
 
     // MARK: - Subscript
