@@ -210,6 +210,30 @@ public func rmsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element 
     return result
 }
 
+// MARK: - Variance
+
+/// Computes the variance, a measure of the spread of deviation.
+public func variance<L: UnsafeMemoryAccessible>(_ lhs: L) -> Float where L.Element == Float {
+    return variance(lhs, mean: mean(lhs))
+}
+
+/// Computes the variance, a measure of the spread of deviation.
+public func variance<L: UnsafeMemoryAccessible>(_ lhs: L) -> Double where L.Element == Double {
+    return variance(lhs, mean: mean(lhs))
+}
+
+/// Computes the variance, a measure of the spread of deviation.
+public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Float) -> Float where L.Element == Float {
+    let diff = sub(lhs, mean)
+    return measq(diff)
+}
+
+/// Computes the variance, a measure of the spread of deviation.
+public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Double where L.Element == Double {
+    let diff = sub(lhs, mean)
+    return measq(diff)
+}
+
 // MARK: - Standard deviation
 
 /// Computes the standard deviation, a measure of the spread of deviation.
