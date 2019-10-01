@@ -144,7 +144,7 @@ public func mean<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element 
     return result
 }
 
-// MARK: - Mean Magnitude
+// MARK: - Mean of Magnitudes
 
 public func meamg<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -166,7 +166,7 @@ public func meamg<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element
     return result
 }
 
-// MARK: - Mean Square Value
+// MARK: - Mean of Squares
 
 public func measq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -188,7 +188,7 @@ public func measq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element
     return result
 }
 
-// MARK: - Root Mean Square Value
+// MARK: - Root Mean of Squares
 
 public func rmsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
     var result: Float = 0.0
@@ -223,18 +223,22 @@ public func variance<L: UnsafeMemoryAccessible>(_ lhs: L) -> Double where L.Elem
 }
 
 /// Computes the variance, a measure of the spread of deviation.
+///
+/// - Note: For the calculation to produce a correct result `mean` needs to be the actual mean of `lhs`.
 public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Float) -> Float where L.Element == Float {
     let diff = sub(lhs, mean)
     return measq(diff)
 }
 
 /// Computes the variance, a measure of the spread of deviation.
+///
+/// - Note: For the calculation to produce a correct result `mean` needs to be the actual mean of `lhs`.
 public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Double where L.Element == Double {
     let diff = sub(lhs, mean)
     return measq(diff)
 }
 
-// MARK: - Standard deviation
+// MARK: - Standard Deviation
 
 /// Computes the standard deviation, a measure of the spread of deviation.
 public func std<L: UnsafeMemoryAccessible>(_ lhs: L) -> Float where L.Element == Float {
@@ -247,16 +251,20 @@ public func std<L: UnsafeMemoryAccessible>(_ lhs: L) -> Double where L.Element =
 }
 
 /// Computes the standard deviation, a measure of the spread of deviation.
+///
+/// - Note: For the calculation to produce a correct result `mean` needs to be the actual mean of `lhs`.
 public func std<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Float) -> Float where L.Element == Float {
     return sqrt(variance(lhs, mean: mean))
 }
 
 /// Computes the standard deviation, a measure of the spread of deviation.
+///
+/// - Note: For the calculation to produce a correct result `mean` needs to be the actual mean of `lhs`.
 public func std<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Double where L.Element == Double {
     return sqrt(variance(lhs, mean: mean))
 }
 
-// MARK: - Linear regression
+// MARK: - Linear Regression
 
 /// Performs linear regression
 ///
