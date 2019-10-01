@@ -91,6 +91,9 @@
 		CAAF500C233A7B6700CC0AA7 /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614AD31F1FC0AD99002BFE1C /* Surge.framework */; };
 		CAAF5015233A7D4100CC0AA7 /* ArithmeticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF5014233A7C7900CC0AA7 /* ArithmeticTests.swift */; };
 		CAAF501A233A9E6300CC0AA7 /* SurgeBenchmarkTests+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF5019233A9E6300CC0AA7 /* SurgeBenchmarkTests+Extensions.swift */; };
+		CAD8E5CB2343FD38001B172A /* StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD8E5CA2343FD38001B172A /* StatisticsTests.swift */; };
+		CAD8E5CC2343FD38001B172A /* StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD8E5CA2343FD38001B172A /* StatisticsTests.swift */; };
+		CAD8E5CD2343FD38001B172A /* StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD8E5CA2343FD38001B172A /* StatisticsTests.swift */; };
 		CAEC79BF2319274F00516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
 		CAEC79C02319275000516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
 		CAEC79C12319275000516E10 /* OperatorPrecedences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */; };
@@ -188,6 +191,7 @@
 		CAAF500B233A7B6700CC0AA7 /* Info-BenchmarkTests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-BenchmarkTests.plist"; sourceTree = "<group>"; };
 		CAAF5014233A7C7900CC0AA7 /* ArithmeticTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArithmeticTests.swift; sourceTree = "<group>"; };
 		CAAF5019233A9E6300CC0AA7 /* SurgeBenchmarkTests+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SurgeBenchmarkTests+Extensions.swift"; sourceTree = "<group>"; };
+		CAD8E5CA2343FD38001B172A /* StatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTests.swift; sourceTree = "<group>"; };
 		CAEC79B72319244D00516E10 /* OperatorPrecedences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorPrecedences.swift; sourceTree = "<group>"; };
 		CAEC79C323192FE300516E10 /* Scalar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scalar.swift; sourceTree = "<group>"; };
 		CAEC79D12319343100516E10 /* Logarithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logarithm.swift; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 				61A0AD741F70D22600B99FFB /* TrigonometricTests.swift */,
 				CAFE5DAD22F9ED4900A34887 /* VectorTests.swift */,
 				CAAF4FCF2338F09700CC0AA7 /* ScalarTests.swift */,
+				CAD8E5CA2343FD38001B172A /* StatisticsTests.swift */,
 				CAFE5DA422F9EC1D00A34887 /* XCTAssert+Surge.swift */,
 				CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */,
 			);
@@ -858,6 +863,7 @@
 				CAAF5001233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				614AD3481FC0AF77002BFE1C /* MatrixTests.swift in Sources */,
 				CAAF4FFD2339651700CC0AA7 /* ScalarTests.swift in Sources */,
+				CAD8E5CC2343FD38001B172A /* StatisticsTests.swift in Sources */,
 				614AD3441FC0AF77002BFE1C /* AuxiliaryTests.swift in Sources */,
 				614AD3451FC0AF77002BFE1C /* ConvolutionTests.swift in Sources */,
 				CAFE5DAF22F9ED4900A34887 /* VectorTests.swift in Sources */,
@@ -898,6 +904,7 @@
 				CAAF5002233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				614AD3791FC0B0D2002BFE1C /* MatrixTests.swift in Sources */,
 				CAAF4FFE2339651800CC0AA7 /* ScalarTests.swift in Sources */,
+				CAD8E5CD2343FD38001B172A /* StatisticsTests.swift in Sources */,
 				614AD3751FC0B0D2002BFE1C /* AuxiliaryTests.swift in Sources */,
 				614AD3761FC0B0D2002BFE1C /* ConvolutionTests.swift in Sources */,
 				CAFE5DB022F9ED4900A34887 /* VectorTests.swift in Sources */,
@@ -950,6 +957,7 @@
 				CAAF5000233A701A00CC0AA7 /* LogarithmTests.swift in Sources */,
 				61A0AD7B1F70D22600B99FFB /* MatrixTests.swift in Sources */,
 				CAAF4FFC2339651600CC0AA7 /* ScalarTests.swift in Sources */,
+				CAD8E5CB2343FD38001B172A /* StatisticsTests.swift in Sources */,
 				61A0AD771F70D22600B99FFB /* AuxiliaryTests.swift in Sources */,
 				61A0AD781F70D22600B99FFB /* ConvolutionTests.swift in Sources */,
 				CAFE5DAE22F9ED4900A34887 /* VectorTests.swift in Sources */,
