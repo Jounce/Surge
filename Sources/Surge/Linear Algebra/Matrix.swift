@@ -157,9 +157,9 @@ extension Matrix: ExpressibleByArrayLiteral where Scalar: FloatingPoint, Scalar:
 /// Holds the result of eigendecomposition. The (Scalar, Scalar) used
 /// in the property types represents a complex number with (real, imaginary) parts.
 public struct MatrixEigenDecompositionResult<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
-    let eigenValues: [(Scalar, Scalar)]
-    let leftEigenVectors: [[(Scalar, Scalar)]]
-    let rightEigenVectors: [[(Scalar, Scalar)]]
+    public let eigenValues: [(Scalar, Scalar)]
+    public let leftEigenVectors: [[(Scalar, Scalar)]]
+    public let rightEigenVectors: [[(Scalar, Scalar)]]
 
     public init(eigenValues: [(Scalar, Scalar)], leftEigenVectors: [[(Scalar, Scalar)]], rightEigenVectors: [[(Scalar, Scalar)]]) {
         self.eigenValues = eigenValues
