@@ -99,6 +99,22 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
 
+    func test_init_rows_columns_closure() {
+        typealias Scalar = Double
+
+        let columns = 4
+        let actual: Matrix<Scalar> = Matrix(rows: 3, columns: columns) { row, column in
+            Scalar((row * columns) + column)
+        }
+        let expected: Matrix<Scalar> = [
+            [0, 1, 2, 3],
+            [4, 5, 6, 7],
+            [8, 9, 10, 11],
+        ]
+
+        XCTAssertEqual(actual, expected)
+    }
+
     func test_init_arrayLiteral() {
         typealias Scalar = Double
 

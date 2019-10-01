@@ -65,6 +65,19 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         self.grid = grid
     }
 
+    public init(rows: Int, columns: Int, _ closure: (_ row: Int, _ column: Int) throws -> Scalar) rethrows {
+        var grid: [Scalar] = []
+        grid.reserveCapacity(rows * columns)
+
+        for row in 0..<rows {
+            for column in 0..<columns {
+                grid.append(try closure(row, column))
+            }
+        }
+
+        self.init(rows: rows, columns: columns, grid: grid)
+    }
+
     public static func identity(size: Int) -> Matrix<Scalar> {
         return self.diagonal(rows: size, columns: size, repeatedValue: 1.0)
     }
