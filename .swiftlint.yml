@@ -16,7 +16,6 @@ opt_in_rules:
   - empty_count
   - explicit_enum_raw_value
   - explicit_init
-  - extension_access_modifier
   - fatal_error_message
   - file_header
   - first_where
