@@ -404,32 +404,6 @@ class ArithmeticTests: XCTestCase {
         XCTAssertEqual(actual, expected, accuracy: 1e-8)
     }
 
-    // MARK: - Summation
-
-    func test_sum_array_float() {
-        typealias Scalar = Float
-
-        let lhs: [Scalar] = .monotonicNormalized()
-
-        let actual: Scalar = Surge.sum(lhs)
-
-        let expected: Scalar = lhs.reduce(0, +)
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-1)
-    }
-
-    func test_sum_array_double() {
-        typealias Scalar = Double
-
-        let lhs: [Scalar] = .monotonicNormalized()
-
-        let actual: Scalar = Surge.sum(lhs)
-
-        let expected: Scalar = lhs.reduce(0, +)
-
-        XCTAssertEqual(actual, expected, accuracy: 1e-8)
-    }
-
     // MARK: - Distance
 
     func test_dist_array_array_float() {
