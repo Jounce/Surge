@@ -46,6 +46,17 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         self.dimensions = scalars.count
         self.scalars = scalars
     }
+
+    public init(dimensions: Int, _ closure: (Int) throws -> Scalar) rethrows {
+        var scalars: [Scalar] = []
+        scalars.reserveCapacity(dimensions)
+
+        for index in 0..<dimensions {
+            scalars.append(try closure(index))
+        }
+
+        self.init(scalars)
+    }
 }
 
 // MARK: - ExpressibleByArrayLiteral
