@@ -43,8 +43,90 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         } else {
             scalars = Array(contents)
         }
+        self.init(scalars: scalars)
+    }
+
+    public init(scalars: [Scalar]) {
         self.dimensions = scalars.count
         self.scalars = scalars
+    }
+}
+
+// MARK: - Initialization: Randomized
+
+extension Vector where Scalar == Float {
+    public static func randUniform(
+        count: Int,
+        within range: ClosedRange<Float> = 0.0...1.0
+    ) -> Vector {
+        var generator = SystemRandomNumberGenerator()
+        return self.randUniform(count: count, within: range, using: &generator)
+    }
+
+    public static func randUniform<T>(
+        count: Int,
+        within range: ClosedRange<Float> = 0.0...1.0,
+        using generator: inout T
+    ) -> Vector where T: RandomNumberGenerator {
+        let scalars = Surge.randUniform(count: count, within: range, using: &generator)
+        return Vector(scalars: scalars)
+    }
+
+    public static func randNormal(
+        count: Int,
+        mu: Float = 0.0,
+        sigma: Float = 1.0
+    ) -> Vector {
+        var generator = SystemRandomNumberGenerator()
+        return self.randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+    }
+
+    public static func randNormal<T>(
+        count: Int,
+        mu: Float = 0.0,
+        sigma: Float = 1.0,
+        using generator: inout T
+    ) -> Vector where T: RandomNumberGenerator {
+        let scalars = Surge.randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        return Vector(scalars: scalars)
+    }
+}
+
+extension Vector where Scalar == Double {
+    public static func randUniform(
+        count: Int,
+        within range: ClosedRange<Double> = 0.0...1.0
+    ) -> Vector {
+        var generator = SystemRandomNumberGenerator()
+        return self.randUniform(count: count, within: range, using: &generator)
+    }
+
+    public static func randUniform<T>(
+        count: Int,
+        within range: ClosedRange<Double> = 0.0...1.0,
+        using generator: inout T
+    ) -> Vector where T: RandomNumberGenerator {
+        let scalars = Surge.randUniform(count: count, within: range, using: &generator)
+        return Vector(scalars: scalars)
+    }
+
+    public static func randNormal(
+        count: Int,
+        mu: Double = 0.0,
+        sigma: Double = 1.0
+    ) -> Vector {
+        var generator = SystemRandomNumberGenerator()
+        return self.randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+    }
+
+    public static func randNormal<T>(
+        count: Int,
+        mu: Double = 0.0,
+        sigma: Double = 1.0,
+        using generator: inout T
+    ) -> Vector where T: RandomNumberGenerator {
+        let scalars = Surge.randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        return Vector(scalars: scalars)
     }
 }
 
