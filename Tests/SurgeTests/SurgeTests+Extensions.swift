@@ -219,13 +219,13 @@ extension XCTestCase {
         of: T.Type,
         lhs: [T] = [T].monotonicNormalized(),
         actual actualFunc: ([T]) -> [T],
-        expected expectedDFunc: ([T]) -> [T],
+        expected expectedFunc: ([T]) -> [T],
         accuracy: T,
         file: StaticString = #file,
         line: UInt = #line
     ) where T: ExpressibleByFloatLiteral & FloatingPoint {
         let actual = actualFunc(lhs)
-        let expected = expectedDFunc(lhs)
+        let expected = expectedFunc(lhs)
 
         XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
     }
@@ -234,7 +234,7 @@ extension XCTestCase {
         of: T.Type,
         lhs: [T] = [T].monotonicNormalized(),
         actual actualFunc: (inout [T]) -> (),
-        expected expectedDFunc: ([T]) -> [T],
+        expected expectedFunc: ([T]) -> [T],
         accuracy: T,
         file: StaticString = #file,
         line: UInt = #line
@@ -242,7 +242,7 @@ extension XCTestCase {
         var actual = lhs
         actualFunc(&actual)
 
-        let expected = expectedDFunc(lhs)
+        let expected = expectedFunc(lhs)
 
         XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
     }
@@ -252,13 +252,13 @@ extension XCTestCase {
         lhs: [T] = [T].monotonicNormalized(),
         rhs: [T] = [T].monotonicNormalized(),
         actual actualFunc: ([T], [T]) -> [T],
-        expected expectedDFunc: ([T], [T]) -> [T],
+        expected expectedFunc: ([T], [T]) -> [T],
         accuracy: T,
         file: StaticString = #file,
         line: UInt = #line
     ) where T: ExpressibleByFloatLiteral & FloatingPoint {
         let actual = actualFunc(lhs, rhs)
-        let expected = expectedDFunc(lhs, rhs)
+        let expected = expectedFunc(lhs, rhs)
 
         XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
     }
@@ -268,7 +268,7 @@ extension XCTestCase {
         lhs: [T] = [T].monotonicNormalized(),
         rhs: [T] = [T].monotonicNormalized(),
         actual actualFunc: (inout [T], [T]) -> (),
-        expected expectedDFunc: ([T], [T]) -> [T],
+        expected expectedFunc: ([T], [T]) -> [T],
         accuracy: T,
         file: StaticString = #file,
         line: UInt = #line
@@ -276,7 +276,7 @@ extension XCTestCase {
         var actual = lhs
         actualFunc(&actual, rhs)
 
-        let expected = expectedDFunc(lhs, rhs)
+        let expected = expectedFunc(lhs, rhs)
 
         XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
     }
@@ -285,13 +285,13 @@ extension XCTestCase {
         of: T.Type,
         lhs: [T] = [T].monotonicNormalized(),
         actual actualFunc: ([T]) -> T,
-        expected expectedDFunc: ([T]) -> T,
+        expected expectedFunc: ([T]) -> T,
         accuracy: T,
         file: StaticString = #file,
         line: UInt = #line
     ) where T: ExpressibleByFloatLiteral & FloatingPoint {
         let actual = actualFunc(lhs)
-        let expected = expectedDFunc(lhs)
+        let expected = expectedFunc(lhs)
 
         XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
     }
@@ -301,13 +301,13 @@ extension XCTestCase {
         lhs: [T] = [T].monotonicNormalized(),
         rhs: [T] = [T].monotonicNormalized(),
         actual actualFunc: ([T], [T]) -> T,
-        expected expectedDFunc: ([T], [T]) -> T,
+        expected expectedFunc: ([T], [T]) -> T,
         accuracy: T,
         file: StaticString = #file,
         line: UInt = #line
     ) where T: ExpressibleByFloatLiteral & FloatingPoint {
         let actual = actualFunc(lhs, rhs)
-        let expected = expectedDFunc(lhs, rhs)
+        let expected = expectedFunc(lhs, rhs)
 
         XCTAssertEqual(actual, expected, accuracy: accuracy, file: file, line: line)
     }
