@@ -23,14 +23,14 @@ import Accelerate
 // MARK: - Base-e Logarithm
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func log<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func log<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = Array(lhs)
     logInPlace(&results)
     return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func log<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func log<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = Array(lhs)
     logInPlace(&results)
     return results
@@ -39,7 +39,7 @@ public func log<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element
 // MARK: - Base-e Logarithm: In Place
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func logInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func logInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount: Int32 = numericCast(lm.count)
@@ -48,7 +48,7 @@ func logInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elemen
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func logInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func logInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount: Int32 = numericCast(lm.count)
@@ -59,14 +59,14 @@ func logInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elemen
 // MARK: - Base-2 Logarithm
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func log2<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func log2<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = Array(lhs)
     log2InPlace(&results)
     return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func log2<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func log2<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = Array(lhs)
     log2InPlace(&results)
     return results
@@ -75,7 +75,7 @@ public func log2<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Elemen
 // MARK: - Base-2 Logarithm: In Place
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func log2InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func log2InPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount: Int32 = numericCast(lm.count)
@@ -84,7 +84,7 @@ func log2InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func log2InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func log2InPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount: Int32 = numericCast(lm.count)
@@ -95,14 +95,14 @@ func log2InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 // MARK: - Base-10 Logarithm
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func log10<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func log10<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = Array(lhs)
     log10InPlace(&results)
     return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func log10<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func log10<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = Array(lhs)
     log10InPlace(&results)
     return results
@@ -111,7 +111,7 @@ public func log10<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Eleme
 // MARK: - Base-10 Logarithm: In Place
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func log10InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func log10InPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount: Int32 = numericCast(lm.count)
@@ -120,7 +120,7 @@ func log10InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func log10InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func log10InPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount: Int32 = numericCast(lm.count)
@@ -131,14 +131,14 @@ func log10InPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 // MARK: - Logarithmic Exponentiation
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func logb<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func logb<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = Array(lhs)
     logbInPlace(&results)
     return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func logb<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func logb<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = Array(lhs)
     logbInPlace(&results)
     return results
@@ -147,7 +147,7 @@ public func logb<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Elemen
 // MARK: - Base-B Logarithm: In Place
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func logbInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func logbInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount: Int32 = numericCast(lm.count)
@@ -156,7 +156,7 @@ func logbInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func logbInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func logbInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount: Int32 = numericCast(lm.count)

@@ -72,11 +72,11 @@ public protocol UnsafeMutableMemoryAccessible: UnsafeMemoryAccessible {
     mutating func withUnsafeMutableMemory<Result>(_ body: (UnsafeMutableMemory<Element>) throws -> Result) rethrows -> Result
 }
 
-public func withUnsafeMutableMemory<L: UnsafeMutableMemoryAccessible, Result>(_ lhs: inout L, _ body: (UnsafeMutableMemory<L.Element>) throws -> Result) rethrows -> Result {
+public func withUnsafeMutableMemory<L, Result>(_ lhs: inout L, _ body: (UnsafeMutableMemory<L.Element>) throws -> Result) rethrows -> Result where L: UnsafeMutableMemoryAccessible {
     return try lhs.withUnsafeMutableMemory(body)
 }
 
-public func withUnsafeMutableMemory<L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible, Result>(_ lhs: inout L, _ rhs: inout R, _ body: (UnsafeMutableMemory<L.Element>, UnsafeMutableMemory<R.Element>) throws -> Result) rethrows -> Result {
+public func withUnsafeMutableMemory<L, R, Result>(_ lhs: inout L, _ rhs: inout R, _ body: (UnsafeMutableMemory<L.Element>, UnsafeMutableMemory<R.Element>) throws -> Result) rethrows -> Result where L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible {
     return try lhs.withUnsafeMutableMemory { lhsMemory in
         try rhs.withUnsafeMutableMemory { rhsMemory in
             try body(lhsMemory, rhsMemory)
@@ -84,7 +84,7 @@ public func withUnsafeMutableMemory<L: UnsafeMutableMemoryAccessible, R: UnsafeM
     }
 }
 
-public func withUnsafeMutableMemory<L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible, Z: UnsafeMutableMemoryAccessible, Result>(_ lhs: inout L, _ rhs: inout R, _ z: inout Z, _ body: (UnsafeMutableMemory<L.Element>, UnsafeMutableMemory<R.Element>, UnsafeMutableMemory<Z.Element>) throws -> Result) rethrows -> Result {
+public func withUnsafeMutableMemory<L, R, Z, Result>(_ lhs: inout L, _ rhs: inout R, _ z: inout Z, _ body: (UnsafeMutableMemory<L.Element>, UnsafeMutableMemory<R.Element>, UnsafeMutableMemory<Z.Element>) throws -> Result) rethrows -> Result where L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible, Z: UnsafeMutableMemoryAccessible {
     return try lhs.withUnsafeMutableMemory { lhsMemory in
         try rhs.withUnsafeMutableMemory { rhsMemory in
             try z.withUnsafeMutableMemory { zm in

@@ -25,7 +25,7 @@ import Accelerate
 /// Elemen-wise absolute value.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func abs<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func abs<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -39,7 +39,7 @@ public func abs<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element
 /// Elemen-wise absolute value.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func abs<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func abs<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -55,7 +55,7 @@ public func abs<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element 
 /// Elemen-wise ceiling.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func ceil<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func ceil<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -69,7 +69,7 @@ public func ceil<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element
 /// Elemen-wise ceiling.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func ceil<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func ceil<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -82,7 +82,7 @@ public func ceil<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Elemen
 
 // MARK: - Clip
 
-public func clip<L: UnsafeMemoryAccessible>(_ lhs: L, low: Float, high: Float) -> [Float] where L.Element == Float {
+public func clip<L>(_ lhs: L, low: Float, high: Float) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -96,7 +96,7 @@ public func clip<L: UnsafeMemoryAccessible>(_ lhs: L, low: Float, high: Float) -
     return results
 }
 
-public func clip<L: UnsafeMemoryAccessible>(_ lhs: L, low: Double, high: Double) -> [Double] where L.Element == Double {
+public func clip<L>(_ lhs: L, low: Double, high: Double) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -113,7 +113,7 @@ public func clip<L: UnsafeMemoryAccessible>(_ lhs: L, low: Double, high: Double)
 // MARK: - Copy Sign
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func copysign<S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible>(sign: S, magnitude: M) -> [Float] where S.Element == Float, M.Element == Float {
+public func copysign<S, M>(sign: S, magnitude: M) -> [Float] where S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible, S.Element == Float, M.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(sign.count))
     results.withUnsafeMutableBufferPointer { rbp in
         withUnsafeMemory(sign, magnitude) { sm, mm in
@@ -125,7 +125,7 @@ public func copysign<S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible>(sign:
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func copysign<S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible>(sign: S, magnitude: M) -> [Double] where S.Element == Double, M.Element == Double {
+public func copysign<S, M>(sign: S, magnitude: M) -> [Double] where S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible, S.Element == Double, M.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(sign.count))
     results.withUnsafeMutableBufferPointer { rbp in
         withUnsafeMemory(sign, magnitude) { sm, mm in
@@ -141,7 +141,7 @@ public func copysign<S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible>(sign:
 /// Elemen-wise floor.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func floor<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func floor<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -155,7 +155,7 @@ public func floor<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Elemen
 /// Elemen-wise floor.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func floor<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func floor<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -168,7 +168,7 @@ public func floor<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Eleme
 
 // MARK: - Negate
 
-public func neg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func neg<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -178,7 +178,7 @@ public func neg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element 
     return results
 }
 
-public func neg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func neg<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -191,7 +191,7 @@ public func neg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element
 // MARK: - Reciprocal
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func rec<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func rec<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -203,7 +203,7 @@ public func rec<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element 
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func rec<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func rec<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -217,7 +217,7 @@ public func rec<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element
 // MARK: - Round
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func round<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func round<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -229,7 +229,7 @@ public func round<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Elemen
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func round<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func round<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -242,7 +242,7 @@ public func round<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Eleme
 
 // MARK: - Threshold
 
-public func threshold<L: UnsafeMemoryAccessible>(_ lhs: L, low: Float) -> [Float] where L.Element == Float {
+public func threshold<L>(_ lhs: L, low: Float) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -255,7 +255,7 @@ public func threshold<L: UnsafeMemoryAccessible>(_ lhs: L, low: Float) -> [Float
     return results
 }
 
-public func threshold<L: UnsafeMemoryAccessible>(_ lhs: L, low: Double) -> [Double] where L.Element == Double {
+public func threshold<L>(_ lhs: L, low: Double) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -271,7 +271,7 @@ public func threshold<L: UnsafeMemoryAccessible>(_ lhs: L, low: Double) -> [Doub
 // MARK: - Truncate
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func trunc<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func trunc<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in
@@ -283,7 +283,7 @@ public func trunc<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Elemen
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func trunc<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func trunc<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
         lhs.withUnsafeMemory { lm in

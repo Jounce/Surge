@@ -23,7 +23,7 @@ import Accelerate
 // MARK: - Sine-Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sincos<L: UnsafeMemoryAccessible>(_ lhs: L) -> (sin: [Float], cos: [Float]) where L.Element == Float {
+public func sincos<L>(_ lhs: L) -> (sin: [Float], cos: [Float]) where L: UnsafeMemoryAccessible, L.Element == Float {
     return withUnsafeMemory(lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var sin = [Float](repeating: 0.0, count: numericCast(lm.count))
@@ -37,7 +37,7 @@ public func sincos<L: UnsafeMemoryAccessible>(_ lhs: L) -> (sin: [Float], cos: [
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sincos<L: UnsafeMemoryAccessible>(_ lhs: L) -> (sin: [Double], cos: [Double]) where L.Element == Double {
+public func sincos<L>(_ lhs: L) -> (sin: [Double], cos: [Double]) where L: UnsafeMemoryAccessible, L.Element == Double {
     return withUnsafeMemory(lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var sin = [Double](repeating: 0.0, count: numericCast(lm.count))
@@ -53,12 +53,12 @@ public func sincos<L: UnsafeMemoryAccessible>(_ lhs: L) -> (sin: [Double], cos: 
 // MARK: - Sine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sin<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func sin<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { sinInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func sinInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func sinInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -67,12 +67,12 @@ func sinInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elemen
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sin<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func sin<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { sinInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func sinInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func sinInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -83,12 +83,12 @@ func sinInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elemen
 // MARK: - Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func cos<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func cos<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { cosInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func cosInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func cosInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -97,12 +97,12 @@ func cosInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elemen
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func cos<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func cos<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { cosInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func cosInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func cosInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -113,12 +113,12 @@ func cosInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elemen
 // MARK: - Tangent
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func tan<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func tan<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { tanInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func tanInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func tanInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -127,12 +127,12 @@ func tanInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elemen
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func tan<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func tan<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { tanInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func tanInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func tanInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -143,12 +143,12 @@ func tanInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elemen
 // MARK: - Arc Sine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func asin<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func asin<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { asinInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func asinInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func asinInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -157,12 +157,12 @@ func asinInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func asin<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func asin<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { asinInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func asinInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func asinInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -173,12 +173,12 @@ func asinInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 // MARK: - Arc Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func acos<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func acos<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { acosInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func acosInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func acosInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -187,12 +187,12 @@ func acosInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func acos<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func acos<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { acosInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func acosInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func acosInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -203,12 +203,12 @@ func acosInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 // MARK: - Arc Tangent
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func atan<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func atan<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { atanInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func atanInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func atanInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -217,12 +217,12 @@ func atanInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func atan<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func atan<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { atanInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func atanInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func atanInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -233,12 +233,12 @@ func atanInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 // MARK: - Hyperbolic Sine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sinh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func sinh<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { sinhInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func sinhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func sinhInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -247,12 +247,12 @@ func sinhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func sinh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func sinh<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { sinhInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func sinhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func sinhInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -263,12 +263,12 @@ func sinhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 // MARK: - Hyperbolic Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func cosh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func cosh<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { coshInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func coshInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func coshInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -277,12 +277,12 @@ func coshInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func cosh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func cosh<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { coshInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func coshInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func coshInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -293,12 +293,12 @@ func coshInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 // MARK: - Hyperbolic Tangent
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func tanh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func tanh<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { tanhInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func tanhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func tanhInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -307,12 +307,12 @@ func tanhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func tanh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func tanh<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { tanhInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func tanhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func tanhInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -323,12 +323,12 @@ func tanhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Eleme
 // MARK: - Inverse Hyperbolic Sine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func asinh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func asinh<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { asinhInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func asinhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func asinhInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -337,12 +337,12 @@ func asinhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func asinh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func asinh<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { asinhInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func asinhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func asinhInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -353,12 +353,12 @@ func asinhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 // MARK: - Inverse Hyperbolic Cosine
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func acosh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func acosh<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { acoshInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func acoshInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func acoshInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -367,12 +367,12 @@ func acoshInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func acosh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func acosh<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { acoshInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func acoshInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func acoshInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -383,12 +383,12 @@ func acoshInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 // MARK: - Inverse Hyperbolic Tangent
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func atanh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+public func atanh<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { atanhInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func atanhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Float {
+func atanhInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -397,12 +397,12 @@ func atanhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func atanh<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+public func atanh<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withArray(from: lhs) { atanhInPlace(&$0) }
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func atanhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Element == Double {
+func atanhInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     return withUnsafeMutableMemory(&lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -413,7 +413,7 @@ func atanhInPlace<L: UnsafeMutableMemoryAccessible>(_ lhs: inout L) where L.Elem
 // MARK: - Radians to Degrees
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func rad2deg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+func rad2deg<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withUnsafeMemory(lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -427,7 +427,7 @@ func rad2deg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == 
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func rad2degInPlace<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+func rad2degInPlace<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withUnsafeMemory(lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -441,7 +441,7 @@ func rad2degInPlace<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Elem
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func rad2deg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+func rad2deg<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withUnsafeMemory(lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -457,7 +457,7 @@ func rad2deg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element ==
 // MARK: - Degrees to Radians
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func deg2rad<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+func deg2rad<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withUnsafeMemory(lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)
@@ -471,7 +471,7 @@ func deg2rad<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == 
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-func deg2rad<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+func deg2rad<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
     return withUnsafeMemory(lhs) { lm in
         precondition(lm.stride == 1, "\(#function) does not support strided memory access")
         var elementCount = Int32(lm.count)

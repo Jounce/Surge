@@ -72,11 +72,11 @@ public protocol UnsafeMemoryAccessible: Collection {
     func withUnsafeMemory<Result>(_ body: (UnsafeMemory<Element>) throws -> Result) rethrows -> Result
 }
 
-public func withUnsafeMemory<L: UnsafeMemoryAccessible, Result>(_ lhs: L, _ body: (UnsafeMemory<L.Element>) throws -> Result) rethrows -> Result {
+public func withUnsafeMemory<L, Result>(_ lhs: L, _ body: (UnsafeMemory<L.Element>) throws -> Result) rethrows -> Result where L: UnsafeMemoryAccessible {
     return try lhs.withUnsafeMemory(body)
 }
 
-public func withUnsafeMemory<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible, Result>(_ lhs: L, _ rhs: R, _ body: (UnsafeMemory<L.Element>, UnsafeMemory<R.Element>) throws -> Result) rethrows -> Result {
+public func withUnsafeMemory<L, R, Result>(_ lhs: L, _ rhs: R, _ body: (UnsafeMemory<L.Element>, UnsafeMemory<R.Element>) throws -> Result) rethrows -> Result where L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible {
     return try lhs.withUnsafeMemory { lhsMemory in
         try rhs.withUnsafeMemory { rhsMemory in
             try body(lhsMemory, rhsMemory)
