@@ -44,7 +44,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
 
         for (i, row) in contents.enumerated() {
             precondition(row.count == columns, "All rows should have the same number of columns")
-            grid.replaceSubrange(i*columns ..< (i + 1)*columns, with: row)
+            grid.replaceSubrange(i * columns..<(i + 1) * columns, with: row)
         }
     }
 
@@ -210,7 +210,7 @@ extension Matrix: CustomStringConvertible {
         var description = ""
 
         for i in 0..<rows {
-            let contents = (0..<columns).map({ "\(self[i, $0])" }).joined(separator: "\t")
+            let contents = (0..<columns).map { "\(self[i, $0])" }.joined(separator: "\t")
 
             switch (i, rows) {
             case (0, 1):
@@ -273,7 +273,7 @@ extension Matrix: Collection {
 }
 
 extension Matrix: Equatable {}
-public func ==<T> (lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
+public func == <T>(lhs: Matrix<T>, rhs: Matrix<T>) -> Bool {
     return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.grid == rhs.grid
 }
 
@@ -604,7 +604,7 @@ public func inv(_ lhs: Matrix<Float>) -> Matrix<Float> {
     var nc = __CLPK_integer(lhs.columns)
 
     withUnsafeMutablePointers(&nc, &lwork, &error) { nc, lwork, error in
-        withUnsafeMutableMemory(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
+        withUnsafeMutableMemory(&ipiv, &work, &results.grid) { ipiv, work, grid in
             sgetrf_(nc, nc, grid.pointer, nc, ipiv.pointer, error)
             sgetri_(nc, grid.pointer, nc, ipiv.pointer, work.pointer, lwork, error)
         }
@@ -627,7 +627,7 @@ public func inv(_ lhs: Matrix<Double>) -> Matrix<Double> {
     var nc = __CLPK_integer(lhs.columns)
 
     withUnsafeMutablePointers(&nc, &lwork, &error) { nc, lwork, error in
-        withUnsafeMutableMemory(&ipiv, &work, &(results.grid)) { ipiv, work, grid in
+        withUnsafeMutableMemory(&ipiv, &work, &results.grid) { ipiv, work, grid in
             dgetrf_(nc, nc, grid.pointer, nc, ipiv.pointer, error)
             dgetri_(nc, grid.pointer, nc, ipiv.pointer, work.pointer, lwork, error)
         }
@@ -675,7 +675,7 @@ public func det(_ lhs: Matrix<Float>) -> Float? {
     var info = __CLPK_integer()
     var m = __CLPK_integer(lhs.rows)
     var n = __CLPK_integer(lhs.columns)
-    _ = withUnsafeMutableMemory(&pivots, &(decomposed.grid)) { ipiv, grid in
+    _ = withUnsafeMutableMemory(&pivots, &decomposed.grid) { ipiv, grid in
         withUnsafeMutablePointers(&m, &n, &info) { m, n, info in
             sgetrf_(m, n, grid.pointer, m, ipiv.pointer, info)
         }
@@ -703,7 +703,7 @@ public func det(_ lhs: Matrix<Double>) -> Double? {
     var info = __CLPK_integer()
     var m = __CLPK_integer(lhs.rows)
     var n = __CLPK_integer(lhs.columns)
-    _ = withUnsafeMutableMemory(&pivots, &(decomposed.grid)) { ipiv, grid in
+    _ = withUnsafeMutableMemory(&pivots, &decomposed.grid) { ipiv, grid in
         withUnsafeMutablePointers(&m, &n, &info) { m, n, info in
             dgetrf_(m, n, grid.pointer, m, ipiv.pointer, info)
         }
@@ -730,7 +730,7 @@ public func det(_ lhs: Matrix<Double>) -> Double? {
 // See Intel's documentation on column-major results for sample code that this
 // is based on:
 // https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgeev.htm
-private func buildEigenVector<Scalar: FloatingPoint & ExpressibleByFloatLiteral>(eigenValueImaginaryParts: [Scalar], eigenVectorWork: [Scalar], result: inout [[(Scalar, Scalar)]]) {
+private func buildEigenVector<Scalar>(eigenValueImaginaryParts: [Scalar], eigenVectorWork: [Scalar], result: inout [[(Scalar, Scalar)]]) where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
     // row and col count are the same because result must be square.
     let rowColCount = result.count
 
@@ -739,12 +739,12 @@ private func buildEigenVector<Scalar: FloatingPoint & ExpressibleByFloatLiteral>
         while col < rowColCount {
             if eigenValueImaginaryParts[col] == 0.0 {
                 // v is column-major
-                result[row][col] = (eigenVectorWork[row+rowColCount*col], 0.0)
+                result[row][col] = (eigenVectorWork[row + rowColCount * col], 0.0)
                 col += 1
             } else {
                 // v is column-major
-                result[row][col] = (eigenVectorWork[row+col*rowColCount], eigenVectorWork[row+rowColCount*(col+1)])
-                result[row][col+1] = (eigenVectorWork[row+col*rowColCount], -eigenVectorWork[row+rowColCount*(col+1)])
+                result[row][col] = (eigenVectorWork[row + col * rowColCount], eigenVectorWork[row + rowColCount * (col + 1)])
+                result[row][col + 1] = (eigenVectorWork[row + col * rowColCount], -eigenVectorWork[row + rowColCount * (col + 1)])
                 col += 2
             }
         }

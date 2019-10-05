@@ -18,8 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@testable import Surge
 import XCTest
+
+@testable import Surge
 
 // swiftlint:disable nesting
 

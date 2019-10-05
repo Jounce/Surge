@@ -26,7 +26,7 @@ class AuxiliaryTests: XCTestCase {
     let n = 10_000
 
     func test_copysign() {
-        let signs = Array((0..<n).map({ $0 % 2 == 0 ? 1.0 : -1.0 }))
+        let signs = Array((0..<n).map { $0 % 2 == 0 ? 1.0 : -1.0 })
 
         var magnitudes = [Double]()
         for _ in (0..<n).enumerated() {

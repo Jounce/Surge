@@ -414,7 +414,7 @@ class ArithmeticTests: XCTestCase {
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let expected: Scalar = sqrt(zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+        let expected: Scalar = sqrt(zip(lhs, rhs).map { $0 - $1 }.map { $0 * $0 }.reduce(0.0, +))
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
@@ -427,7 +427,7 @@ class ArithmeticTests: XCTestCase {
 
         let actual: Scalar = Surge.dist(lhs, rhs)
 
-        let expected: Scalar = sqrt(zip(lhs, rhs).map({ $0 - $1 }).map({ $0 * $0 }).reduce(0.0, +))
+        let expected: Scalar = sqrt(zip(lhs, rhs).map { $0 - $1 }.map { $0 * $0 }.reduce(0.0, +))
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }

@@ -40,10 +40,10 @@ extension FloatingPoint {
     static func randomNormalized() -> Self {
         switch self {
         case is Float.Type:
-            let value = Float.random(in: (0.0)...(1.0))
+            let value = Float.random(in: 0.0...1.0)
             return unsafeBitCast(value, to: self)
         case is Double.Type:
-            let value = Double.random(in: (0.0)...(1.0))
+            let value = Double.random(in: 0.0...1.0)
             return unsafeBitCast(value, to: self)
         case _:
             fatalError("Only supported by `Float` and `Double`")
