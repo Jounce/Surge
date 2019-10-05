@@ -18,8 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@testable import Surge
 import XCTest
+
+@testable import Surge
 
 // swiftlint:disable nesting type_body_length
 
@@ -628,10 +629,10 @@ class MatrixTests: XCTestCase {
         typealias Scalar = Float
 
         let lhs: Matrix<Scalar> = [
-            [1]
+            [1],
         ]
         let rhs: Matrix<Scalar> = [
-            []
+            [],
         ]
 
         let result = lhs * rhs
@@ -644,10 +645,10 @@ class MatrixTests: XCTestCase {
         typealias Scalar = Double
 
         let lhs: Matrix<Scalar> = [
-            [1]
+            [1],
         ]
         let rhs: Matrix<Scalar> = [
-            []
+            [],
         ]
 
         let result = lhs * rhs
@@ -705,7 +706,7 @@ class MatrixTests: XCTestCase {
         ]
 
         let rhs: Matrix<Scalar> = [
-            [-1, 3/2],
+            [-1, 3 / 2],
             [1, -1],
         ]
 
@@ -727,7 +728,7 @@ class MatrixTests: XCTestCase {
         ]
 
         let rhs: Matrix<Scalar> = [
-            [-1, 3/2],
+            [-1, 3 / 2],
             [1, -1],
         ]
 
@@ -1003,7 +1004,7 @@ class MatrixTests: XCTestCase {
         }) == nil
     }
 
-    func eigen_decomposition_trivial_generic<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) throws -> MatrixEigenDecompositionResult<T>)) throws {
+    func eigen_decomposition_trivial_generic<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: (Matrix<T>) throws -> MatrixEigenDecompositionResult<T>) throws {
         let matrix = Matrix<T>([
             [1, 0, 0],
             [0, 2, 0],
@@ -1034,7 +1035,7 @@ class MatrixTests: XCTestCase {
     }
 
     // Example from https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.eig.html
-    func eigen_decomposition_complex_results_numpy_example_generic<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) throws -> MatrixEigenDecompositionResult<T>)) throws {
+    func eigen_decomposition_complex_results_numpy_example_generic<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: (Matrix<T>) throws -> MatrixEigenDecompositionResult<T>) throws {
         let matrix = Matrix<T>([
             [1, -1],
             [1, 1],
@@ -1064,13 +1065,13 @@ class MatrixTests: XCTestCase {
 
     // Example from Intel's DGEEV documentation
     // https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgeev.htm
-    func eigen_decomposition_complex_results_dgeev_example_generic<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: ((Matrix<T>) throws -> MatrixEigenDecompositionResult<T>)) throws {
+    func eigen_decomposition_complex_results_dgeev_example_generic<T: FloatingPoint & ExpressibleByFloatLiteral>(defaultAccuracy: T, eigendecompostionFn: (Matrix<T>) throws -> MatrixEigenDecompositionResult<T>) throws {
         let matrix = Matrix<T>(rows: 5, columns: 5, grid: [
             -1.01, 0.86, -4.60, 3.31, -4.81,
             3.98, 0.53, -7.04, 5.29, 3.55,
             3.30, 8.26, -3.89, 8.20, -1.51,
             4.43, 4.96, -7.66, -7.33, 6.18,
-            7.31, -6.43, -6.16, 2.47, 5.58
+            7.31, -6.43, -6.16, 2.47, 5.58,
         ])
         let ed = try eigendecompostionFn(matrix)
 

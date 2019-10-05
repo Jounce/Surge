@@ -93,7 +93,7 @@ private func checkArray<T, U>(
         switch checkValue(actualValue, expectedValue, accuracy: accuracy) {
         case .success:
             continue
-        case .failure(let error):
+        case let .failure(error):
             return .failure(.content(index: index, content: error))
         }
     }
@@ -116,7 +116,7 @@ private func checkGrid<T, U, V>(
         switch checkArray(actualArray, expectedArray, accuracy: accuracy) {
         case .success:
             continue
-        case .failure(let error):
+        case let .failure(error):
             return .failure(.content(index: index, content: error))
         }
     }
@@ -204,7 +204,7 @@ func XCTAssertEqual1D<T>(
 
     let result = checkArray(actual, expected, accuracy: accuracy ?? 0.0)
 
-    guard case .failure(let error) = result else {
+    guard case let .failure(error) = result else {
         return
     }
 
@@ -273,7 +273,7 @@ func XCTAssertEqual2D<T, U>(
 
     let result = checkGrid(actual, expected, accuracy: accuracy ?? 0.0)
 
-    guard case .failure(let error) = result else {
+    guard case let .failure(error) = result else {
         return
     }
 

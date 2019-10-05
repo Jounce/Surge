@@ -42,10 +42,10 @@ extension FloatingPoint {
     static func randomNormalized() -> Self {
         switch self {
         case is Float.Type:
-            let value = Float.random(in: (0.0)...(1.0))
+            let value = Float.random(in: 0.0...1.0)
             return unsafeBitCast(value, to: self)
         case is Double.Type:
-            let value = Double.random(in: (0.0)...(1.0))
+            let value = Double.random(in: 0.0...1.0)
             return unsafeBitCast(value, to: self)
         case _:
             fatalError("Only supported by `Float` and `Double`")
@@ -259,11 +259,11 @@ extension XCTestCase {
 
         let lhs = produceLhs()
 
-        closure({ innerClosure in
+        closure { innerClosure in
             startMeasuring()
             let _ = innerClosure(lhs)
             stopMeasuring()
-        })
+        }
     }
 
     func measure_inout_array<T, U>(
@@ -275,13 +275,13 @@ extension XCTestCase {
 
         let lhs = produceLhs()
 
-        closure({ innerClosure in
+        closure { innerClosure in
             var lhs = lhs
 
             startMeasuring()
             let _ = innerClosure(&lhs)
             stopMeasuring()
-        })
+        }
     }
 
     func measure_array_array<T, U>(
@@ -295,11 +295,11 @@ extension XCTestCase {
         let lhs = produceLhs()
         let rhs = produceRhs()
 
-        closure({ innerClosure in
+        closure { innerClosure in
             startMeasuring()
             let _ = innerClosure(lhs, rhs)
             stopMeasuring()
-        })
+        }
     }
 
     func measure_inout_array_array<T, U>(
@@ -313,13 +313,13 @@ extension XCTestCase {
         let lhs = produceLhs()
         let rhs = produceRhs()
 
-        closure({ innerClosure in
+        closure { innerClosure in
             var lhs = lhs
 
             startMeasuring()
             let _ = innerClosure(&lhs, rhs)
             stopMeasuring()
-        })
+        }
     }
 
     func measure_array_scalar<T, U>(
@@ -333,11 +333,11 @@ extension XCTestCase {
         let lhs = produceLhs()
         let rhs = produceRhs()
 
-        closure({ innerClosure in
+        closure { innerClosure in
             startMeasuring()
             let _ = innerClosure(lhs, rhs)
             stopMeasuring()
-        })
+        }
     }
 
     func measure_inout_array_scalar<T, U>(
@@ -351,13 +351,13 @@ extension XCTestCase {
         let lhs = produceLhs()
         let rhs = produceRhs()
 
-        closure({ innerClosure in
+        closure { innerClosure in
             var lhs = lhs
 
             startMeasuring()
             let _ = innerClosure(&lhs, rhs)
             stopMeasuring()
-        })
+        }
     }
 
     func measure_vector_matrix<T, U>(
@@ -371,10 +371,10 @@ extension XCTestCase {
         let lhs = produceLhs()
         let rhs = produceRhs()
 
-        closure({ innerClosure in
+        closure { innerClosure in
             startMeasuring()
             let _ = innerClosure(lhs, rhs)
             stopMeasuring()
-        })
+        }
     }
 }

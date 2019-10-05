@@ -71,7 +71,7 @@ extension Vector: ExpressibleByArrayLiteral {
 
 extension Vector: CustomStringConvertible {
     public var description: String {
-        return self.scalars.map({ "\($0)" }).joined(separator: "\t")
+        return self.scalars.map { "\($0)" }.joined(separator: "\t")
     }
 }
 
@@ -112,7 +112,7 @@ extension Vector: Collection {
 // MARK: - Equatable
 
 extension Vector: Equatable {}
-public func ==<T> (lhs: Vector<T>, rhs: Vector<T>) -> Bool {
+public func == <T>(lhs: Vector<T>, rhs: Vector<T>) -> Bool {
     return lhs.scalars == rhs.scalars
 }
 

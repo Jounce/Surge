@@ -27,6 +27,7 @@ class ConvolutionTests: XCTestCase {
     let doubleAccuracy: Double = 1e-11
 
     // MARK: - Test Arrays - Float
+
     let a1f: [Float] = [0, 0, 1, 0, 0]
     let a2f: [Float] = [1, 0, 0]
     let b1f: [Float] = [0, 2, 3, 1, 5, 6]
@@ -39,6 +40,7 @@ class ConvolutionTests: XCTestCase {
     let e2f: [Float] = [0, 0, 0]
 
     // MARK: - Test Arrays - Double
+
     let a1d: [Double] = [0, 0, 1, 0, 0]
     let a2d: [Double] = [1, 0, 0]
     let b1d: [Double] = [0, 2, 3, 1, 5, 6]
@@ -51,6 +53,7 @@ class ConvolutionTests: XCTestCase {
     let e2d: [Double] = [0, 0, 0]
 
     // MARK: - Convolution - Float
+
     func test_conv_float() {
         let a3f: [Float] = [0, 0, 1, 0, 0, 0, 0]
         let b3f: [Float] = [0, 0, 0, -2, -3, -1, -5, -6]
@@ -66,6 +69,7 @@ class ConvolutionTests: XCTestCase {
     }
 
     // MARK: - Convolution - Double
+
     func test_conv_double() {
         let a3d: [Double] = [0, 0, 1, 0, 0, 0, 0]
         let b3d: [Double] = [0, 0, 0, -2, -3, -1, -5, -6]
@@ -81,6 +85,7 @@ class ConvolutionTests: XCTestCase {
     }
 
     // MARK: - Cross-Correlation - Float
+
     func test_xcorr_float() {
         let a3f: [Float] = [0, 0, 0, 0, 0, 0, 1, 0, 0]
         let b3f: [Float] = [0, 0, 0, 0, -2, -3, -1, -5, -6, 0, 0]
@@ -96,6 +101,7 @@ class ConvolutionTests: XCTestCase {
     }
 
     // MARK: - Cross-Correlation - Double
+
     func test_xcorr_double() {
         let a3d: [Double] = [0, 0, 0, 0, 0, 0, 1, 0, 0]
         let b3d: [Double] = [0, 0, 0, 0, -2, -3, -1, -5, -6, 0, 0]
@@ -111,6 +117,7 @@ class ConvolutionTests: XCTestCase {
     }
 
     // MARK: - Auto-Correlation - Float
+
     func test_acorr_float() {
         let a3f: [Float] = [0, 0, 0, 0, 1, 0, 0, 0, 0]
         let b3f: [Float] = [0, 12, 28, 23, 44, 75, 44, 23, 28, 12, 0]
@@ -126,6 +133,7 @@ class ConvolutionTests: XCTestCase {
     }
 
     // MARK: - Auto-Correlation - Double
+
     func test_acorr_double() {
         let a3d: [Double] = [0, 0, 0, 0, 1, 0, 0, 0, 0]
         let b3d: [Double] = [0, 12, 28, 23, 44, 75, 44, 23, 28, 12, 0]
