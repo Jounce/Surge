@@ -23,7 +23,7 @@ import Accelerate
 // MARK: - Convolution
 
 /// Convolution of a signal [lhs], with a kernel [k]. The signal must be at least as long as the kernel.
-public func conv<L: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible>(_ lhs: L, _ k: K) -> [Float] where L.Element == Float, K.Element == Float {
+public func conv<L, K>(_ lhs: L, _ k: K) -> [Float] where L: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible, L.Element == Float, K.Element == Float {
     precondition(lhs.count >= k.count, "Input vector [lhs] must have at least as many elements as the kernel,  [k]")
 
     let resultSize = numericCast(lhs.count) + numericCast(k.count) - 1
@@ -46,7 +46,7 @@ public func conv<L: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible>(_ lhs: L,
 }
 
 /// Convolution of a signal [lhs], with a kernel [k]. The signal must be at least as long as the kernel.
-public func conv<L: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible>(_ lhs: L, _ k: K) -> [Double] where L.Element == Double, K.Element == Double {
+public func conv<L, K>(_ lhs: L, _ k: K) -> [Double] where L: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible, L.Element == Double, K.Element == Double {
     precondition(lhs.count >= k.count, "Input vector [lhs] must have at least as many elements as the kernel,  [k]")
 
     let resultSize = numericCast(lhs.count) + numericCast(k.count) - 1
@@ -72,7 +72,7 @@ public func conv<L: UnsafeMemoryAccessible, K: UnsafeMemoryAccessible>(_ lhs: L,
 
 /// Cross-correlation of a signal [lhs], with another signal [rhs]. The signal [rhs]
 /// is padded so that it is the same length as [lhs].
-public func xcorr<L: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Y) -> [Float] where L.Element == Float, Y.Element == Float {
+public func xcorr<L, R>(_ lhs: L, _ rhs: R) -> [Float] where L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible, L.Element == Float, R.Element == Float {
     precondition(lhs.count >= rhs.count, "Input vector [lhs] must have at least as many elements as [rhs]")
     var yPadded = [Float](rhs)
     if lhs.count > rhs.count {
@@ -82,7 +82,7 @@ public func xcorr<L: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: L
 
     let resultSize = numericCast(lhs.count) + yPadded.count - 1
     var result = [Float](repeating: 0, count: resultSize)
-    let xPad = repeatElement(0 as Float, count: yPadded.count-1)
+    let xPad = repeatElement(0 as Float, count: yPadded.count - 1)
 
     var xPadded = [Float]()
     xPadded.reserveCapacity(xPad.count + numericCast(lhs.count) + xPad.count)
@@ -99,7 +99,7 @@ public func xcorr<L: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: L
 
 /// Cross-correlation of a signal [lhs], with another signal [rhs]. The signal [rhs]
 /// is padded so that it is the same length as [lhs].
-public func xcorr<L: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: Y) -> [Double] where L.Element == Double, Y.Element == Double {
+public func xcorr<L, R>(_ lhs: L, _ rhs: R) -> [Double] where L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible, L.Element == Double, R.Element == Double {
     precondition(lhs.count >= rhs.count, "Input vector [lhs] must have at least as many elements as [rhs]")
     var yPadded = [Double](rhs)
     if lhs.count > rhs.count {
@@ -109,7 +109,7 @@ public func xcorr<L: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: L
 
     let resultSize = numericCast(lhs.count) + yPadded.count - 1
     var result = [Double](repeating: 0, count: resultSize)
-    let xPad = repeatElement(0 as Double, count: yPadded.count-1)
+    let xPad = repeatElement(0 as Double, count: yPadded.count - 1)
 
     var xPadded = [Double]()
     xPadded.reserveCapacity(xPad.count + numericCast(lhs.count) + xPad.count)
@@ -127,8 +127,8 @@ public func xcorr<L: UnsafeMemoryAccessible, Y: UnsafeMemoryAccessible>(_ lhs: L
 // MARK: - Auto-correlation
 
 /// Auto-correlation of a signal [lhs]
-public func xcorr<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
-    let resultSize = 2*numericCast(lhs.count) - 1
+public func xcorr<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
+    let resultSize = 2 * numericCast(lhs.count) - 1
     var result = [Float](repeating: 0, count: resultSize)
     let xPad = repeatElement(0 as Float, count: numericCast(lhs.count) - 1)
 
@@ -148,8 +148,8 @@ public func xcorr<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Elemen
 }
 
 /// Auto-correlation of a signal [lhs]
-public func xcorr<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
-    let resultSize = 2*numericCast(lhs.count) - 1
+public func xcorr<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
+    let resultSize = 2 * numericCast(lhs.count) - 1
     var result = [Double](repeating: 0, count: resultSize)
     let xPad = repeatElement(0 as Double, count: numericCast(lhs.count) - 1)
 

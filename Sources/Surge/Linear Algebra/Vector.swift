@@ -36,7 +36,7 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         self.init(scalars)
     }
 
-    public init<T: Sequence>(_ contents: T) where T.Element == Scalar {
+    public init<T>(_ contents: T) where T: Sequence, T.Element == Scalar {
         let scalars: [Scalar]
         if let array = contents as? [Scalar] {
             scalars = array

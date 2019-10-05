@@ -22,7 +22,7 @@ import Accelerate
 
 // MARK: - Sum
 
-public func sum<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func sum<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     var result: Float = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -32,7 +32,7 @@ public func sum<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element ==
     return result
 }
 
-public func sum<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func sum<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     var result: Double = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -44,13 +44,13 @@ public func sum<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element =
 
 // MARK: - Sum of Absolute Values
 
-public func asum<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func asum<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     return lhs.withUnsafeMemory { xm in
         cblas_sasum(numericCast(xm.count), xm.pointer, numericCast(xm.stride))
     }
 }
 
-public func asum<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func asum<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     return lhs.withUnsafeMemory { xm in
         cblas_dasum(numericCast(xm.count), xm.pointer, numericCast(xm.stride))
     }
@@ -58,7 +58,7 @@ public func asum<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element 
 
 // MARK: - Sum of Square Values
 
-public func sumsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func sumsq<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     var result: Float = 0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -68,7 +68,7 @@ public func sumsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element 
     return result
 }
 
-public func sumsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func sumsq<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     var result: Double = 0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -80,7 +80,7 @@ public func sumsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element
 
 // MARK: - Maximum
 
-public func max<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func max<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     var result: Float = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -90,7 +90,7 @@ public func max<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element ==
     return result
 }
 
-public func max<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func max<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     var result: Double = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -102,7 +102,7 @@ public func max<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element =
 
 // MARK: - Minimum
 
-public func min<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func min<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     var result: Float = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -112,7 +112,7 @@ public func min<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element ==
     return result
 }
 
-public func min<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func min<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     var result: Double = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -124,7 +124,7 @@ public func min<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element =
 
 // MARK: - Mean
 
-public func mean<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func mean<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     var result: Float = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -134,7 +134,7 @@ public func mean<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element =
     return result
 }
 
-public func mean<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func mean<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     var result: Double = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -146,7 +146,7 @@ public func mean<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element 
 
 // MARK: - Mean of Magnitudes
 
-public func meamg<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func meamg<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     var result: Float = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -156,7 +156,7 @@ public func meamg<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element 
     return result
 }
 
-public func meamg<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func meamg<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     var result: Double = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -168,7 +168,7 @@ public func meamg<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element
 
 // MARK: - Mean of Squares
 
-public func measq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func measq<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     var result: Float = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -178,7 +178,7 @@ public func measq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element 
     return result
 }
 
-public func measq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func measq<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     var result: Double = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -190,7 +190,7 @@ public func measq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element
 
 // MARK: - Root Mean of Squares
 
-public func rmsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element == Float {
+public func rmsq<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     var result: Float = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -200,7 +200,7 @@ public func rmsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Float where C.Element =
     return result
 }
 
-public func rmsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element == Double {
+public func rmsq<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     var result: Double = 0.0
     lhs.withUnsafeMemory { xm in
         withUnsafeMutablePointer(to: &result) { pointer in
@@ -213,19 +213,19 @@ public func rmsq<C: UnsafeMemoryAccessible>(_ lhs: C) -> Double where C.Element 
 // MARK: - Variance
 
 /// Computes the variance, a measure of the spread of deviation.
-public func variance<L: UnsafeMemoryAccessible>(_ lhs: L) -> Float where L.Element == Float {
+public func variance<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     return variance(lhs, mean: mean(lhs))
 }
 
 /// Computes the variance, a measure of the spread of deviation.
-public func variance<L: UnsafeMemoryAccessible>(_ lhs: L) -> Double where L.Element == Double {
+public func variance<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     return variance(lhs, mean: mean(lhs))
 }
 
 /// Computes the variance, a measure of the spread of deviation.
 ///
 /// - Note: For the calculation to produce a correct result `mean` needs to be the actual mean of `lhs`.
-public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Float) -> Float where L.Element == Float {
+public func variance<L>(_ lhs: L, mean: Float) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     let diff = sub(lhs, mean)
     return measq(diff)
 }
@@ -233,7 +233,7 @@ public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Float) -> Float 
 /// Computes the variance, a measure of the spread of deviation.
 ///
 /// - Note: For the calculation to produce a correct result `mean` needs to be the actual mean of `lhs`.
-public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Double where L.Element == Double {
+public func variance<L>(_ lhs: L, mean: Double) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     let diff = sub(lhs, mean)
     return measq(diff)
 }
@@ -241,26 +241,26 @@ public func variance<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Doubl
 // MARK: - Standard Deviation
 
 /// Computes the standard deviation, a measure of the spread of deviation.
-public func std<L: UnsafeMemoryAccessible>(_ lhs: L) -> Float where L.Element == Float {
+public func std<L>(_ lhs: L) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     return sqrt(variance(lhs))
 }
 
 /// Computes the standard deviation, a measure of the spread of deviation.
-public func std<L: UnsafeMemoryAccessible>(_ lhs: L) -> Double where L.Element == Double {
+public func std<L>(_ lhs: L) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     return sqrt(variance(lhs))
 }
 
 /// Computes the standard deviation, a measure of the spread of deviation.
 ///
 /// - Note: For the calculation to produce a correct result `mean` needs to be the actual mean of `lhs`.
-public func std<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Float) -> Float where L.Element == Float {
+public func std<L>(_ lhs: L, mean: Float) -> Float where L: UnsafeMemoryAccessible, L.Element == Float {
     return sqrt(variance(lhs, mean: mean))
 }
 
 /// Computes the standard deviation, a measure of the spread of deviation.
 ///
 /// - Note: For the calculation to produce a correct result `mean` needs to be the actual mean of `lhs`.
-public func std<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Double where L.Element == Double {
+public func std<L>(_ lhs: L, mean: Double) -> Double where L: UnsafeMemoryAccessible, L.Element == Double {
     return sqrt(variance(lhs, mean: mean))
 }
 
@@ -272,7 +272,7 @@ public func std<L: UnsafeMemoryAccessible>(_ lhs: L, mean: Double) -> Double whe
 ///   - lhs: Array of lhs-values
 ///   - rhs: Array of rhs-values
 /// - Returns: The slope and intercept of the regression line
-public func linregress<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> (slope: Float, intercept: Float) where L.Element == Float, R.Element == Float {
+public func linregress<L, R>(_ lhs: L, _ rhs: R) -> (slope: Float, intercept: Float) where L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible, L.Element == Float, R.Element == Float {
     precondition(lhs.count == rhs.count, "Vectors must have equal count")
     let meanx = mean(lhs)
     let meany = mean(rhs)
@@ -290,7 +290,7 @@ public func linregress<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ l
 ///   - lhs: Array of lhs-values
 ///   - rhs: Array of rhs-values
 /// - Returns: The slope and intercept of the regression line
-public func linregress<L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible>(_ lhs: L, _ rhs: R) -> (slope: Double, intercept: Double) where L.Element == Double, R.Element == Double {
+public func linregress<L, R>(_ lhs: L, _ rhs: R) -> (slope: Double, intercept: Double) where L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible, L.Element == Double, R.Element == Double {
     precondition(lhs.count == rhs.count, "Vectors must have equal count")
     let meanx = mean(lhs)
     let meany = mean(rhs)

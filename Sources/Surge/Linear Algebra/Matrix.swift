@@ -39,7 +39,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         self.grid = [Scalar](repeating: repeatedValue, count: rows * columns)
     }
 
-    public init<T: Collection, U: Collection>(_ contents: T) where T.Element == U, U.Element == Scalar {
+    public init<T, U>(_ contents: T) where T: Collection, U: Collection, T.Element == U, U.Element == Scalar {
         self.init(rows: contents.count, columns: contents.first!.count, repeatedValue: 0.0)
 
         for (i, row) in contents.enumerated() {
@@ -92,7 +92,7 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         return self.diagonal(rows: rows, columns: columns, scalars: scalars)
     }
 
-    public static func diagonal<T: Collection>(rows: Int, columns: Int, scalars: T) -> Matrix<Scalar> where T.Element == Scalar {
+    public static func diagonal<T>(rows: Int, columns: Int, scalars: T) -> Matrix<Scalar> where T: Collection, T.Element == Scalar {
         var matrix = self.init(rows: rows, columns: columns, repeatedValue: 0.0)
 
         let count = Swift.min(rows, columns)
