@@ -25,12 +25,12 @@ import Accelerate
 /// Elemen-wise absolute value.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func abs<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func abs<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvfabs(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvfabs(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
@@ -39,12 +39,12 @@ public func abs<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element =
 /// Elemen-wise absolute value.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func abs<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func abs<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvfabsf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvfabsf(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
@@ -55,12 +55,12 @@ public func abs<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element ==
 /// Elemen-wise ceiling.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func ceil<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func ceil<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvceilf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvceilf(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
@@ -69,12 +69,12 @@ public func ceil<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element =
 /// Elemen-wise ceiling.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func ceil<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func ceil<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvceil(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvceil(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
@@ -82,28 +82,28 @@ public func ceil<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element 
 
 // MARK: - Clip
 
-public func clip<C: UnsafeMemoryAccessible>(_ x: C, low: Float, high: Float) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func clip<L: UnsafeMemoryAccessible>(_ lhs: L, low: Float, high: Float) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
+        lhs.withUnsafeMemory { lm in
             var y = low
             var z = high
             withUnsafePointers(&y, &z) { y, z in
-                vDSP_vclip(xm.pointer, numericCast(xm.stride), y, z, rbp.baseAddress!, 1, numericCast(xm.count))
+                vDSP_vclip(lm.pointer, numericCast(lm.stride), y, z, rbp.baseAddress!, 1, numericCast(lm.count))
             }
         }
     }
     return results
 }
 
-public func clip<C: UnsafeMemoryAccessible>(_ x: C, low: Double, high: Double) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func clip<L: UnsafeMemoryAccessible>(_ lhs: L, low: Double, high: Double) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
+        lhs.withUnsafeMemory { lm in
             var y = low
             var z = high
             withUnsafePointers(&y, &z) { y, z in
-                vDSP_vclipD(xm.pointer, numericCast(xm.stride), y, z, rbp.baseAddress!, 1, numericCast(xm.count))
+                vDSP_vclipD(lm.pointer, numericCast(lm.stride), y, z, rbp.baseAddress!, 1, numericCast(lm.count))
             }
         }
     }
@@ -141,12 +141,12 @@ public func copysign<S: UnsafeMemoryAccessible, M: UnsafeMemoryAccessible>(sign:
 /// Elemen-wise floor.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func floor<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func floor<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvfloorf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvfloorf(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
@@ -155,12 +155,12 @@ public func floor<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element 
 /// Elemen-wise floor.
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func floor<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func floor<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvfloor(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvfloor(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
@@ -168,21 +168,21 @@ public func floor<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element
 
 // MARK: - Negate
 
-public func neg<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func neg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            vDSP_vneg(xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(xm.count))
+        lhs.withUnsafeMemory { lm in
+            vDSP_vneg(lm.pointer, numericCast(lm.stride), rbp.baseAddress!, 1, numericCast(lm.count))
         }
     }
     return results
 }
 
-public func neg<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func neg<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            vDSP_vnegD(xm.pointer, numericCast(xm.stride), rbp.baseAddress!, 1, numericCast(xm.count))
+        lhs.withUnsafeMemory { lm in
+            vDSP_vnegD(lm.pointer, numericCast(lm.stride), rbp.baseAddress!, 1, numericCast(lm.count))
         }
     }
     return results
@@ -191,24 +191,24 @@ public func neg<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element =
 // MARK: - Reciprocal
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func rec<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func rec<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvrecf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvrecf(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func rec<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func rec<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvrec(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvrec(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
@@ -217,24 +217,24 @@ public func rec<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element =
 // MARK: - Round
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func round<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func round<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvnintf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvnintf(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func round<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func round<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvnint(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvnint(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
@@ -242,26 +242,26 @@ public func round<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element
 
 // MARK: - Threshold
 
-public func threshold<C: UnsafeMemoryAccessible>(_ x: C, low: Float) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func threshold<L: UnsafeMemoryAccessible>(_ lhs: L, low: Float) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
+        lhs.withUnsafeMemory { lm in
             var y = low
             withUnsafePointer(to: &y) { y in
-                vDSP_vthr(xm.pointer, numericCast(xm.stride), y, rbp.baseAddress!, 1, numericCast(xm.count))
+                vDSP_vthr(lm.pointer, numericCast(lm.stride), y, rbp.baseAddress!, 1, numericCast(lm.count))
             }
         }
     }
     return results
 }
 
-public func threshold<C: UnsafeMemoryAccessible>(_ x: C, low: Double) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func threshold<L: UnsafeMemoryAccessible>(_ lhs: L, low: Double) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
+        lhs.withUnsafeMemory { lm in
             var y = low
             withUnsafePointer(to: &y) { y in
-                vDSP_vthrD(xm.pointer, numericCast(xm.stride), y, rbp.baseAddress!, 1, numericCast(xm.count))
+                vDSP_vthrD(lm.pointer, numericCast(lm.stride), y, rbp.baseAddress!, 1, numericCast(lm.count))
             }
         }
     }
@@ -271,24 +271,24 @@ public func threshold<C: UnsafeMemoryAccessible>(_ x: C, low: Double) -> [Double
 // MARK: - Truncate
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func trunc<C: UnsafeMemoryAccessible>(_ x: C) -> [Float] where C.Element == Float {
-    var results = [Float](repeating: 0.0, count: numericCast(x.count))
+public func trunc<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Float] where L.Element == Float {
+    var results = [Float](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvintf(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvintf(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
 }
 
 /// - Warning: does not support memory stride (assumes stride is 1).
-public func trunc<C: UnsafeMemoryAccessible>(_ x: C) -> [Double] where C.Element == Double {
-    var results = [Double](repeating: 0.0, count: numericCast(x.count))
+public func trunc<L: UnsafeMemoryAccessible>(_ lhs: L) -> [Double] where L.Element == Double {
+    var results = [Double](repeating: 0.0, count: numericCast(lhs.count))
     results.withUnsafeMutableBufferPointer { rbp in
-        x.withUnsafeMemory { xm in
-            precondition(xm.stride == 1, "\(#function) does not support strided memory access")
-            vvint(rbp.baseAddress!, xm.pointer, [numericCast(xm.count)])
+        lhs.withUnsafeMemory { lm in
+            precondition(lm.stride == 1, "\(#function) does not support strided memory access")
+            vvint(rbp.baseAddress!, lm.pointer, [numericCast(lm.count)])
         }
     }
     return results
