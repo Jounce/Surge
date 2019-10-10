@@ -1,6 +1,11 @@
 # Surge
 
-[![Build Status](https://travis-ci.org/mattt/Surge.svg?branch=master)](https://travis-ci.org/mattt/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![SPM compatible](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager) [![CocoaPods](https://img.shields.io/cocoapods/v/Surge.svg)](https://cocoapods.org/pods/Surge)
+[![Build Status][build status badge]][build status]
+[![License][license badge]][license]
+![CocoaPods platforms][cocoapods platforms badge]
+[![CocoaPods compatible][cocoapods badge]][cocoapods]
+[![Carthage compatible][carthage badge]][carthage]
+[![Swift Package Manager compatible][swift package manager badge]][swift package manager]
 
 Surge is a Swift library that uses the Accelerate framework to provide high-performance functions for matrix math, digital signal processing, and image manipulation.
 
@@ -12,7 +17,18 @@ Though, keep in mind: _Accelerate is not a silver bullet_. Under certain conditi
 
 ---
 
-> Curious about the name _Surge_? Back in the mid 90's, Apple, IBM, and Motorola teamed up to create [AltiVec](http://en.wikipedia.org/wiki/AltiVec) (a.k.a the Velocity Engine), which provided a SIMD instruction set for the PowerPC architecture. When Apple made the switch to Intel CPUs, AltiVec was ported to the x86 architecture and rechristened [Accelerate](https://developer.apple.com/library/mac/documentation/Accelerate/Reference/AccelerateFWRef/_index.html). The derivative of Accelerate (and second derivative of Velocity) is known as either [jerk, jolt, surge, or lurch](http://en.wikipedia.org/wiki/Jerk_%28physics%29), hence the name of this library.
+> Curious about the name _Surge_? (And _Jounce_?)
+> Back in the mid 90's, Apple, IBM, and Motorola teamed up to create
+> [AltiVec](http://en.wikipedia.org/wiki/AltiVec) (a.k.a the Velocity Engine),
+> which provided a SIMD instruction set for the PowerPC architecture.
+> When Apple made the switch to Intel CPUs,
+> AltiVec was ported to the x86 architecture and rechristened
+> [Accelerate](https://developer.apple.com/documentation/Accelerate).
+> The derivative of Accelerate (and second derivative of Velocity)
+> is known as either [jerk, jolt, _surge_, or lurch](http://en.wikipedia.org/wiki/Jerk_%28physics%29);
+> if you take the derivative of surge,
+> you get the [_jounce_](https://en.wikipedia.org/wiki/Jounce) ---
+> hence the name of this library and its parent organization.
 
 ---
 
@@ -34,7 +50,7 @@ To use [Swift Package Manager](https://swift.org/package-manager/) add Surge to 
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/mattt/Surge.git", .upToNextMajor(from: "2.0.0")),
+        .package(url: "https://github.com/Jounce/Surge.git", .upToNextMajor(from: "2.0.0")),
     ],
     targets: [
         .target(
@@ -67,7 +83,7 @@ Then run `pod install`.
 To use [Carthage](https://github.com/Carthage/Carthage) add Surge to your `Cartfile`:
 
 ```ruby
-github "mattt/Surge" ~> 2.0.0
+github "Jounce/Surge" ~> 2.0.0
 ```
 
 Then run `carthage update` and use the framework in `Carthage/Build/<platform>`.
@@ -789,3 +805,15 @@ Fast fourier transform functions & operators
 | `(Array)`        | `xcorr`  | n/a               | n/a      | n/a               |
 
 </details>
+
+[build status]: https://travis-ci.com/Jounce/Surge
+[build status badge]: https://api.travis-ci.com/Jounce/Surge.svg?branch=master
+[license]: https://opensource.org/licenses/MIT
+[license badge]: https://img.shields.io/cocoapods/l/Surge.svg
+[cocoapods platforms badge]: https://img.shields.io/cocoapods/p/Surge.svg
+[cocoapods]: https://cocoapods.org/pods/Surge
+[cocoapods badge]: https://img.shields.io/cocoapods/v/Surge.svg
+[carthage]: https://github.com/Carthage/Carthage
+[carthage badge]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg
+[swift package manager badge]: https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat
+[swift package manager]: https://swift.org/package-manager
