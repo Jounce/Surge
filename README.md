@@ -12,7 +12,18 @@ Though, keep in mind: _Accelerate is not a silver bullet_. Under certain conditi
 
 ---
 
-> Curious about the name _Surge_? Back in the mid 90's, Apple, IBM, and Motorola teamed up to create [AltiVec](http://en.wikipedia.org/wiki/AltiVec) (a.k.a the Velocity Engine), which provided a SIMD instruction set for the PowerPC architecture. When Apple made the switch to Intel CPUs, AltiVec was ported to the x86 architecture and rechristened [Accelerate](https://developer.apple.com/library/mac/documentation/Accelerate/Reference/AccelerateFWRef/_index.html). The derivative of Accelerate (and second derivative of Velocity) is known as either [jerk, jolt, surge, or lurch](http://en.wikipedia.org/wiki/Jerk_%28physics%29), hence the name of this library.
+> Curious about the name _Surge_? (And _Jounce_?)
+> Back in the mid 90's, Apple, IBM, and Motorola teamed up to create
+> [AltiVec](http://en.wikipedia.org/wiki/AltiVec) (a.k.a the Velocity Engine),
+> which provided a SIMD instruction set for the PowerPC architecture.
+> When Apple made the switch to Intel CPUs,
+> AltiVec was ported to the x86 architecture and rechristened
+> [Accelerate](https://developer.apple.com/documentation/Accelerate).
+> The derivative of Accelerate (and second derivative of Velocity)
+> is known as either [jerk, jolt, _surge_, or lurch](http://en.wikipedia.org/wiki/Jerk_%28physics%29);
+> if you take the derivative of surge,
+> you get the [_jounce_](https://en.wikipedia.org/wiki/Jounce) ---
+> hence the name of this library and its parent organization.
 
 ---
 
