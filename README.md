@@ -1,6 +1,11 @@
 # Surge
 
-[![Build Status](https://travis-ci.org/Jounce/Surge.svg?branch=master)](https://travis-ci.org/Jounce/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Jounce/Surge/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![SPM compatible](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager) [![CocoaPods](https://img.shields.io/cocoapods/v/Surge.svg)](https://cocoapods.org/pods/Surge)
+[![Build Status][build status badge]][build status]
+[![License][license badge]][license]
+![CocoaPods platforms][cocoapods platforms badge]
+[![CocoaPods compatible][cocoapods badge]][cocoapods]
+[![Carthage compatible][carthage badge]][carthage]
+[![Swift Package Manager compatible][swift package manager badge]][swift package manager]
 
 Surge is a Swift library that uses the Accelerate framework to provide high-performance functions for matrix math, digital signal processing, and image manipulation.
 
@@ -800,3 +805,15 @@ Fast fourier transform functions & operators
 | `(Array)`        | `xcorr`  | n/a               | n/a      | n/a               |
 
 </details>
+
+[build status]: https://travis-ci.com/Jounce/Surge
+[build status badge]: https://api.travis-ci.com/Jounce/Surge.svg?branch=master
+[license]: https://opensource.org/licenses/MIT
+[license badge]: https://img.shields.io/cocoapods/l/Surge.svg
+[cocoapods platforms badge]: https://img.shields.io/cocoapods/p/Surge.svg
+[cocoapods]: https://cocoapods.org/pods/Surge
+[cocoapods badge]: https://img.shields.io/cocoapods/v/Surge.svg
+[carthage]: https://github.com/Carthage/Carthage
+[carthage badge]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg
+[swift package manager badge]: https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat
+[swift package manager]: https://swift.org/package-manager
