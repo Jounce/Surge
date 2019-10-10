@@ -57,15 +57,16 @@ extension Array where Element: FloatingPoint & ExpressibleByFloatLiteral {
     }
 
     static func randomNormalized() -> Array {
-        return randomNormalized(to: 1.0, count: Array.defaultCount)
+        return randomNormalized(to: 0.0...1.0, count: Array.defaultCount)
     }
 
-    static func randomNormalized(to scale: Element) -> Array {
-        return randomNormalized(to: scale, count: Array.defaultCount)
+    static func randomNormalized(to range: ClosedRange<Element>) -> Array {
+        return randomNormalized(to: range, count: Array.defaultCount)
     }
 
-    static func randomNormalized(to scale: Element = 1.0, count: Int) -> Array {
-        return (1...count).map { _ in Element.randomNormalized() * scale }
+    static func randomNormalized(to range: ClosedRange<Element> = 0.0...1.0, count: Int) -> Array {
+        let scale = range.upperBound - range.lowerBound
+        return (1...count).map { _ in range.lowerBound + (Element.randomNormalized() * scale) }
     }
 
     static func monotonic() -> Array {
@@ -77,16 +78,17 @@ extension Array where Element: FloatingPoint & ExpressibleByFloatLiteral {
     }
 
     static func monotonicNormalized() -> Array {
-        return monotonicNormalized(to: 1.0, count: Array.defaultCount)
+        return monotonicNormalized(to: 0.0...1.0, count: Array.defaultCount)
     }
 
-    static func monotonicNormalized(to scale: Element) -> Array {
-        return monotonicNormalized(to: scale, count: Array.defaultCount)
+    static func monotonicNormalized(to range: ClosedRange<Element>) -> Array {
+        return monotonicNormalized(to: range, count: Array.defaultCount)
     }
 
-    static func monotonicNormalized(to scale: Element = 1.0, count: Int) -> Array {
+    static func monotonicNormalized(to range: ClosedRange<Element> = 0.0...1.0, count: Int) -> Array {
+        let scale = range.upperBound - range.lowerBound
         let scalarCount = Element(count)
-        return (1...count).map { (Element($0) / scalarCount) * scale }
+        return (1...count).map { range.lowerBound + ((Element($0) / scalarCount) * scale) }
     }
 
     static func constant() -> Array {
@@ -108,15 +110,15 @@ extension Vector where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
     }
 
     static func randomNormalized() -> Vector {
-        return randomNormalized(to: 1.0, dimensions: Vector.defaultDimensions)
+        return randomNormalized(to: 0.0...1.0, dimensions: Vector.defaultDimensions)
     }
 
-    static func randomNormalized(to scale: Element) -> Vector {
-        return randomNormalized(to: scale, dimensions: Vector.defaultDimensions)
+    static func randomNormalized(to range: ClosedRange<Scalar>) -> Vector {
+        return randomNormalized(to: range, dimensions: Vector.defaultDimensions)
     }
 
-    static func randomNormalized(to scale: Scalar = 1.0, dimensions: Int) -> Vector {
-        return Vector([Scalar].randomNormalized(to: scale, count: dimensions))
+    static func randomNormalized(to range: ClosedRange<Scalar> = 0.0...1.0, dimensions: Int) -> Vector {
+        return Vector([Scalar].randomNormalized(to: range, count: dimensions))
     }
 
     static func monotonic() -> Vector {
@@ -128,15 +130,15 @@ extension Vector where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
     }
 
     static func monotonicNormalized() -> Vector {
-        return monotonicNormalized(to: 1.0, dimensions: Vector.defaultDimensions)
+        return monotonicNormalized(to: 0.0...1.0, dimensions: Vector.defaultDimensions)
     }
 
-    static func monotonicNormalized(to scale: Scalar) -> Vector {
-        return monotonicNormalized(to: scale, dimensions: Vector.defaultDimensions)
+    static func monotonicNormalized(to range: ClosedRange<Scalar>) -> Vector {
+        return monotonicNormalized(to: range, dimensions: Vector.defaultDimensions)
     }
 
-    static func monotonicNormalized(to scale: Scalar = 1.0, dimensions: Int) -> Vector {
-        return Vector([Scalar].monotonicNormalized(to: scale, count: dimensions))
+    static func monotonicNormalized(to range: ClosedRange<Scalar> = 0.0...1.0, dimensions: Int) -> Vector {
+        return Vector([Scalar].monotonicNormalized(to: range, count: dimensions))
     }
 
     static func constant() -> Vector {
@@ -162,16 +164,16 @@ extension Matrix where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
     }
 
     static func randomNormalized() -> Matrix {
-        return randomNormalized(to: 1.0, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
+        return randomNormalized(to: 0.0...1.0, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
     }
 
-    static func randomNormalized(to scale: Scalar) -> Matrix {
-        return randomNormalized(to: scale, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
+    static func randomNormalized(to range: ClosedRange<Scalar>) -> Matrix {
+        return randomNormalized(to: range, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
     }
 
-    static func randomNormalized(to scale: Scalar = 1.0, rows: Int, columns: Int) -> Matrix {
+    static func randomNormalized(to range: ClosedRange<Scalar> = 0.0...1.0, rows: Int, columns: Int) -> Matrix {
         let count = rows * columns
-        let grid = [Scalar].randomNormalized(to: scale, count: count)
+        let grid = [Scalar].randomNormalized(to: range, count: count)
         return Matrix(rows: rows, columns: columns, grid: grid)
     }
 
@@ -186,16 +188,16 @@ extension Matrix where Scalar: FloatingPoint & ExpressibleByFloatLiteral {
     }
 
     static func monotonicNormalized() -> Matrix {
-        return monotonicNormalized(to: 1.0, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
+        return monotonicNormalized(to: 0.0...1.0, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
     }
 
-    static func monotonicNormalized(to scale: Scalar = 1.0) -> Matrix {
-        return monotonicNormalized(to: scale, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
+    static func monotonicNormalized(to range: ClosedRange<Scalar>) -> Matrix {
+        return monotonicNormalized(to: range, rows: Matrix.defaultRows, columns: Matrix.defaultColumns)
     }
 
-    static func monotonicNormalized(to scale: Scalar = 1.0, rows: Int, columns: Int) -> Matrix {
+    static func monotonicNormalized(to range: ClosedRange<Scalar> = 0.0...1.0, rows: Int, columns: Int) -> Matrix {
         let count = rows * columns
-        let grid = [Scalar].monotonicNormalized(to: scale, count: count)
+        let grid = [Scalar].monotonicNormalized(to: range, count: count)
         return Matrix(rows: rows, columns: columns, grid: grid)
     }
 

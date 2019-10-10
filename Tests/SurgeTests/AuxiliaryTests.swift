@@ -23,7 +23,7 @@ import XCTest
 
 @testable import Surge
 
-// swiftlint:disable nesting type_body_length
+// swiftlint:disable nesting
 
 class AuxiliaryTests: XCTestCase {
     // MARK: - Abs: In Place
@@ -149,9 +149,8 @@ class AuxiliaryTests: XCTestCase {
     func test_copysign_in_place_array_double() {
         typealias Scalar = Double
 
-        // FIXME: make sign/rhs contain both, positive and negative scalars
         let lhs: [Scalar] = .monotonicNormalized()
-        let rhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized(to: -1.0...1.0)
 
         var actual: [Scalar] = lhs
         Surge.copysignInPlace(&actual, rhs)
@@ -164,9 +163,8 @@ class AuxiliaryTests: XCTestCase {
     func test_copysign_in_place_array_float() {
         typealias Scalar = Float
 
-        // FIXME: make sign/rhs contain both, positive and negative scalars
         let lhs: [Scalar] = .monotonicNormalized()
-        let rhs: [Scalar] = .monotonicNormalized()
+        let rhs: [Scalar] = .monotonicNormalized(to: -1.0...1.0)
 
         var actual: [Scalar] = lhs
         Surge.copysignInPlace(&actual, rhs)
@@ -297,7 +295,7 @@ class AuxiliaryTests: XCTestCase {
     func test_trunc_in_place_array_double() {
         typealias Scalar = Double
 
-        let lhs: [Scalar] = .monotonicNormalized(to: -1.0)
+        let lhs: [Scalar] = .monotonicNormalized(to: -1.0...1.0)
 
         var actual: [Scalar] = lhs
         Surge.truncInPlace(&actual)
