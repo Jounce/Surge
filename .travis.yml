@@ -1,6 +1,14 @@
 language: swift
 osx_image: xcode10.2
 
+cache:
+  directories:
+    - $HOME/Library/Caches/Homebrew
+    - /usr/local/Homebrew
+
+before_cache:
+  - brew cleanup
+
 install:
   - brew update
   - brew outdated swiftlint || brew upgrade swiftlint
