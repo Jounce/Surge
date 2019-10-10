@@ -1,6 +1,6 @@
 # Surge
 
-[![Build Status](https://travis-ci.org/mattt/Surge.svg?branch=master)](https://travis-ci.org/mattt/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mattt/Surge/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![SPM compatible](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager) [![CocoaPods](https://img.shields.io/cocoapods/v/Surge.svg)](https://cocoapods.org/pods/Surge)
+[![Build Status](https://travis-ci.org/Jounce/Surge.svg?branch=master)](https://travis-ci.org/Jounce/Surge) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Jounce/Surge/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![SPM compatible](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager) [![CocoaPods](https://img.shields.io/cocoapods/v/Surge.svg)](https://cocoapods.org/pods/Surge)
 
 Surge is a Swift library that uses the Accelerate framework to provide high-performance functions for matrix math, digital signal processing, and image manipulation.
 
@@ -45,7 +45,7 @@ To use [Swift Package Manager](https://swift.org/package-manager/) add Surge to 
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/mattt/Surge.git", .upToNextMajor(from: "2.0.0")),
+        .package(url: "https://github.com/Jounce/Surge.git", .upToNextMajor(from: "2.0.0")),
     ],
     targets: [
         .target(
@@ -78,7 +78,7 @@ Then run `pod install`.
 To use [Carthage](https://github.com/Carthage/Carthage) add Surge to your `Cartfile`:
 
 ```ruby
-github "mattt/Surge" ~> 2.0.0
+github "Jounce/Surge" ~> 2.0.0
 ```
 
 Then run `carthage update` and use the framework in `Carthage/Build/<platform>`.
