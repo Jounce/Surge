@@ -101,7 +101,7 @@ class ArithmeticTests: XCTestCase {
     func test_mod_in_place_array_array_float() {
         measure_inout_array_array(of: Float.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.modInPlace)
+                measure(Surge.elmodInPlace)
             }
         }
     }
@@ -109,7 +109,7 @@ class ArithmeticTests: XCTestCase {
     func test_mod_in_place_array_array_double() {
         measure_inout_array_array(of: Double.self) { measure in
             measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
-                measure(Surge.modInPlace)
+                measure(Surge.elmodInPlace)
             }
         }
     }
