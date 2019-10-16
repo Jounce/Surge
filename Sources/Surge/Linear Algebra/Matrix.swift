@@ -26,13 +26,28 @@ public enum MatrixAxies {
 }
 
 public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
+    public enum Shape: Equatable {
+        // `self.rows < self.columns` (aka. `m < n`)
+        case wide
+        /// `self.rows > self.columns` (aka. `m > n`)
+        case tall
+        // `self.rows == self.columns` (aka. `m == n`)
+        case square
+    }
+
     public let rows: Int
     public let columns: Int
 
     var grid: [Scalar]
 
-    public var isSquare: Bool {
-        return self.rows == self.columns
+    public var shape: Shape {
+        if self.rows > self.columns {
+            return .tall
+        } else if self.rows < self.columns {
+            return .wide
+        } else {
+            return .square
+        }
     }
 
     // MARK: - Initialization

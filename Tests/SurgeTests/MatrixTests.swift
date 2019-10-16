@@ -225,6 +225,44 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(actual_3x3, expected_3x3)
     }
 
+    // MARK: - Shape
+
+    func test_shape_tall() {
+        typealias Scalar = Double
+
+        let matrix: Matrix<Scalar> = [
+            [1, 2],
+            [3, 4],
+            [5, 6],
+            [7, 8],
+        ]
+
+        XCTAssertEqual(matrix.shape, .tall)
+    }
+
+    func test_shape_wide() {
+        typealias Scalar = Double
+
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+        ]
+
+        XCTAssertEqual(matrix.shape, .wide)
+    }
+
+    func test_shape_square() {
+        typealias Scalar = Double
+
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]
+
+        XCTAssertEqual(matrix.shape, .square)
+    }
+
     // MARK: - Subscript
 
     func test_subscript_row_get() {
