@@ -28,7 +28,12 @@ public enum MatrixAxies {
 public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByFloatLiteral {
     public let rows: Int
     public let columns: Int
+
     var grid: [Scalar]
+
+    public var isSquare: Bool {
+        return self.rows == self.columns
+    }
 
     // MARK: - Initialization
 
