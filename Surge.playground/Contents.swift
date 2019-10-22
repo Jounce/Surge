@@ -34,7 +34,7 @@ let product = mul(a, b)
 // MARK: - Matrix
 
 // ⎛ 1  1 ⎞       ⎛ 3 ⎞
-// ⎢      ⎟ * B = ⎢   ⎟         C = ?
+// ⎢      ⎟ * B = ⎢   ⎟         B = ?
 // ⎝ 1 -1 ⎠       ⎝ 1 ⎠
 
 let A = Matrix([[1, 1], [1, -1]])
