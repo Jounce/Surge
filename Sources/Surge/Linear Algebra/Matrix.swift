@@ -99,13 +99,13 @@ extension Matrix where Scalar == Float {
     public static func randUniform(
         rows: Int,
         columns: Int,
-        within range: ClosedRange<Float> = 0.0...1.0
+        range: ClosedRange<Float> = 0.0...1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
         return self.randUniform(
             rows: rows,
             columns: columns,
-            within: range,
+            range: range,
             using: &generator
         )
     }
@@ -113,12 +113,12 @@ extension Matrix where Scalar == Float {
     public static func randUniform<T>(
         rows: Int,
         columns: Int,
-        within range: ClosedRange<Float> = 0.0...1.0,
+        range: ClosedRange<Float> = 0.0...1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
         let grid = Surge.randUniform(
             count: rows * columns,
-            within: range,
+            range: range,
             using: &generator
         )
         return Matrix(rows: rows, columns: columns, grid: grid)
@@ -161,13 +161,13 @@ extension Matrix where Scalar == Double {
     public static func randUniform(
         rows: Int,
         columns: Int,
-        within range: ClosedRange<Double> = 0.0...1.0
+        range: ClosedRange<Double> = 0.0...1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
         return self.randUniform(
             rows: rows,
             columns: columns,
-            within: range,
+            range: range,
             using: &generator
         )
     }
@@ -175,12 +175,12 @@ extension Matrix where Scalar == Double {
     public static func randUniform<T>(
         rows: Int,
         columns: Int,
-        within range: ClosedRange<Double> = 0.0...1.0,
+        range: ClosedRange<Double> = 0.0...1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
         let grid = Surge.randUniform(
             count: rows * columns,
-            within: range,
+            range: range,
             using: &generator
         )
         return Matrix(rows: rows, columns: columns, grid: grid)

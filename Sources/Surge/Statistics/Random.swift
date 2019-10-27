@@ -24,23 +24,23 @@ import Foundation
 
 public func randUniform(
     count: Int,
-    within range: ClosedRange<Float> = 0.0...1.0
+    range: ClosedRange<Float> = 0.0...1.0
 ) -> [Float] {
     var generator = SystemRandomNumberGenerator()
-    return randUniform(count: count, within: range, using: &generator)
+    return randUniform(count: count, range: range, using: &generator)
 }
 
 public func randUniform(
     count: Int,
-    within range: ClosedRange<Double> = 0.0...1.0
+    range: ClosedRange<Double> = 0.0...1.0
 ) -> [Double] {
     var generator = SystemRandomNumberGenerator()
-    return randUniform(count: count, within: range, using: &generator)
+    return randUniform(count: count, range: range, using: &generator)
 }
 
 public func randUniform<T>(
     count: Int,
-    within range: ClosedRange<Float>,
+    range: ClosedRange<Float>,
     using generator: inout T
 ) -> [Float] where T: RandomNumberGenerator {
     return (0..<count).map { _ in Float.random(in: range, using: &generator) }
@@ -48,7 +48,7 @@ public func randUniform<T>(
 
 public func randUniform<T>(
     count: Int,
-    within range: ClosedRange<Double>,
+    range: ClosedRange<Double>,
     using generator: inout T
 ) -> [Double] where T: RandomNumberGenerator {
     return (0..<count).map { _ in Double.random(in: range, using: &generator) }
@@ -78,8 +78,8 @@ public func randNormal<T>(
     sigma: Float = 1.0,
     using generator: inout T
 ) -> [Float] where T: RandomNumberGenerator {
-    var lhs: [Float] = randUniform(count: count, within: 0.0...1.0, using: &generator)
-    var rhs: [Float] = randUniform(count: count, within: 0.0...1.0, using: &generator)
+    var lhs: [Float] = randUniform(count: count, range: 0.0...1.0, using: &generator)
+    var rhs: [Float] = randUniform(count: count, range: 0.0...1.0, using: &generator)
 
     boxMullerTransformInPlace(&lhs, &rhs)
 
@@ -100,8 +100,8 @@ public func randNormal<T>(
 ) -> [Double] where T: RandomNumberGenerator {
     // Box-Muller transform
 
-    var lhs: [Double] = randUniform(count: count, within: 0.0...1.0, using: &generator)
-    var rhs: [Double] = randUniform(count: count, within: 0.0...1.0, using: &generator)
+    var lhs: [Double] = randUniform(count: count, range: 0.0...1.0, using: &generator)
+    var rhs: [Double] = randUniform(count: count, range: 0.0...1.0, using: &generator)
 
     boxMullerTransformInPlace(&lhs, &rhs)
 
