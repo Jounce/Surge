@@ -83,3 +83,61 @@ public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
 public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
     return mul(lhs, rhs)
 }
+
+extension Float {
+    /// Generates a normal-distributed random value with given
+    /// `mu` (mean) and `sigma` (std deviation).
+    public static func randomNormal(
+        mu: Float = 0.0,
+        sigma: Float = 1.0
+    ) -> Float {
+        var generator = SystemRandomNumberGenerator()
+        return randomNormal(mu: mu, sigma: sigma, using: &generator)
+    }
+
+    /// Generates a normal-distributed random value with given
+    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    public static func randomNormal<T>(
+        mu: Float = 0.0,
+        sigma: Float = 1.0,
+        using generator: inout T
+    ) -> Float where T: RandomNumberGenerator {
+        let lhs = Float.random(in: 0.0...1.0, using: &generator)
+        let rhs = Float.random(in: 0.0...1.0, using: &generator)
+
+        let z = sqrt(-2.0 * log(lhs)) * cos(2.0 * .pi * rhs)
+
+        // After applying the transform `z` holds values with a sigma of `1.0` and a mu of `0.0`.
+
+        return z * sigma + mu
+    }
+}
+
+extension Double {
+    /// Generates a normal-distributed random value with given
+    /// `mu` (mean) and `sigma` (std deviation).
+    public static func randomNormal(
+        mu: Double = 0.0,
+        sigma: Double = 1.0
+    ) -> Double {
+        var generator = SystemRandomNumberGenerator()
+        return randomNormal(mu: mu, sigma: sigma, using: &generator)
+    }
+
+    /// Generates a normal-distributed random value with given
+    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    public static func randomNormal<T>(
+        mu: Double = 0.0,
+        sigma: Double = 1.0,
+        using generator: inout T
+    ) -> Double where T: RandomNumberGenerator {
+        let lhs = Double.random(in: 0.0...1.0, using: &generator)
+        let rhs = Double.random(in: 0.0...1.0, using: &generator)
+
+        let z = sqrt(-2.0 * log(lhs)) * cos(2.0 * .pi * rhs)
+
+        // After applying the transform `z` holds values with a sigma of `1.0` and a mu of `0.0`.
+
+        return z * sigma + mu
+    }
+}
