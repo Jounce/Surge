@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Random: Uniform Distribution
 
+/// Generates an array of uniform-distributed random values within a (closed) `range`.
 public func random(
     count: Int,
     in range: ClosedRange<Float> = 0.0...1.0
@@ -30,6 +31,7 @@ public func random(
     return random(count: count, in: range, using: &generator)
 }
 
+/// Generates an array of uniform-distributed random values within a (closed) `range`.
 public func random(
     count: Int,
     in range: ClosedRange<Double> = 0.0...1.0
@@ -38,6 +40,8 @@ public func random(
     return random(count: count, in: range, using: &generator)
 }
 
+/// Generates an array of uniform-distributed random values within a
+/// (closed) `range` based on the provided random-number `generator`.
 public func random<T>(
     count: Int,
     in range: ClosedRange<Float>,
@@ -46,6 +50,8 @@ public func random<T>(
     return (0..<count).map { _ in Float.random(in: range, using: &generator) }
 }
 
+/// Generates an array of uniform-distributed random values within a
+/// (closed) `range` based on the provided random-number `generator`.
 public func random<T>(
     count: Int,
     in range: ClosedRange<Double>,
@@ -54,6 +60,8 @@ public func random<T>(
     return (0..<count).map { _ in Double.random(in: range, using: &generator) }
 }
 
+/// Generates an array of normal-distributed random values with given
+/// `mu` (mean) and `sigma` (std deviation).
 public func randomNormal(
     count: Int,
     mu: Float = 0.0,
@@ -63,6 +71,8 @@ public func randomNormal(
     return randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
 }
 
+/// Generates an array of normal-distributed random values with given
+/// `mu` (mean) and `sigma` (std deviation).
 public func randomNormal(
     count: Int,
     mu: Double = 0.0,
@@ -72,6 +82,8 @@ public func randomNormal(
     return randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
 }
 
+/// Generates an array of normal-distributed random values with given
+/// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
 public func randomNormal<T>(
     count: Int,
     mu: Float = 0.0,
@@ -92,6 +104,8 @@ public func randomNormal<T>(
     return lhs
 }
 
+/// Generates an array of normal-distributed random values with given
+/// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
 public func randomNormal<T>(
     count: Int,
     mu: Double = 0.0,

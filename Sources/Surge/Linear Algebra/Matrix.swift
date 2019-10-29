@@ -96,34 +96,39 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
 // MARK: - Initialization: Randomized
 
 extension Matrix where Scalar == Float {
-    public static func randomUniform(
+    /// Generates a matrix of uniform-distributed random values within a (closed) `range`.
+    public static func random(
         rows: Int,
         columns: Int,
-        range: ClosedRange<Float> = 0.0...1.0
+        in range: ClosedRange<Float> = 0.0...1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
-        return self.randomUniform(
+        return self.random(
             rows: rows,
             columns: columns,
-            range: range,
+            in: range,
             using: &generator
         )
     }
 
-    public static func randomUniform<T>(
+    /// Generates a matrix of uniform-distributed random values within
+    /// a (closed) `range`, based on the provided random-number `generator`.
+    public static func random<T>(
         rows: Int,
         columns: Int,
-        range: ClosedRange<Float> = 0.0...1.0,
+        in range: ClosedRange<Float> = 0.0...1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
-        let grid = Surge.randomUniform(
+        let grid = Surge.random(
             count: rows * columns,
-            range: range,
+            in: range,
             using: &generator
         )
         return Matrix(rows: rows, columns: columns, grid: grid)
     }
 
+    /// Generates a matrix of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation).
     public static func randomNormal(
         rows: Int,
         columns: Int,
@@ -140,6 +145,8 @@ extension Matrix where Scalar == Float {
         )
     }
 
+    /// Generates a matrix of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
     public static func randomNormal<T>(
         rows: Int,
         columns: Int,
@@ -158,34 +165,39 @@ extension Matrix where Scalar == Float {
 }
 
 extension Matrix where Scalar == Double {
-    public static func randomUniform(
+    /// Generates a matrix of uniform-distributed random values within a (closed) `range`.
+    public static func random(
         rows: Int,
         columns: Int,
-        range: ClosedRange<Double> = 0.0...1.0
+        in range: ClosedRange<Double> = 0.0...1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
-        return self.randomUniform(
+        return self.random(
             rows: rows,
             columns: columns,
-            range: range,
+            in: range,
             using: &generator
         )
     }
 
-    public static func randomUniform<T>(
+    /// Generates a matrix of uniform-distributed random values within
+    /// a (closed) `range`, based on the provided random-number `generator`.
+    public static func random<T>(
         rows: Int,
         columns: Int,
-        range: ClosedRange<Double> = 0.0...1.0,
+        in range: ClosedRange<Double> = 0.0...1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
-        let grid = Surge.randomUniform(
+        let grid = Surge.random(
             count: rows * columns,
-            range: range,
+            in: range,
             using: &generator
         )
         return Matrix(rows: rows, columns: columns, grid: grid)
     }
 
+    /// Generates a matrix of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation).
     public static func randomNormal(
         rows: Int,
         columns: Int,
@@ -202,6 +214,8 @@ extension Matrix where Scalar == Double {
         )
     }
 
+    /// Generates a matrix of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
     public static func randomNormal<T>(
         rows: Int,
         columns: Int,

@@ -55,23 +55,28 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
 // MARK: - Initialization: Randomized
 
 extension Vector where Scalar == Float {
-    public static func randomUniform(
+    /// Generates a vector of uniform-distributed random values within a (closed) `range`.
+    public static func random(
         count: Int,
-        range: ClosedRange<Float> = 0.0...1.0
+        in range: ClosedRange<Float> = 0.0...1.0
     ) -> Vector {
         var generator = SystemRandomNumberGenerator()
-        return self.randomUniform(count: count, range: range, using: &generator)
+        return self.random(count: count, in: range, using: &generator)
     }
 
-    public static func randomUniform<T>(
+    /// Generates a vector of uniform-distributed random values within
+    /// a (closed) `range`, based on the provided random-number `generator`.
+    public static func random<T>(
         count: Int,
-        range: ClosedRange<Float> = 0.0...1.0,
+        in range: ClosedRange<Float> = 0.0...1.0,
         using generator: inout T
     ) -> Vector where T: RandomNumberGenerator {
-        let scalars = Surge.randomUniform(count: count, range: range, using: &generator)
+        let scalars = Surge.random(count: count, in: range, using: &generator)
         return Vector(scalars: scalars)
     }
 
+    /// Generates a vector of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation).
     public static func randomNormal(
         count: Int,
         mu: Float = 0.0,
@@ -81,6 +86,8 @@ extension Vector where Scalar == Float {
         return self.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
     }
 
+    /// Generates a vector of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
     public static func randomNormal<T>(
         count: Int,
         mu: Float = 0.0,
@@ -93,23 +100,28 @@ extension Vector where Scalar == Float {
 }
 
 extension Vector where Scalar == Double {
-    public static func randomUniform(
+    /// Generates a vector of uniform-distributed random values within a (closed) `range`.
+    public static func random(
         count: Int,
-        range: ClosedRange<Double> = 0.0...1.0
+        in range: ClosedRange<Double> = 0.0...1.0
     ) -> Vector {
         var generator = SystemRandomNumberGenerator()
-        return self.randomUniform(count: count, range: range, using: &generator)
+        return self.random(count: count, in: range, using: &generator)
     }
 
-    public static func randomUniform<T>(
+    /// Generates a vector of uniform-distributed random values within
+    /// a (closed) `range`, based on the provided random-number `generator`.
+    public static func random<T>(
         count: Int,
-        range: ClosedRange<Double> = 0.0...1.0,
+        in range: ClosedRange<Double> = 0.0...1.0,
         using generator: inout T
     ) -> Vector where T: RandomNumberGenerator {
-        let scalars = Surge.randomUniform(count: count, range: range, using: &generator)
+        let scalars = Surge.random(count: count, in: range, using: &generator)
         return Vector(scalars: scalars)
     }
 
+    /// Generates a vector of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation).
     public static func randomNormal(
         count: Int,
         mu: Double = 0.0,
@@ -119,6 +131,8 @@ extension Vector where Scalar == Double {
         return self.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
     }
 
+    /// Generates a vector of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
     public static func randomNormal<T>(
         count: Int,
         mu: Double = 0.0,
