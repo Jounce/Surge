@@ -96,13 +96,13 @@ public struct Matrix<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
 // MARK: - Initialization: Randomized
 
 extension Matrix where Scalar == Float {
-    public static func randUniform(
+    public static func randomUniform(
         rows: Int,
         columns: Int,
         range: ClosedRange<Float> = 0.0...1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
-        return self.randUniform(
+        return self.randomUniform(
             rows: rows,
             columns: columns,
             range: range,
@@ -110,13 +110,13 @@ extension Matrix where Scalar == Float {
         )
     }
 
-    public static func randUniform<T>(
+    public static func randomUniform<T>(
         rows: Int,
         columns: Int,
         range: ClosedRange<Float> = 0.0...1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
-        let grid = Surge.randUniform(
+        let grid = Surge.randomUniform(
             count: rows * columns,
             range: range,
             using: &generator
@@ -124,14 +124,14 @@ extension Matrix where Scalar == Float {
         return Matrix(rows: rows, columns: columns, grid: grid)
     }
 
-    public static func randNormal(
+    public static func randomNormal(
         rows: Int,
         columns: Int,
         mu: Float = 0.0,
         sigma: Float = 1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
-        return self.randNormal(
+        return self.randomNormal(
             rows: rows,
             columns: columns,
             mu: mu,
@@ -140,14 +140,14 @@ extension Matrix where Scalar == Float {
         )
     }
 
-    public static func randNormal<T>(
+    public static func randomNormal<T>(
         rows: Int,
         columns: Int,
         mu: Float = 0.0,
         sigma: Float = 1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
-        let grid = Surge.randNormal(
+        let grid = Surge.randomNormal(
             count: rows * columns,
             mu: mu,
             sigma: sigma,
@@ -158,13 +158,13 @@ extension Matrix where Scalar == Float {
 }
 
 extension Matrix where Scalar == Double {
-    public static func randUniform(
+    public static func randomUniform(
         rows: Int,
         columns: Int,
         range: ClosedRange<Double> = 0.0...1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
-        return self.randUniform(
+        return self.randomUniform(
             rows: rows,
             columns: columns,
             range: range,
@@ -172,13 +172,13 @@ extension Matrix where Scalar == Double {
         )
     }
 
-    public static func randUniform<T>(
+    public static func randomUniform<T>(
         rows: Int,
         columns: Int,
         range: ClosedRange<Double> = 0.0...1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
-        let grid = Surge.randUniform(
+        let grid = Surge.randomUniform(
             count: rows * columns,
             range: range,
             using: &generator
@@ -186,14 +186,14 @@ extension Matrix where Scalar == Double {
         return Matrix(rows: rows, columns: columns, grid: grid)
     }
 
-    public static func randNormal(
+    public static func randomNormal(
         rows: Int,
         columns: Int,
         mu: Double = 0.0,
         sigma: Double = 1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
-        return self.randNormal(
+        return self.randomNormal(
             rows: rows,
             columns: columns,
             mu: mu,
@@ -202,14 +202,14 @@ extension Matrix where Scalar == Double {
         )
     }
 
-    public static func randNormal<T>(
+    public static func randomNormal<T>(
         rows: Int,
         columns: Int,
         mu: Double = 0.0,
         sigma: Double = 1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
-        let grid = Surge.randNormal(
+        let grid = Surge.randomNormal(
             count: rows * columns,
             mu: mu,
             sigma: sigma,

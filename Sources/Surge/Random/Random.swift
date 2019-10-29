@@ -22,64 +22,64 @@ import Foundation
 
 // MARK: - Random: Uniform Distribution
 
-public func randUniform(
+public func random(
     count: Int,
-    range: ClosedRange<Float> = 0.0...1.0
+    in range: ClosedRange<Float> = 0.0...1.0
 ) -> [Float] {
     var generator = SystemRandomNumberGenerator()
-    return randUniform(count: count, range: range, using: &generator)
+    return random(count: count, in: range, using: &generator)
 }
 
-public func randUniform(
+public func random(
     count: Int,
-    range: ClosedRange<Double> = 0.0...1.0
+    in range: ClosedRange<Double> = 0.0...1.0
 ) -> [Double] {
     var generator = SystemRandomNumberGenerator()
-    return randUniform(count: count, range: range, using: &generator)
+    return random(count: count, in: range, using: &generator)
 }
 
-public func randUniform<T>(
+public func random<T>(
     count: Int,
-    range: ClosedRange<Float>,
+    in range: ClosedRange<Float>,
     using generator: inout T
 ) -> [Float] where T: RandomNumberGenerator {
     return (0..<count).map { _ in Float.random(in: range, using: &generator) }
 }
 
-public func randUniform<T>(
+public func random<T>(
     count: Int,
-    range: ClosedRange<Double>,
+    in range: ClosedRange<Double>,
     using generator: inout T
 ) -> [Double] where T: RandomNumberGenerator {
     return (0..<count).map { _ in Double.random(in: range, using: &generator) }
 }
 
-public func randNormal(
+public func randomNormal(
     count: Int,
     mu: Float = 0.0,
     sigma: Float = 1.0
 ) -> [Float] {
     var generator = SystemRandomNumberGenerator()
-    return randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+    return randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
 }
 
-public func randNormal(
+public func randomNormal(
     count: Int,
     mu: Double = 0.0,
     sigma: Double = 1.0
 ) -> [Double] {
     var generator = SystemRandomNumberGenerator()
-    return randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+    return randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
 }
 
-public func randNormal<T>(
+public func randomNormal<T>(
     count: Int,
     mu: Float = 0.0,
     sigma: Float = 1.0,
     using generator: inout T
 ) -> [Float] where T: RandomNumberGenerator {
-    var lhs: [Float] = randUniform(count: count, range: 0.0...1.0, using: &generator)
-    var rhs: [Float] = randUniform(count: count, range: 0.0...1.0, using: &generator)
+    var lhs: [Float] = random(count: count, in: 0.0...1.0, using: &generator)
+    var rhs: [Float] = random(count: count, in: 0.0...1.0, using: &generator)
 
     boxMullerTransformInPlace(&lhs, &rhs)
 
@@ -92,7 +92,7 @@ public func randNormal<T>(
     return lhs
 }
 
-public func randNormal<T>(
+public func randomNormal<T>(
     count: Int,
     mu: Double = 0.0,
     sigma: Double = 1.0,
@@ -100,8 +100,8 @@ public func randNormal<T>(
 ) -> [Double] where T: RandomNumberGenerator {
     // Box-Muller transform
 
-    var lhs: [Double] = randUniform(count: count, range: 0.0...1.0, using: &generator)
-    var rhs: [Double] = randUniform(count: count, range: 0.0...1.0, using: &generator)
+    var lhs: [Double] = random(count: count, in: 0.0...1.0, using: &generator)
+    var rhs: [Double] = random(count: count, in: 0.0...1.0, using: &generator)
 
     boxMullerTransformInPlace(&lhs, &rhs)
 
@@ -119,10 +119,10 @@ public func randNormal<T>(
 /// - Note:
 ///   Upon return `lhs` will contain the result of the transform,
 ///   while `rhs` will will contain discardable, undefined content.
-internal func boxMullerTransformInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible>(
+internal func boxMullerTransformInPlace<L, R>(
     _ lhs: inout L,
     _ rhs: inout R
-) where L.Element == Float, R.Element == Float {
+) where L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible, L.Element == Float, R.Element == Float {
     // Semantically this function calculates the following formula,
     // implementing to the Box-Muller transform:
     //
@@ -159,10 +159,10 @@ internal func boxMullerTransformInPlace<L: UnsafeMutableMemoryAccessible, R: Uns
 /// - Note:
 ///   Upon return `lhs` will contain the result of the transform,
 ///   while `rhs` will will contain discardable, undefined content.
-internal func boxMullerTransformInPlace<L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible>(
+internal func boxMullerTransformInPlace<L, R>(
     _ lhs: inout L,
     _ rhs: inout R
-) where L.Element == Double, R.Element == Double {
+) where L: UnsafeMutableMemoryAccessible, R: UnsafeMutableMemoryAccessible, L.Element == Double, R.Element == Double {
     // Semantically this function calculates the following formula,
     // implementing to the Box-Muller transform:
     //

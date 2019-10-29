@@ -296,6 +296,7 @@
 				CAEC79CD2319338F00516E10 /* Linear Algebra */,
 				CAEC79D02319343100516E10 /* Logarithm */,
 				CAEC79CC2319337700516E10 /* Statistics */,
+				CA874E39236894C900C485CB /* Random */,
 				CAEC79CE231933D700516E10 /* Trigonometry */,
 				CAEC79C8231932E900516E10 /* Utilities */,
 			);
@@ -319,6 +320,14 @@
 				CA945C2C233ABC0D00D95127 /* SurgeTests+Extensions.swift */,
 			);
 			path = SurgeTests;
+			sourceTree = "<group>";
+		};
+		CA874E39236894C900C485CB /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				CAD8E5BD2343D796001B172A /* Random.swift */,
+			);
+			path = Random;
 			sourceTree = "<group>";
 		};
 		CAAF5008233A7B6700CC0AA7 /* SurgeBenchmarkTests */ = {
@@ -375,7 +384,6 @@
 			isa = PBXGroup;
 			children = (
 				6152A42020719E9200043627 /* Statistics.swift */,
-				CAD8E5BD2343D796001B172A /* Random.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";

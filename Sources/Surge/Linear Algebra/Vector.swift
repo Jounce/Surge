@@ -55,77 +55,77 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
 // MARK: - Initialization: Randomized
 
 extension Vector where Scalar == Float {
-    public static func randUniform(
+    public static func randomUniform(
         count: Int,
         range: ClosedRange<Float> = 0.0...1.0
     ) -> Vector {
         var generator = SystemRandomNumberGenerator()
-        return self.randUniform(count: count, range: range, using: &generator)
+        return self.randomUniform(count: count, range: range, using: &generator)
     }
 
-    public static func randUniform<T>(
+    public static func randomUniform<T>(
         count: Int,
         range: ClosedRange<Float> = 0.0...1.0,
         using generator: inout T
     ) -> Vector where T: RandomNumberGenerator {
-        let scalars = Surge.randUniform(count: count, range: range, using: &generator)
+        let scalars = Surge.randomUniform(count: count, range: range, using: &generator)
         return Vector(scalars: scalars)
     }
 
-    public static func randNormal(
+    public static func randomNormal(
         count: Int,
         mu: Float = 0.0,
         sigma: Float = 1.0
     ) -> Vector {
         var generator = SystemRandomNumberGenerator()
-        return self.randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        return self.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
     }
 
-    public static func randNormal<T>(
+    public static func randomNormal<T>(
         count: Int,
         mu: Float = 0.0,
         sigma: Float = 1.0,
         using generator: inout T
     ) -> Vector where T: RandomNumberGenerator {
-        let scalars = Surge.randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        let scalars = Surge.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
         return Vector(scalars: scalars)
     }
 }
 
 extension Vector where Scalar == Double {
-    public static func randUniform(
+    public static func randomUniform(
         count: Int,
         range: ClosedRange<Double> = 0.0...1.0
     ) -> Vector {
         var generator = SystemRandomNumberGenerator()
-        return self.randUniform(count: count, range: range, using: &generator)
+        return self.randomUniform(count: count, range: range, using: &generator)
     }
 
-    public static func randUniform<T>(
+    public static func randomUniform<T>(
         count: Int,
         range: ClosedRange<Double> = 0.0...1.0,
         using generator: inout T
     ) -> Vector where T: RandomNumberGenerator {
-        let scalars = Surge.randUniform(count: count, range: range, using: &generator)
+        let scalars = Surge.randomUniform(count: count, range: range, using: &generator)
         return Vector(scalars: scalars)
     }
 
-    public static func randNormal(
+    public static func randomNormal(
         count: Int,
         mu: Double = 0.0,
         sigma: Double = 1.0
     ) -> Vector {
         var generator = SystemRandomNumberGenerator()
-        return self.randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        return self.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
     }
 
-    public static func randNormal<T>(
+    public static func randomNormal<T>(
         count: Int,
         mu: Double = 0.0,
         sigma: Double = 1.0,
         using generator: inout T
     ) -> Vector where T: RandomNumberGenerator {
-        let scalars = Surge.randNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        let scalars = Surge.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
         return Vector(scalars: scalars)
     }
 }
