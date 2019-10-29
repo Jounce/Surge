@@ -649,7 +649,7 @@ func powInPlace<L>(_ lhs: inout L, _ rhs: Double) where L: UnsafeMutableMemoryAc
     return powInPlace(&lhs, rhs)
 }
 
-//// MARK: - Square
+// MARK: - Square
 
 public func sq<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
     return withArray(from: lhs) { sqInPlace(&$0) }

@@ -43,6 +43,10 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         } else {
             scalars = Array(contents)
         }
+        self.init(scalars: scalars)
+    }
+
+    public init(scalars: [Scalar]) {
         self.dimensions = scalars.count
         self.scalars = scalars
     }
@@ -56,6 +60,98 @@ public struct Vector<Scalar> where Scalar: FloatingPoint, Scalar: ExpressibleByF
         }
 
         self.init(scalars)
+    }
+}
+
+// MARK: - Initialization: Randomized
+
+extension Vector where Scalar == Float {
+    /// Generates a vector of uniform-distributed random values within a (closed) `range`.
+    public static func random(
+        count: Int,
+        in range: ClosedRange<Float> = 0.0...1.0
+    ) -> Vector {
+        var generator = SystemRandomNumberGenerator()
+        return self.random(count: count, in: range, using: &generator)
+    }
+
+    /// Generates a vector of uniform-distributed random values within
+    /// a (closed) `range`, based on the provided random-number `generator`.
+    public static func random<T>(
+        count: Int,
+        in range: ClosedRange<Float> = 0.0...1.0,
+        using generator: inout T
+    ) -> Vector where T: RandomNumberGenerator {
+        let scalars = Surge.random(count: count, in: range, using: &generator)
+        return Vector(scalars: scalars)
+    }
+
+    /// Generates a vector of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation).
+    public static func randomNormal(
+        count: Int,
+        mu: Float = 0.0,
+        sigma: Float = 1.0
+    ) -> Vector {
+        var generator = SystemRandomNumberGenerator()
+        return self.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+    }
+
+    /// Generates a vector of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    public static func randomNormal<T>(
+        count: Int,
+        mu: Float = 0.0,
+        sigma: Float = 1.0,
+        using generator: inout T
+    ) -> Vector where T: RandomNumberGenerator {
+        let scalars = Surge.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        return Vector(scalars: scalars)
+    }
+}
+
+extension Vector where Scalar == Double {
+    /// Generates a vector of uniform-distributed random values within a (closed) `range`.
+    public static func random(
+        count: Int,
+        in range: ClosedRange<Double> = 0.0...1.0
+    ) -> Vector {
+        var generator = SystemRandomNumberGenerator()
+        return self.random(count: count, in: range, using: &generator)
+    }
+
+    /// Generates a vector of uniform-distributed random values within
+    /// a (closed) `range`, based on the provided random-number `generator`.
+    public static func random<T>(
+        count: Int,
+        in range: ClosedRange<Double> = 0.0...1.0,
+        using generator: inout T
+    ) -> Vector where T: RandomNumberGenerator {
+        let scalars = Surge.random(count: count, in: range, using: &generator)
+        return Vector(scalars: scalars)
+    }
+
+    /// Generates a vector of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation).
+    public static func randomNormal(
+        count: Int,
+        mu: Double = 0.0,
+        sigma: Double = 1.0
+    ) -> Vector {
+        var generator = SystemRandomNumberGenerator()
+        return self.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+    }
+
+    /// Generates a vector of normal-distributed random values with given
+    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    public static func randomNormal<T>(
+        count: Int,
+        mu: Double = 0.0,
+        sigma: Double = 1.0,
+        using generator: inout T
+    ) -> Vector where T: RandomNumberGenerator {
+        let scalars = Surge.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        return Vector(scalars: scalars)
     }
 }
 
