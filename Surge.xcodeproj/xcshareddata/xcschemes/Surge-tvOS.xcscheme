@@ -38,7 +38,9 @@
       </MacroExpansion>
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES"
+            testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "614AD3581FC0B001002BFE1C"
