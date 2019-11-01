@@ -87,25 +87,26 @@ extension Vector where Scalar == Float {
     }
 
     /// Generates a vector of normal-distributed random values with given
-    /// `mu` (mean) and `sigma` (std deviation).
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma").
     public static func randomNormal(
         count: Int,
-        mu: Float = 0.0,
-        sigma: Float = 1.0
+        mean: Float = 0.0,
+        stdDeviation: Float = 1.0
     ) -> Vector {
         var generator = SystemRandomNumberGenerator()
-        return self.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        return self.randomNormal(count: count, mean: mean, stdDeviation: stdDeviation, using: &generator)
     }
 
     /// Generates a vector of normal-distributed random values with given
-    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma")
+    /// based on the provided random-number `generator`.
     public static func randomNormal<T>(
         count: Int,
-        mu: Float = 0.0,
-        sigma: Float = 1.0,
+        mean: Float = 0.0,
+        stdDeviation: Float = 1.0,
         using generator: inout T
     ) -> Vector where T: RandomNumberGenerator {
-        let scalars = Surge.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        let scalars = Surge.randomNormal(count: count, mean: mean, stdDeviation: stdDeviation, using: &generator)
         return Vector(scalars: scalars)
     }
 }
@@ -132,25 +133,26 @@ extension Vector where Scalar == Double {
     }
 
     /// Generates a vector of normal-distributed random values with given
-    /// `mu` (mean) and `sigma` (std deviation).
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma").
     public static func randomNormal(
         count: Int,
-        mu: Double = 0.0,
-        sigma: Double = 1.0
+        mean: Double = 0.0,
+        stdDeviation: Double = 1.0
     ) -> Vector {
         var generator = SystemRandomNumberGenerator()
-        return self.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        return self.randomNormal(count: count, mean: mean, stdDeviation: stdDeviation, using: &generator)
     }
 
     /// Generates a vector of normal-distributed random values with given
-    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma")
+    /// based on the provided random-number `generator`.
     public static func randomNormal<T>(
         count: Int,
-        mu: Double = 0.0,
-        sigma: Double = 1.0,
+        mean: Double = 0.0,
+        stdDeviation: Double = 1.0,
         using generator: inout T
     ) -> Vector where T: RandomNumberGenerator {
-        let scalars = Surge.randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+        let scalars = Surge.randomNormal(count: count, mean: mean, stdDeviation: stdDeviation, using: &generator)
         return Vector(scalars: scalars)
     }
 }

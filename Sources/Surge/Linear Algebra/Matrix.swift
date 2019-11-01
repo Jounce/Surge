@@ -161,36 +161,37 @@ extension Matrix where Scalar == Float {
     }
 
     /// Generates a matrix of normal-distributed random values with given
-    /// `mu` (mean) and `sigma` (std deviation).
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma").
     public static func randomNormal(
         rows: Int,
         columns: Int,
-        mu: Float = 0.0,
-        sigma: Float = 1.0
+        mean: Float = 0.0,
+        stdDeviation: Float = 1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
         return self.randomNormal(
             rows: rows,
             columns: columns,
-            mu: mu,
-            sigma: sigma,
+            mean: mean,
+            stdDeviation: stdDeviation,
             using: &generator
         )
     }
 
     /// Generates a matrix of normal-distributed random values with given
-    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma")
+    /// based on the provided random-number `generator`.
     public static func randomNormal<T>(
         rows: Int,
         columns: Int,
-        mu: Float = 0.0,
-        sigma: Float = 1.0,
+        mean: Float = 0.0,
+        stdDeviation: Float = 1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
         let grid = Surge.randomNormal(
             count: rows * columns,
-            mu: mu,
-            sigma: sigma,
+            mean: mean,
+            stdDeviation: stdDeviation,
             using: &generator
         )
         return Matrix(rows: rows, columns: columns, grid: grid)
@@ -230,36 +231,37 @@ extension Matrix where Scalar == Double {
     }
 
     /// Generates a matrix of normal-distributed random values with given
-    /// `mu` (mean) and `sigma` (std deviation).
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma").
     public static func randomNormal(
         rows: Int,
         columns: Int,
-        mu: Double = 0.0,
-        sigma: Double = 1.0
+        mean: Double = 0.0,
+        stdDeviation: Double = 1.0
     ) -> Matrix {
         var generator = SystemRandomNumberGenerator()
         return self.randomNormal(
             rows: rows,
             columns: columns,
-            mu: mu,
-            sigma: sigma,
+            mean: mean,
+            stdDeviation: stdDeviation,
             using: &generator
         )
     }
 
     /// Generates a matrix of normal-distributed random values with given
-    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma")
+    /// based on the provided random-number `generator`.
     public static func randomNormal<T>(
         rows: Int,
         columns: Int,
-        mu: Double = 0.0,
-        sigma: Double = 1.0,
+        mean: Double = 0.0,
+        stdDeviation: Double = 1.0,
         using generator: inout T
     ) -> Matrix where T: RandomNumberGenerator {
         let grid = Surge.randomNormal(
             count: rows * columns,
-            mu: mu,
-            sigma: sigma,
+            mean: mean,
+            stdDeviation: stdDeviation,
             using: &generator
         )
         return Matrix(rows: rows, columns: columns, grid: grid)

@@ -86,20 +86,21 @@ public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
 
 extension Float {
     /// Generates a normal-distributed random value with given
-    /// `mu` (mean) and `sigma` (std deviation).
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma").
     public static func randomNormal(
-        mu: Float = 0.0,
-        sigma: Float = 1.0
+        mean: Float = 0.0,
+        stdDeviation: Float = 1.0
     ) -> Float {
         var generator = SystemRandomNumberGenerator()
-        return randomNormal(mu: mu, sigma: sigma, using: &generator)
+        return randomNormal(mean: mean, stdDeviation: stdDeviation, using: &generator)
     }
 
     /// Generates a normal-distributed random value with given
-    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma")
+    /// based on the provided random-number `generator`.
     public static func randomNormal<T>(
-        mu: Float = 0.0,
-        sigma: Float = 1.0,
+        mean: Float = 0.0,
+        stdDeviation: Float = 1.0,
         using generator: inout T
     ) -> Float where T: RandomNumberGenerator {
         let lhs = Float.random(in: 0.0...1.0, using: &generator)
@@ -107,28 +108,29 @@ extension Float {
 
         let z = sqrt(-2.0 * log(lhs)) * cos(2.0 * .pi * rhs)
 
-        // After applying the transform `z` holds values with a sigma of `1.0` and a mu of `0.0`.
+        // After applying the transform `z` holds values with a stdDeviation of `1.0` and a mean of `0.0`.
 
-        return z * sigma + mu
+        return z * stdDeviation + mean
     }
 }
 
 extension Double {
     /// Generates a normal-distributed random value with given
-    /// `mu` (mean) and `sigma` (std deviation).
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma").
     public static func randomNormal(
-        mu: Double = 0.0,
-        sigma: Double = 1.0
+        mean: Double = 0.0,
+        stdDeviation: Double = 1.0
     ) -> Double {
         var generator = SystemRandomNumberGenerator()
-        return randomNormal(mu: mu, sigma: sigma, using: &generator)
+        return randomNormal(mean: mean, stdDeviation: stdDeviation, using: &generator)
     }
 
     /// Generates a normal-distributed random value with given
-    /// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+    /// `mean` (aka "mu") and `stdDeviation` (aka "sigma")
+    /// based on the provided random-number `generator`.
     public static func randomNormal<T>(
-        mu: Double = 0.0,
-        sigma: Double = 1.0,
+        mean: Double = 0.0,
+        stdDeviation: Double = 1.0,
         using generator: inout T
     ) -> Double where T: RandomNumberGenerator {
         let lhs = Double.random(in: 0.0...1.0, using: &generator)
@@ -136,8 +138,8 @@ extension Double {
 
         let z = sqrt(-2.0 * log(lhs)) * cos(2.0 * .pi * rhs)
 
-        // After applying the transform `z` holds values with a sigma of `1.0` and a mu of `0.0`.
+        // After applying the transform `z` holds values with a stdDeviation of `1.0` and a mean of `0.0`.
 
-        return z * sigma + mu
+        return z * stdDeviation + mean
     }
 }

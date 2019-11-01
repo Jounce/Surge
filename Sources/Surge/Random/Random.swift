@@ -61,33 +61,34 @@ public func random<T>(
 }
 
 /// Generates an array of normal-distributed random values with given
-/// `mu` (mean) and `sigma` (std deviation).
+/// `mean` (aka "mu") and `stdDeviation` (aka "sigma").
 public func randomNormal(
     count: Int,
-    mu: Float = 0.0,
-    sigma: Float = 1.0
+    mean: Float = 0.0,
+    stdDeviation: Float = 1.0
 ) -> [Float] {
     var generator = SystemRandomNumberGenerator()
-    return randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+    return randomNormal(count: count, mean: mean, stdDeviation: stdDeviation, using: &generator)
 }
 
 /// Generates an array of normal-distributed random values with given
-/// `mu` (mean) and `sigma` (std deviation).
+/// `mean` (aka "mu") and `stdDeviation` (aka "sigma").
 public func randomNormal(
     count: Int,
-    mu: Double = 0.0,
-    sigma: Double = 1.0
+    mean: Double = 0.0,
+    stdDeviation: Double = 1.0
 ) -> [Double] {
     var generator = SystemRandomNumberGenerator()
-    return randomNormal(count: count, mu: mu, sigma: sigma, using: &generator)
+    return randomNormal(count: count, mean: mean, stdDeviation: stdDeviation, using: &generator)
 }
 
 /// Generates an array of normal-distributed random values with given
-/// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+/// `mu` (mean) and `sigma` (std deviation)
+/// based on the provided random-number `generator`.
 public func randomNormal<T>(
     count: Int,
-    mu: Float = 0.0,
-    sigma: Float = 1.0,
+    mean: Float = 0.0,
+    stdDeviation: Float = 1.0,
     using generator: inout T
 ) -> [Float] where T: RandomNumberGenerator {
     var lhs: [Float] = random(count: count, in: 0.0...1.0, using: &generator)
@@ -98,18 +99,19 @@ public func randomNormal<T>(
     // After applying the transform `lhs` holds values with a sigma of `1.0` and a mu of `0.0`.
 
     // stdNormal * sigma + mu
-    mulInPlace(&lhs, sigma)
-    addInPlace(&lhs, mu)
+    mulInPlace(&lhs, stdDeviation)
+    addInPlace(&lhs, mean)
 
     return lhs
 }
 
 /// Generates an array of normal-distributed random values with given
-/// `mu` (mean) and `sigma` (std deviation) based on the provided random-number `generator`.
+/// `mu` (mean) and `sigma` (std deviation)
+/// based on the provided random-number `generator`.
 public func randomNormal<T>(
     count: Int,
-    mu: Double = 0.0,
-    sigma: Double = 1.0,
+    mean: Double = 0.0,
+    stdDeviation: Double = 1.0,
     using generator: inout T
 ) -> [Double] where T: RandomNumberGenerator {
     // Box-Muller transform
@@ -122,8 +124,8 @@ public func randomNormal<T>(
     // After applying the transform `lhs` holds values with a sigma of `1.0` and a mu of `0.0`.
 
     // stdNormal * sigma + mu
-    mulInPlace(&lhs, sigma)
-    addInPlace(&lhs, mu)
+    mulInPlace(&lhs, stdDeviation)
+    addInPlace(&lhs, mean)
 
     return lhs
 }
