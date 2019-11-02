@@ -50,7 +50,7 @@ To use [Swift Package Manager](https://swift.org/package-manager/) add Surge to 
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/Jounce/Surge.git", .upToNextMajor(from: "2.0.0")),
+        .package(url: "https://github.com/Jounce/Surge.git", .upToNextMajor(from: "2.3.0")),
     ],
     targets: [
         .target(
@@ -72,7 +72,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Surge', '~> 2.0.0'
+    pod 'Surge', '~> 2.3.0'
 end
 ```
 
@@ -83,7 +83,7 @@ Then run `pod install`.
 To use [Carthage](https://github.com/Carthage/Carthage) add Surge to your `Cartfile`:
 
 ```ruby
-github "Jounce/Surge" ~> 2.0.0
+github "Jounce/Surge" ~> 2.3.0
 ```
 
 Then run `carthage update` and use the framework in `Carthage/Build/<platform>`.
