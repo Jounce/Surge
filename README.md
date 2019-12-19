@@ -109,7 +109,7 @@ import Surge
 let a = [1.0, 3.0, 5.0, 7.0]
 let b = [2.0, 4.0, 6.0, 8.0]
 
-let product = Surge.mul(a, b) // [2.0, 12.0, 30.0, 56.0]
+let product = Surge.elmul(a, b) // [2.0, 12.0, 30.0, 56.0]
 ```
 
 # Inventory
