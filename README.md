@@ -806,8 +806,8 @@ Fast fourier transform functions & operators
 
 </details>
 
-[build status]: https://travis-ci.org/Jounce/Surge
-[build status badge]: https://api.travis-ci.com/Jounce/Surge.svg?branch=master
+[build status]: https://github.com/Jounce/Surge/actions?query=workflow%3ACI
+[build status badge]: https://github.com/Jounce/Surge/workflows/CI/badge.svg
 [license]: https://opensource.org/licenses/MIT
 [license badge]: https://img.shields.io/cocoapods/l/Surge.svg
 [cocoapods platforms badge]: https://img.shields.io/cocoapods/p/Surge.svg
