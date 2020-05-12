@@ -5,7 +5,8 @@ disabled_rules:
   - trailing_comma
   - redundant_discardable_let
   - void_return
-  
+  - implicit_return
+
 opt_in_rules:
   - array_init
   - attributes
