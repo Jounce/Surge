@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Run SwiftLint Against Changes
+        uses: norio-nomura/action-swiftlint@3.1.0
+        env:
+          DIFF_BASE: ${{ github.base_ref }}
+
+  test:
+    runs-on: macOS-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - scheme: Surge-macOS
+            destination: platform=macOS
+          - scheme: Surge-iOS
+            destination: platform=iOS Simulator,name=iPhone 11
+          - scheme: Surge-tvOS
+            destination: platform=tvOS Simulator,name=Apple TV 4K
+          - scheme: Surge-watchOS
+            destination: platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Build
+        run: xcodebuild build -workspace Surge.xcworkspace -scheme '${{ matrix.scheme }}' -destination '${{ matrix.destination }}'
+      - name: Test
+        run: xcodebuild test -workspace Surge.xcworkspace -scheme '${{ matrix.scheme }}' -destination '${{ matrix.destination }}'
+        if: matrix.scheme != 'Surge-watchOS'
+
+  benchmark:
+    needs: test
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Run Benchmark Target
+        run: xcodebuild test -workspace Surge.xcworkspace -scheme SurgeBenchmarkTests-macOS -destination platform='macOS'
