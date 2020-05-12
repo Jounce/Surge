@@ -253,7 +253,7 @@ class TrigonometricTests: XCTestCase {
     func test_atanh_in_place_float() {
         validate_inout_array(
             of: Float.self,
-            lhs: Array.monotonicNormalized(to: 0.5),
+            lhs: Array.monotonicNormalized(to: -0.0...0.5),
             actual: { Surge.atanhInPlace(&$0) },
             expected: { $0.map(atanh) },
             accuracy: 1e-4
@@ -263,7 +263,7 @@ class TrigonometricTests: XCTestCase {
     func test_atanh_in_place_double() {
         validate_inout_array(
             of: Double.self,
-            lhs: Array.monotonicNormalized(to: 0.5),
+            lhs: Array.monotonicNormalized(to: -0.0...0.5),
             actual: { Surge.atanhInPlace(&$0) },
             expected: { $0.map(atanh) },
             accuracy: 1e-4

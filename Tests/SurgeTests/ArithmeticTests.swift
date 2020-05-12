@@ -155,7 +155,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = [Scalar].constant(of: 2.0)
 
         var actual: [Scalar] = lhs
-        Surge.modInPlace(&actual, rhs)
+        Surge.elmodInPlace(&actual, rhs)
 
         let expected = zip(lhs, rhs).map { fmod($0, $1) }
 
@@ -169,7 +169,7 @@ class ArithmeticTests: XCTestCase {
         let rhs: [Scalar] = [Scalar].constant(of: 2.0)
 
         var actual: [Scalar] = lhs
-        Surge.modInPlace(&actual, rhs)
+        Surge.elmodInPlace(&actual, rhs)
 
         let expected = zip(lhs, rhs).map { fmod($0, $1) }
 

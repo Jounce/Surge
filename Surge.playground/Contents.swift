@@ -29,12 +29,12 @@ let sum = Surge.sum(n)
 
 let a = [1.0, 3.0, 5.0, 7.0]
 let b = [2.0, 4.0, 6.0, 8.0]
-let product = mul(a, b)
+let product = elmul(a, b)
 
 // MARK: - Matrix
 
 // ⎛ 1  1 ⎞       ⎛ 3 ⎞
-// ⎢      ⎟ * B = ⎢   ⎟         C = ?
+// ⎢      ⎟ * B = ⎢   ⎟         B = ?
 // ⎝ 1 -1 ⎠       ⎝ 1 ⎠
 
 let A = Matrix([[1, 1], [1, -1]])
