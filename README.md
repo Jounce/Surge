@@ -171,8 +171,8 @@ Addition functions & operators
 |--------------------|----------|--------------|-------------------|
 | `(Array, Array)`   | `add`    | `.+` (infix) | `.+=` (infix)     |
 | `(Array, Scalar)`  | `add`    | `+` (infix)  | `+=` (infix)      |
-| `(Matrix, Matrix)` | `add`    | `+` (infix)  | n/a               |
-| `(Matrix, Scalar)` | n/a      | `+` (infix)  | n/a               |
+| `(Matrix, Matrix)` | `add`    | `+` (infix)  | `+=` (infix)      |
+| `(Matrix, Scalar)` | n/a      | n/a          | n/a               |
 | `(Vector, Vector)` | `add`    | `+` (infix)  | `+=` (infix)      |
 | `(Vector, Scalar)` | `add`    | `+` (infix)  | `+=` (infix)      |
 
@@ -208,7 +208,7 @@ Subtraction functions & operators
 |--------------------|----------|--------------|-------------------|
 | `(Array, Array)`   | `sub`    | `.-` (infix) | `.-=` (infix)     |
 | `(Array, Scalar)`  | `sub`    | `-` (infix)  | `-=` (infix)      |
-| `(Matrix, Matrix)` | `sub`    | `-` (infix)  | n/a               |
+| `(Matrix, Matrix)` | `sub`    | `-` (infix)  | `-=` (infix)      |
 | `(Matrix, Scalar)` | n/a      | n/a          | n/a               |
 | `(Vector, Vector)` | `sub`    | `-` (infix)  | `-=` (infix)      |
 | `(Vector, Scalar)` | `sub`    | `-` (infix)  | `-=` (infix)      |
