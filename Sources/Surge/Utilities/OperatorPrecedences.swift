@@ -52,3 +52,18 @@ infix operator •: MultiplicationPrecedence
 // MARK: - Matrix Transpose
 
 postfix operator ′
+
+// MARK: - Power
+
+precedencegroup ExponentiationPrecedence {
+    associativity: right
+    higherThan: MultiplicationPrecedence
+}
+
+infix operator **: ExponentiationPrecedence
+infix operator **=: AssignmentPrecedence
+
+// MARK: - Element-wise Power
+
+infix operator .**: ExponentiationPrecedence
+infix operator .**=: AssignmentPrecedence
