@@ -543,10 +543,12 @@ Power functions & operators
 
 | Arguments          | Function | Operator     | In-Place Operator |
 |--------------------|----------|--------------|-------------------|
-| `(Array, Array)`   | `pow`    | `**` (infix) | n/a               |
-| `(Array, Scalar)`  | `pow`    | `**` (infix) | n/a               |
-| `(Matrix, Scalar)` | `pow`    | `**` (infix) | n/a               |
+| `(Array, Array)`   | `pow`    | `.**` (infix) | `.**=` (infix)    |
+| `(Array, Scalar)`  | `pow`    | `**` (infix) | `**=` (infix)     |
+| `(Matrix, Scalar)` | `pow`    | n/a          | n/a               |
 | `(Vector, Vector)` | `pow`    | n/a          | n/a               |
+
+([Serial exponentiation](https://en.wikipedia.org/wiki/Order_of_operations#Serial_exponentiation): `a ** b ** c == a ** (b ** c)`)
 
 <!--
 Internal use only:

@@ -609,6 +609,22 @@ public func pow<L>(_ lhs: L, _ rhs: Double) -> [Double] where L: UnsafeMemoryAcc
     return withArray(from: lhs) { powInPlace(&$0, rhs) }
 }
 
+public func ** <L>(lhs: L, rhs: Float) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
+    return pow(lhs, rhs)
+}
+
+public func ** <L>(lhs: L, rhs: Double) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
+    return pow(lhs, rhs)
+}
+
+public func .** <L, R>(lhs: L, rhs: R) -> [Float] where L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible, L.Element == Float, R.Element == Float {
+    return pow(lhs, rhs)
+}
+
+public func .** <L, R>(lhs: L, rhs: R) -> [Double] where L: UnsafeMemoryAccessible, R: UnsafeMemoryAccessible, L.Element == Double, R.Element == Double {
+    return pow(lhs, rhs)
+}
+
 // MARK: - Power: In Place
 
 /// - Warning: does not support memory stride (assumes stride is 1).
@@ -646,6 +662,22 @@ func powInPlace<L>(_ lhs: inout L, _ rhs: Float) where L: UnsafeMutableMemoryAcc
 /// - Warning: Allocates a temporary array from `rhs` via `Array(repeating: rhs, count: lhs.count)`.
 func powInPlace<L>(_ lhs: inout L, _ rhs: Double) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
     let rhs = Array(repeating: rhs, count: lhs.count)
+    return powInPlace(&lhs, rhs)
+}
+
+public func **= <L>(lhs: inout L, rhs: Float) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
+    return powInPlace(&lhs, rhs)
+}
+
+public func **= <L>(lhs: inout L, rhs: Double) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
+    return powInPlace(&lhs, rhs)
+}
+
+public func .**= <L, R>(lhs: inout L, rhs: R) where L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible, L.Element == Float, R.Element == Float {
+    return powInPlace(&lhs, rhs)
+}
+
+public func .**= <L, R>(lhs: inout L, rhs: R) where L: UnsafeMutableMemoryAccessible, R: UnsafeMemoryAccessible, L.Element == Double, R.Element == Double {
     return powInPlace(&lhs, rhs)
 }
 
