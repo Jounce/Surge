@@ -1037,6 +1037,7 @@ class MatrixTests: XCTestCase {
         guard a.count == b.count else {
             return false
         }
+
         return !zip(a, b).contains { a, e -> Bool in
             !(abs(a.0 - e.0) < accuracy && abs(a.1 - e.1) < accuracy)
         }
