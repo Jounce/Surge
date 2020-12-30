@@ -10,6 +10,8 @@ jobs:
   lint:
     runs-on: macos-latest
 
+    name: "Lint"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,27 +26,31 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - scheme: Surge-macOS
+          - os: macOS
             destination: platform=macOS
-          - scheme: Surge-iOS
+          - os: iOS
             destination: platform=iOS Simulator,name=iPhone 11
-          - scheme: Surge-tvOS
+          - os: tvOS
             destination: platform=tvOS Simulator,name=Apple TV 4K
-          - scheme: Surge-watchOS
+          - os: watchOS
             destination: platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm
+
+    name: "Test ${{ matrix.os }}"
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
-        run: xcodebuild build -workspace Surge.xcworkspace -scheme '${{ matrix.scheme }}' -destination '${{ matrix.destination }}'
+        run: xcodebuild build -workspace Surge.xcworkspace -scheme 'Surge-${{ matrix.os }}' -destination '${{ matrix.destination }}'
       - name: Test
-        run: xcodebuild test -workspace Surge.xcworkspace -scheme '${{ matrix.scheme }}' -destination '${{ matrix.destination }}'
-        if: matrix.scheme != 'Surge-watchOS'
+        run: xcodebuild test -workspace Surge.xcworkspace -scheme 'Surge-${{ matrix.os }}' -destination '${{ matrix.destination }}'
+        if: matrix.os != 'watchOS'
 
   benchmark:
     needs: test
     runs-on: macos-latest
+
+    name: "Benchmark"
 
     steps:
       - name: Checkout
