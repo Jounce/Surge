@@ -10,6 +10,8 @@ jobs:
   lint:
     runs-on: macos-latest
 
+    name: "Lint"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -33,6 +35,8 @@ jobs:
           - os: watchOS
             destination: platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm
 
+    name: "Test ${{ matrix.os }}"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -45,6 +49,8 @@ jobs:
   benchmark:
     needs: test
     runs-on: macos-latest
+
+    name: "Benchmark"
 
     steps:
       - name: Checkout
