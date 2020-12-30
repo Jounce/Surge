@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v1
       - name: Run SwiftLint Against Changed files
         run: |
-          git diff --diff-filter=d --name-only --relative FETCH_HEAD | grep ".swift" | while read -r filename; do
+          git diff --diff-filter=d --name-only --relative ${{ github.base_ref }} | grep ".swift" | while read -r filename; do
             swiftlint lint --path "$filename" --reporter github-actions-logging;
           done
 
