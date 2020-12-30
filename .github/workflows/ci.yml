@@ -14,7 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Run SwiftLint Against Changes
-        uses: norio-nomura/action-swiftlint@3.1.0
+        uses: norio-nomura/action-swiftlint@3.2.0
+        with:
+          args: --config .swiftlint.yml --strict
         env:
           DIFF_BASE: ${{ github.base_ref }}
 
