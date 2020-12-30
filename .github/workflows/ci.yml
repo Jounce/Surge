@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Run SwiftLint Against Changed files
         run: |
           git diff --diff-filter=d --name-only --relative ${{ github.base_ref }} | grep ".swift" | while read -r filename; do
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Build
         run: xcodebuild build -workspace Surge.xcworkspace -scheme '${{ matrix.scheme }}' -destination '${{ matrix.destination }}'
       - name: Test
@@ -50,6 +50,6 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Run Benchmark Target
         run: xcodebuild test -workspace Surge.xcworkspace -scheme SurgeBenchmarkTests-macOS -destination platform='macOS'
