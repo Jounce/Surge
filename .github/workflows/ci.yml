@@ -13,12 +13,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Run SwiftLint Against Changes
-        uses: norio-nomura/action-swiftlint@3.2.0
-        with:
-          args: --config .swiftlint.yml --strict
-        env:
-          DIFF_BASE: ${{ github.base_ref }}
+      - name: Run SwiftLint Against Changed files
+        run: |
+          git diff --diff-filter=d --name-only --relative FETCH_HEAD | grep ".swift" | while read -r filename; do
+            swiftlint lint --path "$filename" --reporter github-actions-logging;
+          done
 
   test:
     runs-on: macOS-latest
