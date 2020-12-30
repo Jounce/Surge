@@ -8,18 +8,17 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
-      - name: Run SwiftLint Against Changes
-        uses: norio-nomura/action-swiftlint@3.1.0
-        env:
-          DIFF_BASE: ${{ github.base_ref }}
+        uses: actions/checkout@v2
+      - name: Run SwiftLint
+        run: |
+          swiftlint lint --strict --reporter github-actions-logging
 
   test:
-    runs-on: macOS-latest
+    runs-on: macos-latest
 
     strategy:
       fail-fast: false
@@ -36,7 +35,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Build
         run: xcodebuild build -workspace Surge.xcworkspace -scheme '${{ matrix.scheme }}' -destination '${{ matrix.destination }}'
       - name: Test
@@ -45,10 +44,10 @@ jobs:
 
   benchmark:
     needs: test
-    runs-on: macOS-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Run Benchmark Target
         run: xcodebuild test -workspace Surge.xcworkspace -scheme SurgeBenchmarkTests-macOS -destination platform='macOS'
