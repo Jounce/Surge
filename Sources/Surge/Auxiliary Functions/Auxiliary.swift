@@ -56,7 +56,7 @@ func absInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Ele
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func floor<L>(_ lhs: L) -> [Float] where L: UnsafeMemoryAccessible, L.Element == Float {
-    return withArray(from: lhs) { ceilInPlace(&$0) }
+    return withArray(from: lhs) { floorInPlace(&$0) }
 }
 
 func floorInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Float {
@@ -70,7 +70,7 @@ func floorInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.E
 ///
 /// - Warning: does not support memory stride (assumes stride is 1).
 public func floor<L>(_ lhs: L) -> [Double] where L: UnsafeMemoryAccessible, L.Element == Double {
-    return withArray(from: lhs) { ceilInPlace(&$0) }
+    return withArray(from: lhs) { floorInPlace(&$0) }
 }
 
 func floorInPlace<L>(_ lhs: inout L) where L: UnsafeMutableMemoryAccessible, L.Element == Double {
