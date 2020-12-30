@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
@@ -20,7 +20,7 @@ jobs:
           done
 
   test:
-    runs-on: macOS-latest
+    runs-on: macos-latest
 
     strategy:
       fail-fast: false
@@ -46,7 +46,7 @@ jobs:
 
   benchmark:
     needs: test
-    runs-on: macOS-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
