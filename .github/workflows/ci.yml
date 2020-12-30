@@ -17,6 +17,7 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: Run SwiftLint Against Changed files
         run: |
+          git fetch origin master:master
           git diff --diff-filter=d --name-only --relative ${{ github.base_ref }} | grep ".swift" | while read -r filename; do
             swiftlint lint --path "$filename" --reporter github-actions-logging;
           done
