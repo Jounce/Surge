@@ -13,16 +13,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
-      - name: Run SwiftLint Against Changed files
+      - name: Run SwiftLint
         run: |
-          git fetch origin ${{ github.base_ref }}
-          git merge-base origin/${{ github.base_ref }} ${{ github.event.pull_request.head.ref }}
-          git diff --diff-filter=d --name-only --relative origin/${{ github.base_ref }} | grep ".swift" | while read -r filename; do
-            swiftlint lint --path "$filename" --reporter github-actions-logging;
-          done
-        shell: bash
+          swiftlint lint --reporter github-actions-logging
 
   test:
     runs-on: macos-latest
