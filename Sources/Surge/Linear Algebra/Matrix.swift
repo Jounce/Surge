@@ -963,9 +963,11 @@ public func eigenDecompose(_ lhs: Matrix<Double>) throws -> MatrixEigenDecomposi
     var leftEigenVectorWork = [Double](repeating: 0, count: Int(leftEigenVectorCount * matrixColCount))
     var rightEigenVectorWork = [Double](repeating: 0, count: Int(rightEigenVectorCount * matrixColCount))
 
-    let decompositionJobV = UnsafeMutablePointer<Int8>(mutating: ("V" as NSString).utf8String)
+    var decompositionJobV = "V".cString(using: .utf8) ?? []
+    var decompositionJobV2 = "V".cString(using: .utf8) ?? []
+
     // Call dgeev to find out how much workspace to allocate
-    dgeev_(decompositionJobV, decompositionJobV, &matrixRowCount, &matrixGrid, &eigenValueCount, &eigenValueRealParts, &eigenValueImaginaryParts, &leftEigenVectorWork, &leftEigenVectorCount, &rightEigenVectorWork, &rightEigenVectorCount, &workspaceQuery, &workspaceSize, &error)
+    dgeev_(&decompositionJobV, &decompositionJobV2, &matrixRowCount, &matrixGrid, &eigenValueCount, &eigenValueRealParts, &eigenValueImaginaryParts, &leftEigenVectorWork, &leftEigenVectorCount, &rightEigenVectorWork, &rightEigenVectorCount, &workspaceQuery, &workspaceSize, &error)
     if error != 0 {
         throw EigenDecompositionError.matrixNotDecomposable
     }
@@ -973,7 +975,7 @@ public func eigenDecompose(_ lhs: Matrix<Double>) throws -> MatrixEigenDecomposi
     // Allocate the workspace and call dgeev again to do the actual decomposition
     var workspace = [Double](repeating: 0.0, count: Int(workspaceQuery))
     workspaceSize = __CLPK_integer(workspaceQuery)
-    dgeev_(decompositionJobV, decompositionJobV, &matrixRowCount, &matrixGrid, &eigenValueCount, &eigenValueRealParts, &eigenValueImaginaryParts, &leftEigenVectorWork, &leftEigenVectorCount, &rightEigenVectorWork, &rightEigenVectorCount, &workspace, &workspaceSize, &error)
+    dgeev_(&decompositionJobV, &decompositionJobV2, &matrixRowCount, &matrixGrid, &eigenValueCount, &eigenValueRealParts, &eigenValueImaginaryParts, &leftEigenVectorWork, &leftEigenVectorCount, &rightEigenVectorWork, &rightEigenVectorCount, &workspace, &workspaceSize, &error)
     if error != 0 {
         throw EigenDecompositionError.matrixNotDecomposable
     }
