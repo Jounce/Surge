@@ -50,7 +50,7 @@ To use [Swift Package Manager](https://swift.org/package-manager/) add Surge to 
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/Jounce/Surge.git", .upToNextMajor(from: "2.3.1")),
+        .package(url: "https://github.com/Jounce/Surge.git", .upToNextMajor(from: "2.3.2")),
     ],
     targets: [
         .target(
@@ -72,7 +72,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Surge', '~> 2.3.1'
+    pod 'Surge', '~> 2.3.2'
 end
 ```
 
@@ -83,7 +83,7 @@ Then run `pod install`.
 To use [Carthage](https://github.com/Carthage/Carthage) add Surge to your `Cartfile`:
 
 ```ruby
-github "Jounce/Surge" ~> 2.3.1
+github "Jounce/Surge" ~> 2.3.2
 ```
 
 Then run `carthage update` and use the framework in `Carthage/Build/<platform>`.
@@ -114,13 +114,21 @@ let product = Surge.elmul(a, b) // [2.0, 12.0, 30.0, 56.0]
 
 # Inventory
 
+- [Installation](#installation)
+- [License](#license)
+  - [Swift Package Manager](#swift-package-manager)
+  - [CocoaPods](#cocoapods)
+  - [Carthage](#carthage)
+- [Usage](#usage)
+  - [Computing Sum of `[Double]`](#computing-sum-of-double)
+  - [Computing Product of Two `[Double]`s](#computing-product-of-two-doubles)
 - [General Arithmetic Operations](#general-arithmetic-operations)
   - [Addition](#addition)
   - [Subtraction](#subtraction)
   - [Multiplication](#multiplication)
   - [Element-wise multiplication](#element-wise-multiplication)
-  - [Division](#division)
-  - [Element-wise Division](#element-wise-division)
+  - [Division)](#division)
+  - [Element-wise Division)](#element-wise-division)
   - [Modulo](#modulo)
   - [Remainder](#remainder)
   - [Square Root](#square-root)
@@ -128,14 +136,14 @@ let product = Surge.elmul(a, b) // [2.0, 12.0, 30.0, 56.0]
   - [Dot Product](#dot-product)
   - [Distance](#distance)
   - [Squared Distance](#squared-distance)
-  - [Power](#power)
+  - [Power)](#power)
   - [Exponential](#exponential)
 - [Trigonometric Operations](#trigonometric-operations)
   - [Sine/Cosine/Tangent](#sinecosinetangent)
   - [Arc Sine/Cosine/Tangent](#arc-sinecosinetangent)
   - [Hyperbolic Sine/Cosine/Tangent](#hyperbolic-sinecosinetangent)
   - [Inverse Hyperbolic Sine/Cosine/Tangent](#inverse-hyperbolic-sinecosinetangent)
-  - [Radians ↔︎ Degrees](#radians-%e2%86%94%ef%b8%8e-degrees)
+  - [Radians ↔︎ Degrees](#radians-︎-degrees)
 - [Exponential Function](#exponential-function)
 - [Logarithm](#logarithm)
 - [Statistical Operations](#statistical-operations)
