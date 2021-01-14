@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-
 /// Mutable memory region.
 public struct UnsafeMutableMemory<Element> {
     /// Pointer to the first element

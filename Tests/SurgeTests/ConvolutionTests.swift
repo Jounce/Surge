@@ -18,9 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import Surge
 import XCTest
+
+@testable import Surge
 
 class ConvolutionTests: XCTestCase {
     let floatAccuracy: Float = 1e-8

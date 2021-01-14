@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-
 /// Memory region.
 public struct UnsafeMemory<Element>: Sequence {
     /// Pointer to the first element

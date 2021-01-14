@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-
 // MARK: - Random: Uniform Distribution
 
 /// Generates an array of uniform-distributed random values within a (closed) `range`.
