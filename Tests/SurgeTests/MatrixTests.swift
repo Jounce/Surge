@@ -331,6 +331,39 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(matrix, expected)
     }
+    
+    func test_subscript_closedRange_get() {
+        typealias Scalar = Double
+
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        XCTAssertEqual(matrix[(0 ... 2), (0 ... 2)], Matrix(rows: 3, columns: 3, grid: [1, 2, 3, 5, 6, 7, 9, 10, 11]))
+        XCTAssertEqual(matrix[(0 ... 1), (0 ... 1)], Matrix(rows: 2, columns: 2, grid: [1, 2,5, 6,]))
+    }
+    
+    func test_subscript_closedRange_set() {
+        typealias Scalar = Double
+        
+        var matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        matrix[(1...1), (0...2)] = Matrix(rows: 1, columns: 3, grid:  [13.0, 14.0, 15.0])
+
+        let expected: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [13, 14, 15, 8],
+            [9, 10, 11, 12],
+        ]
+
+        XCTAssertEqual(matrix, expected)
+    }
 
     // MARK: - Addition
 
