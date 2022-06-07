@@ -178,8 +178,8 @@ public func ifft(_ input: [DSPComplex]) -> [Float] {
     var result: [Float] = .init(repeating: 0.0, count: N)
 //    var tempComplex: [DSPComplex] = .init(repeating: DSPComplex(), count: N)
     
-    var real = [Float](input.map{$0.real})
-    var imaginary = [Float](input.map{$0.imag})
+    let real = [Float](input.map{$0.real})
+    let imaginary = [Float](input.map{$0.imag})
     
     var resultAsComplex : UnsafeMutablePointer<DSPComplex>? = nil
     var splitComplex: DSPSplitComplex = .init(realp: UnsafeMutablePointer(mutating: real),
@@ -195,15 +195,55 @@ public func ifft(_ input: [DSPComplex]) -> [Float] {
     }
     
 
-    vDSP_fft_zrip(weights!, &splitComplex, 1, log2N, FFTDirection(FFT_INVERSE))
+    vDSP_fft_zip(weights!, &splitComplex, 1, log2N, FFTDirection(FFT_INVERSE))
     
     vDSP_ztoc(&splitComplex, 1, resultAsComplex!, 1, vDSP_Length(N))
     
     vDSP_destroy_fftsetup(weights)
     
-    var scale: Float = 2.0 / Float(N)
+    var scale: Float = 1.0 / Float(N)
     var copy = result
     vDSP_vsmul(&result, 1, &scale, &copy, 1, vDSP_Length(N))
+    result = copy
+    return result
+    
+}
+
+public func ifft(_ input: [DSPDoubleComplex]) -> [Double] {
+    
+    //TODO: if values.count = input.count
+    
+    let N = input.count
+    let log2N = vDSP_Length(floor(log2(Double(N))))
+    
+    var result: [Double] = .init(repeating: 0.0, count: N)
+    
+    var real = [Double](input.map{$0.real})
+    var imaginary = [Double](input.map{$0.imag})
+    
+    var resultAsComplex : UnsafeMutablePointer<DSPDoubleComplex>? = nil
+    var splitComplex: DSPDoubleSplitComplex = .init(realp: UnsafeMutablePointer(mutating: real),
+                                              imagp: UnsafeMutablePointer(mutating: imaginary))
+//        .init(realp: &real, imagp: &imaginary)
+    
+    let radix = FFTRadix(kFFTRadix2)
+    let weights = vDSP_create_fftsetupD(log2N, radix)
+//    vDSP_create_fftsetupD(log2N, radix)
+    
+    result.withUnsafeMutableBytes {
+        resultAsComplex = $0.baseAddress?.bindMemory(to: DSPDoubleComplex.self, capacity: N)
+    }
+    
+
+    vDSP_fft_zipD(weights!, &splitComplex, 1, log2N, FFTDirection(FFT_INVERSE))
+    
+    vDSP_ztocD(&splitComplex, 1, resultAsComplex!, 1, vDSP_Length(N))
+    
+    vDSP_destroy_fftsetupD(weights)
+    
+    var scale: Double = 1.0 / Double(N)
+    var copy = result
+    vDSP_vsmulD(&result, 1, &scale, &copy, 1, vDSP_Length(N))
     result = copy
     return result
     

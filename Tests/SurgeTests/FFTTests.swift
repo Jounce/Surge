@@ -76,8 +76,8 @@ class FFTTests: XCTestCase {
         }
         
         let complex:[DSPDoubleComplex] = fft(sineWave)
-        var real = complex.map {$0.real}
-        var imag = complex.map {$0.imag}
+        let real = complex.map {$0.real}
+        let imag = complex.map {$0.imag}
         
         var splitComplex = DSPDoubleSplitComplex(realp: UnsafeMutablePointer(mutating: real), imagp: UnsafeMutablePointer(mutating: imag))
         
@@ -99,26 +99,33 @@ class FFTTests: XCTestCase {
 
     }
 
-
-
-    
-    
-    
     // MARK: - IFFT - Float
 
-//    func test_ifft_float() {
-//        let sineWave = (0 ..< n).map {
-//            amplitude * sin(2.0 * .pi / fps * Float($0) * frequency + phase)
-//        }
-//        
-//        let mag = fft(sineWave)
-//        
-//        let excepted = ifft(mag)
-////        print(excepted)
-//        
-//        XCTAssertEqual(sineWave, excepted, accuracy: floatAccuracy)
-//
-//    }
+    func test_ifft_float() {
+        let excepted = (0 ..< n).map {
+            amplitude * sin(2.0 * .pi / fps * Float($0) * frequency + phase)
+        }
+
+        let mag: [DSPComplex] = fft(excepted)
+
+        let sineWave = ifft(mag)
+
+        XCTAssertEqual(sineWave, excepted, accuracy: floatAccuracy)
+
+    }
+    
+    func test_ifft_double() {
+        let excepted = (0 ..< n).map {
+            amplituded * sin(2.0 * .pi / fpsd * Double($0) * frequencyd + phased)
+        }
+
+        let mag: [DSPDoubleComplex] = fft(excepted)
+
+        let sineWave = ifft(mag)
+        
+        XCTAssertEqual(sineWave, excepted, accuracy: doubleAccuracy)
+
+    }
 
    
 }
