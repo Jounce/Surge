@@ -19,7 +19,6 @@
 // THE SOFTWARE.
 
 import Accelerate
-import Foundation
 
 // MARK: - Fast Fourier Transform
 
