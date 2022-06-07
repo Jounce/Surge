@@ -21,6 +21,7 @@
 import XCTest
 
 @testable import Surge
+import Accelerate
 
 // swiftlint:disable nesting type_body_length
 
@@ -877,6 +878,8 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
+    
+   
 
     func test_sum_matrix_rows_float() {
         typealias Scalar = Float
@@ -925,6 +928,30 @@ class MatrixTests: XCTestCase {
         ]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+    
+    func test_mean_matrix_colums_float(){
+        typealias Scalar = Float
+        
+        let lhs: Matrix<Scalar> =  [
+            [1, 2, 3],
+            [4, 5, 6],
+        ]
+        let actual = mean(lhs)
+        let expected: Float = 3.5
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+    
+    func test_mean_matrix_colums_double(){
+        typealias Scalar = Double
+        
+        let lhs: Matrix<Scalar> =  [
+            [1, 2, 3],
+            [4, 5, 6],
+        ]
+        let actual = mean(lhs)
+        let expected = 3.5
+        XCTAssertEqual(actual, expected, accuracy: 1e-9)
     }
 
     // MARK: - Inverse

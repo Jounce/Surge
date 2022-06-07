@@ -466,6 +466,14 @@ public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return add(lhs, rhs)
 }
 
+public func + (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
+    lhs + Matrix(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs)
+}
+
+public func + (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
+    lhs + Matrix(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs)
+}
+
 // MARK: - Addition: In Place
 
 func addInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>) {
@@ -482,6 +490,14 @@ public func += (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
 
 public func += (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
     return addInPlace(&lhs, rhs)
+}
+
+public func += (lhs: inout Matrix<Float>, rhs: Float) {
+    addInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
+}
+
+public func += (lhs: inout Matrix<Double>, rhs: Double) {
+    addInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
 }
 
 // MARK: - Subtraction
@@ -502,6 +518,14 @@ public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return sub(lhs, rhs)
 }
 
+public func - (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
+    lhs - Matrix(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs)
+}
+
+public func - (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
+    lhs - Matrix(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs)
+}
+
 // MARK: - Subtraction: In Place
 
 func subInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>) {
@@ -518,6 +542,14 @@ public func -= (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
 
 public func -= (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
     return subInPlace(&lhs, rhs)
+}
+
+public func -= (lhs: inout Matrix<Float>, rhs: Float) {
+    subInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
+}
+
+public func -= (lhs: inout Matrix<Double>, rhs: Double) {
+    subInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
 }
 
 // MARK: - Multiply Addition
@@ -596,6 +628,8 @@ public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return mul(lhs, rhs)
 }
 
+
+
 public func mul(_ lhs: Matrix<Float>, _ rhs: Vector<Float>) -> Vector<Float> {
     precondition(lhs.columns == rhs.dimensions, "Matrix and vector dimensions not compatible with multiplication")
     if lhs.rows == 0 || lhs.columns == 0 || rhs.dimensions == 0 {
@@ -632,6 +666,8 @@ public func * (lhs: Matrix<Double>, rhs: Vector<Double>) -> Vector<Double> {
     return mul(lhs, rhs)
 }
 
+
+
 // MARK: - Element-wise Multiplication
 
 public func elmul(_ lhs: Matrix<Double>, _ rhs: Matrix<Double>) -> Matrix<Double> {
@@ -646,6 +682,14 @@ public func elmul(_ lhs: Matrix<Float>, _ rhs: Matrix<Float>) -> Matrix<Float> {
     var result = Matrix<Float>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 0.0)
     result.grid = lhs.grid .* rhs.grid
     return result
+}
+
+public func * (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
+    elmul(lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
+}
+
+public func * (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
+    elmul(lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
 }
 
 // MARK: - Division
@@ -735,6 +779,7 @@ public func sum(_ lhs: Matrix<Double>, axies: MatrixAxies = .column) -> Matrix<D
         }
         return result
     }
+    
 }
 
 public func sum(_ lhs: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Float> {
@@ -753,6 +798,27 @@ public func sum(_ lhs: Matrix<Float>, axies: MatrixAxies = .column) -> Matrix<Fl
         return result
     }
 }
+
+
+public func sum(_ lhs: Matrix<Double>) -> Double {
+    sum(lhs.grid)
+}
+
+public func sum(_ lhs: Matrix<Float>) -> Float {
+    sum(lhs.grid)
+}
+
+public func mean(_ lhs: Matrix<Float>) -> Float {
+    mean(lhs.grid)
+}
+
+public func mean(_ lhs: Matrix<Double>) -> Double {
+    mean(lhs.grid)
+}
+
+
+
+
 
 // MARK: - Inverse
 
