@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Accelerate
 
 @testable import Surge
 
@@ -40,10 +41,14 @@ class FFTTests: XCTestCase {
         }
         
         let complex:[DSPComplex] = fft(sineWave)
-        var real = complex.map {$0.real}
-        var imag = complex.map {$0.imag}
+//        var real = complex.map {$0.real}
+//        var imag = complex.map {$0.imag}
         
-        var splitComplex = DSPSplitComplex(realp: UnsafeMutablePointer(mutating: real), imagp: UnsafeMutablePointer(mutating: imag))
+        var splitComplex = DSPSplitComplex(realp: .allocate(capacity: n),
+                                           imagp: .allocate(capacity: n))
+        vDSP_ctoz(complex, 2, &splitComplex, 1, vDSP_Length(n))
+//
+//                                            UnsafeMutablePointer(mutating: real), imagp: UnsafeMutablePointer(mutating: imag))
         var fftMagnitudes = [Float](repeating: 0.0, count: n)
         
         vDSP_zvmags(&splitComplex, 1, &fftMagnitudes, 1, vDSP_Length(n))
@@ -76,10 +81,13 @@ class FFTTests: XCTestCase {
         }
         
         let complex:[DSPDoubleComplex] = fft(sineWave)
-        let real = complex.map {$0.real}
-        let imag = complex.map {$0.imag}
+//        let real = complex.map {$0.real}
+//        let imag = complex.map {$0.imag}
         
-        var splitComplex = DSPDoubleSplitComplex(realp: UnsafeMutablePointer(mutating: real), imagp: UnsafeMutablePointer(mutating: imag))
+        var splitComplex = DSPDoubleSplitComplex(realp: .allocate(capacity: n),
+                                                 imagp: .allocate(capacity: n))
+        
+        vDSP_ctozD(complex, 2, &splitComplex, 1, vDSP_Length(n))
         
         var fftMagnitudes = [Double](repeating: 0.0, count: n)
         
@@ -102,9 +110,15 @@ class FFTTests: XCTestCase {
     // MARK: - IFFT - Float
 
     func test_ifft_float() {
+        
+
+    
+        
         let excepted = (0 ..< n).map {
             amplitude * sin(2.0 * .pi / fps * Float($0) * frequency + phase)
         }
+        
+//        let excepted = 
 
         let mag: [DSPComplex] = fft(excepted)
 

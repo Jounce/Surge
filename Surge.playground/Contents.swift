@@ -22,6 +22,7 @@ import Foundation
 import PlaygroundSupport
 import Surge
 
+
 // MARK: - Arithmetic
 
 let n = [-1.0, 2.0, 3.0, 4.0, 5.0]
@@ -56,3 +57,13 @@ for value in sin(x) {
 for value in fft(sin(x)) {
     value
 }
+
+
+let plot:[Float] = [0.13271964, 0.92432433, 0.67732495, 0.6627352, 0.9738561, 0.43024272, 0.22061157, 0.5649154]
+let kernal_b: [Float] = [1.0/120, 13/60, 11/20, 13/60, 1.0/120]
+var kernal_b_x: [Float] = .init(repeating: 0, count: 8)
+
+for ii in 0 ... 2{
+    kernal_b_x[ii] = kernal_b[2+ii]
+}
+//
