@@ -18,128 +18,136 @@ class FFTTests: XCTestCase {
     
     // MARK: - Test Arrays - Float
 
-    let frequency: Float = 4.0
+    let frequency1: Float = 15
+    let frequency2: Float = 20
     let phase: Float = 0.0
-    let amplitude: Float = 8.0
-    let seconds: Float = 2.0
-    let fps: Float = 512 / 2.0
+    let amplitude: Float = 1
+//    let seconds: Float = 10
+    let fps: Float = 50
     
     // MARK: - Test Arrays - Double
 
     let frequencyd: Double = 4.0
     let phased: Double = 0.0
     let amplituded: Double = 8.0
-    let secondsd: Double = 2.0
+//    let secondsd: Double = 2.0
     let fpsd: Double = 512 / 2.0
 
 
     // MARK: - FFT - Float
 
     func test_fft_float() {
-        let sineWave = (0 ..< n).map {
-            amplitude * sin(2.0 * .pi / fps * Float($0) * frequency + phase)
+
+        var adft:([Float], [Float]) = dft([0,1,2,3,4,5,6,7])!
+        let afft: [DSPComplex] = fft([0,1,2,3,4,5,6,7])
+        
+       
+        
+        var bdft: ([Float], [Float]) = dft([0.5500, 0.2167, 0.0083 , 0 , 0 , 0 , 0.0083, 0.2167])!
+        let bExcepted: [Float] = [1.0000, 0.8564, 0.5333, 0.2436, 0.1333, 0.2436, 0.5333, 0.8564]
+        
+        var cdft = ([Float](repeating: 0, count: 8), [Float](repeating: 0, count: 8))
+        
+        adft.0.withUnsafeMutableBufferPointer { arealPtr in
+            adft.1.withUnsafeMutableBufferPointer { aimagPtr in
+                bdft.0.withUnsafeMutableBufferPointer { brealPtr in
+                    bdft.1.withUnsafeMutableBufferPointer { bimagPtr in
+                        cdft.0.withUnsafeMutableBufferPointer { crealPtr in
+                            cdft.1.withUnsafeMutableBufferPointer { cimagPtr in
+                                let aSplitComplex = DSPSplitComplex(realp: arealPtr.baseAddress!,
+                                                                    imagp: aimagPtr.baseAddress!)
+                                let bSplitComplex = DSPSplitComplex(realp: brealPtr.baseAddress!,
+                                                                    imagp: bimagPtr.baseAddress!)
+                                var cSplitComplex = DSPSplitComplex(realp: crealPtr.baseAddress!,
+                                                                    imagp: cimagPtr.baseAddress!)
+                                
+                                vDSP.divide(aSplitComplex, by: bSplitComplex, count: 8, result: &cSplitComplex)
+                            }
+                        }
+                    }
+                }
+            }
         }
         
-        let complex:[DSPComplex] = fft(sineWave)
-//        var real = complex.map {$0.real}
-//        var imag = complex.map {$0.imag}
-        
-        var splitComplex = DSPSplitComplex(realp: .allocate(capacity: n),
-                                           imagp: .allocate(capacity: n))
-        vDSP_ctoz(complex, 2, &splitComplex, 1, vDSP_Length(n))
-//
-//                                            UnsafeMutablePointer(mutating: real), imagp: UnsafeMutablePointer(mutating: imag))
-        var fftMagnitudes = [Float](repeating: 0.0, count: n)
-        
-        vDSP_zvmags(&splitComplex, 1, &fftMagnitudes, 1, vDSP_Length(n))
-        let roots = sqrt(fftMagnitudes)
-        var fullSpectrum = [Float](repeating: 0.0, count: n)
-        vDSP_vsmul(roots, 1, [2.0 / Float(n)], &fullSpectrum, 1, vDSP_Length(n))
-        
+        let cidft = idft(cdft)!
+        let exceptedCidft:[Float] = [-7.3980,4.2565,0.5065,3.8520,3.1480,6.4935,2.7435,14.3980]
         
 
-        var excepted =  [Float](repeating: 0.0, count: 512)
-        excepted[8] = 8.0
-        excepted[504] = 8.0
-        
-        
-//        vDSP_zvdiv(&split2, 1, &split1, 1, &split3, 1, 3)
-        
-//        print(split3)
-        
-        
-        
-        XCTAssertEqual(fft(sineWave), excepted, accuracy: floatAccuracy)
-        XCTAssertEqual(fullSpectrum, excepted, accuracy: floatAccuracy)
 
+        XCTAssertEqual(adft.0, afft.map{$0.real})
+        XCTAssertEqual(adft.1, afft.map{$0.imag})
+        XCTAssertEqual(bdft.0, bExcepted, accuracy: 1e-3)
+        XCTAssertEqual(cidft, exceptedCidft, accuracy: 1e-2)
     }
 
     // MARK: - FFT - Double
-    func test_fft_double() {
-        let sineWave: [Double] = (0 ..< n).map {
-            amplituded * sin(2.0 * .pi / fpsd * Double($0) * frequencyd + phased)
-        }
-        
-        let complex:[DSPDoubleComplex] = fft(sineWave)
-//        let real = complex.map {$0.real}
-//        let imag = complex.map {$0.imag}
-        
-        var splitComplex = DSPDoubleSplitComplex(realp: .allocate(capacity: n),
-                                                 imagp: .allocate(capacity: n))
-        
-        vDSP_ctozD(complex, 2, &splitComplex, 1, vDSP_Length(n))
-        
-        var fftMagnitudes = [Double](repeating: 0.0, count: n)
-        
-        vDSP_zvmagsD(&splitComplex, 1, &fftMagnitudes, 1, vDSP_Length(n))
-        let roots = sqrt(fftMagnitudes)
-        var fullSpectrum = [Double](repeating: 0.0, count: n)
-        vDSP_vsmulD(roots, 1, [2.0 / Double(n)], &fullSpectrum, 1, vDSP_Length(n))
-        
-        
-
-        var excepted =  [Double](repeating: 0.0, count: 512)
-        excepted[8] = 8.0
-        excepted[504] = 8.0
-        
-        XCTAssertEqual(fft(sineWave), excepted, accuracy: doubleAccuracy)
-        XCTAssertEqual(fullSpectrum, excepted, accuracy: doubleAccuracy)
-
-    }
+//    func test_fft_double() {
+//        let sineWave: [Double] = (0 ..< n).map {
+//            amplituded * sin(2.0 * .pi / fpsd * Double($0) * frequencyd + phased)
+//        }
+//
+//        let complex:[DSPDoubleComplex] = fft(sineWave)
+////        let real = complex.map {$0.real}
+////        let imag = complex.map {$0.imag}
+//
+//        var splitComplex = DSPDoubleSplitComplex(realp: .allocate(capacity: n),
+//                                                 imagp: .allocate(capacity: n))
+//
+//        vDSP_ctozD(complex, 2, &splitComplex, 1, vDSP_Length(n))
+//
+//        var fftMagnitudes = [Double](repeating: 0.0, count: n)
+//
+//        vDSP_zvmagsD(&splitComplex, 1, &fftMagnitudes, 1, vDSP_Length(n))
+//        let roots = sqrt(fftMagnitudes)
+//        var fullSpectrum = [Double](repeating: 0.0, count: n)
+//        vDSP_vsmulD(roots, 1, [2.0 / Double(n)], &fullSpectrum, 1, vDSP_Length(n))
+//
+//        let a = [Double]([1,1,1,0.49,0,0,0,0.26,0.26,0.26])
+//        let f:[DSPDoubleComplex] = fft(a)
+//        print(f)
+//
+//        var excepted =  [Double](repeating: 0.0, count: 512)
+//        excepted[8] = 8.0
+//        excepted[504] = 8.0
+//
+//        XCTAssertEqual(fft(sineWave), excepted, accuracy: doubleAccuracy)
+//        XCTAssertEqual(fullSpectrum, excepted, accuracy: doubleAccuracy)
+//
+//    }
 
     // MARK: - IFFT - Float
 
-    func test_ifft_float() {
-        
-
-    
-        
-        let excepted = (0 ..< n).map {
-            amplitude * sin(2.0 * .pi / fps * Float($0) * frequency + phase)
-        }
-        
-//        let excepted = 
-
-        let mag: [DSPComplex] = fft(excepted)
-
-        let sineWave = ifft(mag)
-
-        XCTAssertEqual(sineWave, excepted, accuracy: floatAccuracy)
-
-    }
-    
-    func test_ifft_double() {
-        let excepted = (0 ..< n).map {
-            amplituded * sin(2.0 * .pi / fpsd * Double($0) * frequencyd + phased)
-        }
-
-        let mag: [DSPDoubleComplex] = fft(excepted)
-
-        let sineWave = ifft(mag)
-        
-        XCTAssertEqual(sineWave, excepted, accuracy: doubleAccuracy)
-
-    }
+//    func test_ifft_float() {
+//        
+//
+//    
+//        
+//        let excepted = (0 ..< n).map {
+//            amplitude * sin(2.0 * .pi / fps * Float($0) * frequency + phase)
+//        }
+//        
+////        let excepted = 
+//
+//        let mag: [DSPComplex] = fft(excepted)
+//
+//        let sineWave = ifft(mag)
+//
+//        XCTAssertEqual(sineWave, excepted, accuracy: floatAccuracy)
+//
+//    }
+//    
+//    func test_ifft_double() {
+//        let excepted = (0 ..< n).map {
+//            amplituded * sin(2.0 * .pi / fpsd * Double($0) * frequencyd + phased)
+//        }
+//
+//        let mag: [DSPDoubleComplex] = fft(excepted)
+//
+//        let sineWave = ifft(mag)
+//
+//        XCTAssertEqual(sineWave, excepted, accuracy: doubleAccuracy)
+//
+//    }
 
    
 }

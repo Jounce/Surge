@@ -22,6 +22,33 @@ import Accelerate
 
 // MARK: - Fast Fourier Transform
 
+public func fft(_ input: [Float]) -> [DSPComplex] {
+    var real = [Float](input)
+    var imaginary = [Float](repeating: 0.0, count: input.count)
+    var complex = [DSPComplex](repeating: DSPComplex(), count: input.count)
+
+    return real.withUnsafeMutableBufferPointer { realBuffer in
+        imaginary.withUnsafeMutableBufferPointer { imaginaryBuffer in
+            var splitComplex = DSPSplitComplex(
+                realp: realBuffer.baseAddress!,
+                imagp: imaginaryBuffer.baseAddress!
+            )
+
+            let length = vDSP_Length(floor(log2(Float(input.count))))
+            let radix = FFTRadix(kFFTRadix2)
+            let weights = vDSP_create_fftsetup(length, radix)
+            withUnsafeMutablePointer(to: &splitComplex) { splitComplex in
+                vDSP_fft_zip(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+            }
+            
+            vDSP_ztoc(&splitComplex, 1, &complex, 2, vDSP_Length(input.count))
+
+        }
+        
+        return complex
+    }
+}
+
 public func fft(_ input: [Float]) -> [Float] {
     var real = [Float](input)
     var imaginary = [Float](repeating: 0.0, count: input.count)
@@ -59,73 +86,9 @@ public func fft(_ input: [Float]) -> [Float] {
     }
 }
 
-public func fft(_ input: [Float]) -> [DSPComplex] {
-    var real = [Float](input)
-    var imaginary = [Float](repeating: 0.0, count: input.count)
-    var complex =  [DSPComplex](repeating: DSPComplex(), count: input.count)
 
-    return real.withUnsafeMutableBufferPointer { realBuffer in
-        imaginary.withUnsafeMutableBufferPointer { imaginaryBuffer in
-                
-        
-            var splitComplex = DSPSplitComplex(
-                realp: realBuffer.baseAddress!,
-                imagp: imaginaryBuffer.baseAddress!
-            )
 
-            let length = vDSP_Length(floor(log2(Float(input.count))))
-            let radix = FFTRadix(kFFTRadix2)
-            let weights = vDSP_create_fftsetup(length, radix)
-            withUnsafeMutablePointer(to: &splitComplex) { splitComplex in
-                vDSP_fft_zip(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
-            }
-            
-            vDSP_ztoc(&splitComplex, 1, &complex, 2, vDSP_Length(input.count))
 
-         
-            vDSP_destroy_fftsetup(weights)
-            
-            return complex
-
-//            return normalizedMagnitudes
-//            return
-        }
-    }
-}
-
-public func fft(_ input: [Double]) -> [DSPDoubleComplex] {
-    var real = [Double](input)
-    var imaginary = [Double](repeating: 0.0, count: input.count)
-    var complex =  [DSPDoubleComplex](repeating: DSPDoubleComplex(), count: input.count)
-
-    return real.withUnsafeMutableBufferPointer { realBuffer in
-        imaginary.withUnsafeMutableBufferPointer { imaginaryBuffer in
-                
-        
-            var splitComplex = DSPDoubleSplitComplex(
-                realp: realBuffer.baseAddress!,
-                imagp: imaginaryBuffer.baseAddress!
-            )
-
-            let length = vDSP_Length(floor(log2(Double(input.count))))
-            let radix = FFTRadix(kFFTRadix2)
-            let weights = vDSP_create_fftsetupD(length, radix)
-            withUnsafeMutablePointer(to: &splitComplex) { splitComplex in
-                vDSP_fft_zipD(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
-            }
-            
-            vDSP_ztocD(&splitComplex, 1, &complex, 2, vDSP_Length(input.count))
-
-         
-            vDSP_destroy_fftsetupD(weights)
-            
-            return complex
-
-//            return normalizedMagnitudes
-//            return
-        }
-    }
-}
 
 public func fft(_ input: [Double]) -> [Double] {
     var real = [Double](input)
@@ -166,7 +129,6 @@ public func fft(_ input: [Double]) -> [Double] {
 
 // MARK: - Inverse Fast Fourier Transform
 // https://github.com/christopherhelf/Swift-FFT-Example
-
 public func ifft(_ input: [DSPComplex]) -> [Float] {
     
     //TODO: if values.count = input.count
@@ -236,3 +198,4 @@ public func ifft(_ input: [DSPDoubleComplex]) -> [Double] {
     return copy
     
 }
+
