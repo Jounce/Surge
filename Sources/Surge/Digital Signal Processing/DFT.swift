@@ -21,8 +21,8 @@
 import Accelerate
 
 // MARK: - Discrete Fourier Transform with new api
-@available(macOSApplicationExtension 12.0, *)
-@available(iOSApplicationExtension 15.0, *)
+@available(macOS 12.0, *)
+@available(iOS 15.0, *)
 public func dft(_ input: [Float]) -> (real: [Float], imaginary: [Float])?{
     
     let inputReal = input
@@ -46,8 +46,8 @@ public func dft(_ input: [Float]) -> (real: [Float], imaginary: [Float])?{
     return (outputReal, outputImag)
 }
 
-@available(macOSApplicationExtension 12.0, *)
-@available(iOSApplicationExtension 15.0, *)
+@available(macOS 12.0, *)
+@available(iOS 15.0, *)
 public func dft(_ input: [Double]) -> (real: [Double], imaginary: [Double])?{
     
     let inputReal = input
@@ -76,8 +76,8 @@ public func dft(_ input: [Double]) -> (real: [Double], imaginary: [Double])?{
 
 
 
-@available(macOSApplicationExtension 12.0, *)
-@available(iOSApplicationExtension 15.0, *)
+@available(macOS 12.0, *)
+@available(iOS 15.0, *)
 public func dft(_ input: [Float]) -> [Float]?{
     guard var complex: (real: [Float], imaginary: [Float]) = dft(input)
     else{
@@ -99,8 +99,8 @@ public func dft(_ input: [Float]) -> [Float]?{
     return autospectrum
 }
 
-@available(macOSApplicationExtension 12.0, *)
-@available(iOSApplicationExtension 15.0, *)
+@available(macOS 12.0, *)
+@available(iOS 15.0, *)
 public func dft(_ input: [Double]) -> [Double]?{
     guard var complex:  (real: [Double], imaginary: [Double]) = dft(input)
     else{
@@ -123,8 +123,8 @@ public func dft(_ input: [Double]) -> [Double]?{
 }
 
 
-@available(macOSApplicationExtension 12.0, *)
-@available(iOSApplicationExtension 15.0, *)
+@available(macOS 12.0, *)
+@available(iOS 15.0, *)
 public func idft(_ input: (real: [Float], imaginary: [Float])) -> [Float]?{
     
 //    let inputReal = input.map {$0.real}
@@ -148,8 +148,8 @@ public func idft(_ input: (real: [Float], imaginary: [Float])) -> [Float]?{
     return output
 }
 
-@available(macOSApplicationExtension 12.0, *)
-@available(iOSApplicationExtension 15.0, *)
+@available(macOS 12.0, *)
+@available(iOS 15.0, *)
 public func idft(_ input: (real: [Double], imaginary: [Double])) -> [Double]?{
     
     //    let inputReal = input.map {$0.real}

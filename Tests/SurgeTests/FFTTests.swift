@@ -10,6 +10,7 @@ import Accelerate
 
 @testable import Surge
 
+@available(macOS 12.0, *)
 class FFTTests: XCTestCase {
     let floatAccuracy: Float = 1e-5
     let doubleAccuracy: Double = 1e-11
@@ -36,6 +37,8 @@ class FFTTests: XCTestCase {
 
     // MARK: - FFT - Float
 
+    @available(macOS 12.0, *)
+    @available(iOS 15.0, *)
     func test_fft_float() {
 
         var adft:([Float], [Float]) = dft([0,1,2,3,4,5,6,7])!
