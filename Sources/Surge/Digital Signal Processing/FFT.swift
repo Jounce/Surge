@@ -22,18 +22,43 @@ import Accelerate
 
 // MARK: - Fast Fourier Transform
 
-public func fft(_ input: [Float]) -> [DSPComplex] {
+public func fft(_ input: [Float]) -> (real: [Float], imaginary: [Float]){
     var real = [Float](input)
     var imaginary = [Float](repeating: 0.0, count: input.count)
-    var complex = [DSPComplex](repeating: DSPComplex(), count: input.count)
+    
+    real.withUnsafeMutableBufferPointer { realBuffer  in
+        imaginary.withUnsafeMutableBufferPointer { imaginaryBuffer in
+            var splitComplex = DSPSplitComplex(
+                realp: realBuffer.baseAddress!,
+                imagp: imaginaryBuffer.baseAddress!
+            )
+            
+            let length = vDSP_Length(floor(log2(Float(input.count))))
+            let radix = FFTRadix(kFFTRadix2)
+            let weights = vDSP_create_fftsetup(length, radix)
+            withUnsafeMutablePointer(to: &splitComplex) { splitComplex in
+                vDSP_fft_zip(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
+            }
+            vDSP_destroy_fftsetup(weights)
+            
+        }
+        
+        
+    }
+    return (real, imaginary)
+}
 
+public func fft(_ input: [Float]) -> [Float] {
+    var real = [Float](input)
+    var imaginary = [Float](repeating: 0.0, count: input.count)
+    
     return real.withUnsafeMutableBufferPointer { realBuffer in
         imaginary.withUnsafeMutableBufferPointer { imaginaryBuffer in
             var splitComplex = DSPSplitComplex(
                 realp: realBuffer.baseAddress!,
                 imagp: imaginaryBuffer.baseAddress!
             )
-
+            
             let length = vDSP_Length(floor(log2(Float(input.count))))
             let radix = FFTRadix(kFFTRadix2)
             let weights = vDSP_create_fftsetup(length, radix)
@@ -41,46 +66,20 @@ public func fft(_ input: [Float]) -> [DSPComplex] {
                 vDSP_fft_zip(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
             }
             
-            vDSP_ztoc(&splitComplex, 1, &complex, 2, vDSP_Length(input.count))
-
-        }
-        
-        return complex
-    }
-}
-
-public func fft(_ input: [Float]) -> [Float] {
-    var real = [Float](input)
-    var imaginary = [Float](repeating: 0.0, count: input.count)
-
-    return real.withUnsafeMutableBufferPointer { realBuffer in
-        imaginary.withUnsafeMutableBufferPointer { imaginaryBuffer in
-            var splitComplex = DSPSplitComplex(
-                realp: realBuffer.baseAddress!,
-                imagp: imaginaryBuffer.baseAddress!
-            )
-
-            let length = vDSP_Length(floor(log2(Float(input.count))))
-            let radix = FFTRadix(kFFTRadix2)
-            let weights = vDSP_create_fftsetup(length, radix)
-            withUnsafeMutablePointer(to: &splitComplex) { splitComplex in
-                vDSP_fft_zip(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
-            }
-
             var magnitudes = [Float](repeating: 0.0, count: input.count)
             withUnsafePointer(to: &splitComplex) { splitComplex in
                 magnitudes.withUnsafeMutableBufferPointer { magnitudes in
                     vDSP_zvmags(splitComplex, 1, magnitudes.baseAddress!, 1, vDSP_Length(input.count))
                 }
             }
-
+            
             var normalizedMagnitudes = [Float](repeating: 0.0, count: input.count)
             normalizedMagnitudes.withUnsafeMutableBufferPointer { normalizedMagnitudes in
                 vDSP_vsmul(sqrt(magnitudes), 1, [2.0 / Float(input.count)], normalizedMagnitudes.baseAddress!, 1, vDSP_Length(input.count))
             }
-
+            
             vDSP_destroy_fftsetup(weights)
-
+            
             return normalizedMagnitudes
         }
     }
@@ -93,35 +92,35 @@ public func fft(_ input: [Float]) -> [Float] {
 public func fft(_ input: [Double]) -> [Double] {
     var real = [Double](input)
     var imaginary = [Double](repeating: 0.0, count: input.count)
-
+    
     return real.withUnsafeMutableBufferPointer { realBuffer in
         imaginary.withUnsafeMutableBufferPointer { imaginaryBuffer in
             var splitComplex = DSPDoubleSplitComplex(
                 realp: realBuffer.baseAddress!,
                 imagp: imaginaryBuffer.baseAddress!
             )
-
+            
             let length = vDSP_Length(floor(log2(Float(input.count))))
             let radix = FFTRadix(kFFTRadix2)
             let weights = vDSP_create_fftsetupD(length, radix)
             withUnsafeMutablePointer(to: &splitComplex) { splitComplex in
                 vDSP_fft_zipD(weights!, splitComplex, 1, length, FFTDirection(FFT_FORWARD))
             }
-
+            
             var magnitudes = [Double](repeating: 0.0, count: input.count)
             withUnsafePointer(to: &splitComplex) { splitComplex in
                 magnitudes.withUnsafeMutableBufferPointer { magnitudes in
                     vDSP_zvmagsD(splitComplex, 1, magnitudes.baseAddress!, 1, vDSP_Length(input.count))
                 }
             }
-
+            
             var normalizedMagnitudes = [Double](repeating: 0.0, count: input.count)
             normalizedMagnitudes.withUnsafeMutableBufferPointer { normalizedMagnitudes in
                 vDSP_vsmulD(sqrt(magnitudes), 1, [2.0 / Double(input.count)], normalizedMagnitudes.baseAddress!, 1, vDSP_Length(input.count))
             }
-
+            
             vDSP_destroy_fftsetupD(weights)
-
+            
             return normalizedMagnitudes
         }
     }
@@ -129,38 +128,38 @@ public func fft(_ input: [Double]) -> [Double] {
 
 // MARK: - Inverse Fast Fourier Transform
 // https://github.com/christopherhelf/Swift-FFT-Example
-public func ifft(_ input: [DSPComplex]) -> [Float] {
+public func ifft(_ input: (real: [Float], imaginary: [Float])) -> [Float]{
     
     //TODO: if values.count = input.count
+  
     
-    let N = input.count
+    var real = input.real
+    var imaginary = input.imaginary
+    
+    var result: [Float] = .init(repeating: 0.0, count: input.real.count)
+    let N = real.count
     let log2N = vDSP_Length(floor(log2(Float(N))))
     
-    var result: [Float] = .init(repeating: 0.0, count: N)
-    
-    var resultAsComplex : UnsafeMutablePointer<DSPComplex>? = nil
-    var splitComplex: DSPSplitComplex = .init(realp:.allocate(capacity: N),
-                                              imagp: .allocate(capacity: N))
-    
-    vDSP_ctoz(input, 2, &splitComplex, 1, vDSP_Length(N))
-    
-    let radix = FFTRadix(kFFTRadix2)
-    let weights = vDSP_create_fftsetup(log2N, radix)
-    
-    result.withUnsafeMutableBytes {
-        resultAsComplex = $0.baseAddress?.bindMemory(to: DSPComplex.self, capacity: N)
+    real.withUnsafeMutableBufferPointer { realPtr in
+        imaginary.withUnsafeMutableBufferPointer { imagPtr in
+            result.withUnsafeMutableBufferPointer { resultPtr in
+                var splitComplex = DSPSplitComplex(realp: realPtr.baseAddress!,
+                                                   imagp: imagPtr.baseAddress!)
+                let radix = FFTRadix(kFFTRadix2)
+                let weights = vDSP_create_fftsetup(log2N, radix)
+                vDSP_fft_zip(weights!, &splitComplex, 1, log2N, FFTDirection(FFT_INVERSE))
+                vDSP_destroy_fftsetup(weights)
+                
+               
+            }
+        }
     }
-    
-    vDSP_fft_zip(weights!, &splitComplex, 1, log2N, FFTDirection(FFT_INVERSE))
-    
-    vDSP_ztoc(&splitComplex, 1, resultAsComplex!, 1, vDSP_Length(N))
-    
-    vDSP_destroy_fftsetup(weights)
-    
     var scale: Float = 1.0 / Float(N)
-    var copy = result
-    vDSP_vsmul(&result, 1, &scale, &copy, 1, vDSP_Length(N))
-    return copy
+//    var copy = result
+    vDSP_vsmul(&real, 1, &scale, &result, 1, vDSP_Length(N))
+    return result
+    
+
     
 }
 
@@ -181,7 +180,7 @@ public func ifft(_ input: [DSPDoubleComplex]) -> [Double] {
     
     let radix = FFTRadix(kFFTRadix2)
     let weights = vDSP_create_fftsetupD(log2N, radix)
-
+    
     result.withUnsafeMutableBytes {
         resultAsComplex = $0.baseAddress?.bindMemory(to: DSPDoubleComplex.self, capacity: N)
     }

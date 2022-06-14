@@ -42,7 +42,7 @@ class FFTTests: XCTestCase {
     func test_fft_float() {
 
         var adft:([Float], [Float]) = dft([0,1,2,3,4,5,6,7])!
-        let afft: [DSPComplex] = fft([0,1,2,3,4,5,6,7])
+        let afft: ([Float], [Float]) = fft([0,1,2,3,4,5,6,7])
         
        
         
@@ -73,14 +73,14 @@ class FFTTests: XCTestCase {
         }
         
         let cidft = idft(cdft)!
+        let cifft = ifft(cdft)
         let exceptedCidft:[Float] = [-7.3980,4.2565,0.5065,3.8520,3.1480,6.4935,2.7435,14.3980]
-        
 
-
-        XCTAssertEqual(adft.0, afft.map{$0.real})
-        XCTAssertEqual(adft.1, afft.map{$0.imag})
+        XCTAssertEqual(adft.0, afft.0)
+        XCTAssertEqual(adft.1, afft.1)
         XCTAssertEqual(bdft.0, bExcepted, accuracy: 1e-3)
         XCTAssertEqual(cidft, exceptedCidft, accuracy: 1e-2)
+        XCTAssertEqual(cifft, exceptedCidft, accuracy: 1e-2)
     }
 
     // MARK: - FFT - Double
