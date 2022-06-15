@@ -534,10 +534,13 @@ public func += (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
     return addInPlace(&lhs, rhs)
 }
 
+@available(macOS 10.15, *)
+
 public func += (lhs: inout Matrix<Float>, rhs: Float) {
     lhs.grid = vDSP.add(rhs, lhs.grid)
 }
 
+@available(macOS 10.15, *)
 public func += (lhs: inout Matrix<Double>, rhs: Double) {
     lhs.grid = vDSP.add(rhs, lhs.grid)
 }
@@ -591,11 +594,13 @@ public func -= (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
     return subInPlace(&lhs, rhs)
 }
 
+@available(macOS 10.15, *)
 public func -= (lhs: inout Matrix<Float>, rhs: Float) {
 //    subInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
     lhs.grid = vDSP.add(-rhs, lhs.grid)
 }
 
+@available(macOS 10.15, *)
 public func -= (lhs: inout Matrix<Double>, rhs: Double) {
     lhs.grid = vDSP.add(-rhs, lhs.grid)
 }
