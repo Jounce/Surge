@@ -502,12 +502,18 @@ public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return add(lhs, rhs)
 }
 
+@available(macOS 10.15, *)
 public func + (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
-    lhs + Matrix(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs)
+    withMatrix(from: lhs) {
+        $0.grid = vDSP.add(rhs, $0.grid)
+    }
 }
 
+@available(macOS 10.15, *)
 public func + (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
-    lhs + Matrix(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs)
+    withMatrix(from: lhs) {
+        $0.grid = vDSP.add(rhs, $0.grid)
+    }
 }
 
 // MARK: - Addition: In Place
@@ -554,12 +560,17 @@ public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return sub(lhs, rhs)
 }
 
+@available(macOS 10.15, *)
 public func - (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
-    lhs - Matrix(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs)
+    withMatrix(from: lhs) {
+        $0.grid = vDSP.add(-rhs, $0.grid)
+    }
 }
-
+@available(macOS 10.15, *)
 public func - (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
-    lhs - Matrix(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs)
+    withMatrix(from: lhs) {
+        $0.grid = vDSP.add(-rhs, $0.grid)
+    }
 }
 
 // MARK: - Subtraction: In Place
@@ -613,6 +624,7 @@ func muladdInPlace(_ lhs: inout Matrix<Float>, _ rhs: Matrix<Float>, _ alpha: Fl
     }
 }
 
+
 func muladdInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: Double) {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrix dimensions not compatible with addition")
 
@@ -625,6 +637,8 @@ func muladdInPlace(_ lhs: inout Matrix<Double>, _ rhs: Matrix<Double>, _ alpha: 
         }
     }
 }
+
+
 
 // MARK: - Multiplication
 
