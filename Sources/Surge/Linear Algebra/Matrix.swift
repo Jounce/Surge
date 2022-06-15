@@ -535,11 +535,11 @@ public func += (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
 }
 
 public func += (lhs: inout Matrix<Float>, rhs: Float) {
-    addInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
+    lhs.grid = vDSP.add(rhs, lhs.grid)
 }
 
 public func += (lhs: inout Matrix<Double>, rhs: Double) {
-    addInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
+    lhs.grid = vDSP.add(rhs, lhs.grid)
 }
 
 // MARK: - Subtraction
@@ -592,11 +592,12 @@ public func -= (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
 }
 
 public func -= (lhs: inout Matrix<Float>, rhs: Float) {
-    subInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
+//    subInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
+    lhs.grid = vDSP.add(-rhs, lhs.grid)
 }
 
 public func -= (lhs: inout Matrix<Double>, rhs: Double) {
-    subInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
+    lhs.grid = vDSP.add(-rhs, lhs.grid)
 }
 
 // MARK: - Multiply Addition
