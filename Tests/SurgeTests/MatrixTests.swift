@@ -1225,4 +1225,67 @@ class MatrixTests: XCTestCase {
             XCTAssertEqual(e as? EigenDecompositionError, EigenDecompositionError.matrixNotSquare)
         }
     }
+    
+    func test_density2Sparse()throws{
+        let nosymmetric = Matrix<Float>(rows: 4, columns: 3, grid: [2, 1, 0,
+                                                                    -0.2, 3.2, 1.4,
+                                                                    0, -0.1, 0.5,
+                                                                    2.5, 1.1, 0])
+        let (rowIndices, columnStarts, values) = toSparseFormat(nosymmetric)
+        
+        
+
+        
+        let symetric = Matrix<Float>(rows: 4, columns: 4, grid: [10 ,1, 0, 2.5,
+                                                                 1, 12, -0.3, 1.1,
+                                                                 0, -0.3, 9.5, 0,
+                                                                 2.5, 1.1, 0, 6.0])
+        
+        let (rowIndices2, columnStarts2, values2) = toSparseFormat(symetric)
+        
+        
+        XCTAssertEqual(rowIndices, [0,1,3,
+                                    0,1,2,3,
+                                    1,2])
+        
+        XCTAssertEqual(columnStarts, [0,
+                                     3,
+                                     7,
+                                      9])
+        XCTAssertEqual(values, [2.0, -0.2, 2.5,           // Column 0
+                                1.0, 3.2, -0.1, 1.1,      // Column 1
+                                1.4, 0.5] )
+        
+        XCTAssertEqual(rowIndices2, [0, 1, 3,     // Column 0
+                                     1, 2, 3,     // Column 1
+                                     2,           // Column 2
+                                     3])
+        
+        XCTAssertEqual(columnStarts2, [0, 3, 6, 7, 8])
+        XCTAssertEqual(values2, [10, 1, 2.5, 12, -0.3, 1.1, 9.5, 6.0])
+        
+        
+       
+    }
+    
+    func test_choleskyDecomposition() throws{
+        
+        
+        
+        let lltValue = Matrix<Float>(rows: 3, columns: 3, grid: [4, 12, -16,
+                                                                12, 37, -43,
+                                                                -16, -43, 98])
+       
+        
+        let l = try choleskyDecomposition(lltValue)
+        XCTAssertTrue(lltValue.isPositiveDefined())
+        XCTAssertEqual(l, Matrix<Float>(rows: 3, columns: 3, grid: [2,0,0,6,1,0,-8,5,3]))
+        
+        
+        
+
+    }
 }
+
+
+
