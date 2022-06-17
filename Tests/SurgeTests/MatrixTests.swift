@@ -1272,14 +1272,33 @@ class MatrixTests: XCTestCase {
         
         
         
-        let lltValue = Matrix<Float>(rows: 3, columns: 3, grid: [4, 12, -16,
-                                                                12, 37, -43,
-                                                                -16, -43, 98])
-       
+//        let lltValue = Matrix<Float>(rows: 3, columns: 3, grid: [4, 12, -16,
+//                                                                12, 37, -43,
+//                                                                -16, -43, 98])
+//        let l = try choleskyDecomposition(lltValue)
+        let value:[Double] = [0.7156321,
+                   0.29916915,
+                   -20 * 0.7156321,
+                   -20 * 0.7156321,
+                   -20 * 0.29916915,
+                   -20 * 0.29916915]
         
-        let l = try choleskyDecomposition(lltValue)
-        XCTAssertTrue(lltValue.isPositiveDefined())
-        XCTAssertEqual(l, Matrix<Float>(rows: 3, columns: 3, grid: [2,0,0,6,1,0,-8,5,3]))
+//        let hessians: [Matrix<Float>] = (0 ..< 41*41).map{ _ in
+            let p = Matrix<Double>(row: value)
+//            return transpose(p) * p
+//        }
+        
+        let result = transpose(p) * p
+        
+        
+        
+      
+//        XCTAssertTrue(lltValue.isPositiveDefined())
+//        XCTAssertEqual(l, Matrix<Float>(rows: 3, columns: 3, grid: [2,0,0,6,1,0,-8,5,3]))
+        
+        result.isPositiveDefined()
+        let l2 = try choleskyDecomposition(result)
+     
         
         
         

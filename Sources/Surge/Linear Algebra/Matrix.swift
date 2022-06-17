@@ -1140,7 +1140,8 @@ extension Matrix where Scalar == Double{
         }
         
         return eigen.eigenValues.allSatisfy {
-            $0.1 == 0.0 && $0.0 > 0.0
+            print($0)
+            return $0.1 == 0.0 && $0.0 >= 0.0
         }
     }
 }
@@ -1154,7 +1155,8 @@ extension Matrix where Scalar == Float{
         }
         
         return eigen.eigenValues.allSatisfy {
-            $0.1 == 0.0 && $0.0 > 0.0
+            print($0)
+            return $0.1 == 0.0 && $0.0 > 0.0
         }
     }
 }
@@ -1201,7 +1203,7 @@ public func toSparseFormat(_ lhs:Matrix<Float>)-> ([Int32], [Int], [Float]){
         let colArrays = (0 ..< columns).map {
             zip(Array(0 ..< rows), lhs[column: $0])
                 .map { (idx, value) in
-                    value == 0.0 ? -1: idx
+                    abs(value) < 1e-8 ? -1: idx
                 }
         }
         
@@ -1216,7 +1218,7 @@ public func toSparseFormat(_ lhs:Matrix<Float>)-> ([Int32], [Int], [Float]){
         
         let values = (0 ..< columns)
             .map{lhs[column: $0]}
-            .reduce([]) {$0 + $1.filter{ value in value != 0.0}}
+            .reduce([]) {$0 + $1.filter{ value in abs(value) > 1e-8}}
         
         return (rowIndices, columnStarts, values)
         
@@ -1235,7 +1237,7 @@ public func toSparseFormat(_ lhs:Matrix<Double>)-> ([Int32], [Int], [Double]){
         let colArrays = (0 ..< columns).map {col in
             zip(Array(0 ..< rows), lhs[column: col])
                 .map { (idx, value) in
-                    (value == 0.0 || idx < col) ? -1: idx
+                    (abs(value) < 1e-11 || idx < col) ? -1: idx
                 }
         }
         
@@ -1251,7 +1253,7 @@ public func toSparseFormat(_ lhs:Matrix<Double>)-> ([Int32], [Int], [Double]){
                 lhs[column: $0].dropFirst($0)
             }
             .reduce([]) {
-                $0 + $1.filter{ value in value != 0.0}
+                $0 + $1.filter{ value in abs(value) > 1e-11}
             }
         
         return (rowIndices, columnStarts, values)
@@ -1263,7 +1265,7 @@ public func toSparseFormat(_ lhs:Matrix<Double>)-> ([Int32], [Int], [Double]){
         let colArrays = (0 ..< columns).map {
             zip(Array(0 ..< rows), lhs[column: $0])
                 .map { (idx, value) in
-                    value == 0.0 ? -1: idx
+                    abs(value) < 1e-8  ? -1: idx
                 }
         }
         
@@ -1278,7 +1280,7 @@ public func toSparseFormat(_ lhs:Matrix<Double>)-> ([Int32], [Int], [Double]){
         
         let values = (0 ..< columns)
             .map{lhs[column: $0]}
-            .reduce([]) {$0 + $1.filter{ value in value != 0.0}}
+            .reduce([]) {$0 + $1.filter{ value in abs(value) > 1e-8}}
         
         return (rowIndices, columnStarts, values)
         
@@ -1332,6 +1334,13 @@ public func choleskyDecomposition(_ lhs: Matrix<Float>) throws -> Matrix<Float>{
                                                       _allocatedBySparse: false)
                     
                     let identifiedDense = DenseMatrix_Float(rowCount: rows, columnCount: rows, columnStride: rows, attributes: sparseAs, data: idtPtr.baseAddress!)
+                    defer{
+
+                        SparseCleanup(a)
+                        SparseCleanup(llt)
+                        SparseCleanup(subFactor)
+                    
+                    }
                     
                     SparseMultiply(subFactor, identifiedDense)
                 }
@@ -1340,4 +1349,69 @@ public func choleskyDecomposition(_ lhs: Matrix<Float>) throws -> Matrix<Float>{
         }
     }
     return transpose(Matrix<Float>(rows: Int(rows), columns: Int(colomns), grid: identifiedFlatten))
+}
+
+
+@available(macOS 10.13, *)
+public func choleskyDecomposition(_ lhs: Matrix<Double>) throws -> Matrix<Double>{
+//    precondition(lhs.isPositiveDefined())
+    
+    let rows = Int32(lhs.rows)
+    let colomns = Int32(lhs.columns)
+    var (rowIndices, columnStarts, values) = toSparseFormat(lhs)
+    
+    var identifiedFlatten = Matrix<Double>.identity(size: Int(rows)).reduce([]) { partialResult, next in
+        partialResult + next
+    }
+    
+    rowIndices.withUnsafeMutableBufferPointer { rowIndicesPtr in
+        columnStarts.withUnsafeMutableBufferPointer { columnStartsPtr in
+            values.withUnsafeMutableBufferPointer { valuePtr in
+                identifiedFlatten.withUnsafeMutableBufferPointer { idtPtr in
+                    
+                    var attributes = SparseAttributes_t()
+                    attributes.triangle = SparseLowerTriangle
+                    attributes.kind = SparseSymmetric
+                    
+                    let structure: SparseMatrixStructure =  SparseMatrixStructure(
+                        rowCount: rows,
+                        columnCount: colomns,
+                        columnStarts: columnStartsPtr.baseAddress!,
+                        rowIndices: rowIndicesPtr.baseAddress!,
+                        attributes: attributes,
+                        blockSize: 1
+                    )
+                    
+                    let a = SparseMatrix_Double(
+                        structure: structure,
+                        data: valuePtr.baseAddress!
+                    )
+                    
+                    let llt: SparseOpaqueFactorization_Double = SparseFactor(SparseFactorizationCholesky, a)
+                    
+                    let subFactor = SparseCreateSubfactor(SparseSubfactorL, llt)
+                    
+                    let sparseAs = SparseAttributes_t(transpose: false,
+                                                      triangle: SparseLowerTriangle,
+                                                      kind: SparseOrdinary,
+                                                      _reserved: 0,
+                                                      _allocatedBySparse: false)
+                    
+                    let identifiedDense = DenseMatrix_Double(rowCount: rows, columnCount: rows, columnStride: rows, attributes: sparseAs, data: idtPtr.baseAddress!)
+                    
+                    defer{
+
+                        SparseCleanup(a)
+                        SparseCleanup(llt)
+                        SparseCleanup(subFactor)
+                    
+                    }
+                    
+                    SparseMultiply(subFactor, identifiedDense)
+                }
+    
+            }
+        }
+    }
+    return transpose(Matrix<Double>(rows: Int(rows), columns: Int(colomns), grid: identifiedFlatten))
 }
