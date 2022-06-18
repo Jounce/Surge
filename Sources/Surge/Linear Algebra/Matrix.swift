@@ -502,6 +502,7 @@ public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return add(lhs, rhs)
 }
 
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public func + (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
     withMatrix(from: lhs) {
@@ -509,6 +510,7 @@ public func + (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
     }
 }
 
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public func + (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
     withMatrix(from: lhs) {
@@ -534,12 +536,14 @@ public func += (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
     return addInPlace(&lhs, rhs)
 }
 
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 
 public func += (lhs: inout Matrix<Float>, rhs: Float) {
     lhs.grid = vDSP.add(rhs, lhs.grid)
 }
 
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public func += (lhs: inout Matrix<Double>, rhs: Double) {
     lhs.grid = vDSP.add(rhs, lhs.grid)
@@ -563,12 +567,15 @@ public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     return sub(lhs, rhs)
 }
 
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public func - (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
     withMatrix(from: lhs) {
         $0.grid = vDSP.add(-rhs, $0.grid)
     }
 }
+
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public func - (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
     withMatrix(from: lhs) {
@@ -590,16 +597,19 @@ public func -= (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
     return subInPlace(&lhs, rhs)
 }
 
+
 public func -= (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
     return subInPlace(&lhs, rhs)
 }
 
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public func -= (lhs: inout Matrix<Float>, rhs: Float) {
     //    subInPlace(&lhs, .init(rows: lhs.rows, columns: lhs.columns, repeatedValue: rhs))
     lhs.grid = vDSP.add(-rhs, lhs.grid)
 }
 
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public func -= (lhs: inout Matrix<Double>, rhs: Double) {
     lhs.grid = vDSP.add(-rhs, lhs.grid)
@@ -1198,7 +1208,6 @@ public func toSparseFormat(_ lhs:Matrix<Float>)-> ([Int32], [Int], [Float]){
         
     }
     else{
-        //           var attributes = SparseAttributes_t()
         var columnStarts = [Int ]()
         let colArrays = (0 ..< columns).map {
             zip(Array(0 ..< rows), lhs[column: $0])
@@ -1208,7 +1217,7 @@ public func toSparseFormat(_ lhs:Matrix<Float>)-> ([Int32], [Int], [Float]){
         }
         
         
-        var rowIndices:[Int32] = colArrays.reduce([]) { partialResult, val in
+        let rowIndices:[Int32] = colArrays.reduce([]) { partialResult, val in
             let valFiltered = val.filter {$0 != -1}.map {Int32($0)}
             columnStarts.append(partialResult.count)
             return partialResult + valFiltered
@@ -1270,7 +1279,7 @@ public func toSparseFormat(_ lhs:Matrix<Double>)-> ([Int32], [Int], [Double]){
         }
         
         
-        var rowIndices:[Int32] = colArrays.reduce([]) { partialResult, val in
+        let rowIndices:[Int32] = colArrays.reduce([]) { partialResult, val in
             let valFiltered = val.filter {$0 != -1}.map {Int32($0)}
             columnStarts.append(partialResult.count)
             return partialResult + valFiltered
@@ -1288,6 +1297,7 @@ public func toSparseFormat(_ lhs:Matrix<Double>)-> ([Int32], [Int], [Double]){
 }
 //}
 
+@available(iOS 11, *)
 @available(macOS 10.13, *)
 public func choleskyDecomposition(_ lhs: Matrix<Float>) throws -> Matrix<Float>{
     precondition(lhs.isPositiveDefined())
@@ -1352,6 +1362,7 @@ public func choleskyDecomposition(_ lhs: Matrix<Float>) throws -> Matrix<Float>{
 }
 
 
+@available(iOS 11, *)
 @available(macOS 10.13, *)
 public func choleskyDecomposition(_ lhs: Matrix<Double>) throws -> Matrix<Double>{
 //    precondition(lhs.isPositiveDefined())
