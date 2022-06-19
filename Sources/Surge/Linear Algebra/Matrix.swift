@@ -1150,7 +1150,7 @@ extension Matrix where Scalar == Double{
         }
         
         return eigen.eigenValues.allSatisfy {
-            print($0)
+//            print($0)
             return $0.1 == 0.0 && $0.0 >= 0.0
         }
     }
@@ -1165,7 +1165,7 @@ extension Matrix where Scalar == Float{
         }
         
         return eigen.eigenValues.allSatisfy {
-            print($0)
+//            print($0)
             return $0.1 == 0.0 && $0.0 > 0.0
         }
     }
