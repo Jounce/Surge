@@ -1281,9 +1281,14 @@ class MatrixTests: XCTestCase {
 
         XCTAssertTrue(lltValue.isPositiveDefined())
         XCTAssertEqual(l, Matrix<Float>(rows: 3, columns: 3, grid: [2,0,0,6,1,0,-8,5,3]))
+    
+    }
+    
+    func test_matrixClosedRangeSetter() throws{
+        var values = Matrix<Double>(rows: 8, columns: 8, repeatedValue: 0)
+        let  newValues = Matrix<Double>(rows: 2, columns: 2, repeatedValue: 1)
         
-
-     
+        values[3...4, 3...4] = newValues
     }
 }
 

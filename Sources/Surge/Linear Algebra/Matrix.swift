@@ -347,9 +347,8 @@ extension Matrix {
             let r0 = row.first!
             let c0 = column.first!
             for rr in (row){
-                let old = rr*columns ..< rr*columns+c0 + subColumns
-                let new = (rr-r0)*subColumns ..< (rr-r0)*subColumns+subColumns
-                grid[rr*columns ..< rr*columns+c0 + subColumns] = newValue.grid[(rr-r0)*subColumns ..< (rr-r0)*subColumns+subColumns]
+
+                grid[rr*columns+c0 ..< rr*columns+c0+subColumns] = newValue.grid[(rr-r0)*subColumns ..< (rr-r0)*subColumns+subColumns]
             }
             
         }
