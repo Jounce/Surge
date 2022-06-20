@@ -462,4 +462,14 @@ class ArithmeticTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-6)
     }
+    
+    @available(iOS 13.0, *)
+    @available(macOS 10.15, *)
+    func test_indexOfMininum() throws{
+        var values = Matrix<Double>.random(rows: 300, columns: 400, in: 0.1...1)
+         values[200, 60] = 0
+        let minimumIndex = values.indexOfMinimum()
+        XCTAssertEqual(minimumIndex.row , 200)
+        XCTAssertEqual(minimumIndex.column , 60)
+    }
 }

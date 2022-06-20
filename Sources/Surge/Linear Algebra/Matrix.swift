@@ -1433,7 +1433,7 @@ public func choleskyDecomposition(_ lhs: Matrix<Double>) throws -> Matrix<Double
 extension Matrix where Scalar == Double{
      public func indexOfMinimum()->(row: Int, column: Int){
         let index = vDSP.indexOfMinimum(grid)
-         return (Int(index.0) / self.rows, Int(index.0) % self.columns)
+         return (Int(index.0) / columns, Int(index.0) % columns)
     }
 }
 
@@ -1442,7 +1442,7 @@ extension Matrix where Scalar == Double{
 extension Matrix where Scalar == Float{
      public func indexOfMinimum()->(row: Int, column: Int){
         let index = vDSP.indexOfMinimum(grid)
-         return (Int(index.0) / self.rows, Int(index.0) % self.columns)
+         return (Int(index.0) / columns, Int(index.0) % columns)
     }
 }
 
