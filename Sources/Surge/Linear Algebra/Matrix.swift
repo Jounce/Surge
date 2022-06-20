@@ -1426,3 +1426,18 @@ public func choleskyDecomposition(_ lhs: Matrix<Double>) throws -> Matrix<Double
     }
     return transpose(Matrix<Double>(rows: Int(rows), columns: Int(colomns), grid: identifiedFlatten))
 }
+
+extension Matrix where Scalar == Double{
+     func indexOfMinimum()->(row: Int, column: Int){
+        let index = vDSP.indexOfMinimum(grid)
+         return (Int(index.0) / self.rows, Int(index.0) % self.columns)
+    }
+}
+
+extension Matrix where Scalar == Float{
+     func indexOfMinimum()->(row: Int, column: Int){
+        let index = vDSP.indexOfMinimum(grid)
+         return (Int(index.0) / self.rows, Int(index.0) % self.columns)
+    }
+}
+
