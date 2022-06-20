@@ -331,9 +331,8 @@ extension Matrix {
             let r0 = row.first!
             let c0 = column.first!
             for rr in (row){
-                //                for co in (column){
+                
                 result[(rr-r0)*subColumns ..< (rr-r0)*subColumns+subColumns] = grid[rr*columns+c0 ..< rr*columns+c0+subColumns]
-                //                }
             }
             return Matrix(rows: subRows, columns: subColumns, grid: result)
         }
@@ -343,13 +342,13 @@ extension Matrix {
             assert(column.map{$0 < columns && $0 >= 0}.allSatisfy{$0 == true})
             assert(newValue.rows == row.count)
             assert(newValue.columns == column.count)
-            //            var matrix = Matrix<Scalar>(rows: row.count, columns: column.count, repeatedValue: 0)
-            //            let subRows = row.count
+  
             let subColumns = column.count
-            //            let result = [Float](repeating: 0.0, count: subRows*subColumns)
             let r0 = row.first!
             let c0 = column.first!
             for rr in (row){
+                let old = rr*columns ..< rr*columns+c0 + subColumns
+                let new = (rr-r0)*subColumns ..< (rr-r0)*subColumns+subColumns
                 grid[rr*columns ..< rr*columns+c0 + subColumns] = newValue.grid[(rr-r0)*subColumns ..< (rr-r0)*subColumns+subColumns]
             }
             
