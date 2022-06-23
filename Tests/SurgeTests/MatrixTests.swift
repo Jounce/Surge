@@ -1284,11 +1284,33 @@ class MatrixTests: XCTestCase {
     
     }
     
-    func test_matrixClosedRangeSetter() throws{
-        var values = Matrix<Double>(rows: 8, columns: 8, repeatedValue: 0)
-        let  newValues = Matrix<Double>(rows: 2, columns: 2, repeatedValue: 1)
+
+    
+    func test_flip() throws{
+        let m = Matrix<Double>(rows: 3, columns: 3) { row, column in
+            Double(3 * row + column)
+        }
         
-        values[3...4, 3...4] = newValues
+        let ud = flipud(m)
+        let lr = fliplr(ud)
+        
+        XCTAssertEqual(ud, Matrix<Double>(rows: 3, columns: 3, grid: [6, 7, 8,
+                                                                      3,4,5,
+                                                                      0,1,2]))
+        XCTAssertEqual(lr, Matrix<Double>(rows: 3, columns: 3, grid: [8, 7, 6,
+                                                                      5,4,3,
+                                                                      2,1,0]))
+    }
+    
+    func test_normalizedCrossCorrelation() throws{
+        
+        let refGs = Matrix<Double>.random(rows: 300, columns: 400, in: 0...1)
+
+        let (row, column) = normalizedCrossCorrelation(lhs: refGs[200-20...200+20, 100-20...100+20], rhs: refGs)
+        
+        XCTAssertEqual(row, 200)
+        XCTAssertEqual(column, 100)
+       
     }
 }
 

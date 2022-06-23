@@ -1344,7 +1344,7 @@ public func choleskyDecomposition(_ lhs: Matrix<Float>) throws -> Matrix<Float>{
                     let identifiedDense = DenseMatrix_Float(rowCount: rows, columnCount: rows, columnStride: rows, attributes: sparseAs, data: idtPtr.baseAddress!)
                     defer{
 
-                        SparseCleanup(a)
+                        
                         SparseCleanup(llt)
                         SparseCleanup(subFactor)
                     
@@ -1433,6 +1433,11 @@ extension Matrix where Scalar == Double{
         let index = vDSP.indexOfMinimum(grid)
          return (Int(index.0) / columns, Int(index.0) % columns)
     }
+    
+    public func indexOfMaximum()->(row: Int, column: Int){
+        let index = vDSP.indexOfMaximum(grid)
+        return (Int(index.0) / columns, Int(index.0) % columns)
+    }
 }
 
 @available(iOS 13.0, *)
@@ -1442,5 +1447,110 @@ extension Matrix where Scalar == Float{
         let index = vDSP.indexOfMinimum(grid)
          return (Int(index.0) / columns, Int(index.0) % columns)
     }
+    
+    public func indexOfMaximum()->(row: Int, column: Int){
+        let index = vDSP.indexOfMaximum(grid)
+        return (Int(index.0) / columns, Int(index.0) % columns)
+    }
 }
 
+extension Matrix where Scalar == Float{
+    
+    public func variant()->Scalar
+    {
+        let mean = mean(grid)
+        let subed = grid - mean
+        let subedSqrt = pow(subed, 2)
+//
+        let varience = sum(subedSqrt)
+//        assert(varience > 1e-8)
+        return varience
+    }
+}
+
+extension Matrix where Scalar == Double{
+    
+    public func variant()->Scalar
+    {
+        let mean = mean(grid)
+        let subed = grid - mean
+        let subedSqrt = pow(subed, 2)
+//
+        let varience = sum(subedSqrt)
+//        assert(varience > 1e-8)
+        return varience
+    }
+}
+
+
+
+public func fliplr(_ lhs: Matrix<Double>) -> Matrix<Double>{
+    var out = lhs
+    for row in 0 ..< lhs.rows{
+        out[row: row] = lhs[row: row].reversed()
+    }
+    return out
+}
+
+public func fliplr(_ lhs: Matrix<Float>) -> Matrix<Float>{
+    var out = lhs
+    for row in 0 ..< lhs.rows{
+        out[row: row] = lhs[row: row].reversed()
+    }
+    return out
+}
+
+public func flipud(_ lhs: Matrix<Double>) -> Matrix<Double>{
+    var out = lhs
+    for column in 0 ..< lhs.columns{
+        out[column: column] = lhs[column: column].reversed()
+    }
+    return out
+    
+}
+
+public func flipud(_ lhs: Matrix<Float>) -> Matrix<Float>{
+    var out = lhs
+    for column in 0 ..< lhs.columns{
+        out[column: column] = lhs[column: column].reversed()
+    }
+    return out
+    
+}
+
+@available(macOS 10.15, *)
+public func normalizedCrossCorrelation(lhs: Matrix<Double>, rhs: Matrix<Double>) -> (row: Int, column: Int){
+    precondition(lhs.rows <= rhs.rows && lhs.columns <= rhs.columns)
+    
+    let template = lhs - vDSP.mean(lhs.grid)
+    let image = rhs - vDSP.mean(rhs.grid)
+    
+    let a1 = Matrix<Double>(rows: lhs.rows, columns: lhs.columns, repeatedValue: 1.0)
+//    
+//    let ar = fliplr(flipud(template))
+    
+    var out = vDSP.convolve(image.grid, rowCount: image.rows, columnCount: image.columns, withKernel: template.grid, kernelRowCount: template.rows, kernelColumnCount: template.columns)
+    
+    let s1 = vDSP.convolve(vDSP.square(image.grid), rowCount: image.rows, columnCount: image.columns, withKernel: a1.grid, kernelRowCount: a1.rows, kernelColumnCount: a1.columns)
+    
+    let s2 = vDSP.convolve(image.grid, rowCount: image.rows, columnCount: image.columns, withKernel: a1.grid, kernelRowCount: a1.rows, kernelColumnCount: a1.columns)
+    let s3 = vDSP.square(vDSP.divide(s2, Double(template.rows * template.columns)))
+    var values = vDSP.subtract(s1, s3)
+    
+    values = values.map{ $0 > 0 ? $0 : 0.0 }
+    
+    let templateSum = vDSP.sum(vDSP.square(template.grid))
+    
+    let valuesxtemplateSum = vForce.sqrt(vDSP.multiply(templateSum, values))
+    
+    out = vDSP.divide(out, valuesxtemplateSum)
+    
+    out = out.map{$0.isNaN ? 0 : $0}
+    
+    let (index, _) = vDSP.indexOfMaximum(out)
+                               
+    let row = Int(index) / image.columns
+    let column = Int(index) % image.columns
+    
+    return (row, column)
+}
