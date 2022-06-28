@@ -26,6 +26,7 @@ import Accelerate
 // swiftlint:disable nesting type_body_length
 
 
+@available(iOS 13.0, *)
 class MatrixTests: XCTestCase {
     func test_init_rows_columns_repeatedValue() {
         typealias Scalar = Double

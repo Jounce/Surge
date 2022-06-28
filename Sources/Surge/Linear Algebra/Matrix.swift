@@ -1518,6 +1518,7 @@ public func flipud(_ lhs: Matrix<Float>) -> Matrix<Float>{
     
 }
 
+@available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public func normalizedCrossCorrelation(lhs: Matrix<Double>, rhs: Matrix<Double>) -> (row: Int, column: Int){
     precondition(lhs.rows <= rhs.rows && lhs.columns <= rhs.columns)
