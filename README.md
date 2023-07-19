@@ -136,7 +136,7 @@ let product = Surge.elmul(a, b) // [2.0, 12.0, 30.0, 56.0]
   - [Dot Product](#dot-product)
   - [Distance](#distance)
   - [Squared Distance](#squared-distance)
-  - [Power)](#power)
+  - [Power](#power)
   - [Exponential](#exponential)
 - [Trigonometric Operations](#trigonometric-operations)
   - [Sine/Cosine/Tangent](#sinecosinetangent)
