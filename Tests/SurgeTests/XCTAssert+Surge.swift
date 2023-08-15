@@ -248,7 +248,7 @@ func XCTAssertEqual<T, U>(
 ///   - expression2: An expression of type `T: Collection`, `T.Element == U`, where `U` is `FloatingPoint`.
 ///   - accuracy: An expression of type `U.Element`, where `U.Element` conforms to `FloatingPoint`.
 ///     Describes the maximum difference between `expression1` and `expression2` for these values to be considered equal.
-///   - message: An optional description of the failure.
+///   - message: An optional description of the failure.a
 ///   - file: The file in which failure occurred. Defaults to the file name of the test case in which this function was called.
 ///   - line: The line number on which failure occurred. Defaults to the line number on which this function was called.
 func XCTAssertEqual2D<T, U>(

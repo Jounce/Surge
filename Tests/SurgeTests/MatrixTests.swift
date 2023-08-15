@@ -21,9 +21,12 @@
 import XCTest
 
 @testable import Surge
+import Accelerate
 
 // swiftlint:disable nesting type_body_length
 
+
+@available(iOS 13.0, *)
 class MatrixTests: XCTestCase {
     func test_init_rows_columns_repeatedValue() {
         typealias Scalar = Double
@@ -326,6 +329,39 @@ class MatrixTests: XCTestCase {
             [20, 2, 3, 4],
             [30, 6, 7, 8],
             [40, 10, 11, 12],
+        ]
+
+        XCTAssertEqual(matrix, expected)
+    }
+    
+    func test_subscript_closedRange_get() {
+        typealias Scalar = Double
+
+        let matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        XCTAssertEqual(matrix[(0 ... 2), (0 ... 2)], Matrix(rows: 3, columns: 3, grid: [1, 2, 3, 5, 6, 7, 9, 10, 11]))
+        XCTAssertEqual(matrix[(0 ... 1), (0 ... 1)], Matrix(rows: 2, columns: 2, grid: [1, 2,5, 6,]))
+    }
+    
+    func test_subscript_closedRange_set() {
+        typealias Scalar = Double
+        
+        var matrix: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+        ]
+
+        matrix[(1...1), (0...2)] = Matrix(rows: 1, columns: 3, grid:  [13.0, 14.0, 15.0])
+
+        let expected: Matrix<Scalar> = [
+            [1, 2, 3, 4],
+            [13, 14, 15, 8],
+            [9, 10, 11, 12],
         ]
 
         XCTAssertEqual(matrix, expected)
@@ -877,6 +913,8 @@ class MatrixTests: XCTestCase {
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
     }
+    
+   
 
     func test_sum_matrix_rows_float() {
         typealias Scalar = Float
@@ -925,6 +963,30 @@ class MatrixTests: XCTestCase {
         ]
 
         XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+    
+    func test_mean_matrix_colums_float(){
+        typealias Scalar = Float
+        
+        let lhs: Matrix<Scalar> =  [
+            [1, 2, 3],
+            [4, 5, 6],
+        ]
+        let actual = mean(lhs)
+        let expected: Float = 3.5
+        XCTAssertEqual(actual, expected, accuracy: 1e-5)
+    }
+    
+    func test_mean_matrix_colums_double(){
+        typealias Scalar = Double
+        
+        let lhs: Matrix<Scalar> =  [
+            [1, 2, 3],
+            [4, 5, 6],
+        ]
+        let actual = mean(lhs)
+        let expected = 3.5
+        XCTAssertEqual(actual, expected, accuracy: 1e-9)
     }
 
     // MARK: - Inverse
@@ -1165,4 +1227,93 @@ class MatrixTests: XCTestCase {
             XCTAssertEqual(e as? EigenDecompositionError, EigenDecompositionError.matrixNotSquare)
         }
     }
+    
+    func test_density2Sparse()throws{
+        let nosymmetric = Matrix<Float>(rows: 4, columns: 3, grid: [2, 1, 0,
+                                                                    -0.2, 3.2, 1.4,
+                                                                    0, -0.1, 0.5,
+                                                                    2.5, 1.1, 0])
+        let (rowIndices, columnStarts, values) = toSparseFormat(nosymmetric)
+        
+        
+
+        
+        let symetric = Matrix<Float>(rows: 4, columns: 4, grid: [10 ,1, 0, 2.5,
+                                                                 1, 12, -0.3, 1.1,
+                                                                 0, -0.3, 9.5, 0,
+                                                                 2.5, 1.1, 0, 6.0])
+        
+        let (rowIndices2, columnStarts2, values2) = toSparseFormat(symetric)
+        
+        
+        XCTAssertEqual(rowIndices, [0,1,3,
+                                    0,1,2,3,
+                                    1,2])
+        
+        XCTAssertEqual(columnStarts, [0,
+                                     3,
+                                     7,
+                                      9])
+        XCTAssertEqual(values, [2.0, -0.2, 2.5,           // Column 0
+                                1.0, 3.2, -0.1, 1.1,      // Column 1
+                                1.4, 0.5] )
+        
+        XCTAssertEqual(rowIndices2, [0, 1, 3,     // Column 0
+                                     1, 2, 3,     // Column 1
+                                     2,           // Column 2
+                                     3])
+        
+        XCTAssertEqual(columnStarts2, [0, 3, 6, 7, 8])
+        XCTAssertEqual(values2, [10, 1, 2.5, 12, -0.3, 1.1, 9.5, 6.0])
+        
+        
+       
+    }
+    
+    
+    @available(iOS 11, *)
+    func test_choleskyDecomposition() throws{
+
+        let lltValue = Matrix<Float>(rows: 3, columns: 3, grid: [4, 12, -16,
+                                                                12, 37, -43,
+                                                                -16, -43, 98])
+        let l = try choleskyDecomposition(lltValue)
+       
+
+        XCTAssertTrue(lltValue.isPositiveDefined())
+        XCTAssertEqual(l, Matrix<Float>(rows: 3, columns: 3, grid: [2,0,0,6,1,0,-8,5,3]))
+    
+    }
+    
+
+    
+    func test_flip() throws{
+        let m = Matrix<Double>(rows: 3, columns: 3) { row, column in
+            Double(3 * row + column)
+        }
+        
+        let ud = flipud(m)
+        let lr = fliplr(ud)
+        
+        XCTAssertEqual(ud, Matrix<Double>(rows: 3, columns: 3, grid: [6, 7, 8,
+                                                                      3,4,5,
+                                                                      0,1,2]))
+        XCTAssertEqual(lr, Matrix<Double>(rows: 3, columns: 3, grid: [8, 7, 6,
+                                                                      5,4,3,
+                                                                      2,1,0]))
+    }
+    
+    func test_normalizedCrossCorrelation() throws{
+        
+        let refGs = Matrix<Double>.random(rows: 300, columns: 400, in: 0...1)
+
+        let (row, column) = normalizedCrossCorrelation(lhs: refGs[200-20...200+20, 100-20...100+20], rhs: refGs)
+        
+        XCTAssertEqual(row, 200)
+        XCTAssertEqual(column, 100)
+       
+    }
 }
+
+
+

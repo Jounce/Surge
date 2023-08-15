@@ -28,7 +28,8 @@ let package = Package(
         .library(
             name: "Surge",
             targets: ["Surge"]
-        ),
+        )
+        
     ],
     targets: [
         .target(
